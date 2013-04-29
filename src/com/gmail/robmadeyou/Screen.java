@@ -8,6 +8,19 @@ import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 
+/*
+ * So all this stuff is made by Robmadeyou.
+ * 
+ * I'm okay with you using any of this. I've deliberately commented on the code to hopefully
+ * show you what I tried doing and in hopes of you being able to learn something from the code.
+ * I have used the LWJGL library for openGL rendering and such. I also used Slick for texture loading
+ * and sound. This way the coding of the game is going to be a bit easier than having to code it all
+ * yourself and just wasting hours trying to figure out how things are done.
+ * 
+ * I build this for CoderDojo in Armagh. Jamie Kelly is somewhat responsible for all of this happening ((https://github.com/jamiekelly))
+ * as he is the one suggested that something like this would be nice if was made.
+ */
+
 public class Screen {
 	
 	private static long lastFrame;
@@ -33,7 +46,15 @@ public class Screen {
 		lastFrame = getTime();
 		return delta;
 	}
-	
+	/*
+	 * These two methods simply return the screen dimensions;
+	 */
+	public static int getWidth(){
+		return Display.getWidth();
+	}
+	public static int getHeight(){
+		return Display.getHeight();
+	}
 	public static void createScreen(int dimensionX, int dimensionY, String name){
 		try
 		{	
@@ -67,6 +88,7 @@ public class Screen {
 	public static void screenUpdate(int rate){
 		//This will clear the screen before drawing it again.
 		glClear(GL_COLOR_BUFFER_BIT);
+		
 		
 		Display.sync(rate);
 		Display.update();
