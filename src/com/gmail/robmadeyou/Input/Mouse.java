@@ -30,6 +30,8 @@ public class Mouse {
 		return y;
 	}
 	public static void onUpdate(){
+		x = org.lwjgl.input.Mouse.getX();
+		y = com.gmail.robmadeyou.Screen.getHeight() - org.lwjgl.input.Mouse.getY();
 		/*
 		 * Here we set the two mouse buttons to be not pressed by default. So they aren't activated "accidentally"
 		 */
@@ -40,10 +42,10 @@ public class Mouse {
 		 * Checking if the right or left mouse buttons are pressed, then setting released variables to true if buttons were 
 		 * pressed previous frame.
 		 */
-		if(leftMouseButtonPressed){
+		if(leftMouseButtonDown && !org.lwjgl.input.Mouse.isButtonDown(0)){
 			leftMouseButtonReleased = true;
 		}
-		if(rightMouseButtonPressed){
+		if(rightMouseButtonDown && !org.lwjgl.input.Mouse.isButtonDown(1)){
 			rightMouseButtonReleased = true;
 		}
 		

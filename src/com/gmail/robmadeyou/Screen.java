@@ -5,8 +5,24 @@ import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import com.gmail.robmadeyou.Gui.Interface;
+import com.gmail.robmadeyou.Input.Mouse;
+
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_PROJECTION;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glMatrixMode;
+import static org.lwjgl.opengl.GL11.glOrtho;
+import static org.lwjgl.opengl.GL11.glViewport;
 
 /*
  * So all this stuff is made by Robmadeyou.
@@ -55,6 +71,12 @@ public class Screen {
 	public static int getHeight(){
 		return Display.getHeight();
 	}
+	public static boolean isAskedToClose(){
+		if(Display.isCloseRequested()){
+			return true;
+		}
+		return false;
+	}
 	public static void createScreen(int dimensionX, int dimensionY, String name){
 		try
 		{	
@@ -78,6 +100,17 @@ public class Screen {
 			e.printStackTrace();
 			System.out.println("Error. Unable to create a Display");
 		}
+		
+		glEnable(GL_TEXTURE_2D);
+		glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+		glViewport(0,0,dimensionX,dimensionY);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(0, 600, 400, 0, 1, -1);
+		glMatrixMode(GL_MODELVIEW);
 	}
 	/*
 	 * This method will be called from the Main class in the game.
@@ -89,6 +122,8 @@ public class Screen {
 		//This will clear the screen before drawing it again.
 		glClear(GL_COLOR_BUFFER_BIT);
 		
+		Mouse.onUpdate();
+		Interface.onUpdate();
 		
 		Display.sync(rate);
 		Display.update();

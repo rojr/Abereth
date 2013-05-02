@@ -1,6 +1,5 @@
 package com.gmail.robmadeyou.Gui;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import static org.lwjgl.opengl.GL11.glBegin;
@@ -10,7 +9,6 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 
-import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Input.Mouse;
 
 public class Button implements Gui{
@@ -22,10 +20,8 @@ public class Button implements Gui{
 	private String state;
 	private Color color;
 	private int number;
-	private boolean isMouseOver;
-	private boolean isPressed;
-	private boolean isReleasedOnButton;
-	public Button(int x, int y, int width, int height, Color color, Texture Texture, String State){
+	private String name;
+	public Button(String name, int x, int y, int width, int height, Color color, Texture Texture, String State){
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -35,6 +31,10 @@ public class Button implements Gui{
 		this.texPressed = Texture;
 		this.state = State;
 		this.color = color;
+		this.name = name;
+	}
+	public void setName(String name){
+		this.name = name;
 	}
 	public void setNumber(int num){
 		this.number = num;
@@ -61,6 +61,9 @@ public class Button implements Gui{
 	public void setState(String state){
 		this.state = state;
 	}
+	public String getName(){
+		return name;
+	}
 	public int getX(){
 		return x;
 	}
@@ -80,41 +83,36 @@ public class Button implements Gui{
 		int mX = Mouse.getX();
 		int mY = Mouse.getY();
 		if(mX > x && mX < x + width && mY > y && mY < y + height){
-			isMouseOver = true;
 			return true;
 		}
-		isMouseOver = false;
 		return false;
 	}
 	public boolean isPressed(){
-		if(isMouseOver && Mouse.leftMouseButtonPressed){
-			isPressed = true;
+		if(isMouseOver() && Mouse.leftMouseButtonPressed){
 			return true;
 		}
-		isPressed = false;
 		return false;
 	}
 	public boolean isReleasedOnButton(){
-		if(isMouseOver && Mouse.leftMouseButtonReleased){
-			isReleasedOnButton = true;
+		if(isMouseOver() && Mouse.leftMouseButtonReleased){
 			return true;
 		}
-		isReleasedOnButton = false;
 		return false;
 	}
 	public void onUpdate(){
 		/*
 		 * Lalalalaallaalaaalalalal
 		 */
+		
 		draw();
 	}
 	public void draw(){
-		//TODO Add notifications that tell if the textures are not loading or something has gone wrong
-		if(isPressed){
+		//TODO Add notifications that tell if the textures are not loading or something has gone completely apes***
+		if(isPressed()){
 			if(texPressed != null){
 				texPressed.bind();
 			}
-		}else if(isMouseOver){
+		}else if(isMouseOver()){
 			if(texPressed != null){
 				texHover.bind();
 			}
@@ -123,6 +121,7 @@ public class Button implements Gui{
 				tex.bind();
 			}
 		}
+		color.bind();
 		glBegin(GL_QUADS);
 			glTexCoord2d(0, 0);
 			glVertex2f(x , y);
