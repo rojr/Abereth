@@ -121,7 +121,11 @@ public class Button implements Gui{
 				tex.bind();
 			}
 		}
-		color.bind();
+		if(color != null){
+			color.bind();
+		}else{
+			Color.White.bind();
+		}
 		glBegin(GL_QUADS);
 			glTexCoord2d(0, 0);
 			glVertex2f(x , y);

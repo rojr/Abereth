@@ -1,5 +1,8 @@
 package com.gmail.robmadeyou;
 
+import com.gmail.robmadeyou.Effects.Textures;
+import com.gmail.robmadeyou.Gui.Fonts;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -38,6 +41,9 @@ import static org.lwjgl.opengl.GL11.glViewport;
  */
 
 public class Screen {
+	
+	public static String engineName = "Rob\'s Engine: ";
+	public static String version = "0.1";
 	
 	private static long lastFrame;
 	private static long getTime() {
@@ -78,6 +84,7 @@ public class Screen {
 		return false;
 	}
 	public static void createScreen(int dimensionX, int dimensionY, String name){
+		long startTimer = getTime();
 		try
 		{	
 			/*
@@ -111,6 +118,16 @@ public class Screen {
 		glLoadIdentity();
 		glOrtho(0, 600, 400, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
+		
+		Fonts.setUpTextures();
+		System.out.println(engineName + "Font set up: " + Fonts.texSetUp);
+		Textures.setUpTextures();
+		System.out.println(engineName + "Textures set up: " + Textures.texSetUp);
+		
+		
+		long endTimer = getTime() - startTimer;
+		double finishTime = endTimer / 1000;
+		System.out.println(engineName +  "v" + version + " Loaded in: " + finishTime + " seconds");
 	}
 	/*
 	 * This method will be called from the Main class in the game.

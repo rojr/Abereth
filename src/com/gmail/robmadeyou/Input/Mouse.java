@@ -1,7 +1,6 @@
 package com.gmail.robmadeyou.Input;
 
 public class Mouse {
-	//TODO DO MOUSE STUFF PLS
 	/*
 	 * If mouse button is down these variables will change
 	 */
