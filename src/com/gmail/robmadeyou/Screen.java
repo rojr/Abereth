@@ -1,9 +1,5 @@
 package com.gmail.robmadeyou;
 
-import com.gmail.robmadeyou.Effects.Textures;
-import com.gmail.robmadeyou.Entity.EntityList;
-import com.gmail.robmadeyou.Gui.Fonts;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -11,6 +7,10 @@ import org.lwjgl.opengl.DisplayMode;
 
 import com.gmail.robmadeyou.Gui.Interface;
 import com.gmail.robmadeyou.Input.Mouse;
+import com.gmail.robmadeyou.World.World;
+import com.gmail.robmadeyou.Effects.Textures;
+import com.gmail.robmadeyou.Entity.EntityList;
+import com.gmail.robmadeyou.Gui.Fonts;
 
 import static org.lwjgl.opengl.GL11.GL_BLEND;
 import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
@@ -86,9 +86,10 @@ public class Screen {
 	}
 	public static GameType TypeOfGame = GameType.SIDE_SCROLLER;
 	
-	public static int translate_x = 0;
-	public static int translate_y = 0;
+	public static double translate_x = 0;
+	public static double translate_y = 0;
 	
+	public static int WorldTileSize = 32;
 	public static void createScreen(int dimensionX, int dimensionY, String name, GameType typeOfGame, boolean Minimalistic){
 		long startTimer = getTime();
 		TypeOfGame = typeOfGame;
@@ -123,14 +124,15 @@ public class Screen {
 			glViewport(0,0,dimensionX,dimensionY);
 			glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();
-			glOrtho(0, 600, 400, 0, 1, -1);
+			glOrtho(0, dimensionX, dimensionY, 0, 1, -1);
 			glMatrixMode(GL_MODELVIEW);
 		}
+		World.setArrayListClear();
 		Fonts.setUpTextures();
 		System.out.println(engineName + "Font set up: " + Fonts.texSetUp);
 		Textures.setUpTextures();
 		System.out.println(engineName + "Textures set up: " + Textures.texSetUp);
-		
+		World.getBlockTypeAtLocation(1, 1);
 		
 		long endTimer = getTime() - startTimer;
 		double finishTime = endTimer / 1000;
@@ -146,9 +148,11 @@ public class Screen {
 		//This will clear the screen before drawing it again.
 		glClear(GL_COLOR_BUFFER_BIT);
 		
-		Mouse.onUpdate();
-		Interface.onUpdate();
-		EntityList.updateAllEntities(getDelta());
+			World.draw();
+			Mouse.onUpdate();
+			Interface.onUpdate();
+			EntityList.updateAllEntities(getDelta());
+			
 		Display.sync(60);
 		Display.update();
 	}
