@@ -6,8 +6,9 @@ import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glTexCoord2d;
 import static org.lwjgl.opengl.GL11.glVertex2i;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
+
+import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Textures;
 
 public class TextBox{

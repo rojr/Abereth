@@ -1,4 +1,4 @@
-package com.gmail.robmadeyou.Gui;
+package com.gmail.robmadeyou.Effects;
 
 import java.util.Random;
 import static org.lwjgl.opengl.GL11.glColor3f;
@@ -17,7 +17,7 @@ public enum Color {
 		this.g = g;
 		this.b = b;
 	}
-	void bind(){
+	public void bind(){
 		if(r != 500F && g != 500F && b != 500F){
 			glColor3f(r,g,b);
 		}else{

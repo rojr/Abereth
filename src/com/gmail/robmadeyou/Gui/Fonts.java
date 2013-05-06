@@ -3,11 +3,11 @@ package com.gmail.robmadeyou.Gui;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
+import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Textures;
 
 import static org.lwjgl.opengl.GL11.glBegin;
@@ -139,7 +139,7 @@ public class Fonts {
 			}
 		}
 		Textures.none.bind();
-		Color.white.bind();
+		Color.White.bind();
 	}
 
 	public static int getWidth(String text, double size){

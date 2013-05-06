@@ -8,6 +8,8 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 
 import org.newdawn.slick.opengl.Texture;
 
+import com.gmail.robmadeyou.Effects.Color;
+
 public class Box implements Gui {
 	int x, y, width, height;
 	private Texture tex;

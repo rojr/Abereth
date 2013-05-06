@@ -1,6 +1,7 @@
 package com.gmail.robmadeyou;
 
 import com.gmail.robmadeyou.Effects.Textures;
+import com.gmail.robmadeyou.Entity.EntityList;
 import com.gmail.robmadeyou.Gui.Fonts;
 
 import org.lwjgl.LWJGLException;
@@ -83,8 +84,14 @@ public class Screen {
 		}
 		return false;
 	}
-	public static void createScreen(int dimensionX, int dimensionY, String name){
+	public static GameType TypeOfGame = GameType.SIDE_SCROLLER;
+	
+	public static int translate_x = 0;
+	public static int translate_y = 0;
+	
+	public static void createScreen(int dimensionX, int dimensionY, String name, GameType typeOfGame, boolean Minimalistic){
 		long startTimer = getTime();
+		TypeOfGame = typeOfGame;
 		try
 		{	
 			/*
@@ -107,18 +114,18 @@ public class Screen {
 			e.printStackTrace();
 			System.out.println("Error. Unable to create a Display");
 		}
+		if(!Minimalistic){
+			glEnable(GL_TEXTURE_2D);
+			glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
-		glEnable(GL_TEXTURE_2D);
-		glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		
-		glViewport(0,0,dimensionX,dimensionY);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(0, 600, 400, 0, 1, -1);
-		glMatrixMode(GL_MODELVIEW);
-		
+			glViewport(0,0,dimensionX,dimensionY);
+			glMatrixMode(GL_PROJECTION);
+			glLoadIdentity();
+			glOrtho(0, 600, 400, 0, 1, -1);
+			glMatrixMode(GL_MODELVIEW);
+		}
 		Fonts.setUpTextures();
 		System.out.println(engineName + "Font set up: " + Fonts.texSetUp);
 		Textures.setUpTextures();
@@ -141,8 +148,17 @@ public class Screen {
 		
 		Mouse.onUpdate();
 		Interface.onUpdate();
-		
-		Display.sync(rate);
+		EntityList.updateAllEntities(getDelta());
+		Display.sync(60);
 		Display.update();
+	}
+	
+	public enum GameType{
+		SIDE_SCROLLER,
+		RPG_STYLE,
+		FREE,
+		CUSTOM;
+		GameType(){
+		}
 	}
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.opengl.Texture;
 
 import com.gmail.robmadeyou.Screen;
+import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.State.StateManager;
 
 public class Interface {

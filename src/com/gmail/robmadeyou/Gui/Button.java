@@ -9,6 +9,7 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 
+import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Input.Mouse;
 
 public class Button implements Gui{
