@@ -12,6 +12,8 @@ public class Textures {
 	public static boolean texSetUp = false;
 	
 	public static Texture none;
+	public static Texture test;
+	public static Texture Block_Sky;
 	
 	static ArrayList<Tex> tex = new ArrayList<Tex>();
 	
@@ -19,11 +21,12 @@ public class Textures {
 		
 		try {
 			none = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/none.png"), true);
+			
+			test = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/powerUp/PaddleFreeze.png"), true);
+			Block_Sky = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/World/Sky.png"), true);
+			
 			texSetUp = true;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (IOException e) {e.printStackTrace();}
 	}
 	public static void addTexture(){
 		

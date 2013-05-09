@@ -13,6 +13,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Effects.Color;
+import com.gmail.robmadeyou.Effects.Textures;
 import com.gmail.robmadeyou.World.World;
 
 public class BlockStone implements Block {
@@ -20,7 +21,7 @@ public class BlockStone implements Block {
 	private int x, y;
 	private int id = 1;
 	private boolean isSolid = true;
-	private Texture texture;
+	private Texture texture = Textures.test;
 	public BlockStone(int x, int y){
 		this.x = x;
 		this.y = y;
@@ -63,9 +64,12 @@ public class BlockStone implements Block {
 	}
 
 	public void draw() {
+		if(texture != null){
+			texture.bind();
+		}
 		glPushMatrix();
 		glTranslated(Screen.translate_x, Screen.translate_y, 0);
-		Color.Black.bind();
+		Color.White.bind();
 		glBegin(GL_QUADS);
 			glTexCoord2d(0, 0);
 			glVertex2d(x * World.BLOCK_SIZE() , y * World.BLOCK_SIZE());

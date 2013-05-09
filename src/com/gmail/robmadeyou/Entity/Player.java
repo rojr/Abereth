@@ -104,23 +104,40 @@ public class Player implements Entity{
 		return Key.UpArrow;
 	}
 	public void handleInput(int delta){
+		double center = (Screen.getWidth() / 2) - Screen.translate_x;
+		double distFromSide = (Screen.getWidth() / 5) - Screen.translate_x;
+		double distFromCenter = center - x;
 		if(movementType.equals(MovementType.ARROW_KEYS)){
 			if(Keyboard.isKeyDown(Key.LeftArrow)){
+				boolean one = x + width <= (Screen.getWidth() / 5) - Screen.translate_x;
 				if(!World.isSolidLeft(this)){
 					x -= (delta * (speed - 0.8));
 				}
-				if(x + width <= (Screen.getWidth() / 5) - Screen.translate_x){
+				if(one && Screen.translate_x < 0.0){
 					Screen.translate_x += (delta * (speed - 0.8));
+				}
+				if(!one && Screen.translate_x < 0.0){
+					if(distFromCenter > 0)
+						Screen.translate_x += (delta * (speed - 0.8)) * (distFromCenter / distFromSide);
+				}
+				if(Screen.translate_x > 0.0){
+					Screen.translate_x = 0.0;
 				}
 				
 			}
 			if(Keyboard.isKeyDown(Key.RightArrow)){
+				boolean one = x + width >= (Screen.getWidth() - (Screen.getWidth() / 5)) - Screen.translate_x;
 				if(!World.isSolidRight(this)){
 					x += (delta * (speed - 0.8));
 				}
-				if(x + width >= (Screen.getWidth() - (Screen.getWidth() / 5)) - Screen.translate_x){
+				if(one){
 					Screen.translate_x -= (delta * (speed - 0.8));
 				}
+				if(!one){
+					if(distFromCenter < 0)
+						Screen.translate_x += (delta * (speed - 0.8)) * (distFromCenter / distFromSide);
+				}
+				
 			}
 			if(Keyboard.isKeyDown(Key.UpArrow)){
 				if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
@@ -155,7 +172,10 @@ public class Player implements Entity{
 	
 	
 	public void onUpdate(int delta) {
-		System.out.println(isJumping + "   " + isInAir + " ABOVE:" + World.isSolidAbove(this) + "    BELOW: " + World.isSolidUnder(this));
+		if(Screen.detailsActive){
+			Fonts.drawString("x " + x, 0, 0, 1, Color.Blue);
+			Fonts.drawString("y " + y, 0, 10, 1, Color.Blue);
+		}
 		if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
 			if(isJumping || isInAir){
 				y -= jumpDY * (delta * 0.1);
@@ -196,8 +216,9 @@ public class Player implements Entity{
 					}
 				}
 			}
-		}else if(Screen.TypeOfGame == GameType.RPG_STYLE){
 			
+		}else if(Screen.TypeOfGame == GameType.RPG_STYLE){
+			//TODO RPG STYLE ON UPDATE
 		}
 		handleInput(delta);
 		draw();

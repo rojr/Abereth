@@ -13,6 +13,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Effects.Color;
+import com.gmail.robmadeyou.Effects.Textures;
 import com.gmail.robmadeyou.World.World;
 
 public class BlockAir implements Block {
@@ -24,6 +25,7 @@ public class BlockAir implements Block {
 	public BlockAir(int x, int y){
 		this.x = x;
 		this.y = y;
+		this.texture = Textures.Block_Sky;
 	}
 	
 	public int getID() {
@@ -54,17 +56,22 @@ public class BlockAir implements Block {
 		draw();
 	}
 	public void draw() {
+		if(texture != null){
+			texture.bind();
+		}else{
+			Textures.none.bind();
+		}
 		glPushMatrix();
 		glTranslated(Screen.translate_x, Screen.translate_y, 0);
-		Color.Blue.bind();
+		Color.White.bind();
 		glBegin(GL_QUADS);
-			glTexCoord2d(0, 0);
+			glTexCoord2d(32 / 64, 32 / 64);
 			glVertex2d(x * World.BLOCK_SIZE() , y * World.BLOCK_SIZE());
-			glTexCoord2d(1, 0);
+			glTexCoord2d((32 + 32) / 64, 32 / 64);
 			glVertex2d(x * World.BLOCK_SIZE() + World.BLOCK_SIZE(), y * World.BLOCK_SIZE());
-			glTexCoord2d(1, 1);
+			glTexCoord2d((32 + 32) / 64, (32 + 32) / 64);
 			glVertex2d(x * World.BLOCK_SIZE() + World.BLOCK_SIZE(), y * World.BLOCK_SIZE() + World.BLOCK_SIZE());
-			glTexCoord2d(0, 1);
+			glTexCoord2d(32 / 64, (32 + 32) / 64);
 			glVertex2d(x * World.BLOCK_SIZE() , y * World.BLOCK_SIZE() + World.BLOCK_SIZE());
 		glEnd();
 	

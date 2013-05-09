@@ -6,10 +6,15 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import com.gmail.robmadeyou.Gui.Interface;
+import com.gmail.robmadeyou.Input.Keyboard;
+import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
 import com.gmail.robmadeyou.World.World;
+import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Textures;
+import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Entity.EntityList;
+import com.gmail.robmadeyou.Entity.Player;
 import com.gmail.robmadeyou.Gui.Fonts;
 
 import static org.lwjgl.opengl.GL11.GL_BLEND;
@@ -46,7 +51,20 @@ public class Screen {
 	public static String engineName = "Rob\'s Engine: ";
 	public static String version = "0.1";
 	
+	public static boolean detailsActive = false;
 	private static long lastFrame;
+	private static long lastFPS;
+	public static int fps = 0;
+	public static int actualFps = 0;
+	
+	public static void updateFPS() {
+		if (getTime() - lastFPS > 1000) {
+			actualFps = fps;
+			fps = 0;
+			lastFPS += 1000;
+		}
+		fps++;
+	}
 	private static long getTime() {
 		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
 	}
@@ -69,6 +87,7 @@ public class Screen {
 		lastFrame = getTime();
 		return delta;
 	}
+	
 	/*
 	 * These two methods simply return the screen dimensions;
 	 */
@@ -90,11 +109,14 @@ public class Screen {
 	public static double translate_y = 0;
 	
 	public static int WorldTileSize = 32;
+	
+	public static int WorldWidth = 0;
+	public static int WorldHeight = 0;
+	
 	public static void createScreen(int dimensionX, int dimensionY, String name, GameType typeOfGame, boolean Minimalistic){
 		long startTimer = getTime();
 		TypeOfGame = typeOfGame;
-		try
-		{	
+		try{
 			/*
 			 * Here the Display that we are going to be using is created with the 
 			 * dimensions called in the parameters when the method was called
@@ -115,6 +137,7 @@ public class Screen {
 			e.printStackTrace();
 			System.out.println("Error. Unable to create a Display");
 		}
+		lastFPS = getTime();
 		if(!Minimalistic){
 			glEnable(GL_TEXTURE_2D);
 			glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
@@ -127,16 +150,32 @@ public class Screen {
 			glOrtho(0, dimensionX, dimensionY, 0, 1, -1);
 			glMatrixMode(GL_MODELVIEW);
 		}
-		World.setArrayListClear();
+		/*
+		 * Initialising WorldWidth, and Height as before that
+		 * the screen wasn't created and we couldn't actually initialise the variables :S
+		 */
+		if(WorldWidth == 0 && WorldHeight == 0){
+			WorldWidth = Math.round(getWidth() / 32);
+			WorldHeight = Math.round(getHeight() / 32) + 1;
+		}
 		Fonts.setUpTextures();
 		System.out.println(engineName + "Font set up: " + Fonts.texSetUp);
 		Textures.setUpTextures();
 		System.out.println(engineName + "Textures set up: " + Textures.texSetUp);
-		World.getBlockTypeAtLocation(1, 1);
+		
+		World.setWorldDimensions(WorldWidth, WorldHeight);
+		World.setArrayListClear();
 		
 		long endTimer = getTime() - startTimer;
 		double finishTime = endTimer / 1000;
 		System.out.println(engineName +  "v" + version + " Loaded in: " + finishTime + " seconds");
+	}
+	public static void setWorldDimensionsInBlocks(int numOfBlocksOnXAxis, int numOfBlocksOnYAxis){
+		WorldWidth = numOfBlocksOnXAxis;
+		WorldHeight = numOfBlocksOnYAxis;
+	}
+	public static void setWorldBlockSizeInPixels(int size){
+		WorldTileSize = size;
 	}
 	/*
 	 * This method will be called from the Main class in the game.
@@ -147,12 +186,25 @@ public class Screen {
 	public static void screenUpdate(int rate){
 		//This will clear the screen before drawing it again.
 		glClear(GL_COLOR_BUFFER_BIT);
-		
-			World.draw();
+			updateFPS();
+			World.onUpdate();
 			Mouse.onUpdate();
 			Interface.onUpdate();
 			EntityList.updateAllEntities(getDelta());
 			
+			if(Keyboard.isKeyPressed(Key.Grave)){
+				if(detailsActive == false){
+					detailsActive = true;
+				}else{
+					detailsActive = false;
+				}
+			}
+			
+			if(detailsActive){
+				Fonts.drawString("camX " + translate_x, 0, 20, 1, Color.Red);
+				Fonts.drawString("camY " + translate_y, 0, 30, 1, Color.Red);
+				Fonts.drawString("FPS: " + actualFps, 5, 40, 1, Color.Black);
+			}
 		Display.sync(60);
 		Display.update();
 	}

@@ -8,32 +8,50 @@ import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Input.Mouse;
 
 public class World {
+	
+	public static int WorldArrayWidth = 0;
+	public static int WorldArrayHeight = 0;
+	/*
+	 * Array list that holds the current world currently visible on screen
+	 */
+	private static Block[][] blockList;
+	
 	public static final int BLOCK_SIZE(){
 		if(Screen.WorldTileSize != 32){
 			return Screen.WorldTileSize;
 		}
 		return 32;
 	};
+	
+	private static int camXDivided = (int) Math.round(Screen.translate_x / BLOCK_SIZE());
+	private static int camYDivided = (int) Math.round(Screen.translate_y / BLOCK_SIZE());
+	private static int camWidthDivided = (int) Math.round(Screen.getWidth() / BLOCK_SIZE()) + 1;
+	private static int camHeightDivided = (int) Math.round(Screen.getHeight() / BLOCK_SIZE()) + 1;
+	
+	public static void setWorldDimensions(int x, int y){
+		blockList = new Block[x][y];
+		WorldArrayWidth = x;
+		WorldArrayHeight = y;
+	}
+	
 	public static void getBlockTypeAtLocation(int x, int y){
 		
 	}
 	public static void setArrayListClear(){
-		for(int x = 0; x < blockList.length; x++){
-			for(int y = 0; y < blockList.length; y++){
+		for(int x = 0; x < WorldArrayWidth; x++){
+			for(int y = 0; y < WorldArrayHeight; y++){
 				blockList[x][y] = new BlockAir(x, y);
 			}
 		}
 	}
-	private static Block[][] blockList = new Block[75][75];
-	
 	/*
 	 * Checks collision for the legs of the entity, this will
 	 * decide if player can go down, or when falling is possible to jump on the block and stop
 	 * instead of falling constantly
 	 */
 	public static boolean isSolidUnder(Entity e){
-		for(int x = 0; x < blockList.length; x++){
-			for(int y = 0; y < blockList.length; y++){
+		for(int x = 0; x < WorldArrayWidth; x++){
+			for(int y = 0; y < WorldArrayHeight; y++){
 				int eX = (int)e.getX();
 				int eY = (int)e.getY();
 				int eW = e.getWidth();
@@ -42,6 +60,7 @@ public class World {
 				int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
 				int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
 				int bDimensions = World.BLOCK_SIZE();
+				
 				//Bottom left
 				boolean one = eX >= bX && eX <= bX + bDimensions && eY + eH >= bY  - 5 && eY + eH <= bY + 5;
 				//Bottom right
@@ -56,9 +75,10 @@ public class World {
 		}
 		return false;
 	}
+	
 	public static boolean isSolidAbove(Entity e){
-		for(int x = 0; x < blockList.length; x++){
-			for(int y = 0; y < blockList.length; y++){
+		for(int x = 0; x < WorldArrayWidth; x++){
+			for(int y = 0; y < WorldArrayHeight; y++){
 				int eX = (int)e.getX();
 				int eY = (int)e.getY();
 				int eW = e.getWidth();
@@ -81,8 +101,8 @@ public class World {
 		return false;
 	}
 	public static boolean isSolidLeft(Entity e){
-		for(int x = 0; x < blockList.length; x++){
-			for(int y = 0; y < blockList.length; y++){
+		for(int x = 0; x < WorldArrayWidth; x++){
+			for(int y = 0; y < WorldArrayHeight; y++){
 				int eX = (int)e.getX();
 				int eY = (int)e.getY();
 				int eW = e.getWidth();
@@ -105,8 +125,8 @@ public class World {
 		return false;
 	}
 	public static boolean isSolidRight(Entity e){
-		for(int x = 0; x < blockList.length; x++){
-			for(int y = 0; y < blockList.length; y++){
+		for(int x = 0; x < WorldArrayWidth; x++){
+			for(int y = 0; y < WorldArrayHeight; y++){
 				int eX = (int)e.getX();
 				int eY = (int)e.getY();
 				int eW = e.getWidth();
@@ -127,17 +147,20 @@ public class World {
 		}
 		return false;
 	}
-	public static void draw(){
-		for(int x = 0; x < blockList.length; x++){
-			for(int y = 0; y < blockList.length; y++){
-				int mX = Mouse.getX() - (int) Screen.translate_x;
-				int mY = Mouse.getY();
-				if(mX >= x * 32 + Screen.translate_x && mX <= mX * 32 + 32 + Screen.translate_x && mY >= y * 32 && mY <= y * 32 + 32){
-					if(Mouse.leftMouseButtonDown){
-						blockList[x][y] = new BlockStone(x,y);
-					}
+	public static void onUpdate(){
+		camXDivided = (int) Math.round(-Screen.translate_x / BLOCK_SIZE());
+		camYDivided = (int) Math.round(-Screen.translate_y / BLOCK_SIZE());
+		
+		for(int x = camXDivided; x < camXDivided + camWidthDivided; x++){
+			for(int y = camYDivided; y < camYDivided + camHeightDivided; y++){
+				int mX = Math.round((Mouse.getX() - (int) Screen.translate_x) / 32);
+				int mY = Math.round(Mouse.getY() / 32);
+				if(Mouse.leftMouseButtonDown){
+					blockList[mX][mY] = new BlockStone(mX,mY);
 				}
-				blockList[x][y].onUpdate();
+				if(x < WorldArrayWidth && y < WorldArrayHeight){
+					blockList[x][y].onUpdate();
+				}
 			}
 		}
 	}
