@@ -12,5 +12,6 @@ public interface Block {
 	int getY();
 	void setTexture(Texture tex);
 	void onUpdate();
+	Block getType();
 	void draw();
 }

@@ -23,6 +23,9 @@ public class World {
 		return 32;
 	};
 	
+	public static double gravity(int delta){
+		return (delta * 0.02);
+	};
 	private static int camXDivided = (int) Math.round(Screen.translate_x / BLOCK_SIZE());
 	private static int camYDivided = (int) Math.round(Screen.translate_y / BLOCK_SIZE());
 	private static int camWidthDivided = (int) Math.round(Screen.getWidth() / BLOCK_SIZE()) + 1;
@@ -34,7 +37,8 @@ public class World {
 		WorldArrayHeight = y;
 	}
 	
-	public static void getBlockTypeAtLocation(int x, int y){
+	public static Block getBlockTypeAtLocation(int x, int y){
+		return blockList[x][y].getType();
 		
 	}
 	public static void setArrayListClear(){
@@ -50,8 +54,14 @@ public class World {
 	 * instead of falling constantly
 	 */
 	public static boolean isSolidUnder(Entity e){
-		for(int x = 0; x < WorldArrayWidth; x++){
-			for(int y = 0; y < WorldArrayHeight; y++){
+		for(int sX = camXDivided; sX < camXDivided + camWidthDivided + 1; sX++){
+			for(int y = camYDivided; y < camYDivided + camHeightDivided; y++){
+				int x;
+				if(sX >= 1){
+					x = sX -1;
+				}else{
+					x = sX;
+				}
 				int eX = (int)e.getX();
 				int eY = (int)e.getY();
 				int eW = e.getWidth();
@@ -67,7 +77,7 @@ public class World {
 				boolean two = eX + eW >= bX && eX + eW <= bX + bDimensions && eY + eH >= bY - 5 && eY + eH <= bY + 5;
 				if(one || two){
 					if(blockList[x][y].isSolid()){
-						e.setY((y * 32) - eH);
+						e.setY((y * BLOCK_SIZE()) - eH);
 						return true;
 					}
 				}
@@ -77,21 +87,26 @@ public class World {
 	}
 	
 	public static boolean isSolidAbove(Entity e){
-		for(int x = 0; x < WorldArrayWidth; x++){
-			for(int y = 0; y < WorldArrayHeight; y++){
-				int eX = (int)e.getX();
-				int eY = (int)e.getY();
-				int eW = e.getWidth();
-				int eH = e.getHeight();
-				
+		int eX = (int)e.getX();
+		int eY = (int)e.getY();
+		int eW = e.getWidth();
+		int eH = e.getHeight();
+		int bDimensions = World.BLOCK_SIZE();
+		for(int sX = camXDivided; sX < camXDivided + camWidthDivided + 1; sX++){
+			for(int y = camYDivided; y < camYDivided + camHeightDivided; y++){
+				int x;
+				if(sX >= 1){
+					x = sX -1;
+				}else{
+					x = sX;
+				}
 				int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
 				int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
-				int bDimensions = World.BLOCK_SIZE();
 				for(int x2 = 0; x2 <= eW / 4; x2++){
 					boolean one = eX + (x2 * 4) >= bX && eX + (x2 * 4) <= bX + bDimensions && eY >= bY + bDimensions - 5 && eY <= bY + bDimensions + 5;
 					if(one){
 						if(blockList[x][y].isSolid()){
-							e.setY(y * 32 + 32 + 5);
+							e.setY(y * BLOCK_SIZE() + BLOCK_SIZE() + 5);
 							return true;
 						}
 					}
@@ -101,8 +116,14 @@ public class World {
 		return false;
 	}
 	public static boolean isSolidLeft(Entity e){
-		for(int x = 0; x < WorldArrayWidth; x++){
-			for(int y = 0; y < WorldArrayHeight; y++){
+		for(int sX = camXDivided; sX < camXDivided + camWidthDivided + 1; sX++){
+			for(int y = camYDivided; y < camYDivided + camHeightDivided; y++){
+				int x;
+				if(sX >= 1){
+					x = sX -1;
+				}else{
+					x = sX;
+				}
 				int eX = (int)e.getX();
 				int eY = (int)e.getY();
 				int eW = e.getWidth();
@@ -115,7 +136,7 @@ public class World {
 					boolean one = eX <= bX + bDimensions + 3 && eX >= bX + bDimensions - 3 && eY - 1+ (4 * y2) >= bY && eY- 1 + (4 * y2) <= bY + bDimensions;
 					if(one){
 						if(blockList[x][y].isSolid()){
-							e.setX(x * 32 + 32 + 2);
+							e.setX(x * BLOCK_SIZE() + BLOCK_SIZE() + 2);
 							return true;
 						}
 					}
@@ -125,8 +146,14 @@ public class World {
 		return false;
 	}
 	public static boolean isSolidRight(Entity e){
-		for(int x = 0; x < WorldArrayWidth; x++){
-			for(int y = 0; y < WorldArrayHeight; y++){
+		for(int sX = camXDivided; sX < camXDivided + camWidthDivided + 1; sX++){
+			for(int y = camYDivided; y < camYDivided + camHeightDivided; y++){
+				int x;
+				if(sX >= 1){
+					x = sX -1;
+				}else{
+					x = sX;
+				}
 				int eX = (int)e.getX();
 				int eY = (int)e.getY();
 				int eW = e.getWidth();
@@ -151,8 +178,14 @@ public class World {
 		camXDivided = (int) Math.round(-Screen.translate_x / BLOCK_SIZE());
 		camYDivided = (int) Math.round(-Screen.translate_y / BLOCK_SIZE());
 		
-		for(int x = camXDivided; x < camXDivided + camWidthDivided; x++){
+		for(int sX = camXDivided; sX < camXDivided + camWidthDivided + 1; sX++){
 			for(int y = camYDivided; y < camYDivided + camHeightDivided; y++){
+				int x;
+				if(sX >= 1){
+					x = sX -1;
+				}else{
+					x = sX;
+				}
 				int mX = Math.round((Mouse.getX() - (int) Screen.translate_x) / 32);
 				int mY = Math.round(Mouse.getY() / 32);
 				if(Mouse.leftMouseButtonDown){

@@ -85,4 +85,8 @@ public class BlockAir implements Block {
 	public void setTexture(Texture tex) {
 		this.texture = tex;
 	}
+	
+	public Block getType() {
+		return this;
+	}
 }

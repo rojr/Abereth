@@ -100,15 +100,32 @@ public class Player implements Entity{
 		return speed;
 	}
 	public Key getUpKey(MovementType type){
-		//TODO DO ARROW KEYS AND ALL THAT SHINANIGANS
-		return Key.UpArrow;
+		if(type.equals(MovementType.WASD_KEYS)){
+			return Key.W;
+		}else if(type.equals(MovementType.NUMPAD_KEYS)){
+			return Key.Numpad_Eight;
+		}else if(type.equals(MovementType.IJKL_KEYS)){
+			return Key.I;
+		}else{
+			return Key.UpArrow;
+		}
+	}
+	public Key getDownKey(MovementType type){
+		if(type.equals(MovementType.WASD_KEYS)){
+			return Key.S;
+		}else if(type.equals(MovementType.NUMPAD_KEYS)){
+			return Key.Numpad_Two;
+		}else if(type.equals(MovementType.IJKL_KEYS)){
+			return Key.K;
+		}else{
+			return Key.DownArrow;
+		}
 	}
 	public void handleInput(int delta){
 		double center = (Screen.getWidth() / 2) - Screen.translate_x;
 		double distFromSide = (Screen.getWidth() / 5) - Screen.translate_x;
 		double distFromCenter = center - x;
-		if(movementType.equals(MovementType.ARROW_KEYS)){
-			if(Keyboard.isKeyDown(Key.LeftArrow)){
+			if(Keyboard.isKeyDown(Key.LeftArrow)){//No need for lots and lots of lines of code! Yaay!
 				boolean one = x + width <= (Screen.getWidth() / 5) - Screen.translate_x;
 				if(!World.isSolidLeft(this)){
 					x -= (delta * (speed - 0.8));
@@ -139,7 +156,7 @@ public class Player implements Entity{
 				}
 				
 			}
-			if(Keyboard.isKeyDown(Key.UpArrow)){
+			if(Keyboard.isKeyDown(getUpKey(movementType))){
 				if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
 					if(!isJumping){
 						isJumping = true;
@@ -167,7 +184,7 @@ public class Player implements Entity{
 					isCrouching = false;
 				}
 			}
-		}
+		
 	}
 	
 	
@@ -179,7 +196,11 @@ public class Player implements Entity{
 		if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
 			if(isJumping || isInAir){
 				y -= jumpDY * (delta * 0.1);
-				jumpDY = jumpDY - 0.5;
+				jumpDY = jumpDY  - World.gravity(delta);
+				if(jumpDY < -8){
+					jumpDY = -8;
+				}
+				System.out.println(jumpDY);
 				if(y + height > Screen.getHeight()){
 					isJumping = false;
 					jumpDY = 0;

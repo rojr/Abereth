@@ -62,7 +62,9 @@ public class BlockStone implements Block {
 	public void onUpdate() {
 		draw();
 	}
-
+	public Block getType(){
+		return this;
+	}
 	public void draw() {
 		if(texture != null){
 			texture.bind();

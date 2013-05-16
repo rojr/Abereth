@@ -52,12 +52,13 @@ public class Screen {
 	public static String version = "0.1";
 	
 	public static boolean detailsActive = false;
+	private static boolean worldCreated = false;
 	private static long lastFrame;
 	private static long lastFPS;
-	public static int fps = 0;
-	public static int actualFps = 0;
-	
-	public static void updateFPS() {
+	private static int fps = 0;
+	private static int actualFps = 0;
+	public static int delta = getDelta();
+	private static void updateFPS() {
 		if (getTime() - lastFPS > 1000) {
 			actualFps = fps;
 			fps = 0;
@@ -150,21 +151,11 @@ public class Screen {
 			glOrtho(0, dimensionX, dimensionY, 0, 1, -1);
 			glMatrixMode(GL_MODELVIEW);
 		}
-		/*
-		 * Initialising WorldWidth, and Height as before that
-		 * the screen wasn't created and we couldn't actually initialise the variables :S
-		 */
-		if(WorldWidth == 0 && WorldHeight == 0){
-			WorldWidth = Math.round(getWidth() / 32);
-			WorldHeight = Math.round(getHeight() / 32) + 1;
-		}
+		
 		Fonts.setUpTextures();
 		System.out.println(engineName + "Font set up: " + Fonts.texSetUp);
 		Textures.setUpTextures();
 		System.out.println(engineName + "Textures set up: " + Textures.texSetUp);
-		
-		World.setWorldDimensions(WorldWidth, WorldHeight);
-		World.setArrayListClear();
 		
 		long endTimer = getTime() - startTimer;
 		double finishTime = endTimer / 1000;
@@ -173,6 +164,29 @@ public class Screen {
 	public static void setWorldDimensionsInBlocks(int numOfBlocksOnXAxis, int numOfBlocksOnYAxis){
 		WorldWidth = numOfBlocksOnXAxis;
 		WorldHeight = numOfBlocksOnYAxis;
+	}
+	public static void setUpWorld(){
+		
+		/*
+		 * Initialising WorldWidth, and Height as before that
+		 * the screen wasn't created and we couldn't actually initialise the variables :S
+		 */
+		if(WorldWidth == 0 && WorldHeight == 0){
+			WorldWidth = Math.round(getWidth() / WorldTileSize) + 1;
+			WorldHeight = Math.round(getHeight() / WorldTileSize) + 1;
+		}
+		if(WorldWidth < Math.round(getWidth() / WorldTileSize) + 1){
+			WorldWidth = Math.round(getWidth() / WorldTileSize + 1);
+			System.out.println(engineName + "WorldWidth TOO LOW. default to: " + WorldWidth);
+		}
+		if(WorldHeight < Math.round(getHeight() / WorldTileSize) + 1){
+			WorldHeight = Math.round(getHeight() / WorldTileSize) + 1;
+			System.out.println(engineName + "WorldHeight TOO LOW. default to: " + WorldWidth);
+		}
+		World.setWorldDimensions(WorldWidth, WorldHeight);
+		World.setArrayListClear();
+		System.out.println(engineName + "World loaded");
+		worldCreated = true;
 	}
 	public static void setWorldBlockSizeInPixels(int size){
 		WorldTileSize = size;
@@ -183,14 +197,17 @@ public class Screen {
 	 * 
 	 * It will be synchronised at the rate of the int rate is set to be at
 	 */
-	public static void screenUpdate(int rate){
+	public static void update(int rate){
 		//This will clear the screen before drawing it again.
 		glClear(GL_COLOR_BUFFER_BIT);
 			updateFPS();
-			World.onUpdate();
+			delta = getDelta();
+			if(worldCreated){
+				World.onUpdate();
+				EntityList.updateAllEntities(delta);
+			}
 			Mouse.onUpdate();
 			Interface.onUpdate();
-			EntityList.updateAllEntities(getDelta());
 			
 			if(Keyboard.isKeyPressed(Key.Grave)){
 				if(detailsActive == false){
@@ -205,7 +222,7 @@ public class Screen {
 				Fonts.drawString("camY " + translate_y, 0, 30, 1, Color.Red);
 				Fonts.drawString("FPS: " + actualFps, 5, 40, 1, Color.Black);
 			}
-		Display.sync(60);
+		Display.sync(rate);
 		Display.update();
 	}
 	
