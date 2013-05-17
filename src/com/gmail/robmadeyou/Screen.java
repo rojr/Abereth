@@ -172,15 +172,15 @@ public class Screen {
 		 * the screen wasn't created and we couldn't actually initialise the variables :S
 		 */
 		if(WorldWidth == 0 && WorldHeight == 0){
-			WorldWidth = Math.round(getWidth() / WorldTileSize) + 1;
-			WorldHeight = Math.round(getHeight() / WorldTileSize) + 1;
+			WorldWidth = Math.round(getWidth() / WorldTileSize) + 5;
+			WorldHeight = Math.round(getHeight() / WorldTileSize) + 5;
 		}
 		if(WorldWidth < Math.round(getWidth() / WorldTileSize) + 1){
-			WorldWidth = Math.round(getWidth() / WorldTileSize + 1);
+			WorldWidth = Math.round(getWidth() / WorldTileSize + 5);
 			System.out.println(engineName + "WorldWidth TOO LOW. default to: " + WorldWidth);
 		}
 		if(WorldHeight < Math.round(getHeight() / WorldTileSize) + 1){
-			WorldHeight = Math.round(getHeight() / WorldTileSize) + 1;
+			WorldHeight = Math.round(getHeight() / WorldTileSize) + 5;
 			System.out.println(engineName + "WorldHeight TOO LOW. default to: " + WorldWidth);
 		}
 		World.setWorldDimensions(WorldWidth, WorldHeight);
@@ -222,7 +222,7 @@ public class Screen {
 				Fonts.drawString("camY " + translate_y, 0, 30, 1, Color.Red);
 				Fonts.drawString("FPS: " + actualFps, 5, 40, 1, Color.Black);
 			}
-		Display.sync(rate);
+		Display.sync(60);
 		Display.update();
 	}
 	

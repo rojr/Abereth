@@ -12,19 +12,19 @@ import com.gmail.robmadeyou.Entity.Player;
 
 public class Main {
 	public static void main(String []arg){
-		Screen.setWorldDimensionsInBlocks(88, 60);
+		Screen.setWorldBlockSizeInPixels(32);
 		Screen.createScreen(800, 600, "name", Screen.GameType.SIDE_SCROLLER, false);
 		Player player = new Player(224, 44, 20, 40);
+		Player player2 = new Player(224, 44, 20, 40);
+		player2.setFixedMovementType(MovementType.ARROW_KEYS);
 		player.setFixedMovementType(MovementType.WASD_KEYS);
 		EntityList.addEntity(player);
+		EntityList.addEntity(player2);
 		Enemy e = new Enemy(40, 20, 20, 40);
 		EntityList.addEntity(e);
 		Screen.setUpWorld();
 		while(!Screen.isAskedToClose()){
 			Screen.update(60);
-			if(Keyboard.isKeyDown(Key.A)){
-				Screen.translate_y++;
-			}
 		}
 	}
 }

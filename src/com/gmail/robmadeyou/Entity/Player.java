@@ -121,11 +121,33 @@ public class Player implements Entity{
 			return Key.DownArrow;
 		}
 	}
+	public Key getLeftKey(MovementType type){
+		if(type.equals(MovementType.WASD_KEYS)){
+			return Key.A;
+		}else if(type.equals(MovementType.NUMPAD_KEYS)){
+			return Key.Numpad_Four;
+		}else if(type.equals(MovementType.IJKL_KEYS)){
+			return Key.J;
+		}else{
+			return Key.LeftArrow;
+		}
+	}
+	public Key getRightKey(MovementType type){
+		if(type.equals(MovementType.WASD_KEYS)){
+			return Key.D;
+		}else if(type.equals(MovementType.NUMPAD_KEYS)){
+			return Key.Numpad_Six;
+		}else if(type.equals(MovementType.IJKL_KEYS)){
+			return Key.L;
+		}else{
+			return Key.RightArrow;
+		}
+	}
 	public void handleInput(int delta){
 		double center = (Screen.getWidth() / 2) - Screen.translate_x;
 		double distFromSide = (Screen.getWidth() / 5) - Screen.translate_x;
 		double distFromCenter = center - x;
-			if(Keyboard.isKeyDown(Key.LeftArrow)){//No need for lots and lots of lines of code! Yaay!
+			if(Keyboard.isKeyDown(getLeftKey(movementType))){//No need for lots and lots of lines of code! Yaay!
 				boolean one = x + width <= (Screen.getWidth() / 5) - Screen.translate_x;
 				if(!World.isSolidLeft(this)){
 					x -= (delta * (speed - 0.8));
@@ -142,17 +164,21 @@ public class Player implements Entity{
 				}
 				
 			}
-			if(Keyboard.isKeyDown(Key.RightArrow)){
+			if(Keyboard.isKeyDown(getRightKey(movementType))){
 				boolean one = x + width >= (Screen.getWidth() - (Screen.getWidth() / 5)) - Screen.translate_x;
+				boolean two = Screen.translate_x - Screen.getWidth() < World.getWorldWidthInPixels() - World.BLOCK_SIZE();
 				if(!World.isSolidRight(this)){
 					x += (delta * (speed - 0.8));
 				}
-				if(one){
+				if(one && two){
 					Screen.translate_x -= (delta * (speed - 0.8));
 				}
-				if(!one){
+				if(!one && two){
 					if(distFromCenter < 0)
 						Screen.translate_x += (delta * (speed - 0.8)) * (distFromCenter / distFromSide);
+				}
+				if(!two){
+					Screen.translate_x = World.getWorldHeightInPixels() - Screen.getWidth();
 				}
 				
 			}
@@ -170,7 +196,7 @@ public class Player implements Entity{
 				}
 				//TODO Update different game modes
 			}
-			if(Keyboard.isKeyDown(Key.DownArrow)){
+			if(Keyboard.isKeyDown(getDownKey(movementType))){
 				if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
 					isCrouching = true;
 				}
@@ -197,10 +223,9 @@ public class Player implements Entity{
 			if(isJumping || isInAir){
 				y -= jumpDY * (delta * 0.1);
 				jumpDY = jumpDY  - World.gravity(delta);
-				if(jumpDY < -8){
-					jumpDY = -8;
+				if(jumpDY < -16){
+					jumpDY = -16;
 				}
-				System.out.println(jumpDY);
 				if(y + height > Screen.getHeight()){
 					isJumping = false;
 					jumpDY = 0;
@@ -266,7 +291,6 @@ public class Player implements Entity{
 		WASD_KEYS(),
 		NUMPAD_KEYS(),
 		IJKL_KEYS();
-		MovementType(){
-		}
+		MovementType(){}
 	}
 }

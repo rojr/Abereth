@@ -4,6 +4,7 @@ import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Block.Block;
 import com.gmail.robmadeyou.Block.BlockAir;
 import com.gmail.robmadeyou.Block.BlockStone;
+import com.gmail.robmadeyou.Effects.Textures;
 import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Input.Mouse;
 
@@ -23,8 +24,15 @@ public class World {
 		return 32;
 	};
 	
+	public static int getWorldWidthInPixels(){
+		return WorldArrayWidth * World.BLOCK_SIZE();
+	}
+	public static int getWorldHeightInPixels(){
+		return WorldArrayHeight * World.BLOCK_SIZE();
+	}
+	
 	public static double gravity(int delta){
-		return (delta * 0.02);
+		return (delta * 0.04);
 	};
 	private static int camXDivided = (int) Math.round(Screen.translate_x / BLOCK_SIZE());
 	private static int camYDivided = (int) Math.round(Screen.translate_y / BLOCK_SIZE());
@@ -54,8 +62,25 @@ public class World {
 	 * instead of falling constantly
 	 */
 	public static boolean isSolidUnder(Entity e){
-		for(int sX = camXDivided; sX < camXDivided + camWidthDivided + 1; sX++){
-			for(int y = camYDivided; y < camYDivided + camHeightDivided; y++){
+		int startX = (int) Math.round(e.getX() / BLOCK_SIZE()) - 5;
+		if(startX < 0){
+			startX = 0;
+		}
+		int durationX = startX + 10;
+		while(durationX + startX >= WorldArrayWidth){
+			durationX--;
+		}
+		
+		int startY = (int) Math.round(e.getY() / BLOCK_SIZE()) - 5;
+		if(startY < 0){
+			startY = 0;
+		}
+		int durationY = startY + 10;
+		while(durationY + startY >= WorldArrayHeight){
+			durationY--;
+		}
+		for(int sX = startX; sX < startX + durationX + 1; sX++){
+			for(int y = startY; y < startY + durationY; y++){
 				int x;
 				if(sX >= 1){
 					x = sX -1;
@@ -72,12 +97,12 @@ public class World {
 				int bDimensions = World.BLOCK_SIZE();
 				
 				//Bottom left
-				boolean one = eX >= bX && eX <= bX + bDimensions && eY + eH >= bY  - 5 && eY + eH <= bY + 5;
+				boolean one = eX >= bX && eX <= bX + bDimensions && eY + eH + 10 >= bY && eY + eH <= bY + 7;
 				//Bottom right
-				boolean two = eX + eW >= bX && eX + eW <= bX + bDimensions && eY + eH >= bY - 5 && eY + eH <= bY + 5;
+				boolean two = eX + eW >= bX && eX + eW <= bX + bDimensions && eY + eH + 10 >= bY && eY + eH <= bY + 7;
 				if(one || two){
 					if(blockList[x][y].isSolid()){
-						e.setY((y * BLOCK_SIZE()) - eH);
+						e.setY(bY - 1 - eH);
 						return true;
 					}
 				}
@@ -90,10 +115,27 @@ public class World {
 		int eX = (int)e.getX();
 		int eY = (int)e.getY();
 		int eW = e.getWidth();
-		int eH = e.getHeight();
 		int bDimensions = World.BLOCK_SIZE();
-		for(int sX = camXDivided; sX < camXDivided + camWidthDivided + 1; sX++){
-			for(int y = camYDivided; y < camYDivided + camHeightDivided; y++){
+		
+		int startX = (int) Math.round(e.getX() / BLOCK_SIZE()) - 5;
+		if(startX < 0){
+			startX = 0;
+		}
+		int durationX = startX + 10;
+		while(durationX + startX >= WorldArrayWidth){
+			durationX--;
+		}
+		
+		int startY = (int) Math.round(e.getY() / BLOCK_SIZE()) - 5;
+		if(startY < 0){
+			startY = 0;
+		}
+		int durationY = startY + 10;
+		while(durationY + startY >= WorldArrayHeight){
+			durationY--;
+		}
+		for(int sX = startX; sX < startX + durationX + 1; sX++){
+			for(int y = startY; y < startY + durationY; y++){
 				int x;
 				if(sX >= 1){
 					x = sX -1;
@@ -115,23 +157,40 @@ public class World {
 		}
 		return false;
 	}
+	
 	public static boolean isSolidLeft(Entity e){
-		for(int sX = camXDivided; sX < camXDivided + camWidthDivided + 1; sX++){
-			for(int y = camYDivided; y < camYDivided + camHeightDivided; y++){
+		int eX = (int)e.getX();
+		int eY = (int)e.getY();
+		int bDimensions = World.BLOCK_SIZE();
+		
+		int startX = (int) Math.round(e.getX() / BLOCK_SIZE()) - 5;
+		if(startX < 0){
+			startX = 0;
+		}
+		int durationX = startX + 10;
+		while(durationX + startX >= WorldArrayWidth){
+			durationX--;
+		}
+		
+		int startY = (int) Math.round(e.getY() / BLOCK_SIZE()) - 5;
+		if(startY < 0){
+			startY = 0;
+		}
+		int durationY = startY + 10;
+		while(durationY + startY >= WorldArrayHeight){
+			durationY--;
+		}
+		for(int sX = startX; sX < startX + durationX + 1; sX++){
+			for(int y = startY; y < startY + durationY; y++){
 				int x;
 				if(sX >= 1){
 					x = sX -1;
 				}else{
 					x = sX;
 				}
-				int eX = (int)e.getX();
-				int eY = (int)e.getY();
-				int eW = e.getWidth();
-				int eH = e.getHeight();
-				
 				int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
 				int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
-				int bDimensions = World.BLOCK_SIZE();
+
 				for(int y2 = 0; y2 <= e.getHeight() / 4; y2++){
 					boolean one = eX <= bX + bDimensions + 3 && eX >= bX + bDimensions - 3 && eY - 1+ (4 * y2) >= bY && eY- 1 + (4 * y2) <= bY + bDimensions;
 					if(one){
@@ -146,22 +205,40 @@ public class World {
 		return false;
 	}
 	public static boolean isSolidRight(Entity e){
-		for(int sX = camXDivided; sX < camXDivided + camWidthDivided + 1; sX++){
-			for(int y = camYDivided; y < camYDivided + camHeightDivided; y++){
+		int eX = (int)e.getX();
+		int eY = (int)e.getY();
+		int eW = e.getWidth();
+		int bDimensions = World.BLOCK_SIZE();
+		
+		int startX = (int) Math.round(e.getX() / BLOCK_SIZE()) - 5;
+		if(startX < 0){
+			startX = 0;
+		}
+		int durationX = startX + 10;
+		while(durationX + startX >= WorldArrayWidth){
+			durationX--;
+		}
+		
+		int startY = (int) Math.round(e.getY() / BLOCK_SIZE()) - 5;
+		if(startY < 0){
+			startY = 0;
+		}
+		int durationY = startY + 10;
+		while(durationY + startY >= WorldArrayHeight){
+			durationY--;
+		}
+		for(int sX = startX; sX < startX + durationX + 1; sX++){
+			for(int y = startY; y < startY + durationY; y++){
 				int x;
 				if(sX >= 1){
 					x = sX -1;
 				}else{
 					x = sX;
 				}
-				int eX = (int)e.getX();
-				int eY = (int)e.getY();
-				int eW = e.getWidth();
-				int eH = e.getHeight();
 				
 				int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
 				int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
-				int bDimensions = World.BLOCK_SIZE();
+				
 				for(int y2 = 0; y2 <= e.getHeight() / 4; y2++){
 					boolean one = eX + eW<= bX + 3 && eX + eW>= bX - 3 && eY - 1+ (4 * y2) >= bY && eY- 1 + (4 * y2) <= bY + bDimensions;
 					if(one){
@@ -186,8 +263,8 @@ public class World {
 				}else{
 					x = sX;
 				}
-				int mX = Math.round((Mouse.getX() - (int) Screen.translate_x) / 32);
-				int mY = Math.round(Mouse.getY() / 32);
+				int mX = Math.round((Mouse.getX() - (int) Screen.translate_x) / BLOCK_SIZE());
+				int mY = Math.round(Mouse.getY() / BLOCK_SIZE());
 				if(Mouse.leftMouseButtonDown){
 					blockList[mX][mY] = new BlockStone(mX,mY);
 				}
