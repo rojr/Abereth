@@ -9,4 +9,6 @@ public interface Gui {
 	int getWidth();
 	int getHeight();
 	void onUpdate();
+	String getState();
+	void addToState(String toAdd);
 }

@@ -62,6 +62,16 @@ public class World {
 	 * instead of falling constantly
 	 */
 	public static boolean isSolidUnder(Entity e){
+		int eX = (int)e.getX();
+		int eY = (int)e.getY();
+		int eW = e.getWidth();
+		int eH = e.getHeight();
+		int bDimensions = World.BLOCK_SIZE();
+		/*
+		 * Starting math to decide where the for loop should start from
+		 * and end from, taking into consideration the array lengths so the
+		 * engine no longer crashes when player is out of bounds
+		 */
 		int startX = (int) Math.round(e.getX() / BLOCK_SIZE()) - 5;
 		if(startX < 0){
 			startX = 0;
@@ -87,14 +97,8 @@ public class World {
 				}else{
 					x = sX;
 				}
-				int eX = (int)e.getX();
-				int eY = (int)e.getY();
-				int eW = e.getWidth();
-				int eH = e.getHeight();
-				
 				int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
 				int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
-				int bDimensions = World.BLOCK_SIZE();
 				
 				//Bottom left
 				boolean one = eX >= bX && eX <= bX + bDimensions && eY + eH + 10 >= bY && eY + eH <= bY + 7;
@@ -125,7 +129,6 @@ public class World {
 		while(durationX + startX >= WorldArrayWidth){
 			durationX--;
 		}
-		
 		int startY = (int) Math.round(e.getY() / BLOCK_SIZE()) - 5;
 		if(startY < 0){
 			startY = 0;

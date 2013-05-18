@@ -11,6 +11,7 @@ import static org.lwjgl.opengl.GL11.GL_QUADS;
 
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Input.Mouse;
+import com.gmail.robmadeyou.State.State;
 
 public class Button implements Gui{
 
@@ -22,7 +23,7 @@ public class Button implements Gui{
 	private Color color;
 	private int number;
 	private String name;
-	public Button(String name, int x, int y, int width, int height, Color color, Texture Texture, String State){
+	public Button(String name, int x, int y, int width, int height, Color color, Texture Texture, State state){
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -30,7 +31,7 @@ public class Button implements Gui{
 		this.tex = Texture;
 		this.texHover = Texture;
 		this.texPressed = Texture;
-		this.state = State;
+		this.state = state.name();
 		this.color = color;
 		this.name = name;
 	}
@@ -61,6 +62,9 @@ public class Button implements Gui{
 	}
 	public void setState(String state){
 		this.state = state;
+	}
+	public void addToState(String toAdd){
+		this.state.concat("," + toAdd);
 	}
 	public String getName(){
 		return name;

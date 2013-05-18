@@ -9,14 +9,16 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 import org.newdawn.slick.opengl.Texture;
 
 import com.gmail.robmadeyou.Effects.Color;
+import com.gmail.robmadeyou.State.State;
 
 public class Box implements Gui {
 	int x, y, width, height;
 	private Texture tex;
 	private Color color;
-	private String name, state;
+	private String name;
+	private String state;
 	private int number;
-	public Box(String name, int x, int y, int width, int height, Texture texture, Color color, String state){
+	public Box(String name, int x, int y, int width, int height, Texture texture, Color color, State state){
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -24,7 +26,7 @@ public class Box implements Gui {
 		this.color = color;
 		this.tex = texture;
 		this.name = name;
-		this.state = state;
+		this.state = state.name();
 	}
 	public void setLocation(int x, int y) {
 		this.x = x;

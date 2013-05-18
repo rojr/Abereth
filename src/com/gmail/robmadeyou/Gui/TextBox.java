@@ -10,35 +10,37 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Textures;
+import com.gmail.robmadeyou.State.State;
 
-public class TextBox{
+public class TextBox implements Gui{
+
 	private double x, y, size;
 	private String text, state, name;
 	private boolean hasBackground = false;
 	private Texture backTex;
 	private Color textColor;
-	private int height, width;
-	public TextBox(String text, double x, double y, double size, String state, String name, Color textColor){
+	private int height, width, number;
+	public TextBox(String text, double x, double y, double size, State state, String name, Color textColor){
 		this.text = text;
 		this.x = x;
 		this.y = y;
 		this.size = size;
-		this.state = state;
+		this.state = state.name();
 		this.name = name;
 		this.textColor = textColor;
 		this.backTex = Textures.none;
 	}
-	public String getName(){
-		return name;
+	/*
+	 * Set
+	 */
+	public void setLocation(int x, int y) {
+		this.x = x;
 	}
-	public String getState(){
-		return state;
+	public void setWidth(int w) {
+		this.width = width;
 	}
 	public void setBackgroundVisibility(boolean b){
 		this.hasBackground = b;
-	}
-	public boolean hasBackground(){
-		return hasBackground;
 	}
 	public void setBackTexture(Texture tex){
 		this.backTex = tex;
@@ -46,10 +48,42 @@ public class TextBox{
 	public void setHeight(int height){
 		this.height = height;
 	}
+	public void setNumber(int number){
+		this.number = number;
+	}
+	/*
+	 * Get
+	 */
+	public boolean hasBackground(){
+		return hasBackground;
+	}
+	public int getNumber(){
+		return number;
+	}
+	public String getName(){
+		return name;
+	}
+	public String getState(){
+		return state;
+	}
 	public int getHeight(){
 		return height;
 	}
-	
+	public int getX() {
+		return (int)x;
+	}
+	public int getY() {
+		return (int) 0;
+	}
+	public int getWidth() {
+		return width;
+	}
+	public void onUpdate() {
+		drawBoxWithText();
+	}
+	public void addToState(String toAdd) {
+		this.state.concat("," + toAdd);
+	}
 	private void drawBackground(){
 		int width = Fonts.getWidth(text, size);
 		int height = Fonts.getHeight(text, size);

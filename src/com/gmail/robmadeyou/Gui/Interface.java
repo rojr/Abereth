@@ -6,6 +6,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Effects.Color;
+import com.gmail.robmadeyou.State.State;
 import com.gmail.robmadeyou.State.StateManager;
 
 public class Interface {
@@ -17,6 +18,8 @@ public class Interface {
 	private static int biggestArray = maxButtons;
 	static ArrayList<Button> button = new ArrayList<Button>();
 	static ArrayList<Box> box = new ArrayList<Box>();
+	static ArrayList<InputBox> inputBox = new ArrayList<InputBox>();
+	static ArrayList<TextBox> textBox = new ArrayList<TextBox>();
 	
 	public static void onUpdate(){
 		/*
@@ -31,11 +34,11 @@ public class Interface {
 		if(biggestArray < box.size()){
 			biggestArray = box.size();
 		}
-		if(biggestArray < maxInputBoxes){
-			biggestArray = maxInputBoxes;
+		if(biggestArray < inputBox.size()){
+			biggestArray = inputBox.size();
 		}
-		if(biggestArray < maxTextBoxes){
-			biggestArray = maxTextBoxes;
+		if(biggestArray < textBox.size()){
+			biggestArray = textBox.size();
 		}
 		/*
 		 * Updating each array, only using one for loop to save 
@@ -44,30 +47,38 @@ public class Interface {
 		for(int i = 0; i < biggestArray; i++){
 			if(i  < button.size()){
 				if(button.get(i) != null){
-					if(button.get(i).getState().contains(StateManager.currentState)){
+					if(button.get(i).getState().contains(StateManager.currentState.name())){
 						button.get(i).onUpdate();
 					}
 				}
 			}
 			if(i < box.size()){
 				if(box.get(i) != null){
-					if(box.get(i).getState().contains(StateManager.currentState)){
+					if(box.get(i).getState().contains(StateManager.currentState.name())){
 						box.get(i).onUpdate();
 					}
 				}
 			}
-			if(biggestArray < maxInputBoxes){
-				//TODO Finish maxInputBoxes
+			if(i < inputBox.size()){
+				if(inputBox.get(i) != null){
+					if(inputBox.get(i).getState().contains(StateManager.currentState.name())){
+						inputBox.get(i).onUpdate();
+					}
+				}
 			}
-			if(biggestArray < maxTextBoxes){
-				//TODO Finish maxTextBoxes
+			if(i < textBox.size()){
+				if(textBox.get(i) != null){
+					if(textBox.get(i).getState().contains(StateManager.currentState.name())){
+						textBox.get(i).onUpdate();
+					}
+				}
 			}
 		}
 	}
 	/*
 	 * Here we are able to add a button to the screen
 	 */
-	public static void addButton(String name, int x, int y, int width, int height, Color color, Texture Texture, String state){
+	public static void addButton(String name, int x, int y, int width, int height, Color color, Texture Texture, State state){
 		boolean nameExists = false;
 		for(int i = 0; i < button.size(); i++){
 			if(button.get(i).getName().toLowerCase().equals(name)){
@@ -82,12 +93,12 @@ public class Interface {
 			maxButtons++;
 		}
 	}
-	public static void addBox(String name, int x, int y, int width, int height, Texture texture, Color color, String state){
+	public static void addBox(String name, int x, int y, int width, int height, Texture texture, Color color, State state){
 		boolean nameExists = false;
 		for(int i = 0; i < box.size(); i++){
-			if(box.get(i).getName().toLowerCase().equals(name)){
+			if(box.get(i).getName().equals(name)){
 				nameExists = true;
-				System.out.println(Screen.engineName + "Could not create BOX by name of: " + name + " as it already exists.");
+				System.out.println(Screen.engineName + "Could not create BOX by the name of: " + name + " as it already exists.");
 				break; //Break here in case array is 10000000k big and doesn't have to loop through everything
 			}
 		}
@@ -97,12 +108,70 @@ public class Interface {
 			maxGuiBoxes++;
 		}
 	}
+	public static void addInputBox(String name, int x, int y, int width, int height, Color color, State state, int maxCharacters){
+		boolean nameExists = false;
+		for(int i = 0; i < inputBox.size(); i++){
+			if(inputBox.get(i).getName().contains(name)){
+				nameExists = true;
+				System.out.println(Screen.engineName + "Could not create INPUTBOX by the name of: " + name + " as it already exists.");
+				break; //Break here in case array is 10000000k big and doesn't have to loop through everything
+			}
+		}
+		if(!nameExists){
+			inputBox.add(new InputBox(x, y, width, height, name, color, state, maxCharacters));
+			inputBox.get(inputBox.size() - 1).setNumber(inputBox.size() -1);
+			maxInputBoxes++;
+		}
+	}
+	public static void addTextBox(String text, int x, int y, double size, State state, String name, Color textColor){
+		boolean nameExists = false;
+		for(int i = 0; i < textBox.size(); i++){
+			if(textBox.get(i).getName().contains(name)){
+				nameExists = true;
+				System.out.println(Screen.engineName + "Could not create TEXTBOX by the name of: " + name + " as it already exists.");
+				break;
+			}
+		}
+		if(!nameExists){
+			textBox.add(new TextBox(text, x, y, size, state, name, textColor));
+			textBox.get(textBox.size() - 1).setNumber(textBox.size() - 1);
+			maxTextBoxes++;
+		}
+	}
 	public static Button getButtonByName(String name){
 		for(int i = 0; i < button.size(); i++){
 			if(button.get(i).getName().equals(name)){
 				return button.get(i);
 			}
 		}
+		System.out.println(Screen.engineName + "ERROR; UNABLE TO FIND BUTTON BY THE NAME OF: " + name);
+		return null;
+	}
+	public static Box getBoxByName(String name){
+		for(int i = 0; i < box.size(); i++){
+			if(box.get(i).getName().equals(name)){
+				return box.get(i);
+			}
+		}
+		System.out.println(Screen.engineName + "ERROR; UNABLE TO FIND BOX BY THE NAME OF: " + name);
+		return null;
+	}
+	public static InputBox getInputBoxByName(String name){
+		for(int i = 0; i < inputBox.size(); i++){
+			if(inputBox.get(i).getName().equals(name)){
+				return inputBox.get(i);
+			}
+		}
+		System.out.println(Screen.engineName + "ERROR; UNABLE TO FIND INPUT BOX BY THE NAME OF: " + name);
+		return null;
+	}
+	public static TextBox getTextBoxByName(String name){
+		for(int i = 0; i < textBox.size(); i++){
+			if(textBox.get(i).getName().equals(name)){
+				return textBox.get(i);
+			}
+		}
+		System.out.println(Screen.engineName + "ERROR; UNABLE TO FIND TEXT BOX BY THE NAME OF: " + name);
 		return null;
 	}
 }

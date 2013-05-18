@@ -23,10 +23,8 @@ public class Enemy implements Entity {
 	private double speed;
 	private boolean isJumping = false;
 	private boolean isInAir = false;
-	private boolean isCrouching = false;
 	private double jumpDY = 0;
 	private double finalJumpDY = 7;
-	
 	/*
 	 * Directions are as follows (think of a compass)
 	 * 
