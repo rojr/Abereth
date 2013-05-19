@@ -30,7 +30,22 @@ public class Player implements Entity{
 	private boolean isCrouching = false;
 	private double jumpDY = 0;
 	private boolean hasClicked = false;
-	final double finalJumpDY = 7;
+	private final double finalJumpDY = 7;
+	/*
+	 * Direction is as shown:
+	 * (think of a compass)
+	 *         0
+	 *       3   1
+	 *         2
+	 *         
+	 * This would translate to:
+	 * 
+	 * 			up
+	 * 	  right     left
+	 * 		   down
+	 */
+	private int direction = 1;
+	private Key upKey, downKey, rightKey, leftKey;
 	private MovementType movementType = MovementType.ARROW_KEYS;
 	public Player(double x, double y, int width, int height){
 		this.x = x;
@@ -43,6 +58,10 @@ public class Player implements Entity{
 		this.height = height;
 		this.speed = 1;
 		this.crouchHeight = (height / 4) * 3;
+		this.upKey = Key.UpArrow;
+		this.downKey = Key.DownArrow;
+		this.rightKey = Key.RightArrow;
+		this.leftKey = Key.LeftArrow;
 	}
 	public void setDX(double dX){
 		this.dX = dX;
@@ -56,6 +75,14 @@ public class Player implements Entity{
 	public void setFixedMovementType(MovementType type){
 		this.movementType = type;
 	}
+	public void setCustomMovementType(Key upKey, Key downKey, Key leftKey, Key rightKey){
+		this.movementType = MovementType.CUSTOM_KEYS;
+		this.upKey = upKey;
+		this.downKey = downKey;
+		this.leftKey = leftKey;
+		this.rightKey = rightKey;
+		
+	}
 	public void setNumber(int num){
 		this.number = num;
 	}
@@ -67,7 +94,6 @@ public class Player implements Entity{
 	}
 	public void setWidth(int w) {
 		this.width = w;
-		
 	}
 	public void setHeight(int h) {
 		this.height = h;
@@ -106,8 +132,10 @@ public class Player implements Entity{
 			return Key.Numpad_Eight;
 		}else if(type.equals(MovementType.IJKL_KEYS)){
 			return Key.I;
-		}else{
+		}else if(type.equals(MovementType.ARROW_KEYS)){
 			return Key.UpArrow;
+		}else{
+			return upKey;
 		}
 	}
 	public Key getDownKey(MovementType type){
@@ -117,8 +145,10 @@ public class Player implements Entity{
 			return Key.Numpad_Two;
 		}else if(type.equals(MovementType.IJKL_KEYS)){
 			return Key.K;
-		}else{
+		}else if(type.equals(MovementType.ARROW_KEYS)){
 			return Key.DownArrow;
+		}else{
+			return downKey;
 		}
 	}
 	public Key getLeftKey(MovementType type){
@@ -128,8 +158,10 @@ public class Player implements Entity{
 			return Key.Numpad_Four;
 		}else if(type.equals(MovementType.IJKL_KEYS)){
 			return Key.J;
-		}else{
+		}else if(type.equals(MovementType.ARROW_KEYS)){
 			return Key.LeftArrow;
+		}else{
+			return leftKey;
 		}
 	}
 	public Key getRightKey(MovementType type){
@@ -139,14 +171,33 @@ public class Player implements Entity{
 			return Key.Numpad_Six;
 		}else if(type.equals(MovementType.IJKL_KEYS)){
 			return Key.L;
-		}else{
+		}else if(type.equals(MovementType.ARROW_KEYS)){
 			return Key.RightArrow;
+		}else{
+			return rightKey;
 		}
 	}
 	public void handleInput(int delta){
-		double center = (Screen.getWidth() / 2) - Screen.translate_x;
-		double distFromSide = (Screen.getWidth() / 5) - Screen.translate_x;
-		double distFromCenter = center - x;
+		
+		double centerX = (Screen.getWidth() / 2) - Screen.translate_x;
+		double distFromSideX = (Screen.getWidth() / 5) - Screen.translate_x;
+		double distFromCenterX = centerX - x;
+		
+		double centerY = (Screen.getHeight() / 2) - Screen.translate_y;
+		double distFromSideY = (Screen.getHeight() / 5) - Screen.translate_y;
+		double distFromCenterY = centerY - y;
+			/*
+		 	*     /
+		 	*    /
+		 	*   /
+		 	*  /
+		 	* ---------------
+		 	*  \ 
+		 	*   \
+		 	*    \
+		 	*     \
+		 	* 
+		 	*/
 			if(Keyboard.isKeyDown(getLeftKey(movementType))){//No need for lots and lots of lines of code! Yaay!
 				boolean one = x + width <= (Screen.getWidth() / 5) - Screen.translate_x;
 				if(!World.isSolidLeft(this)){
@@ -156,14 +207,26 @@ public class Player implements Entity{
 					Screen.translate_x += (delta * (speed - 0.8));
 				}
 				if(!one && Screen.translate_x < 0.0){
-					if(distFromCenter > 0)
-						Screen.translate_x += (delta * (speed - 0.8)) * (distFromCenter / distFromSide);
+					if(distFromCenterX > 0)
+						Screen.translate_x += (delta * (speed - 0.8)) * (distFromCenterX / distFromSideX);
 				}
 				if(Screen.translate_x > 0.0){
 					Screen.translate_x = 0.0;
 				}
 				
 			}
+			/*
+			 *           \
+			 *            \
+			 *             \
+			 *              \
+			 * ---------------
+			 *              /
+			 *             /
+			 *            /
+			 *           /
+			 * 
+			 */
 			if(Keyboard.isKeyDown(getRightKey(movementType))){
 				boolean one = x + width >= (Screen.getWidth() - (Screen.getWidth() / 5)) - Screen.translate_x;
 				boolean two = Screen.translate_x - Screen.getWidth() < World.getWorldWidthInPixels() - World.BLOCK_SIZE();
@@ -174,14 +237,25 @@ public class Player implements Entity{
 					Screen.translate_x -= (delta * (speed - 0.8));
 				}
 				if(!one && two){
-					if(distFromCenter < 0)
-						Screen.translate_x += (delta * (speed - 0.8)) * (distFromCenter / distFromSide);
+					if(distFromCenterX < 0)
+						Screen.translate_x += (delta * (speed - 0.8)) * (distFromCenterX / distFromSideX);
 				}
 				if(!two){
 					Screen.translate_x = World.getWorldHeightInPixels() - Screen.getWidth();
 				}
 				
 			}
+			/*
+			 *              .
+			 *             /|\
+			 *            / | \
+			 *           /  |  \
+			 *              |
+			 *              |
+			 *              |
+			 *              |
+			 *              |
+			 */
 			if(Keyboard.isKeyDown(getUpKey(movementType))){
 				if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
 					if(!isJumping){
@@ -190,19 +264,60 @@ public class Player implements Entity{
 					}
 				}
 				if(Screen.TypeOfGame == GameType.RPG_STYLE){
-					if(!World.isSolidAbove(this)){
+					boolean checkIfInTopBit = y < (Screen.getHeight() / 5) - Screen.translate_y;
+					if(checkIfInTopBit && Screen.translate_y < 0){
+						Screen.translate_y += (delta * (speed - 0.8));
+					}
+					if(Screen.translate_y > 0){
+						Screen.translate_y = 0;
+					}
+					if(!checkIfInTopBit && Screen.translate_y < 0.0){
+						if(distFromCenterY > 0)
+							Screen.translate_y += (delta * (speed - 0.8)) * (distFromCenterY / distFromSideY);
+					}
+					if(!World.isSolidAbove(this) && y > 0){
 						y -= (delta * (speed - 0.8));
+					}
+					if(y < 0){
+						y = 0;
 					}
 				}
 				//TODO Update different game modes
 			}
+			/*
+			 *              |
+			 *              |
+			 *              |
+			 *              |
+			 *              |
+			 *           \  |  /
+			 *            \ | /
+			 *             \|/
+			 *              `
+			 */
 			if(Keyboard.isKeyDown(getDownKey(movementType))){
 				if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
 					isCrouching = true;
 				}
 				if(Screen.TypeOfGame == GameType.RPG_STYLE){
-					if(World.isSolidUnder(this)){
+					boolean checkIfInBottomBit = y + height > (Screen.getHeight() - (Screen.getHeight() / 5)) - Screen.translate_y;
+					boolean isInBottomBounds = -Screen.translate_y + Screen.getHeight() < World.getWorldHeightInPixels();
+					
+					if(checkIfInBottomBit && isInBottomBounds){
+						Screen.translate_y -= (delta * (speed - 0.8));
+					}
+					if(!checkIfInBottomBit && Screen.translate_y < 0.0){
+						if(distFromCenterY < 0)
+							Screen.translate_y += (delta * (speed - 0.8)) * (distFromCenterY / distFromSideY);
+					}
+					if(!isInBottomBounds){
+						Screen.translate_y = -World.getWorldHeightInPixels() + Screen.getHeight();
+					}
+					if(!World.isSolidUnder(this) && y + height < World.getWorldHeightInPixels()){
 						y += (delta * (speed - 0.8));
+					}
+					if(y + height > World.getWorldHeightInPixels()){
+						y = World.getWorldHeightInPixels() - height;
 					}
 				}
 			}else{
@@ -220,17 +335,20 @@ public class Player implements Entity{
 			Fonts.drawString("y " + y, 0, 10, 1, Color.Blue);
 		}
 		if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
+			boolean checkIfInBottomBit = y + height > (Screen.getHeight() - (Screen.getHeight() / 5)) - Screen.translate_y + Screen.getHeight() / 5;
+			if(checkIfInBottomBit){
+				Screen.translate_y += jumpDY * (delta * 0.1);
+			}
+			if(World.getWorldHeightInPixels() - World.BLOCK_SIZE() * 4 <= Screen.translate_y + Screen.getHeight()){
+				Screen.translate_y = (World.getWorldHeightInPixels() - World.BLOCK_SIZE() * 2) - Screen.getHeight();
+			}
 			if(isJumping || isInAir){
 				y -= jumpDY * (delta * 0.1);
 				jumpDY = jumpDY  - World.gravity(delta);
 				if(jumpDY < -16){
 					jumpDY = -16;
 				}
-				if(y + height > Screen.getHeight()){
-					isJumping = false;
-					jumpDY = 0;
-				}
-				if(World.isSolidUnder(this)){
+				if(y + height > World.getWorldHeightInPixels() - (World.BLOCK_SIZE() * 2)){
 					isJumping = false;
 					jumpDY = 0;
 				}
@@ -240,10 +358,14 @@ public class Player implements Entity{
 				}
 			}
 			
-			if(y + height < Screen.getHeight()){
+			if(y + height < World.getWorldHeightInPixels() - (World.BLOCK_SIZE() * 2)){
 				isInAir = true;
 			}else{
 				isInAir = false;
+				jumpDY = 0;
+			}
+			if(World.isSolidUnder(this)){
+				isJumping = false;
 				jumpDY = 0;
 			}
 			
@@ -290,7 +412,8 @@ public class Player implements Entity{
 		ARROW_KEYS(),
 		WASD_KEYS(),
 		NUMPAD_KEYS(),
-		IJKL_KEYS();
+		IJKL_KEYS(),
+		CUSTOM_KEYS();
 		MovementType(){}
 	}
 }

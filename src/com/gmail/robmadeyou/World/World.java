@@ -259,19 +259,25 @@ public class World {
 		camYDivided = (int) Math.round(-Screen.translate_y / BLOCK_SIZE());
 		
 		for(int sX = camXDivided; sX < camXDivided + camWidthDivided + 1; sX++){
-			for(int y = camYDivided; y < camYDivided + camHeightDivided; y++){
+			for(int sY = camYDivided; sY < camYDivided + camHeightDivided + 2; sY++){
 				int x;
+				int y;
 				if(sX >= 1){
 					x = sX -1;
 				}else{
 					x = sX;
 				}
+				if(sY >= 1){
+					y = sY - 1;
+				}else{
+					y = sY;
+				}
 				int mX = Math.round((Mouse.getX() - (int) Screen.translate_x) / BLOCK_SIZE());
-				int mY = Math.round(Mouse.getY() / BLOCK_SIZE());
+				int mY = Math.round((Mouse.getY() - (int) Screen.translate_y) / BLOCK_SIZE());
 				if(Mouse.leftMouseButtonDown){
 					blockList[mX][mY] = new BlockStone(mX,mY);
 				}
-				if(x < WorldArrayWidth && y < WorldArrayHeight){
+				if(x < WorldArrayWidth && y < WorldArrayHeight && x >= 0 && y >= 0){
 					blockList[x][y].onUpdate();
 				}
 			}

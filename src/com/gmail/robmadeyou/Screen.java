@@ -172,15 +172,15 @@ public class Screen {
 		 * the screen wasn't created and we couldn't actually initialise the variables :S
 		 */
 		if(WorldWidth == 0 && WorldHeight == 0){
-			WorldWidth = Math.round(getWidth() / WorldTileSize) + 5;
-			WorldHeight = Math.round(getHeight() / WorldTileSize) + 5;
+			WorldWidth = Math.round(getWidth() / WorldTileSize) + 3;
+			WorldHeight = Math.round(getHeight() / WorldTileSize) + 3;
 		}
-		if(WorldWidth < Math.round(getWidth() / WorldTileSize) + 1){
-			WorldWidth = Math.round(getWidth() / WorldTileSize + 5);
+		if(WorldWidth < Math.round(getWidth() / WorldTileSize) + 3){
+			WorldWidth = Math.round(getWidth() / WorldTileSize + 3);
 			System.out.println(engineName + "WorldWidth TOO LOW. default to: " + WorldWidth);
 		}
-		if(WorldHeight < Math.round(getHeight() / WorldTileSize) + 1){
-			WorldHeight = Math.round(getHeight() / WorldTileSize) + 5;
+		if(WorldHeight < Math.round(getHeight() / WorldTileSize) + 3){
+			WorldHeight = Math.round(getHeight() / WorldTileSize) + 3;
 			System.out.println(engineName + "WorldHeight TOO LOW. default to: " + WorldWidth);
 		}
 		World.setWorldDimensions(WorldWidth, WorldHeight);
@@ -229,7 +229,6 @@ public class Screen {
 	public enum GameType{
 		SIDE_SCROLLER,
 		RPG_STYLE,
-		FREE,
 		CUSTOM;
 		GameType(){
 		}

@@ -112,7 +112,6 @@ public class Button implements Gui{
 		draw();
 	}
 	public void draw(){
-		//TODO Add notifications that tell if the textures are not loading or something has gone completely apes***
 		if(isPressed()){
 			if(texPressed != null){
 				texPressed.bind();
