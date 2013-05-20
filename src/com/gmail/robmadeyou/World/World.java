@@ -277,6 +277,9 @@ public class World {
 				if(Mouse.leftMouseButtonDown){
 					blockList[mX][mY] = new BlockStone(mX,mY);
 				}
+				if(Mouse.rightMouseButtonDown){
+					blockList[mX][mY] = new BlockAir(mX, mY);
+				}
 				if(x < WorldArrayWidth && y < WorldArrayHeight && x >= 0 && y >= 0){
 					blockList[x][y].onUpdate();
 				}

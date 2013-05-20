@@ -1,7 +1,6 @@
 package com.gmail.robmadeyou.Entity;
 
 import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.GL_LINES;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
@@ -19,17 +18,18 @@ import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 
 public class Player implements Entity{
-	private double originalX, originalY, x, y;
+	private double x, y;
 	private double dX, dY;
-	private int originalWidth, originalHeight, width, height;
+	private int originalHeight, width, height;
 	private int crouchHeight;
 	private int number;
 	private double speed;
-	private boolean isJumping = false;
-	private boolean isInAir = false;
-	private boolean isCrouching = false;
+	private boolean isJumping;
+	private boolean isInAir;
+	private boolean isCrouching;
 	private double jumpDY = 0;
-	private boolean hasClicked = false;
+	private boolean hasClicked;
+	private int amountOhHealth;
 	private final double finalJumpDY = 7;
 	/*
 	 * Direction is as shown:
@@ -50,10 +50,7 @@ public class Player implements Entity{
 	public Player(double x, double y, int width, int height){
 		this.x = x;
 		this.y = y;
-		this.originalX = x;
-		this.originalY = y;
 		this.originalHeight = height;
-		this.originalWidth = width;
 		this.width = width;
 		this.height = height;
 		this.speed = 1;
@@ -62,7 +59,17 @@ public class Player implements Entity{
 		this.downKey = Key.DownArrow;
 		this.rightKey = Key.RightArrow;
 		this.leftKey = Key.LeftArrow;
+		this.jumpDY = 0;
+		
+		isJumping = false;
+		isInAir = false;
+		isCrouching = false;
+		hasClicked = false;
 	}
+	public void setHealth(int amount){
+		this.amountOhHealth = amount;
+	}
+	
 	public void setDX(double dX){
 		this.dX = dX;
 	}
@@ -82,6 +89,9 @@ public class Player implements Entity{
 		this.leftKey = leftKey;
 		this.rightKey = rightKey;
 		
+	}
+	public void setDirection(int direction){
+		this.direction = direction;
 	}
 	public void setNumber(int num){
 		this.number = num;
@@ -124,6 +134,9 @@ public class Player implements Entity{
 	}
 	public double getSpeed() {
 		return speed;
+	}
+	public int getFacingDirection(){
+		return direction;
 	}
 	public Key getUpKey(MovementType type){
 		if(type.equals(MovementType.WASD_KEYS)){
@@ -199,6 +212,7 @@ public class Player implements Entity{
 		 	* 
 		 	*/
 			if(Keyboard.isKeyDown(getLeftKey(movementType))){//No need for lots and lots of lines of code! Yaay!
+				direction = 3;
 				boolean one = x + width <= (Screen.getWidth() / 5) - Screen.translate_x;
 				if(!World.isSolidLeft(this)){
 					x -= (delta * (speed - 0.8));
@@ -228,6 +242,7 @@ public class Player implements Entity{
 			 * 
 			 */
 			if(Keyboard.isKeyDown(getRightKey(movementType))){
+				direction = 1;
 				boolean one = x + width >= (Screen.getWidth() - (Screen.getWidth() / 5)) - Screen.translate_x;
 				boolean two = Screen.translate_x - Screen.getWidth() < World.getWorldWidthInPixels() - World.BLOCK_SIZE();
 				if(!World.isSolidRight(this)){
@@ -264,6 +279,7 @@ public class Player implements Entity{
 					}
 				}
 				if(Screen.TypeOfGame == GameType.RPG_STYLE){
+					direction = 0;
 					boolean checkIfInTopBit = y < (Screen.getHeight() / 5) - Screen.translate_y;
 					if(checkIfInTopBit && Screen.translate_y < 0){
 						Screen.translate_y += (delta * (speed - 0.8));
@@ -300,6 +316,7 @@ public class Player implements Entity{
 					isCrouching = true;
 				}
 				if(Screen.TypeOfGame == GameType.RPG_STYLE){
+					direction = 2;
 					boolean checkIfInBottomBit = y + height > (Screen.getHeight() - (Screen.getHeight() / 5)) - Screen.translate_y;
 					boolean isInBottomBounds = -Screen.translate_y + Screen.getHeight() < World.getWorldHeightInPixels();
 					
@@ -335,14 +352,54 @@ public class Player implements Entity{
 			Fonts.drawString("y " + y, 0, 10, 1, Color.Blue);
 		}
 		if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
-			boolean checkIfInBottomBit = y + height > (Screen.getHeight() - (Screen.getHeight() / 5)) - Screen.translate_y + Screen.getHeight() / 5;
-			if(checkIfInBottomBit){
-				Screen.translate_y += jumpDY * (delta * 0.1);
-			}
-			if(World.getWorldHeightInPixels() - World.BLOCK_SIZE() * 4 <= Screen.translate_y + Screen.getHeight()){
-				Screen.translate_y = (World.getWorldHeightInPixels() - World.BLOCK_SIZE() * 2) - Screen.getHeight();
-			}
+			double centerY = (Screen.getHeight() / 2) - Screen.translate_y;
+			double distFromSideY = (Screen.getHeight() / 5) - Screen.translate_y;
+			double distFromCenterY = centerY - y;
 			if(isJumping || isInAir){
+				
+				/*Start of screen moving up if player is in the top bit, otherwise it would stay to the top
+				 * bit constantly :p
+				*/
+				
+				boolean checkIfInTopBit = y < (Screen.getHeight() / 5) - Screen.translate_y;
+				if(checkIfInTopBit && Screen.translate_y < 0 && jumpDY > 0){
+					Screen.translate_y += jumpDY * (delta * 0.1);
+				}
+				if(Screen.translate_y > 0){
+					Screen.translate_y = 0;
+				}
+				if(!checkIfInTopBit && Screen.translate_y < 0.0){
+					if(distFromCenterY > 0 && jumpDY > 0)
+						Screen.translate_y += (jumpDY * (delta * 0.1)) * (distFromCenterY / distFromSideY);
+				}
+				if(y < 0){
+					y = 0;
+				}
+				/*
+				 * End of Start of screen moving up
+				 */
+				
+				/*
+				 * Screen moving down if player is in bottom area and is falling, otherwise it would
+				 * make things really awkward all the time
+				 */
+				boolean checkIfInBottomBit = y + height > (Screen.getHeight() - (Screen.getHeight() / 5)) - Screen.translate_y;
+				boolean isInBottomBounds = -Screen.translate_y + Screen.getHeight() < World.getWorldHeightInPixels();
+				
+				if(checkIfInBottomBit && isInBottomBounds && jumpDY < 0){
+					Screen.translate_y += jumpDY * (delta * 0.1);
+				}
+				if(!checkIfInBottomBit && Screen.translate_y < 0.0 && jumpDY < 0){
+					if(distFromCenterY < 0 && jumpDY < 0)
+						Screen.translate_y += (jumpDY * (delta * 0.1)) * (distFromCenterY / distFromSideY);
+				}
+				if(!isInBottomBounds){
+					Screen.translate_y = -World.getWorldHeightInPixels() + Screen.getHeight();
+				}
+				/*
+				 * End of screen moving down
+				 */
+				
 				y -= jumpDY * (delta * 0.1);
 				jumpDY = jumpDY  - World.gravity(delta);
 				if(jumpDY < -16){
@@ -393,8 +450,18 @@ public class Player implements Entity{
 	}
 	public void draw() {
 		glPushMatrix();
+		
 		glTranslated(Screen.translate_x, Screen.translate_y, 0);
 		Fonts.drawString("Player",(int) x - 5,(int) y - 20, 1, Color.Red);
+		if(direction == 0){
+			Color.Black.bind();
+		}else if(direction == 1){
+			Color.White.bind();
+		}else if(direction == 2){
+			Color.Red.bind();
+		}else{
+			Color.Green.bind();
+		}
 		glBegin(GL_QUADS);
 			glTexCoord2d(0, 0);
 			glVertex2d(x , y);
@@ -407,6 +474,7 @@ public class Player implements Entity{
 		glEnd();
 		
 		glPopMatrix();
+		Color.White.bind();
 	}
 	public enum MovementType{
 		ARROW_KEYS(),

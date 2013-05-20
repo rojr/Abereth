@@ -13,6 +13,7 @@ public class Textures {
 	
 	public static Texture none;
 	public static Texture test;
+	public static Texture player_default;
 	public static Texture Block_Sky;
 	
 	static ArrayList<Tex> tex = new ArrayList<Tex>();
