@@ -10,6 +10,7 @@ import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
 import com.gmail.robmadeyou.World.World;
+import com.gmail.robmadeyou.draw.Box;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Textures;
 import com.gmail.robmadeyou.Entity.Entity;
@@ -114,7 +115,7 @@ public class Screen {
 	public static int WorldWidth = 0;
 	public static int WorldHeight = 0;
 	
-	public static void createScreen(int dimensionX, int dimensionY, String name, GameType typeOfGame, boolean Minimalistic){
+	public static void create(int dimensionX, int dimensionY, String name, GameType typeOfGame, boolean Minimalistic){
 		long startTimer = getTime();
 		TypeOfGame = typeOfGame;
 		try{
@@ -222,7 +223,10 @@ public class Screen {
 				Fonts.drawString("camY " + translate_y, 0, 30, 1, Color.Red);
 				Fonts.drawString("FPS: " + actualFps, 5, 40, 1, Color.Black);
 			}
+			
 		Display.sync(60);
+	}
+	public static void refresh(){
 		Display.update();
 	}
 	

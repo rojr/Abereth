@@ -211,24 +211,23 @@ public class Player implements Entity{
 		 	*     \
 		 	* 
 		 	*/
-			if(Keyboard.isKeyDown(getLeftKey(movementType))){//No need for lots and lots of lines of code! Yaay!
-				direction = 3;
-				boolean one = x + width <= (Screen.getWidth() / 5) - Screen.translate_x;
-				if(!World.isSolidLeft(this)){
-					x -= (delta * (speed - 0.8));
-				}
-				if(one && Screen.translate_x < 0.0){
-					Screen.translate_x += (delta * (speed - 0.8));
-				}
-				if(!one && Screen.translate_x < 0.0){
-					if(distFromCenterX > 0)
-						Screen.translate_x += (delta * (speed - 0.8)) * (distFromCenterX / distFromSideX);
-				}
-				if(Screen.translate_x > 0.0){
-					Screen.translate_x = 0.0;
-				}
-				
+		if(Keyboard.isKeyDown(getLeftKey(movementType))){//No need for lots and lots of lines of code! Yaay!
+			direction = 3;
+			boolean one = x + width <= (Screen.getWidth() / 5) - Screen.translate_x;
+			if(!World.isSolidLeft(this)){
+				x -= (delta * (speed - 0.8));
 			}
+			if(one && Screen.translate_x < 0.0){
+				Screen.translate_x += (delta * (speed - 0.8));
+			}
+			if(!one && Screen.translate_x < 0.0){
+				if(distFromCenterX > 0)
+					Screen.translate_x += (delta * (speed - 0.8)) * (distFromCenterX / distFromSideX);
+			}
+			if(Screen.translate_x > 0.0){
+					Screen.translate_x = 0.0;
+			}
+		}
 			/*
 			 *           \
 			 *            \
@@ -241,25 +240,24 @@ public class Player implements Entity{
 			 *           /
 			 * 
 			 */
-			if(Keyboard.isKeyDown(getRightKey(movementType))){
-				direction = 1;
-				boolean one = x + width >= (Screen.getWidth() - (Screen.getWidth() / 5)) - Screen.translate_x;
-				boolean two = Screen.translate_x - Screen.getWidth() < World.getWorldWidthInPixels() - World.BLOCK_SIZE();
-				if(!World.isSolidRight(this)){
-					x += (delta * (speed - 0.8));
-				}
-				if(one && two){
-					Screen.translate_x -= (delta * (speed - 0.8));
-				}
-				if(!one && two){
-					if(distFromCenterX < 0)
-						Screen.translate_x += (delta * (speed - 0.8)) * (distFromCenterX / distFromSideX);
-				}
-				if(!two){
-					Screen.translate_x = World.getWorldHeightInPixels() - Screen.getWidth();
-				}
-				
+		if(Keyboard.isKeyDown(getRightKey(movementType))){
+			direction = 1;
+			boolean one = x + width >= (Screen.getWidth() - (Screen.getWidth() / 5)) - Screen.translate_x;
+			boolean two = Screen.translate_x - Screen.getWidth() < World.getWorldWidthInPixels() - World.BLOCK_SIZE();
+			if(!World.isSolidRight(this)){
+				x += (delta * (speed - 0.8));
 			}
+			if(one && two){
+				Screen.translate_x -= (delta * (speed - 0.8));
+			}
+			if(!one && two){
+				if(distFromCenterX < 0)
+					Screen.translate_x += (delta * (speed - 0.8)) * (distFromCenterX / distFromSideX);
+			}
+			if(!two){
+				Screen.translate_x = World.getWorldHeightInPixels() - Screen.getWidth();
+			}
+		}
 			/*
 			 *              .
 			 *             /|\
@@ -271,35 +269,35 @@ public class Player implements Entity{
 			 *              |
 			 *              |
 			 */
-			if(Keyboard.isKeyDown(getUpKey(movementType))){
-				if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
-					if(!isJumping){
-						isJumping = true;
-						jumpDY = finalJumpDY;
-					}
+		if(Keyboard.isKeyDown(getUpKey(movementType))){
+			if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
+				if(!isJumping){
+					isJumping = true;
+					jumpDY = finalJumpDY;
 				}
-				if(Screen.TypeOfGame == GameType.RPG_STYLE){
-					direction = 0;
-					boolean checkIfInTopBit = y < (Screen.getHeight() / 5) - Screen.translate_y;
-					if(checkIfInTopBit && Screen.translate_y < 0){
-						Screen.translate_y += (delta * (speed - 0.8));
-					}
-					if(Screen.translate_y > 0){
-						Screen.translate_y = 0;
-					}
-					if(!checkIfInTopBit && Screen.translate_y < 0.0){
-						if(distFromCenterY > 0)
-							Screen.translate_y += (delta * (speed - 0.8)) * (distFromCenterY / distFromSideY);
-					}
-					if(!World.isSolidAbove(this) && y > 0){
-						y -= (delta * (speed - 0.8));
-					}
-					if(y < 0){
-						y = 0;
-					}
-				}
-				//TODO Update different game modes
 			}
+			if(Screen.TypeOfGame == GameType.RPG_STYLE){
+				direction = 0;
+				boolean checkIfInTopBit = y < (Screen.getHeight() / 5) - Screen.translate_y;
+				if(checkIfInTopBit && Screen.translate_y < 0){
+					Screen.translate_y += (delta * (speed - 0.8));
+				}
+				if(Screen.translate_y > 0){
+					Screen.translate_y = 0;
+				}
+				if(!checkIfInTopBit && Screen.translate_y < 0.0){
+					if(distFromCenterY > 0)
+						Screen.translate_y += (delta * (speed - 0.8)) * (distFromCenterY / distFromSideY);
+				}
+				if(!World.isSolidAbove(this) && y > 0){
+					y -= (delta * (speed - 0.8));
+				}
+				if(y < 0){
+					y = 0;
+				}
+			}
+				//TODO Update different game modes
+		}
 			/*
 			 *              |
 			 *              |
@@ -311,38 +309,36 @@ public class Player implements Entity{
 			 *             \|/
 			 *              `
 			 */
-			if(Keyboard.isKeyDown(getDownKey(movementType))){
-				if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
-					isCrouching = true;
+		if(Keyboard.isKeyDown(getDownKey(movementType))){
+			if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
+				isCrouching = true;
+			}
+			if(Screen.TypeOfGame == GameType.RPG_STYLE){
+				direction = 2;
+				boolean checkIfInBottomBit = y + height > (Screen.getHeight() - (Screen.getHeight() / 5)) - Screen.translate_y;
+				boolean isInBottomBounds = -Screen.translate_y + Screen.getHeight() < World.getWorldHeightInPixels();
+				if(checkIfInBottomBit && isInBottomBounds){
+					Screen.translate_y -= (delta * (speed - 0.8));
 				}
-				if(Screen.TypeOfGame == GameType.RPG_STYLE){
-					direction = 2;
-					boolean checkIfInBottomBit = y + height > (Screen.getHeight() - (Screen.getHeight() / 5)) - Screen.translate_y;
-					boolean isInBottomBounds = -Screen.translate_y + Screen.getHeight() < World.getWorldHeightInPixels();
-					
-					if(checkIfInBottomBit && isInBottomBounds){
-						Screen.translate_y -= (delta * (speed - 0.8));
-					}
-					if(!checkIfInBottomBit && Screen.translate_y < 0.0){
-						if(distFromCenterY < 0)
-							Screen.translate_y += (delta * (speed - 0.8)) * (distFromCenterY / distFromSideY);
-					}
-					if(!isInBottomBounds){
-						Screen.translate_y = -World.getWorldHeightInPixels() + Screen.getHeight();
-					}
-					if(!World.isSolidUnder(this) && y + height < World.getWorldHeightInPixels()){
-						y += (delta * (speed - 0.8));
-					}
-					if(y + height > World.getWorldHeightInPixels()){
-						y = World.getWorldHeightInPixels() - height;
-					}
+				if(!checkIfInBottomBit && Screen.translate_y < 0.0){
+					if(distFromCenterY < 0)
+						Screen.translate_y += (delta * (speed - 0.8)) * (distFromCenterY / distFromSideY);
 				}
-			}else{
-				if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
-					isCrouching = false;
+				if(!isInBottomBounds){
+					Screen.translate_y = -World.getWorldHeightInPixels() + Screen.getHeight();
+				}
+				if(!World.isSolidUnder(this) && y + height < World.getWorldHeightInPixels()){
+					y += (delta * (speed - 0.8));
+				}
+				if(y + height > World.getWorldHeightInPixels()){
+					y = World.getWorldHeightInPixels() - height;
 				}
 			}
-		
+		}else{
+			if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
+				isCrouching = false;
+			}
+		}
 	}
 	
 	
@@ -355,26 +351,28 @@ public class Player implements Entity{
 			double centerY = (Screen.getHeight() / 2) - Screen.translate_y;
 			double distFromSideY = (Screen.getHeight() / 5) - Screen.translate_y;
 			double distFromCenterY = centerY - y;
+			boolean checkIfInTopBit = y - Screen.translate_y< (Screen.getHeight() / 5);
+			System.out.println(checkIfInTopBit);
+			if(checkIfInTopBit && Screen.translate_y < 0 && jumpDY > 0){
+				Screen.translate_y += jumpDY * (delta * 0.1);
+			}
+			if(Screen.translate_y > 0){
+				Screen.translate_y = 0;
+			}
+			if(!checkIfInTopBit && Screen.translate_y < 0.0 && jumpDY > 0){
+				if(distFromCenterY > 0 && jumpDY > 0)
+					Screen.translate_y += (jumpDY * (delta * 0.1)) * (distFromCenterY / distFromSideY);
+			}
+			if(y < 0){
+				y = 0;
+			}
 			if(isJumping || isInAir){
 				
 				/*Start of screen moving up if player is in the top bit, otherwise it would stay to the top
 				 * bit constantly :p
 				*/
 				
-				boolean checkIfInTopBit = y < (Screen.getHeight() / 5) - Screen.translate_y;
-				if(checkIfInTopBit && Screen.translate_y < 0 && jumpDY > 0){
-					Screen.translate_y += jumpDY * (delta * 0.1);
-				}
-				if(Screen.translate_y > 0){
-					Screen.translate_y = 0;
-				}
-				if(!checkIfInTopBit && Screen.translate_y < 0.0){
-					if(distFromCenterY > 0 && jumpDY > 0)
-						Screen.translate_y += (jumpDY * (delta * 0.1)) * (distFromCenterY / distFromSideY);
-				}
-				if(y < 0){
-					y = 0;
-				}
+	
 				/*
 				 * End of Start of screen moving up
 				 */
@@ -391,7 +389,7 @@ public class Player implements Entity{
 				}
 				if(!checkIfInBottomBit && Screen.translate_y < 0.0 && jumpDY < 0){
 					if(distFromCenterY < 0 && jumpDY < 0)
-						Screen.translate_y += (jumpDY * (delta * 0.1)) * (distFromCenterY / distFromSideY);
+						Screen.translate_y += (jumpDY * (delta * 0.1)) * (-distFromCenterY / distFromSideY);
 				}
 				if(!isInBottomBounds){
 					Screen.translate_y = -World.getWorldHeightInPixels() + Screen.getHeight();

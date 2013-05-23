@@ -1,23 +1,54 @@
-import com.gmail.robmadeyou.Screen;
 
+
+import com.gmail.robmadeyou.Screen;
+import com.gmail.robmadeyou.Screen.GameType;
+import com.gmail.robmadeyou.Effects.Color;
+import com.gmail.robmadeyou.Effects.TextureLoader;
 import com.gmail.robmadeyou.Entity.Enemy;
 import com.gmail.robmadeyou.Entity.EntityList;
-import com.gmail.robmadeyou.Entity.Player.MovementType;
 import com.gmail.robmadeyou.Entity.Player;
+import com.gmail.robmadeyou.Input.Keyboard;
+import com.gmail.robmadeyou.Input.Keyboard.Key;
+import com.gmail.robmadeyou.Input.Mouse;
+import com.gmail.robmadeyou.draw.Box;
 
 public class Main {
-	public static void main(String []arg){
-		Screen.setWorldBlockSizeInPixels(32);
-		Screen.setWorldDimensionsInBlocks(55, 60);
-		Screen.createScreen(800, 600, "name", Screen.GameType.SIDE_SCROLLER, false);
-		Player player = new Player(224, 44, 20, 40);
-		player.setFixedMovementType(MovementType.WASD_KEYS);
+	/*
+	 * Main method previously seen
+	 */
+	public static void main(String[] args) {
+		//Creating screen as previously seen again
+		Screen.create(640, 640, "Name", GameType.RPG_STYLE, false);
+		/*
+		 * This is new. We are creating a new Entity called Player. The new entity
+		 * is called player. Java is case sensetive so we are able to do this.
+		 * 
+		 * after = new Player
+		 * 
+		 * we are setting up the player dimensions. Initially there are very few things we actually set
+		 * everything else is stated later on. Things like movement, speed and jump height (there are more)
+		 */
+		Player player = new Player(40, 40, 20, 40);
+		/*
+		 * After creating the player entity we have to add it to the global list of entities. We do this by
+		 * using the class EntityList and the method addEntity, in the parameters of the method we name the entity we
+		 * would like to add, in this case we want to add player
+		 */
 		EntityList.addEntity(player);
-		Enemy e = new Enemy(40, 20, 20, 40);
-		EntityList.addEntity(e);
+		/*
+		 * Now that the player is added to the screen, things will change but you won't be able to see anything. To 
+		 * view changes you must first set up the world. Remove the two forward slash lines ("//") on the line below
+		 * to set up the world and see what happens then!
+		 */
 		Screen.setUpWorld();
+		/*
+		 * You should now be able to move around with the Arrow Keys.
+		 */
+		int tex = TextureLoader.createTexture("res/powerUp/PaddleFreeze.png", 32, 0, 9, 9);
 		while(!Screen.isAskedToClose()){
 			Screen.update(60);
+			Box.drawTexturedBox(tex, 50, 50, 60, 60, Color.White);
+			Screen.refresh();
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package com.gmail.robmadeyou.Input;
 
+import com.gmail.robmadeyou.Screen;
+
 public class Mouse {
 	/*
 	 * If mouse button is down these variables will change
@@ -29,8 +31,8 @@ public class Mouse {
 		return y;
 	}
 	public static void onUpdate(){
-		x = org.lwjgl.input.Mouse.getX();
-		y = com.gmail.robmadeyou.Screen.getHeight() - org.lwjgl.input.Mouse.getY();
+		x = (int) (org.lwjgl.input.Mouse.getX() -Screen.translate_x);
+		y = (int) (com.gmail.robmadeyou.Screen.getHeight() - org.lwjgl.input.Mouse.getY() - Screen.translate_y);
 		/*
 		 * Here we set the two mouse buttons to be not pressed by default. So they aren't activated "accidentally"
 		 */

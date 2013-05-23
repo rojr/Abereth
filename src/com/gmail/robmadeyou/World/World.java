@@ -272,8 +272,8 @@ public class World {
 				}else{
 					y = sY;
 				}
-				int mX = Math.round((Mouse.getX() - (int) Screen.translate_x) / BLOCK_SIZE());
-				int mY = Math.round((Mouse.getY() - (int) Screen.translate_y) / BLOCK_SIZE());
+				int mX = Math.round((Mouse.getX() / BLOCK_SIZE()));
+				int mY = Math.round((Mouse.getY() / BLOCK_SIZE()));
 				if(Mouse.leftMouseButtonDown){
 					blockList[mX][mY] = new BlockStone(mX,mY);
 				}
