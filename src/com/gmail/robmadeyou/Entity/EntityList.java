@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class EntityList {
 	
-	static ArrayList<Entity> entityList = new ArrayList<Entity>();
+	public static ArrayList<Entity> entityList = new ArrayList<Entity>();
 	
 	public static void addEntity(Entity e){
 		entityList.add(e);

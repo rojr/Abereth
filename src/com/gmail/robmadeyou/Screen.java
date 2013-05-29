@@ -10,7 +10,7 @@ import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
 import com.gmail.robmadeyou.World.World;
-import com.gmail.robmadeyou.draw.Box;
+import com.gmail.robmadeyou.Draw.Box;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Textures;
 import com.gmail.robmadeyou.Entity.Entity;
@@ -209,7 +209,7 @@ public class Screen {
 			}
 			Mouse.onUpdate();
 			Interface.onUpdate();
-			
+			System.out.println(EntityList.entityList.get(0).getDX());
 			if(Keyboard.isKeyPressed(Key.Grave)){
 				if(detailsActive == false){
 					detailsActive = true;
@@ -228,6 +228,11 @@ public class Screen {
 	}
 	public static void refresh(){
 		Display.update();
+	}
+	public static void destroy(){
+		System.out.println(engineName + "Shutting down");
+		Display.destroy();
+		System.exit(0);
 	}
 	
 	public enum GameType{

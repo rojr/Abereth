@@ -14,6 +14,7 @@ import org.newdawn.slick.opengl.Texture;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Textures;
+import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Gui.Fonts;
 import com.gmail.robmadeyou.World.World;
 
@@ -57,7 +58,6 @@ public class BlockAir implements Block {
 		draw();
 	}
 	public void draw() {
-		
 		if(texture != null){
 			texture.bind();
 		}else{
@@ -77,6 +77,12 @@ public class BlockAir implements Block {
 			glVertex2d(x * World.BLOCK_SIZE() , y * World.BLOCK_SIZE() + World.BLOCK_SIZE());
 		glEnd();
 		glPopMatrix();
+	}
+	public void doEffect(Entity e){
+		//Air gives no effect. How sad :(
+	}
+	public void removeEffect(Entity e){
+		//Air gives no effect!
 	}
 
 	public Texture getTexture() {

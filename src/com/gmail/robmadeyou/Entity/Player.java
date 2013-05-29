@@ -17,13 +17,14 @@ import com.gmail.robmadeyou.Gui.Fonts;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 
-public class Player implements Entity{
+public class Player extends Entity{
 	private double x, y;
 	private double dX, dY;
 	private int originalHeight, width, height;
 	private int crouchHeight;
 	private int number;
 	private double speed;
+	private double speedDecrease;
 	private boolean isJumping;
 	private boolean isInAir;
 	private boolean isCrouching;
@@ -31,6 +32,7 @@ public class Player implements Entity{
 	private boolean hasClicked;
 	private int amountOhHealth;
 	private final double finalJumpDY = 7;
+	private boolean isSolidLeft = false, isSolidRight = false, isSolidAbove = false, isSolidBelow = false;
 	/*
 	 * Direction is as shown:
 	 * (think of a compass)
@@ -60,6 +62,7 @@ public class Player implements Entity{
 		this.rightKey = Key.RightArrow;
 		this.leftKey = Key.LeftArrow;
 		this.jumpDY = 0;
+		this.speedDecrease = speed * 0.8;
 		
 		isJumping = false;
 		isInAir = false;
@@ -78,6 +81,7 @@ public class Player implements Entity{
 	}
 	public void setSpeed(double speed){
 		this.speed = speed;
+		this.speedDecrease = speed * speedDecrease;
 	}
 	public void setFixedMovementType(MovementType type){
 		this.movementType = type;
@@ -215,14 +219,17 @@ public class Player implements Entity{
 			direction = 3;
 			boolean one = x + width <= (Screen.getWidth() / 5) - Screen.translate_x;
 			if(!World.isSolidLeft(this)){
-				x -= (delta * (speed - 0.8));
+				x -= (delta * (speed - speedDecrease));
+				isSolidLeft = false;
+			}else{
+				isSolidLeft = true;
 			}
 			if(one && Screen.translate_x < 0.0){
-				Screen.translate_x += (delta * (speed - 0.8));
+				Screen.translate_x += (delta * (speed - speedDecrease));
 			}
 			if(!one && Screen.translate_x < 0.0){
 				if(distFromCenterX > 0)
-					Screen.translate_x += (delta * (speed - 0.8)) * (distFromCenterX / distFromSideX);
+					Screen.translate_x += (delta * (speed - speedDecrease)) * (distFromCenterX / distFromSideX);
 			}
 			if(Screen.translate_x > 0.0){
 					Screen.translate_x = 0.0;
@@ -243,19 +250,22 @@ public class Player implements Entity{
 		if(Keyboard.isKeyDown(getRightKey(movementType))){
 			direction = 1;
 			boolean one = x + width >= (Screen.getWidth() - (Screen.getWidth() / 5)) - Screen.translate_x;
-			boolean two = Screen.translate_x - Screen.getWidth() < World.getWorldWidthInPixels() - World.BLOCK_SIZE();
+			boolean two = -Screen.translate_x + Screen.getWidth() < World.getWorldWidthInPixels() - World.BLOCK_SIZE();
 			if(!World.isSolidRight(this)){
-				x += (delta * (speed - 0.8));
+				x += (delta * (speed - speedDecrease));
+				isSolidRight = false;
+			}else{
+				isSolidRight = true;
 			}
 			if(one && two){
-				Screen.translate_x -= (delta * (speed - 0.8));
+				Screen.translate_x -= (delta * (speed - speedDecrease));
 			}
 			if(!one && two){
 				if(distFromCenterX < 0)
-					Screen.translate_x += (delta * (speed - 0.8)) * (distFromCenterX / distFromSideX);
+					Screen.translate_x += (delta * (speed - speedDecrease)) * (distFromCenterX / distFromSideX);
 			}
 			if(!two){
-				Screen.translate_x = World.getWorldHeightInPixels() - Screen.getWidth();
+				Screen.translate_x = -World.getWorldHeightInPixels() + Screen.getWidth() + World.BLOCK_SIZE();
 			}
 		}
 			/*
@@ -271,26 +281,34 @@ public class Player implements Entity{
 			 */
 		if(Keyboard.isKeyDown(getUpKey(movementType))){
 			if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
-				if(!isJumping){
-					isJumping = true;
-					jumpDY = finalJumpDY;
+				if(!World.isSolidAtLocation((int)Math.round(x / World.BLOCK_SIZE()),(int) Math.round(y / World.BLOCK_SIZE()) - 1)){
+					if(!isJumping){
+						isJumping = true;
+						jumpDY = finalJumpDY;
+						isSolidAbove = false;
+					}
+				}else{
+					isSolidAbove = true;
 				}
 			}
 			if(Screen.TypeOfGame == GameType.RPG_STYLE){
 				direction = 0;
 				boolean checkIfInTopBit = y < (Screen.getHeight() / 5) - Screen.translate_y;
 				if(checkIfInTopBit && Screen.translate_y < 0){
-					Screen.translate_y += (delta * (speed - 0.8));
+					Screen.translate_y += (delta * (speed - speedDecrease));
 				}
 				if(Screen.translate_y > 0){
 					Screen.translate_y = 0;
 				}
 				if(!checkIfInTopBit && Screen.translate_y < 0.0){
 					if(distFromCenterY > 0)
-						Screen.translate_y += (delta * (speed - 0.8)) * (distFromCenterY / distFromSideY);
+						Screen.translate_y += (delta * (speed - speedDecrease)) * (distFromCenterY / distFromSideY);
 				}
 				if(!World.isSolidAbove(this) && y > 0){
-					y -= (delta * (speed - 0.8));
+					y -= (delta * (speed - speedDecrease));
+					isSolidAbove = false;
+				}else{
+					isSolidAbove = true;
 				}
 				if(y < 0){
 					y = 0;
@@ -318,17 +336,22 @@ public class Player implements Entity{
 				boolean checkIfInBottomBit = y + height > (Screen.getHeight() - (Screen.getHeight() / 5)) - Screen.translate_y;
 				boolean isInBottomBounds = -Screen.translate_y + Screen.getHeight() < World.getWorldHeightInPixels();
 				if(checkIfInBottomBit && isInBottomBounds){
-					Screen.translate_y -= (delta * (speed - 0.8));
+					Screen.translate_y -= (delta * (speed - speedDecrease));
 				}
 				if(!checkIfInBottomBit && Screen.translate_y < 0.0){
 					if(distFromCenterY < 0)
-						Screen.translate_y += (delta * (speed - 0.8)) * (distFromCenterY / distFromSideY);
+						Screen.translate_y += (delta * (speed - speedDecrease)) * (distFromCenterY / distFromSideY);
 				}
 				if(!isInBottomBounds){
 					Screen.translate_y = -World.getWorldHeightInPixels() + Screen.getHeight();
 				}
-				if(!World.isSolidUnder(this) && y + height < World.getWorldHeightInPixels()){
-					y += (delta * (speed - 0.8));
+				if(!World.isSolidUnder(this)){
+					isSolidBelow = false;
+					if(y + height < World.getWorldHeightInPixels()){
+						y += (delta * (speed - speedDecrease));
+					}
+				}else{
+					isSolidBelow = true;
 				}
 				if(y + height > World.getWorldHeightInPixels()){
 					y = World.getWorldHeightInPixels() - height;
@@ -352,7 +375,6 @@ public class Player implements Entity{
 			double distFromSideY = (Screen.getHeight() / 5) - Screen.translate_y;
 			double distFromCenterY = centerY - y;
 			boolean checkIfInTopBit = y - Screen.translate_y< (Screen.getHeight() / 5);
-			System.out.println(checkIfInTopBit);
 			if(checkIfInTopBit && Screen.translate_y < 0 && jumpDY > 0){
 				Screen.translate_y += jumpDY * (delta * 0.1);
 			}
@@ -408,8 +430,11 @@ public class Player implements Entity{
 					jumpDY = 0;
 				}
 				if(World.isSolidAbove(this)){
+					isSolidAbove = true;
 					isJumping = true;
 					isInAir = true;
+				}else{
+					isSolidAbove = false;
 				}
 			}
 			
@@ -420,8 +445,11 @@ public class Player implements Entity{
 				jumpDY = 0;
 			}
 			if(World.isSolidUnder(this)){
+				isSolidBelow = true;
 				isJumping = false;
 				jumpDY = 0;
+			}else{
+				isSolidBelow = false;
 			}
 			
 			if(isCrouching){
@@ -439,13 +467,17 @@ public class Player implements Entity{
 					}
 				}
 			}
-			
+			while(World.isSolidAtLocation((int) Math.round((x) / World.BLOCK_SIZE()), (int) Math.round((y + height)/ World.BLOCK_SIZE() -1))
+			|| World.isSolidAtLocation((int) Math.round((x + width) / World.BLOCK_SIZE()), (int) Math.round((y + height) / World.BLOCK_SIZE() -1))){
+				y--;
+			}
 		}else if(Screen.TypeOfGame == GameType.RPG_STYLE){
 			//TODO RPG STYLE ON UPDATE
 		}
 		handleInput(delta);
 		draw();
 	}
+	
 	public void draw() {
 		glPushMatrix();
 		

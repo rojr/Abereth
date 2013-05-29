@@ -15,6 +15,7 @@ public class Textures {
 	public static Texture test;
 	public static Texture player_default;
 	public static Texture Block_Sky;
+	public static Texture Block_Stone;
 	
 	static ArrayList<Tex> tex = new ArrayList<Tex>();
 	
@@ -25,6 +26,7 @@ public class Textures {
 			
 			test = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/powerUp/PaddleFreeze.png"), true);
 			Block_Sky = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/World/Sky.png"), true);
+			Block_Stone = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/World/Stone.png"), true);
 			
 			texSetUp = true;
 		} catch (IOException e) {e.printStackTrace();}

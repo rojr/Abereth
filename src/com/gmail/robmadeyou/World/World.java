@@ -7,6 +7,7 @@ import com.gmail.robmadeyou.Block.BlockStone;
 import com.gmail.robmadeyou.Effects.Textures;
 import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Input.Mouse;
+import com.gmail.robmadeyou.Screen.GameType;
 
 public class World {
 	
@@ -44,15 +45,32 @@ public class World {
 		WorldArrayWidth = x;
 		WorldArrayHeight = y;
 	}
-	
+	private static BlockAir air_Block = new BlockAir(0, 0);
 	public static Block getBlockTypeAtLocation(int x, int y){
-		return blockList[x][y].getType();
+		if(x < WorldArrayWidth && x >= 0 && y < WorldArrayHeight && y >= 0){
+			return blockList[x][y].getType();
+		}
+		return air_Block;
 		
+	}
+	public static boolean isSolidAtLocation(int x, int y){
+		if(getBlockTypeAtLocation(x, y).isSolid()){
+			return true;
+		}
+		return false;
 	}
 	public static void setArrayListClear(){
 		for(int x = 0; x < WorldArrayWidth; x++){
 			for(int y = 0; y < WorldArrayHeight; y++){
-				blockList[x][y] = new BlockAir(x, y);
+				if(y == WorldArrayHeight - 2 || y == WorldArrayHeight - 1){
+					if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
+						blockList[x][y] = new BlockStone(x, y);
+					}else{
+						blockList[x][y] = new BlockAir(x, y);
+					}
+				}else{
+					blockList[x][y] = new BlockAir(x, y);
+				}
 			}
 		}
 	}
@@ -99,7 +117,7 @@ public class World {
 				}
 				int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
 				int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
-				
+				//TODO Do a for loop :(
 				//Bottom left
 				boolean one = eX >= bX && eX <= bX + bDimensions && eY + eH + 10 >= bY && eY + eH <= bY + 7;
 				//Bottom right
@@ -107,7 +125,10 @@ public class World {
 				if(one || two){
 					if(blockList[x][y].isSolid()){
 						e.setY(bY - 1 - eH);
+						blockList[x][y].doEffect(e);
 						return true;
+					}else{
+						blockList[x][y].removeEffect(e);
 					}
 				}
 			}
@@ -148,7 +169,7 @@ public class World {
 				int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
 				int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
 				for(int x2 = 0; x2 <= eW / 4; x2++){
-					boolean one = eX + (x2 * 4) >= bX && eX + (x2 * 4) <= bX + bDimensions && eY >= bY + bDimensions - 5 && eY <= bY + bDimensions + 5;
+					boolean one = eX + (x2 * 4) >= bX && eX + (x2 * 4) <= bX + bDimensions && eY + 5 >= bY + bDimensions - 5 && eY  - 5<= bY + bDimensions + 5;
 					if(one){
 						if(blockList[x][y].isSolid()){
 							e.setY(y * BLOCK_SIZE() + BLOCK_SIZE() + 5);

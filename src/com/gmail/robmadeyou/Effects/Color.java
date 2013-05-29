@@ -115,4 +115,13 @@ public enum Color {
 			glColor3f(rr,rg,rb);
 		}
 	}
+	public float getR(){
+		return r;
+	}
+	public float getG(){
+		return g;
+	}
+	public float getB(){
+		return b;
+	}
 }

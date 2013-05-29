@@ -14,6 +14,8 @@ import org.newdawn.slick.opengl.Texture;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Textures;
+import com.gmail.robmadeyou.Entity.Entity;
+import com.gmail.robmadeyou.Entity.Player;
 import com.gmail.robmadeyou.World.World;
 
 public class BlockStone implements Block {
@@ -21,7 +23,7 @@ public class BlockStone implements Block {
 	private int x, y;
 	private int id = 1;
 	private boolean isSolid = true;
-	private Texture texture = Textures.test;
+	private Texture texture = Textures.Block_Stone;
 	public BlockStone(int x, int y){
 		this.x = x;
 		this.y = y;
@@ -85,5 +87,13 @@ public class BlockStone implements Block {
 	
 		glPopMatrix();
 	}
-
+	
+	private double decreaseSpeedBy = 2;
+	public void doEffect(Entity e){
+		if(e.equals(Player.class)){
+		}
+	}
+	public void removeEffect(Entity e){
+		
+	}
 }

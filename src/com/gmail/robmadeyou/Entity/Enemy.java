@@ -15,7 +15,7 @@ import com.gmail.robmadeyou.Gui.Fonts;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.World.World;
 
-public class Enemy implements Entity {
+public class Enemy extends Entity {
 	
 	private double x, y, dX, dY;
 	private int number;
@@ -96,8 +96,7 @@ public class Enemy implements Entity {
 		logic(delta);
 	}
 	private void logic(int delta){
-		jump();
-		moveRight(delta);
+		
 	}
 	public void moveLeft(int delta){
 		if(!World.isSolidLeft(this)){
@@ -148,7 +147,7 @@ public class Enemy implements Entity {
 	public void draw() {
 		glPushMatrix();
 		glTranslated(Screen.translate_x, Screen.translate_y, 0);
-		Fonts.drawString("Player",(int) x - 5,(int) y - 20, 1, Color.Red);
+		Fonts.drawString("Enemy",(int) x - 5,(int) y - 20, 1, Color.Red);
 		glBegin(GL_QUADS);
 			glTexCoord2d(0, 0);
 			glVertex2d(x , y);

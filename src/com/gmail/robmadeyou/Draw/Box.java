@@ -1,4 +1,4 @@
-package com.gmail.robmadeyou.draw;
+package com.gmail.robmadeyou.Draw;
 
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;
@@ -12,17 +12,21 @@ import com.gmail.robmadeyou.Effects.TextureLoader;
 public class Box {
 	
 	public static void drawBox(int x, int y, int width, int height, Color color){
-		
+		glBegin(GL_QUADS);
+			glVertex2f(x , y);
+			glVertex2f(x + width, y);
+			glVertex2f(x + width, y + height);
+			glVertex2f(x , y + height);
+		glEnd();
+		Color.White.bind();
 	}
-	public static void drawTexturedBox(int TextureID, int x, int y, int width, int height, Color color){
+	public static void drawTexturedBox(int x, int y, int width, int height, int TextureID){
 		
 		TextureLoader.TextureInfo.get(TextureID).getTexture().bind();
 		double xPercent = TextureLoader.TextureInfo.get(TextureID).getXPercent();
 		double yPercent = TextureLoader.TextureInfo.get(TextureID).getYPercent();
 		double widthPercent = TextureLoader.TextureInfo.get(TextureID).getWidthPercent();
 		double heightPercent = TextureLoader.TextureInfo.get(TextureID).getHeightPercent();
-		
-		color.bind();
 		glBegin(GL_QUADS);
 			glTexCoord2d(xPercent, yPercent);
 			glVertex2f(x , y);
@@ -33,5 +37,7 @@ public class Box {
 			glTexCoord2d(xPercent, yPercent + heightPercent);
 			glVertex2f(x , y + height);
 		glEnd();
+		
+		Color.White.bind();
 	}
 }

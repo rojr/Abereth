@@ -1,22 +1,103 @@
 package com.gmail.robmadeyou.Entity;
 
-public interface Entity {
-	int getNumber();
-	void setNumber(int num);
-	void setWidth(int w);
-	void setHeight(int h);
-	void setX(double x);
-	void setY(double y);
-	void setDX(double dX);
-	void setDY(double dY);
-	void setSpeed(double speed);
-	double getX();
-	double getY();
-	double getDX();
-	double getDY();
-	double getSpeed();
-	int getWidth();
-	int getHeight();
-	void onUpdate(int delta);
-	void draw();
+public class Entity {
+	
+	private double x, y, dX, dY, speed, originalSpeed,
+					originalX, originalY, originalDX, originalDY;
+	private int number,h,w, originalW, originalH;
+	
+	public int getNumber(){
+		return number;
+	}
+	public void setNumber(int num){
+		this.number = num;
+	}
+	public void setWidth(int w){
+		this.w = w;
+	}
+	public void setHeight(int h){
+		this.h = h;
+	}
+	public void setX(double x){
+		this.x = x;
+	}
+	public void setY(double y){
+		this.y = y;
+	}
+	public void setDX(double dX){
+		this.dX = dX;
+	}
+	public void setDY(double dY){
+		this.dY = dY;
+	}
+	public void setSpeed(double speed){
+		this.speed = speed;
+	}
+	public double getX(){
+		return x;
+	}
+	public double getY(){
+		return y;
+	}
+	public double getDX(){
+		return dX;
+	}
+	public double getDY(){
+		return dY;
+	}
+	public double getSpeed(){
+		return speed;
+	}
+	public int getWidth(){
+		return w;
+	}
+	public int getHeight(){
+		return h;
+	}
+	
+	
+	public void setOriginalWidth(int w){
+		this.originalW = w;
+	}
+	public void setOriginalHeight(int h){
+		this.originalH = h;
+	}
+	public void setOriginalX(double x){
+		this.originalX = x;
+	}
+	public void setOriginalY(double y){
+		this.originalY = y;
+	}
+	public void setOriginalDX(double dX){
+		this.originalDX = dX;
+	}
+	public void setOriginalDY(double dY){
+		this.originalDY = dY;
+	}
+	public void setOriginalSpeed(double speed){
+		this.originalSpeed = speed;
+	}
+	public double getOriginalX(){
+		return originalX;
+	}
+	public double getOriginalY(){
+		return originalY;
+	}
+	public double getOriginalDX(){
+		return originalDX;
+	}
+	public double getOriginalDY(){
+		return originalDY;
+	}
+	public double getOriginalSpeed(){
+		return originalSpeed;
+	}
+	public int getOriginalWidth(){
+		return originalW;
+	}
+	public int getOriginalHeight(){
+		return originalH;
+	}
+	public void onUpdate(int delta){}
+	public void draw(){}
 }
