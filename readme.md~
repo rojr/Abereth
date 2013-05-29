@@ -17,7 +17,3 @@ Don't worry, I'll help you out!
 5. Download the tutorials [github page available here](https://github.com/robmadeyou/GameEngineTutorials) as a zip file.
 
 6. Extract it to your Eclipse workplace.
-
-7. In Eclipse, right click in project window, select Import>General>Existing Projects into Workspace. Select your eclipse folder as the root directory <b> and not the GameEngineTutorials folder </b> This should have the project imported. Now all you need to do is set your natives.
-
-8. Right click on the folder GameEngineTutorials in your Project Explorer. Select Properties, a window should come up. On the left hand side select Java Build Path, then select Libraries, and click on the plus/dropdown icon to expand <b> lwjgl.jar </b>. Select Native Library Location and on on the right hand side the Edit option should be available, select that. A window should come up asking you to locate the natives. Press the button to select from Workspace and navigate to GameEngineTutorials>lib>natives and here select the folder according to your operating system. And that's it!
