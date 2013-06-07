@@ -1,0 +1,5 @@
+* Animation
+* Make movement more fluid
+* Player and Enemy animation
+* Combat
+* Health
