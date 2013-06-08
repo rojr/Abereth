@@ -196,7 +196,7 @@ public class Enemy extends Entity {
 		Collector.add(new DrawParameters("box", x, y, width, height, -1, color, layer, true));
 	}
 	public enum EnemyMovement{
-		UP,LEFT,DOWN,RIGHT,WAIT;
+		UP,LEFT,DOWN,RIGHT,JUMP,WAIT;
 	}
 	public class moveUpdate{
 		private int amount;
@@ -215,12 +215,14 @@ public class Enemy extends Entity {
 				}else if(direction == EnemyMovement.DOWN){
 					moveDown();
 				}
-			}
-			if(direction == EnemyMovement.LEFT){
+			}else if(direction == EnemyMovement.LEFT){
 				moveLeft();
-			}
-			if(direction == EnemyMovement.RIGHT){
+			}else if(direction == EnemyMovement.RIGHT){
 				moveRight();
+			}else if(direction == EnemyMovement.WAIT){
+				
+			}else if(direction == EnemyMovement.JUMP){
+				jump();
 			}
 			if(currentTick >= amount){
 				MovementArray.remove(0);

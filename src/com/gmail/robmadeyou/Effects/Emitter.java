@@ -23,6 +23,7 @@ public class Emitter{
 		}
 	}
 	private double x, y, velocity;
+	private int width = 5, height = 5;
 	private boolean randomSizes = false;
 	private int minRandom, maxRandom;
 	private Color color;
@@ -118,14 +119,10 @@ public class Emitter{
 		this.maxRandom = max;
 	}
 	public void setCustomParticleWidth(int width){
-		for(int i = 0; i < part.length; i++){
-			part[i].setWidth(width);
-		}	
+		this.width = width;	
 	}
 	public void setCustomParticleHeight(int height){
-		for(int i = 0; i < part.length; i++){
-			part[i].setWidth(height);
-		}	
+		this.height = height;
 	}
 	public void setMovementDirection(MovementDirection direction){
 		this.direction = direction;
@@ -147,6 +144,9 @@ public class Emitter{
 						if(randomSizes){
 							part[i].setHeight(minRandom+ran.nextInt(maxRandom-minRandom));
 							part[i].setWidth(minRandom+ran.nextInt(maxRandom-minRandom));
+						}else{
+							part[i].setHeight(height);
+							part[i].setWidth(width);
 						}
 						break;
 					}

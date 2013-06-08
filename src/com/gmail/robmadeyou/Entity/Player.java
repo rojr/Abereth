@@ -513,7 +513,7 @@ public class Player extends Entity{
 		}else{
 			color = Color.Green;
 		}
-		Collector.add(new DrawParameters("box", x, y, width, height, -1, color, layer, true));
+		Collector.add(new DrawParameters("box", x, y, width, height, -1, color, 1, layer, true));
 	}
 	public enum MovementType{
 		ARROW_KEYS(),

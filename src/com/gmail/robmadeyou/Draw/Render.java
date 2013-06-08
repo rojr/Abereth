@@ -6,6 +6,7 @@ import static org.lwjgl.opengl.GL11.glTranslated;
 
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Effects.Color;
+import com.gmail.robmadeyou.Effects.Textures;
 
 public class Render {
 	public static void renderAll(){
@@ -20,8 +21,9 @@ public class Render {
 			Float opacity = Collector.drawArraySorted.get(i).getOpacity();
 			if(x >= -Screen.translate_x && x <= -Screen.translate_x + Screen.getWidth() &&
 					y >= -Screen.translate_y && y <= -Screen.translate_y + Screen.getHeight()){
-			
+
 				color.bind(opacity);
+				Textures.none.bind();
 				if(Collector.drawArraySorted.get(i).useTranslate()){
 					glPushMatrix();
 					glTranslated(Screen.translate_x, Screen.translate_y, 0);
