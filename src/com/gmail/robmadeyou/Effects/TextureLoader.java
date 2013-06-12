@@ -42,12 +42,12 @@ public class TextureLoader{
 				this.heightPercent = 1F;
 				this.widthPercent = 1F;
 			}else{
-				this.xPercent =(double) x / (double) texWidth;
-				this.yPercent =(double) y / (double) texHeight;
+				this.xPercent = ((double) x / (double) texWidth);
+				this.yPercent = (double) y / (double) texHeight;
 				this.widthPercent = (double) width / (double)texWidth;
 				this.heightPercent = (double) height / (double)texHeight;
 			}
-			System.out.println(width + "   " + height);
+			System.out.println(xPercent + "   " + yPercent);
 			System.out.println(texWidth + "   " + heightPercent);
 			System.out.println(widthPercent + "   " + heightPercent);
 			

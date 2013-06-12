@@ -4,11 +4,16 @@ import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glTranslated;
 
+import java.util.ArrayList;
+
+import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.World.World;
 import com.gmail.robmadeyou.Block.Block;
+import com.gmail.robmadeyou.Effects.Animate;
 import com.gmail.robmadeyou.Effects.Color;
+import com.gmail.robmadeyou.Effects.TextureLoader;
 import com.gmail.robmadeyou.Gui.Fonts;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
@@ -32,6 +37,7 @@ public class Player extends Entity{
 	private boolean hasClicked;
 	private int amountOhHealth;
 	private double finalJumpDY = 7;
+	private boolean isMoving = false;
 	private boolean hasEffectTakenPlace = false, hasEffectBeenRemoved = true;
 	private boolean isSolidLeft = false, isSolidRight = false, isSolidAbove = false, isSolidBelow = false;
 	private int layer;
@@ -502,18 +508,46 @@ public class Player extends Entity{
 		draw();
 	}
 	
+	static boolean yes = false;
+	static Animate animate;
 	public void draw() {
-		Color color = Color.White;
-		if(direction == 0){
-			color = Color.Black;
-		}else if(direction == 1){
-			color = Color.White;
-		}else if(direction == 2){
-			color = Color.Red;
-		}else{
-			color = Color.Green;
+		int test = 0;
+		if(!yes){
+			yes = true;
+			ArrayList<Integer> textures = new ArrayList<Integer>();
+			test = TextureLoader.createTexture("res/Player.png", 0, 0, 10, 15);
+			System.out.println(test);
+			textures.add(test);
+			textures.add(TextureLoader.createTexture("res/Player.png", 11, 0, 10, 15));
+			textures.add(TextureLoader.createTexture("res/Player.png", 21, 0, 10, 15));
+			animate = Engine.createAnimation(new Animate(textures, 5, 0, true));
 		}
-		Collector.add(new DrawParameters("box", x, y, width, height, -1, color, 1, layer, true));
+		int currentTexture = test;
+		Color color = Color.White;
+		/*
+		 *     0
+		 *   3   1
+		 *     2
+		 *
+		 */
+		 
+		if(isMoving){
+			System.out.println("tits");
+			if(direction == 0){
+				color = Color.Black;
+			}else if(direction == 1){
+				currentTexture = animate.getTextureID();
+				color = Color.White;
+			}else if(direction == 2){
+				color = Color.Red;
+			}else{
+				currentTexture = animate.getTextureID();
+				color = Color.Green;
+			}
+		}
+		
+		
+		Collector.add(new DrawParameters("box", x, y, width, height, currentTexture, color, 1, layer, true));
 	}
 	public enum MovementType{
 		ARROW_KEYS(),

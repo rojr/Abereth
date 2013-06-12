@@ -15,7 +15,6 @@ import com.gmail.robmadeyou.Draw.Render;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Emitter;
 import com.gmail.robmadeyou.Effects.Textures;
-import com.gmail.robmadeyou.Entity.EntityList;
 import com.gmail.robmadeyou.Gui.Fonts;
 
 import static org.lwjgl.opengl.GL11.GL_BLEND;
@@ -57,7 +56,7 @@ public class Screen {
 	private static long lastFrame;
 	private static long lastFPS;
 	private static int fps = 0;
-	private static int actualFps = 0;
+	public static int actualFps = 0;
 	public static int delta = getDelta();
 	private static void updateFPS() {
 		if (getTime() - lastFPS > 1000) {
@@ -173,18 +172,6 @@ public class Screen {
 		WorldWidth = numOfBlocksOnXAxis;
 		WorldHeight = numOfBlocksOnYAxis;
 	}
-	public static void main (String []args){
-		
-		Screen.create(800, 600, "Our Screen", GameType.SIDE_SCROLLER, false);
-		
-		while(!Screen.isAskedToClose()){
-			//Updating the screen. the maximum frame rate is 60.
-			Screen.update(60);
-			//Refreshing the screen
-			Screen.refresh();
-		}
-		Screen.destroy();
-	}
 	public static void setUpWorld(){
 		
 		/*
@@ -217,6 +204,7 @@ public class Screen {
 	 * 
 	 * It will be synchronised at the rate of the int rate is set to be at
 	 */
+	
 	public static void update(int rate){
 		//This will clear the screen before drawing it again.
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -227,9 +215,9 @@ public class Screen {
 			
 			if(worldCreated){
 				World.onUpdate();
-				EntityList.updateAllEntities(delta);
+				Engine.updateAllEntities(delta);
 			}
-			Emitter.updateAllEmitters(delta);
+			Engine.update(delta);
 			Interface.onUpdate();
 			
 			if(Keyboard.isKeyPressed(Key.Grave)){

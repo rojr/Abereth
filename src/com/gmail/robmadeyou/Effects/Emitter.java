@@ -10,18 +10,6 @@ import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 public class Emitter{
 	
 	Particles[] part;
-	
-	static ArrayList<Emitter> Emitters = new ArrayList<Emitter>();
-	
-	public static Emitter addNewEmitter(Emitter e){
-		Emitters.add(e);
-		return Emitters.get(Emitters.size() - 1);
-	}
-	public static void updateAllEmitters(int delta){
-		for(int i = 0; i < Emitters.size(); i++){
-			Emitters.get(i).onUpdate(delta);
-		}
-	}
 	private double x, y, velocity;
 	private int width = 5, height = 5;
 	private boolean randomSizes = false;
@@ -76,6 +64,10 @@ public class Emitter{
 	
 	public void setVelocity(double velocity){
 		this.velocity = velocity;
+	}
+	public void setCustomTexture(int textureID){
+		this.texID = textureID;
+		this.drawType = 1;
 	}
 	public void setX(double x){
 		this.x = x;
