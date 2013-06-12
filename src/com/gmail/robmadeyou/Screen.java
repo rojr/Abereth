@@ -173,6 +173,18 @@ public class Screen {
 		WorldWidth = numOfBlocksOnXAxis;
 		WorldHeight = numOfBlocksOnYAxis;
 	}
+	public static void main (String []args){
+		
+		Screen.create(800, 600, "Our Screen", GameType.SIDE_SCROLLER, false);
+		
+		while(!Screen.isAskedToClose()){
+			//Updating the screen. the maximum frame rate is 60.
+			Screen.update(60);
+			//Refreshing the screen
+			Screen.refresh();
+		}
+		Screen.destroy();
+	}
 	public static void setUpWorld(){
 		
 		/*
