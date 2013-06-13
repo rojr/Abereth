@@ -26,31 +26,28 @@ public class TextureLoader{
 		private Texture tex;
 		private int texWidth, texHeight;
 		public TexInfo(String location, int x, int y, int width, int height){
-			this.x = x;
-			this.y = y;
 			this.width = width;
 			this.height = height;
 			this.location = location;
 			try{
 				this.tex = org.newdawn.slick.opengl.TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(location), true);
 			} catch (IOException e) {e.printStackTrace();}
-			this.texWidth = tex.getTextureWidth();
-			this.texHeight = tex.getTextureHeight();
+			this.texWidth = tex.getImageWidth();
+			this.texHeight = tex.getImageHeight();
+			this.x = x;
+			this.y = y;
 			if(width == 0 || height == 0){
 				this.xPercent = 0F;
 				this.yPercent = 0F;
 				this.heightPercent = 1F;
 				this.widthPercent = 1F;
 			}else{
-				this.xPercent = ((double) x / (double) texWidth);
+				this.xPercent = (double) x / (double) texWidth;
 				this.yPercent = (double) y / (double) texHeight;
+				this.yPercent = (double) 1 - (double) yPercent;
 				this.widthPercent = (double) width / (double)texWidth;
 				this.heightPercent = (double) height / (double)texHeight;
 			}
-			System.out.println(xPercent + "   " + yPercent);
-			System.out.println(texWidth + "   " + heightPercent);
-			System.out.println(widthPercent + "   " + heightPercent);
-			
 		}
 		public int getX(){
 			return x;

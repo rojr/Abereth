@@ -18,22 +18,36 @@ public class Box {
 			glVertex2d(x , y + height);
 		glEnd();
 	}
-	public static void drawBox(double x, double y, double width, double height, int TextureID){
+	public static void drawBox(double x, double y, double width, double height, int TextureID, boolean inverts){
 		
 		TextureLoader.TextureInfo.get(TextureID).getTexture().bind();
 		double xPercent = TextureLoader.TextureInfo.get(TextureID).getXPercent();
 		double yPercent = TextureLoader.TextureInfo.get(TextureID).getYPercent();
 		double widthPercent = TextureLoader.TextureInfo.get(TextureID).getWidthPercent();
 		double heightPercent = TextureLoader.TextureInfo.get(TextureID).getHeightPercent();
-		glBegin(GL_QUADS);
-			glTexCoord2d(xPercent, yPercent + heightPercent);
-			glVertex2d(x , y);
-			glTexCoord2d(xPercent + widthPercent, yPercent + heightPercent);
-			glVertex2d(x + width, y);
-			glTexCoord2d(xPercent + widthPercent, yPercent);
-			glVertex2d(x + width, y + height);
-			glTexCoord2d(xPercent, yPercent);
-			glVertex2d(x , y + height);
-		glEnd();
+		
+		if(inverts){
+			glBegin(GL_QUADS);
+				glTexCoord2d(xPercent + widthPercent, yPercent);
+				glVertex2d(x , y);
+				glTexCoord2d(xPercent, yPercent);
+				glVertex2d(x + width, y);
+				glTexCoord2d(xPercent, yPercent - heightPercent);
+				glVertex2d(x + width, y + height);
+				glTexCoord2d(xPercent + widthPercent, yPercent - heightPercent);
+				glVertex2d(x , y + height);
+			glEnd();
+		}else{
+			glBegin(GL_QUADS);
+				glTexCoord2d(xPercent, yPercent);
+				glVertex2d(x , y);
+				glTexCoord2d(xPercent + widthPercent, yPercent);
+				glVertex2d(x + width, y);
+				glTexCoord2d(xPercent + widthPercent, yPercent - heightPercent);
+				glVertex2d(x + width, y + height);
+				glTexCoord2d(xPercent, yPercent - heightPercent);
+				glVertex2d(x , y + height);
+			glEnd();
+		}
 	}
 }

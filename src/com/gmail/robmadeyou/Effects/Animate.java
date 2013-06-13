@@ -12,6 +12,7 @@ public class Animate {
 	private boolean repeats;
 	private int numberOfTextures;
 	private int currentFrame;
+	private boolean inverts;
 	public Animate(ArrayList<Integer> textureIDs, int delayPerFrame, int delayPerLoop, boolean repeats){
 		this.listOfTextures = textureIDs;
 		this.delayPerFrame = delayPerFrame;
@@ -21,6 +22,18 @@ public class Animate {
 		currentPerFrameDelay = 0;
 		currentPerLoopDelay = 0;
 		currentFrame = 0;
+		this.inverts = false;
+	}
+	public Animate(ArrayList<Integer> textureIDs, int delayPerFrame, int delayPerLoop, boolean repeats, boolean inverts){
+		this.listOfTextures = textureIDs;
+		this.delayPerFrame = delayPerFrame;
+		this.delayPerLoop = delayPerLoop;
+		this.repeats = repeats;
+		this.numberOfTextures = textureIDs.size();
+		currentPerFrameDelay = 0;
+		currentPerLoopDelay = 0;
+		currentFrame = 0;
+		this.inverts = inverts;
 	}
 	public int getTextureID(){
 		onUpdate();
@@ -28,6 +41,20 @@ public class Animate {
 	}
 	public void setCurrentFrame(int frame){
 		this.currentFrame = frame;
+	}
+	public void setInvert(boolean args){
+		this.inverts = args;
+	}
+	public boolean getInverts(){
+		return inverts;
+	}
+	public boolean hasFinished(){
+		if(!repeats){
+			if(currentFrame >= listOfTextures.size()){
+				return true;
+			}
+		}
+		return false;
 	}
 	public void onUpdate(){
 		if(currentPerFrameDelay >= delayPerFrame){

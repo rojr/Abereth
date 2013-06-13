@@ -19,6 +19,7 @@ public class Render {
 			String type = Collector.drawArraySorted.get(i).getType();
 			Color color = Collector.drawArraySorted.get(i).getColor();
 			Float opacity = Collector.drawArraySorted.get(i).getOpacity();
+			boolean inverts = Collector.drawArraySorted.get(i).getInverts();
 			if(x >= -Screen.translate_x && x <= -Screen.translate_x + Screen.getWidth() &&
 					y >= -Screen.translate_y && y <= -Screen.translate_y + Screen.getHeight()){
 
@@ -30,7 +31,7 @@ public class Render {
 				}
 				if(type.toLowerCase().equals("box")){
 					if(texID != -1){
-						Box.drawBox(x, y, width, height, texID);
+						Box.drawBox(x, y, width, height, texID, inverts);
 					}else{
 						Box.drawBox(x, y, width, height);
 					}

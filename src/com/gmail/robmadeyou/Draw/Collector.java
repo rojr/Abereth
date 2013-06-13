@@ -39,6 +39,7 @@ public class Collector {
 		private String type;
 		private boolean useTranslate;
 		private float opacity;
+		private boolean inverts;
 		public DrawParameters(String type,double x, double y, double width, double height, 
 				int texID, Color color, int layerID){
 			this.type = type;
@@ -51,6 +52,7 @@ public class Collector {
 			this.layerID = layerID;
 			this.useTranslate = false;
 			this.opacity = 1f;
+			this.inverts = false;
 		}
 		public DrawParameters(String type,double x, double y, double width, double height,
 				int texID, Color color, int layerID, boolean useTranslate){
@@ -64,6 +66,7 @@ public class Collector {
 			this.layerID = layerID;
 			this.useTranslate = useTranslate;
 			this.opacity = 1f;
+			this.inverts = false;
 		}
 		public DrawParameters(String type,double x, double y, double width, double height,
 				int texID, Color color, float opacity, int layerID, boolean useTranslate){
@@ -77,6 +80,21 @@ public class Collector {
 			this.layerID = layerID;
 			this.useTranslate = useTranslate;
 			this.opacity = opacity;
+			this.inverts = false;
+		}
+		public DrawParameters(String type,double x, double y, double width, double height,
+				int texID, Color color, float opacity, int layerID, boolean useTranslate, boolean inverts){
+			this.type = type;
+			this.x = x;
+			this.y = y;
+			this.w = width;
+			this.h = height;
+			this.texID = texID;
+			this.color = color;
+			this.layerID = layerID;
+			this.useTranslate = useTranslate;
+			this.opacity = opacity;
+			this.inverts = inverts;
 		}
 		public DrawParameters(String type,double x, double y, double width, double height,
 				int texID, Color color, float opacity, int layerID){
@@ -89,6 +107,7 @@ public class Collector {
 			this.color = color;
 			this.layerID = layerID;
 			this.opacity = opacity;
+			this.inverts = false;
 		}
 		
 		public String getType(){
@@ -120,6 +139,9 @@ public class Collector {
 		}
 		public float getOpacity(){
 			return opacity;
+		}
+		public boolean getInverts(){
+			return inverts;
 		}
 	}
 }

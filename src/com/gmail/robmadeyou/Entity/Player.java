@@ -406,6 +406,11 @@ public class Player extends Entity{
 			Fonts.drawString("x " + x, 0, 0, 1, Color.Blue);
 			Fonts.drawString("y " + y, 0, 10, 1, Color.Blue);
 		}
+		if(Keyboard.isKeyDown(getLeftKey(movementType)) || Keyboard.isKeyDown(getRightKey(movementType))){
+			isMoving = true;
+		}else{
+			isMoving = false;
+		}
 		if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
 			double centerY = (Screen.getHeight() / 2) - Screen.translate_y;
 			double distFromSideY = (Screen.getHeight() / 5) - Screen.translate_y;
@@ -507,22 +512,7 @@ public class Player extends Entity{
 		handleInput(delta);
 		draw();
 	}
-	
-	static boolean yes = false;
-	static Animate animate;
 	public void draw() {
-		int test = 0;
-		if(!yes){
-			yes = true;
-			ArrayList<Integer> textures = new ArrayList<Integer>();
-			test = TextureLoader.createTexture("res/Player.png", 0, 0, 10, 15);
-			System.out.println(test);
-			textures.add(test);
-			textures.add(TextureLoader.createTexture("res/Player.png", 11, 0, 10, 15));
-			textures.add(TextureLoader.createTexture("res/Player.png", 21, 0, 10, 15));
-			animate = Engine.createAnimation(new Animate(textures, 5, 0, true));
-		}
-		int currentTexture = test;
 		Color color = Color.White;
 		/*
 		 *     0
@@ -532,22 +522,18 @@ public class Player extends Entity{
 		 */
 		 
 		if(isMoving){
-			System.out.println("tits");
 			if(direction == 0){
 				color = Color.Black;
 			}else if(direction == 1){
-				currentTexture = animate.getTextureID();
 				color = Color.White;
 			}else if(direction == 2){
 				color = Color.Red;
 			}else{
-				currentTexture = animate.getTextureID();
-				color = Color.Green;
 			}
 		}
 		
 		
-		Collector.add(new DrawParameters("box", x, y, width, height, currentTexture, color, 1, layer, true));
+		Collector.add(new DrawParameters("box", x, y, width, height, -1, color, 1, layer, true, false));
 	}
 	public enum MovementType{
 		ARROW_KEYS(),
