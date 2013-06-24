@@ -245,7 +245,7 @@ public class Emitter{
 			}
 		}
 	}
-	private enum MovementDirection{
+	public static enum MovementDirection{
 		OUT, UP, DOWN, LEFT, RIGHT;
 		MovementDirection(){
 			
