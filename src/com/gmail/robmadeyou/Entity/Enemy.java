@@ -114,7 +114,6 @@ public class Enemy extends Entity {
 			MovementArray.get(0).move();
 		}
 		
-		draw();
 		if(usingLogic){
 			logic();
 		}
@@ -158,6 +157,19 @@ public class Enemy extends Entity {
 			jumpDY = finalJumpDY;
 		}
 	}
+	public boolean isNear(Entity other){
+		int oX =(int) other.getX() + getWidth() / 2;
+		int oY =(int) other.getY() + getHeight() / 2;
+		
+		if(oX >= x && oX <= x + width && oY >= y && oY <= y + height){
+			return true;
+		}
+		
+		return false;
+	}
+	public void addToMoveList(EnemyMovement movement[]){
+		
+	}
 	private void gameTypeLogic(){
 		if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
 			if(isJumping || isInAir){
@@ -195,9 +207,15 @@ public class Enemy extends Entity {
 	public void draw() {
 		Collector.add(new DrawParameters("box", x, y, width, height, -1, color, layer, true));
 	}
+	
+	
+	
 	public enum EnemyMovement{
 		UP,LEFT,DOWN,RIGHT,JUMP,WAIT;
 	}
+	
+	
+	
 	public class moveUpdate{
 		private int amount;
 		private EnemyMovement direction;

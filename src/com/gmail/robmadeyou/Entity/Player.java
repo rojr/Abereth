@@ -1,23 +1,14 @@
 package com.gmail.robmadeyou.Entity;
 
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glTranslated;
-
-import java.util.ArrayList;
-
 import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.World.World;
 import com.gmail.robmadeyou.Block.Block;
-import com.gmail.robmadeyou.Effects.Animate;
 import com.gmail.robmadeyou.Effects.Color;
-import com.gmail.robmadeyou.Effects.TextureLoader;
 import com.gmail.robmadeyou.Gui.Fonts;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
-import com.gmail.robmadeyou.Draw.Box;
 import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 
@@ -35,12 +26,13 @@ public class Player extends Entity{
 	private boolean isCrouching;
 	private double jumpDY = 0;
 	private boolean hasClicked;
-	private int amountOhHealth;
+	private int amountOfHealth;
 	private double finalJumpDY = 7;
 	private boolean isMoving = false;
 	private boolean hasEffectTakenPlace = false, hasEffectBeenRemoved = true;
 	private boolean isSolidLeft = false, isSolidRight = false, isSolidAbove = false, isSolidBelow = false;
 	private int layer;
+	private Enemy targetedEnemy;
 	/*
 	 * Direction is as shown:
 	 * (think of a compass)
@@ -79,7 +71,7 @@ public class Player extends Entity{
 		layer = 0;
 	}
 	public void setHealth(int amount){
-		this.amountOhHealth = amount;
+		this.amountOfHealth = amount;
 	}
 	public void setLayer(int layer){
 		this.layer = layer;
@@ -129,6 +121,9 @@ public class Player extends Entity{
 	}
 	public void setHeight(int h) {
 		this.height = h;
+	}
+	public int getHealth(){
+		return amountOfHealth;
 	}
 	public double getX(){
 		return x;
@@ -509,9 +504,34 @@ public class Player extends Entity{
 		}else if(Screen.TypeOfGame == GameType.RPG_STYLE){
 			//TODO RPG STYLE ON UPDATE
 		}
+		
+		/*
+		 * Check if enemy is near and then target it. 
+		 * 
+		 */
+		for(int i = 0; i < Engine.onScreenEntity.size(); i++){
+			if(isNear(Engine.onScreenEntity.get(i)) && Engine.onScreenEntity.get(i).getNumber() != number){
+				System.out.println("IS near an enemy! Send backup!" + Engine.onScreenEntity.get(i).getNumber());
+			}
+		}
+		
 		handleInput(delta);
-		draw();
 	}
+	
+	public boolean isNear(Entity other){
+		int oX =(int) other.getX() + getWidth() / 2;
+		int oY =(int) other.getY() + getHeight() / 2;
+		
+		boolean one = oX >= x && oX <= x + width && oY >= y && oY <= y + height;
+		boolean two = oX >= x - width && oX <= x + width * 2&& oY >= y - height && oY <= y + height * 2;
+		
+		if(one || two){
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public void draw() {
 		Color color = Color.White;
 		/*
@@ -531,6 +551,7 @@ public class Player extends Entity{
 			}else{
 			}
 		}
+		
 		
 		
 		Collector.add(new DrawParameters("box", x, y, width, height, -1, color, 1, layer, true, false));

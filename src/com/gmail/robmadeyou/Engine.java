@@ -31,6 +31,7 @@ public class Engine {
 	 * 
 	 */
 	public static ArrayList<Entity> entityList = new ArrayList<Entity>();
+	public static ArrayList<Entity> onScreenEntity = new ArrayList<Entity>();
 	
 	public static void addEntity(Entity e){
 		entityList.add(e);
@@ -49,8 +50,24 @@ public class Engine {
 		}
 	}
 	public static void updateAllEntities(int delta){
+		
 		for(int i = 0; i < entityList.size(); i++){
 			entityList.get(i).onUpdate(delta);
+		}
+		onScreenEntity.clear();
+		for(int i = 0; i < entityList.size(); i++){
+			double eX = entityList.get(i).getX();
+			double eY = entityList.get(i).getY();
+			int eW = entityList.get(i).getWidth();
+			int eH = entityList.get(i).getHeight();
+			boolean one = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
+					eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
+			boolean two = eX + eW >= -Screen.translate_x && eX + eW<= -Screen.translate_x + Screen.getWidth() &&
+					eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
+			if(one || two){
+				onScreenEntity.add(entityList.get(i));
+				entityList.get(i).draw();
+			}
 		}
 	}
 	public static Entity getEntityByNumber(int number){

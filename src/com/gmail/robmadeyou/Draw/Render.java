@@ -20,8 +20,13 @@ public class Render {
 			Color color = Collector.drawArraySorted.get(i).getColor();
 			Float opacity = Collector.drawArraySorted.get(i).getOpacity();
 			boolean inverts = Collector.drawArraySorted.get(i).getInverts();
-			if(x >= -Screen.translate_x && x <= -Screen.translate_x + Screen.getWidth() &&
-					y >= -Screen.translate_y && y <= -Screen.translate_y + Screen.getHeight()){
+			
+			boolean one = x >= -Screen.translate_x && x <= -Screen.translate_x + Screen.getWidth() &&
+					y >= -Screen.translate_y && y <= -Screen.translate_y + Screen.getHeight();
+			boolean two = x + width >= -Screen.translate_x && x + width <= -Screen.translate_x + Screen.getWidth() &&
+					y >= -Screen.translate_y && y <= -Screen.translate_y + Screen.getHeight();
+			
+			if(one || two){
 
 				color.bind(opacity);
 				Textures.none.bind();

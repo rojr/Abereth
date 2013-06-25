@@ -107,6 +107,9 @@ public class Entity {
 	public Entity getType(){
 		return this;
 	}
+	public boolean isNear(Entity other){
+		return false;
+	}
 	public void doEffectFromBlock(Block type){}
 	public void removeEffectFromBlock(Block type){}
 	public void onUpdate(int delta){}
