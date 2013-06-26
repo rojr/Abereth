@@ -593,7 +593,6 @@ public class Player extends Entity{
 			Collector.add(new DrawParameters("box", x2, y2, width2, height2, -1, Color.Red, 1, layer, true, false));
 		}
 		
-		
 		Collector.add(new DrawParameters("box", x, y, width, height, -1, color, 1, layer, true, false));
 	}
 	public enum MovementType{

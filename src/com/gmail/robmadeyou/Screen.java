@@ -77,6 +77,9 @@ public class Screen {
 			Display.setVSyncEnabled(false);
 		}
 	}
+	public static void changeGameMode(GameType type){
+		TypeOfGame = type;
+	}
 	/*
 	 * Delta time is the time taken between each frame
 	 * 
