@@ -69,6 +69,14 @@ public class Screen {
 	private static long getTime() {
 		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
 	}
+	private static boolean vSync = false;
+	public static void toggleVSync(){
+		if(vSync == false){
+			Display.setVSyncEnabled(true);
+		}else{
+			Display.setVSyncEnabled(false);
+		}
+	}
 	/*
 	 * Delta time is the time taken between each frame
 	 * 

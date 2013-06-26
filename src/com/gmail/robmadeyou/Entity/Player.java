@@ -6,9 +6,11 @@ import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.World.World;
 import com.gmail.robmadeyou.Block.Block;
 import com.gmail.robmadeyou.Effects.Color;
+import com.gmail.robmadeyou.Entity.Enemy.EnemyMovement;
 import com.gmail.robmadeyou.Gui.Fonts;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
+import com.gmail.robmadeyou.Input.Mouse;
 import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 
@@ -510,23 +512,55 @@ public class Player extends Entity{
 		 * 
 		 */
 		for(int i = 0; i < Engine.onScreenEntity.size(); i++){
+			double x2 = Engine.onScreenEntity.get(i).getX();
+			double y2 = Engine.onScreenEntity.get(i).getY();
+			int width2= Engine.onScreenEntity.get(i).getWidth();
+			int height2 = Engine.onScreenEntity.get(i).getHeight();
 			if(isNear(Engine.onScreenEntity.get(i)) && Engine.onScreenEntity.get(i).getNumber() != number){
+				Collector.add(new DrawParameters("box", x2, y2, width2, height2, -1, Color.Blue, 1, 1, true));
 				System.out.println("IS near an enemy! Send backup!" + Engine.onScreenEntity.get(i).getNumber());
+				//Check if right mouse button is pressed on the enemy to select it
+				int mX = Mouse.getX();
+				int mY = Mouse.getY();
+				if(mX >= x2 && mX <= x2 + width && mY >= y2 && mY <= y2 + height){
+					if(Mouse.rightMouseButtonPressed){
+						targetedEnemy = (Enemy) Engine.onScreenEntity.get(i);
+					}
+				}
 			}
+		}
+		if(targetedEnemy != null){
+		int mX = Mouse.getX();
+		int mY = Mouse.getY();
+		double x2 = targetedEnemy.getX();
+		double y2 = targetedEnemy.getY();
+		int width2= targetedEnemy.getWidth();
+		int height2 = targetedEnemy.getHeight();
+		if(mX >= x2 && mX <= x2 + width && mY >= y2 && mY <= y2 + height){
+			if(Mouse.rightMouseButtonPressed){
+				targetedEnemy.orders(EnemyMovement.RIGHT, 20);
+			}
+		}
+		}
+		if(!isNear(targetedEnemy)){
+			targetedEnemy = null;
 		}
 		
 		handleInput(delta);
 	}
 	
 	public boolean isNear(Entity other){
-		int oX =(int) other.getX() + getWidth() / 2;
-		int oY =(int) other.getY() + getHeight() / 2;
+		//Gotta do them null checks man
+		if(other != null){
+			int oX =(int) other.getX() + getWidth() / 2;
+			int oY =(int) other.getY() + getHeight() / 2;
 		
-		boolean one = oX >= x && oX <= x + width && oY >= y && oY <= y + height;
-		boolean two = oX >= x - width && oX <= x + width * 2&& oY >= y - height && oY <= y + height * 2;
+			boolean one = oX >= x && oX <= x + width && oY >= y && oY <= y + height;
+			boolean two = oX >= x - width && oX <= x + width * 2&& oY >= y - height && oY <= y + height * 2;
 		
-		if(one || two){
-			return true;
+			if(one || two){
+				return true;
+			}
 		}
 		
 		return false;
@@ -551,7 +585,13 @@ public class Player extends Entity{
 			}else{
 			}
 		}
-		
+		if(targetedEnemy != null){
+			double x2 = targetedEnemy.getX();
+			double y2 = targetedEnemy.getY();
+			int width2= targetedEnemy.getWidth();
+			int height2 = targetedEnemy.getHeight();
+			Collector.add(new DrawParameters("box", x2, y2, width2, height2, -1, Color.Red, 1, layer, true, false));
+		}
 		
 		
 		Collector.add(new DrawParameters("box", x, y, width, height, -1, color, 1, layer, true, false));

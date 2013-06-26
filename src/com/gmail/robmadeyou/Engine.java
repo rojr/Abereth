@@ -33,7 +33,7 @@ public class Engine {
 	public static ArrayList<Entity> entityList = new ArrayList<Entity>();
 	public static ArrayList<Entity> onScreenEntity = new ArrayList<Entity>();
 	
-	public static void addEntity(Entity e){
+	public static Entity addEntity(Entity e){
 		entityList.add(e);
 		Random ran = new Random();
 		int id = ran.nextInt(1024);
@@ -48,6 +48,7 @@ public class Engine {
 			entityList.get(entityList.size() - 1).setNumber(id);
 			hasIDSet = true;
 		}
+		return e;
 	}
 	public static void updateAllEntities(int delta){
 		
