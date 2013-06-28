@@ -15,7 +15,6 @@ import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Textures;
 import com.gmail.robmadeyou.Entity.Entity;
-import com.gmail.robmadeyou.Gui.Fonts;
 import com.gmail.robmadeyou.World.World;
 
 public class BlockAir implements Block {

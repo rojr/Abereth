@@ -1,6 +1,7 @@
 package com.gmail.robmadeyou.Input;
 
 import com.gmail.robmadeyou.Screen;
+import com.gmail.robmadeyou.Gui.Interface;
 
 public class Mouse {
 	/*
@@ -24,6 +25,8 @@ public class Mouse {
 	private static int x = org.lwjgl.input.Mouse.getX();
 	private static int y = com.gmail.robmadeyou.Screen.getHeight() - org.lwjgl.input.Mouse.getY();
 	
+	private static boolean isOverGui = false;
+	
 	public static int getX(){
 		return x;
 	}
@@ -31,6 +34,13 @@ public class Mouse {
 		return y;
 	}
 	public static void onUpdate(){
+		isOverGui = false;
+		for(int i = 0; i < Interface.onScreenListOfContents.size(); i++){
+			if(Interface.onScreenListOfContents.get(i).isMouseOver()){
+				isOverGui = true;
+			}
+		}
+		
 		x = (int) (org.lwjgl.input.Mouse.getX() -Screen.translate_x);
 		y = (int) (com.gmail.robmadeyou.Screen.getHeight() - org.lwjgl.input.Mouse.getY() - Screen.translate_y);
 		/*

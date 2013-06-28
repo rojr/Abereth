@@ -233,7 +233,8 @@ public class Enemy extends Entity {
 				}else if(direction == EnemyMovement.DOWN){
 					moveDown();
 				}
-			}else if(direction == EnemyMovement.LEFT){
+			}
+			if(direction == EnemyMovement.LEFT){
 				moveLeft();
 			}else if(direction == EnemyMovement.RIGHT){
 				moveRight();

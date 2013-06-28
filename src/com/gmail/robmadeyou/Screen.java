@@ -12,10 +12,7 @@ import com.gmail.robmadeyou.Input.Mouse;
 import com.gmail.robmadeyou.World.World;
 import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Render;
-import com.gmail.robmadeyou.Effects.Color;
-import com.gmail.robmadeyou.Effects.Emitter;
 import com.gmail.robmadeyou.Effects.Textures;
-import com.gmail.robmadeyou.Gui.Fonts;
 
 import static org.lwjgl.opengl.GL11.GL_BLEND;
 import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
@@ -170,8 +167,7 @@ public class Screen {
 			glMatrixMode(GL_MODELVIEW);
 		}
 		
-		Fonts.setUpTextures();
-		System.out.println(engineName + "Font set up: " + Fonts.texSetUp);
+		System.out.println(engineName + "Font set up: ");
 		Textures.setUpTextures();
 		System.out.println(engineName + "Textures set up: " + Textures.texSetUp);
 		
@@ -238,13 +234,6 @@ public class Screen {
 					detailsActive = false;
 				}
 			}
-			
-			if(detailsActive){
-				Fonts.drawString("camX " + translate_x, 0, 20, 1, Color.Red);
-				Fonts.drawString("camY " + translate_y, 0, 30, 1, Color.Red);
-				Fonts.drawString("FPS: " + actualFps, 5, 40, 1, Color.Green);
-			}
-			Fonts.drawString("", 0, 0, 0, Color.White);
 		Display.sync(60);
 	}
 	public static void refresh(){

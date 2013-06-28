@@ -34,12 +34,6 @@ public static void main (String []args){
 				a.orders(EnemyMovement.UP, 20);
 				a.orders(EnemyMovement.RIGHT, 20);
 			}
-			if(Keyboard.isKeyPressed(Key.V)){
-				Screen.changeGameMode(GameType.SIDE_SCROLLER);
-			}
-			if(Keyboard.isKeyPressed(Key.C)){
-				Screen.changeGameMode(GameType.RPG_STYLE);
-			}
 			//Refreshing the screen
 			Screen.refresh();
 		}

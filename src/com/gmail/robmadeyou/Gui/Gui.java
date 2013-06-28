@@ -1,16 +1,18 @@
 package com.gmail.robmadeyou.Gui;
 
 public interface Gui {
-	void setLocation(int x, int y);
-	void setWidth(int w);
-	void setHeight(int h);
-	int getX();
-	int getY();
+	
+	void setX(double x);
+	void setY(double y);
+	void setWidth(int width);
+	void setHeight(int height);
+	void setLayer(int layer);
+	
+	double getX();
+	double getY();
 	int getWidth();
 	int getHeight();
-	void onUpdate();
-	String getState();
-	void addToState(String toAdd);
-	void setLayer(int later);
 	int getLayer();
+	
+	boolean isMouseOver();
 }

@@ -7,7 +7,6 @@ import com.gmail.robmadeyou.World.World;
 import com.gmail.robmadeyou.Block.Block;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Entity.Enemy.EnemyMovement;
-import com.gmail.robmadeyou.Gui.Fonts;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
@@ -399,10 +398,6 @@ public class Player extends Entity{
 		}
 	}
 	public void onUpdate(int delta) {
-		if(Screen.detailsActive){
-			Fonts.drawString("x " + x, 0, 0, 1, Color.Blue);
-			Fonts.drawString("y " + y, 0, 10, 1, Color.Blue);
-		}
 		if(Keyboard.isKeyDown(getLeftKey(movementType)) || Keyboard.isKeyDown(getRightKey(movementType))){
 			isMoving = true;
 		}else{
