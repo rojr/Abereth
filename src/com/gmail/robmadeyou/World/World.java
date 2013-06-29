@@ -287,12 +287,15 @@ public class World {
 		
 		int mX = Math.round((Mouse.getX() / BLOCK_SIZE()));
 		int mY = Math.round((Mouse.getY() / BLOCK_SIZE()));
+		//Nice one
 		try{
-			if(Mouse.leftMouseButtonDown){
-				blockList[mX][mY] = new BlockStone(mX,mY);
-			}
-			if(Mouse.rightMouseButtonDown){
-				blockList[mX][mY] = new BlockAir(mX, mY);
+			if(!Mouse.isOverGui){
+				if(Mouse.leftMouseButtonDown){
+					blockList[mX][mY] = new BlockStone(mX,mY);
+				}
+				if(Mouse.rightMouseButtonDown){
+					blockList[mX][mY] = new BlockAir(mX, mY);
+				}
 			}
 		}catch(IndexOutOfBoundsException ex){
 		}

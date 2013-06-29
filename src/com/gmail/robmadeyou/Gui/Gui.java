@@ -7,12 +7,16 @@ public interface Gui {
 	void setWidth(int width);
 	void setHeight(int height);
 	void setLayer(int layer);
+	void setState(String state);
+	
+	void onUpdate();
 	
 	double getX();
 	double getY();
 	int getWidth();
 	int getHeight();
 	int getLayer();
+	String getState();
 	
 	boolean isMouseOver();
 }

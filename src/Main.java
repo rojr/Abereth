@@ -4,6 +4,8 @@ import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.Entity.Enemy;
 import com.gmail.robmadeyou.Entity.Player;
 import com.gmail.robmadeyou.Entity.Enemy.EnemyMovement;
+import com.gmail.robmadeyou.Gui.Button;
+import com.gmail.robmadeyou.Gui.Interface;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
@@ -24,11 +26,13 @@ public static void main (String []args){
 		Enemy enemy = new Enemy(0, 40, 50, 50);
 		Engine.addEntity(enemy);
 		
+		Button button = (Button) Interface.add(new Button("", 50, 50, 50, 50, 1));
+		button.useTranslate(true);
 		while(!Screen.isAskedToClose()){
 			//Updating the screen. the maximum frame rate is 60.
 			Screen.update(60);
 			
-			if(Mouse.leftMouseButtonPressed){
+			if(Mouse.leftMouseButtonPressed && !Mouse.isOverGui){
 				Enemy a = (Enemy) Engine.addEntity(new Enemy(Mouse.getX(),Mouse.getY(),50,50));
 				a.orders(EnemyMovement.LEFT, 20);
 				a.orders(EnemyMovement.UP, 20);

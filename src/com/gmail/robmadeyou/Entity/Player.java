@@ -513,7 +513,6 @@ public class Player extends Entity{
 			int height2 = Engine.onScreenEntity.get(i).getHeight();
 			if(isNear(Engine.onScreenEntity.get(i)) && Engine.onScreenEntity.get(i).getNumber() != number){
 				Collector.add(new DrawParameters("box", x2, y2, width2, height2, -1, Color.Blue, 1, 1, true));
-				System.out.println("IS near an enemy! Send backup!" + Engine.onScreenEntity.get(i).getNumber());
 				//Check if right mouse button is pressed on the enemy to select it
 				int mX = Mouse.getX();
 				int mY = Mouse.getY();

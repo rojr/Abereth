@@ -25,7 +25,7 @@ public class Mouse {
 	private static int x = org.lwjgl.input.Mouse.getX();
 	private static int y = com.gmail.robmadeyou.Screen.getHeight() - org.lwjgl.input.Mouse.getY();
 	
-	private static boolean isOverGui = false;
+	public static boolean isOverGui = false;
 	
 	public static int getX(){
 		return x;
@@ -35,8 +35,8 @@ public class Mouse {
 	}
 	public static void onUpdate(){
 		isOverGui = false;
-		for(int i = 0; i < Interface.onScreenListOfContents.size(); i++){
-			if(Interface.onScreenListOfContents.get(i).isMouseOver()){
+		for(int i = 0; i < Interface.visibleObjects.size(); i++){
+			if(Interface.visibleObjects.get(i).isMouseOver()){
 				isOverGui = true;
 			}
 		}

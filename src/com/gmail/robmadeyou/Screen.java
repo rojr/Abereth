@@ -218,6 +218,8 @@ public class Screen {
 			updateFPS();
 			delta = getDelta();
 			
+			Interface.onUpdate();
+			
 			Mouse.onUpdate();
 			
 			if(worldCreated){
