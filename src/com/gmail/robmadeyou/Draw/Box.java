@@ -9,7 +9,7 @@ import static org.lwjgl.opengl.GL11.glVertex2d;
 import com.gmail.robmadeyou.Effects.TextureLoader;
 
 public class Box {
-	
+// Hi!	
 	public static void drawBox(double x, double y, double width, double height){
 		glBegin(GL_QUADS);
 			glVertex2d(x , y);
