@@ -6,6 +6,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import com.gmail.robmadeyou.Gui.Interface;
+import com.gmail.robmadeyou.Gui.Text;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
@@ -166,8 +167,8 @@ public class Screen {
 			glOrtho(0, dimensionX, dimensionY, 0, 1, -1);
 			glMatrixMode(GL_MODELVIEW);
 		}
-		
-		System.out.println(engineName + "Font set up: ");
+		Text.loadTextures();
+		System.out.println(engineName + "Font set up");
 		Textures.setUpTextures();
 		System.out.println(engineName + "Textures set up: " + Textures.texSetUp);
 		

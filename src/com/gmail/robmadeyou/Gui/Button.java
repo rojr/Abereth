@@ -106,15 +106,17 @@ public class Button implements Gui{
 		}
 		return false;
 	}
+	private boolean lastIsPressed = false;
 	
 	public boolean isReleased(){
-		isReleased = false;
-		if(isReleased == true && !isPressed()){
-			isReleased = true;
+		if(lastIsPressed && !isPressed() && isMouseOver()){
+			lastIsPressed = isPressed();
 			return true;
 		}
+		lastIsPressed = isPressed();
 		return false;
 	}
+	
 	public void onUpdate(){
 		draw();
 	}

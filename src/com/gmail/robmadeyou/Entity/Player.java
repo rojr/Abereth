@@ -334,7 +334,6 @@ public class Player extends Entity{
 					y = 0;
 				}
 			}
-				//TODO Update different game modes
 		}
 			/*
 			 *              |
