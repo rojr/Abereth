@@ -6,7 +6,8 @@ import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.World.World;
 import com.gmail.robmadeyou.Block.Block;
 import com.gmail.robmadeyou.Effects.Color;
-import com.gmail.robmadeyou.Entity.Enemy.EnemyMovement;
+import com.gmail.robmadeyou.Entity.Npc.EnemyMovement;
+import com.gmail.robmadeyou.Gui.MessageArea;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
@@ -33,7 +34,7 @@ public class Player extends Entity{
 	private boolean hasEffectTakenPlace = false, hasEffectBeenRemoved = true;
 	private boolean isSolidLeft = false, isSolidRight = false, isSolidAbove = false, isSolidBelow = false;
 	private int layer;
-	private Enemy targetedEnemy;
+	private Npc targetedEnemy;
 	/*
 	 * Direction is as shown:
 	 * (think of a compass)
@@ -516,24 +517,14 @@ public class Player extends Entity{
 				int mX = Mouse.getX();
 				int mY = Mouse.getY();
 				if(mX >= x2 && mX <= x2 + width && mY >= y2 && mY <= y2 + height){
-					if(Mouse.rightMouseButtonPressed){
-						targetedEnemy = (Enemy) Engine.onScreenEntity.get(i);
+					if(Mouse.isRightMouseButtonPressed()){
+						targetedEnemy = (Npc) Engine.onScreenEntity.get(i);
+						
+						String message[] = {"Hi, my name is: " + targetedEnemy.getNumber()};
+						MessageArea.addListOfMessages(message);
 					}
 				}
 			}
-		}
-		if(targetedEnemy != null){
-		int mX = Mouse.getX();
-		int mY = Mouse.getY();
-		double x2 = targetedEnemy.getX();
-		double y2 = targetedEnemy.getY();
-		int width2= targetedEnemy.getWidth();
-		int height2 = targetedEnemy.getHeight();
-		if(mX >= x2 && mX <= x2 + width && mY >= y2 && mY <= y2 + height){
-			if(Mouse.rightMouseButtonPressed){
-				targetedEnemy.orders(EnemyMovement.RIGHT, 20);
-			}
-		}
 		}
 		if(!isNear(targetedEnemy)){
 			targetedEnemy = null;

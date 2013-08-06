@@ -12,6 +12,8 @@ import static org.lwjgl.opengl.GL11.glVertex2d;
 import org.newdawn.slick.opengl.Texture;
 
 import com.gmail.robmadeyou.Screen;
+import com.gmail.robmadeyou.Draw.Collector;
+import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Textures;
 import com.gmail.robmadeyou.Entity.Entity;
@@ -22,11 +24,13 @@ public class BlockAir implements Block {
 	private int x, y;
 	private int id = 0;
 	private boolean isSolid = false;
-	private Texture texture;
+	private int texture;
+	private Color color;
 	public BlockAir(int x, int y){
 		this.x = x;
 		this.y = y;
 		this.texture = Textures.Block_Sky;
+		this.color = Color.White;
 	}
 	
 	public int getID() {
@@ -57,25 +61,7 @@ public class BlockAir implements Block {
 		draw();
 	}
 	public void draw() {
-		if(texture != null){
-			texture.bind();
-		}else{
-			Textures.none.bind();
-		}
-		Color.White.bind();
-		glPushMatrix();
-		glTranslated(Screen.translate_x, Screen.translate_y, 0);
-		glBegin(GL_QUADS);
-			glTexCoord2d(32 / 64, 32 / 64);
-			glVertex2d(x * World.BLOCK_SIZE() , y * World.BLOCK_SIZE());
-			glTexCoord2d((32 + 32) / 64, 32 / 64);
-			glVertex2d(x * World.BLOCK_SIZE() + World.BLOCK_SIZE(), y * World.BLOCK_SIZE());
-			glTexCoord2d((32 + 32) / 64, (32 + 32) / 64);
-			glVertex2d(x * World.BLOCK_SIZE() + World.BLOCK_SIZE(), y * World.BLOCK_SIZE() + World.BLOCK_SIZE());
-			glTexCoord2d(32 / 64, (32 + 32) / 64);
-			glVertex2d(x * World.BLOCK_SIZE() , y * World.BLOCK_SIZE() + World.BLOCK_SIZE());
-		glEnd();
-		glPopMatrix();
+		Collector.add(new DrawParameters("box", x * World.BLOCK_SIZE(), y * World.BLOCK_SIZE(), World.BLOCK_SIZE(), World.BLOCK_SIZE(), texture, color, 1, true));
 	}
 	public void doEffect(Entity e){
 		//Air gives no effect. How sad :(
@@ -84,11 +70,11 @@ public class BlockAir implements Block {
 		//Air gives no effect!
 	}
 
-	public Texture getTexture() {
+	public int getTexture() {
 		return texture;
 	}
 	
-	public void setTexture(Texture tex) {
+	public void setTexture(int tex) {
 		this.texture = tex;
 	}
 	

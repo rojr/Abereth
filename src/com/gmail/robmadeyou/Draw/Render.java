@@ -20,16 +20,20 @@ public class Render {
 			Color color = Collector.drawArraySorted.get(i).getColor();
 			Float opacity = Collector.drawArraySorted.get(i).getOpacity();
 			boolean inverts = Collector.drawArraySorted.get(i).getInverts();
+			boolean useTranslate = Collector.drawArraySorted.get(i).useTranslate();
 			
 			boolean one = x >= -Screen.translate_x && x <= -Screen.translate_x + Screen.getWidth() &&
 					y >= -Screen.translate_y && y <= -Screen.translate_y + Screen.getHeight();
 			boolean two = x + width >= -Screen.translate_x && x + width <= -Screen.translate_x + Screen.getWidth() &&
 					y >= -Screen.translate_y && y <= -Screen.translate_y + Screen.getHeight();
+			boolean three = x + width >= -Screen.translate_x && x + width <= -Screen.translate_x + Screen.getWidth() &&
+					y + height >= -Screen.translate_y && y + height <= -Screen.translate_y + Screen.getHeight();
+			boolean four = x >= -Screen.translate_x && x <= -Screen.translate_x + Screen.getWidth() &&
+					y + height >= -Screen.translate_y && y + height<= -Screen.translate_y + Screen.getHeight();
 			
-			if(one || two){
-
-				color.bind(opacity);
+			if(one || two || !useTranslate){
 				Textures.none.bind();
+				color.bind(opacity);
 				if(Collector.drawArraySorted.get(i).useTranslate()){
 					glPushMatrix();
 					glTranslated(Screen.translate_x, Screen.translate_y, 0);

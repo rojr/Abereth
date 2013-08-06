@@ -187,15 +187,15 @@ public class Screen {
 		 * the screen wasn't created and we couldn't actually initialise the variables :S
 		 */
 		if(WorldWidth == 0 && WorldHeight == 0){
-			WorldWidth = Math.round(getWidth() / WorldTileSize) + 3;
-			WorldHeight = Math.round(getHeight() / WorldTileSize) + 3;
+			WorldWidth = Math.round(getWidth() / WorldTileSize) + 1;
+			WorldHeight = Math.round(getHeight() / WorldTileSize);
 		}
-		if(WorldWidth < Math.round(getWidth() / WorldTileSize) + 3){
-			WorldWidth = Math.round(getWidth() / WorldTileSize + 3);
+		if(WorldWidth < Math.round(getWidth() / WorldTileSize) + 1){
+			WorldWidth = Math.round(getWidth() / WorldTileSize  + 1);
 			System.out.println(engineName + "WorldWidth TOO LOW. default to: " + WorldWidth);
 		}
-		if(WorldHeight < Math.round(getHeight() / WorldTileSize) + 3){
-			WorldHeight = Math.round(getHeight() / WorldTileSize) + 3;
+		if(WorldHeight < Math.round(getHeight() / WorldTileSize)){
+			WorldHeight = Math.round(getHeight() / WorldTileSize);
 			System.out.println(engineName + "WorldHeight TOO LOW. default to: " + WorldHeight);
 		}
 		World.setWorldDimensions(WorldWidth, WorldHeight);
@@ -218,6 +218,8 @@ public class Screen {
 		glClear(GL_COLOR_BUFFER_BIT);
 			updateFPS();
 			delta = getDelta();
+			Engine.islmbpThisTick = false;
+			Engine.isrmbpThisTick = false;
 			
 			Interface.onUpdate();
 			
@@ -225,7 +227,6 @@ public class Screen {
 			
 			if(worldCreated){
 				World.onUpdate();
-				Engine.updateAllEntities(delta);
 			}
 			Engine.update(delta);
 			Interface.onUpdate();

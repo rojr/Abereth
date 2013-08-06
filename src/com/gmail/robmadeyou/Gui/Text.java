@@ -34,12 +34,17 @@ public class Text {
 		}
 	}
 	
-	public static void drawString(String text, double x, double y, int layerID,float opacity, Color color, boolean useTranslate, boolean inverts){
+	public static void drawString(String text, double x, double y, int layerID,float opacity, double size,Color color, boolean useTranslate, boolean inverts){
+		double originalX = x;
 		for(char c : text.toCharArray()){
 			for(int i = 0; i < letters.length; i++){
 				if(c == letters[i]){
 					if(c == 'g' || c == 'q' || c == 'p' || c == 'j' || c == 'y'){
 						y += 1;
+					}
+					Collector.add(new DrawParameters("box", x, y, 8, 8, letterTexID.get(i), color, opacity, layerID, useTranslate, inverts));
+					if(c == 'g' || c == 'q' || c == 'p' || c == 'j' || c == 'y'){
+						y -= 1;
 					}
 					if(c == 'f' || c == 'l' || c == 't'){
 						x += 7;
@@ -48,14 +53,13 @@ public class Text {
 					}else{
 						x += 8;
 					}
-					Collector.add(new DrawParameters("box", x, y, 8, 8, letterTexID.get(i), color, opacity, layerID, useTranslate, inverts));
-					if(c == 'g' || c == 'q' || c == 'p' || c == 'j' || c == 'y'){
-						y -= 1;
-					}
 				}
 			}
 			if(c == ' '){
 				x += 8;
+			}else if(c == '\n'){
+				x = originalX;
+				y += 9;
 			}
 			for(int i = 0; i < numbers.length; i++){
 				if(c == numbers[i]){

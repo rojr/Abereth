@@ -1,5 +1,6 @@
 package com.gmail.robmadeyou.World;
 
+import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Block.Block;
 import com.gmail.robmadeyou.Block.BlockAir;
@@ -288,16 +289,19 @@ public class World {
 		int mX = Math.round((Mouse.getX() / BLOCK_SIZE()));
 		int mY = Math.round((Mouse.getY() / BLOCK_SIZE()));
 		//Nice one
-		try{
-			if(!Mouse.isOverGui){
-				if(Mouse.leftMouseButtonDown){
-					blockList[mX][mY] = new BlockStone(mX,mY);
+		if(Engine.isDevMode){
+			try{
+				if(!Mouse.isOverGui){
+					if(Mouse.leftMouseButtonDown){
+						blockList[mX][mY] = new BlockStone(mX,mY);
+					}
+					if(Mouse.rightMouseButtonDown){
+						blockList[mX][mY] = new BlockAir(mX, mY);
+					}
 				}
-				if(Mouse.rightMouseButtonDown){
-					blockList[mX][mY] = new BlockAir(mX, mY);
-				}
+			}catch(IndexOutOfBoundsException ex){
+				ex.printStackTrace();
 			}
-		}catch(IndexOutOfBoundsException ex){
 		}
 		
 		for(int sX = camXDivided; sX < camXDivided + camWidthDivided + 1; sX++){

@@ -6,8 +6,15 @@ import java.util.Random;
 import com.gmail.robmadeyou.Effects.Animate;
 import com.gmail.robmadeyou.Effects.Emitter;
 import com.gmail.robmadeyou.Entity.Entity;
+import com.gmail.robmadeyou.Input.Keyboard;
+import com.gmail.robmadeyou.Input.Keyboard.Key;
+import com.gmail.robmadeyou.Item.Item;
+import com.gmail.robmadeyou.Quest.Quest;
 
 public class Engine {
+	
+	public static Quest questList[];
+	public static Quest openQuests[];
 	
 	static ArrayList<Emitter> Emitters = new ArrayList<Emitter>();
 	public static Emitter addNewEmitter(Emitter e){
@@ -21,6 +28,15 @@ public class Engine {
 	}
 	public static void update(int delta){
 		updateAllEmitters(delta);
+		updateAllEntities(delta);
+		
+		if(Keyboard.isKeyPressed(Key.L)){
+			if(isDevMode){
+				isDevMode = false;
+			}else{
+				isDevMode = true;
+			}
+		}
 	}
 	/*
 	 * 
@@ -56,7 +72,7 @@ public class Engine {
 			entityList.get(i).onUpdate(delta);
 		}
 		onScreenEntity.clear();
-		for(int i = 0; i < entityList.size(); i++){
+		for(int i = entityList.size() -1; i >= 0; i--){
 			double eX = entityList.get(i).getX();
 			double eY = entityList.get(i).getY();
 			int eW = entityList.get(i).getWidth();
@@ -92,5 +108,38 @@ public class Engine {
 		animID.add(animation);
 		return animID.get(animID.size() - 1); 
 	}
+	
+	/*
+	 * 
+	 * CODE FOR ITEMS
+	 * 
+	 * 
+	 */
+	public static ArrayList<Item> itemList = new ArrayList<Item>();
+	
+	public static void updateItems(){
+		
+		
+		
+		boolean one = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
+				eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
+		boolean two = eX + eW >= -Screen.translate_x && eX + eW<= -Screen.translate_x + Screen.getWidth() &&
+				eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
+		if(one || two){
+			
+		}
+	}
+	
+	
+	/*
+	 * 
+	 * Various small handlers
+	 * 
+	 * 
+	 */
+	public static boolean isDevMode = false;
+	
+	public static boolean islmbpThisTick = false;
+	public static boolean isrmbpThisTick = false;
 	
 }

@@ -1,26 +1,42 @@
 package com.gmail.robmadeyou.Input;
 
+import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Gui.Interface;
 
 public class Mouse {
-	/*
-	 * If mouse button is down these variables will change
-	 */
+	
+	public static boolean isLeftMouseButtonPressed(){
+		if(leftMouseButtonPressed && !Engine.islmbpThisTick){
+			Engine.islmbpThisTick = true;
+			return true;
+		}
+		return false;
+	}
+	public static boolean isRightMouseButtonPressed(){
+		if(rightMouseButtonPressed && !Engine.isrmbpThisTick){
+			Engine.isrmbpThisTick = true;
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean isLeftMouseButtonReleased = false;
+	public static boolean isRightMouseButtonReleased = false;
+	
+	public static boolean isLeftMouseButtonDown = false;
+	public static boolean isRightMouseButtonDown = false;
+	
+	
+	
 	public static boolean leftMouseButtonPressed = false;
 	public static boolean rightMouseButtonPressed = false;
-	/*
-	 * If the next frame the button is released after being pressed the 
-	 * previous frame these variables will change
-	 */
 	public static boolean leftMouseButtonReleased = false;
 	public static boolean rightMouseButtonReleased = false;
-	
-	/*
-	 * Checking if the buttons are being pressed and held down
-	 */
 	public static boolean leftMouseButtonDown = false;
 	public static boolean rightMouseButtonDown = false;
+	
+	
 	
 	private static int x = org.lwjgl.input.Mouse.getX();
 	private static int y = com.gmail.robmadeyou.Screen.getHeight() - org.lwjgl.input.Mouse.getY();

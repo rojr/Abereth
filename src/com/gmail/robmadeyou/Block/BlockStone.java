@@ -12,6 +12,8 @@ import static org.lwjgl.opengl.GL11.glVertex2d;
 import org.newdawn.slick.opengl.Texture;
 
 import com.gmail.robmadeyou.Screen;
+import com.gmail.robmadeyou.Draw.Collector;
+import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Textures;
 import com.gmail.robmadeyou.Entity.Entity;
@@ -22,10 +24,12 @@ public class BlockStone implements Block {
 	private int x, y;
 	private int id = 1;
 	private boolean isSolid = true;
-	private Texture texture = Textures.Block_Stone;
+	private int texture = Textures.Block_Stone;
+	private Color color;
 	public BlockStone(int x, int y){
 		this.x = x;
 		this.y = y;
+		this.color = Color.White;
 	}
 	
 	public int getID() {
@@ -36,7 +40,7 @@ public class BlockStone implements Block {
 		return isSolid;
 	}
 
-	public Texture getTexture() {
+	public int getTexture() {
 		return texture;
 	}
 
@@ -56,7 +60,7 @@ public class BlockStone implements Block {
 		return y;
 	}
 
-	public void setTexture(Texture tex) {
+	public void setTexture(int tex) {
 		this.texture = tex;
 	}
 
@@ -67,24 +71,7 @@ public class BlockStone implements Block {
 		return this;
 	}
 	public void draw() {
-		if(texture != null){
-			texture.bind();
-		}
-		glPushMatrix();
-		glTranslated(Screen.translate_x, Screen.translate_y, 0);
-		Color.White.bind();
-		glBegin(GL_QUADS);
-			glTexCoord2d(0, 0);
-			glVertex2d(x * World.BLOCK_SIZE() , y * World.BLOCK_SIZE());
-			glTexCoord2d(1, 0);
-			glVertex2d(x * World.BLOCK_SIZE() + World.BLOCK_SIZE(), y * World.BLOCK_SIZE());
-			glTexCoord2d(1, 1);
-			glVertex2d(x * World.BLOCK_SIZE() + World.BLOCK_SIZE(), y * World.BLOCK_SIZE() + World.BLOCK_SIZE());
-			glTexCoord2d(0, 1);
-			glVertex2d(x * World.BLOCK_SIZE() , y * World.BLOCK_SIZE() + World.BLOCK_SIZE());
-		glEnd();
-	
-		glPopMatrix();
+		Collector.add(new DrawParameters("box", x * World.BLOCK_SIZE(), y * World.BLOCK_SIZE(), World.BLOCK_SIZE(), World.BLOCK_SIZE(), texture, color, 1, true));
 	}
 	
 	public void doEffect(Entity e){

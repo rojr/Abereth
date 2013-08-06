@@ -9,7 +9,7 @@ import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.World.World;
 
-public class Enemy extends Entity {
+public class Npc extends Entity {
 	public ArrayList<moveUpdate> MovementArray = new ArrayList<moveUpdate>();
 	private double x, y, dX, dY;
 	private int number;
@@ -32,7 +32,7 @@ public class Enemy extends Entity {
 	 *    2
 	 */
 	private int directionFacing = 1;
-	public Enemy(double x, double y, int width, int height){
+	public Npc(double x, double y, int width, int height){
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -167,9 +167,10 @@ public class Enemy extends Entity {
 		
 		return false;
 	}
-	public void addToMoveList(EnemyMovement movement[]){
+	public void onTalk(){
 		
 	}
+	
 	private void gameTypeLogic(){
 		if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
 			if(isJumping || isInAir){
@@ -213,8 +214,6 @@ public class Enemy extends Entity {
 	public enum EnemyMovement{
 		UP,LEFT,DOWN,RIGHT,JUMP,WAIT;
 	}
-	
-	
 	
 	public class moveUpdate{
 		private int amount;
