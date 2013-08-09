@@ -9,9 +9,26 @@ import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Input.Mouse;
 import com.gmail.robmadeyou.Screen.GameType;
 
+
+/*
+ * World in this case is meant as the level currently visible to the player.
+ * I haven't yet tried swapping levels and worlds so no idea if that would work.
+ * 
+ * All the collision detection is also done in here, it's very simple just boolean
+ * statements checking if the current location is a solid block or not.
+ */
 public class World {
 	
+	/*
+	 * Determines the amount of blocks placed horizontally (if this figure was set to be lower 
+	 * than ScreenWidth / BlockSize then there would be errors if the player walks out of the 
+	 * area, so when the figure is changed in the Screen class if the figure is smaller than ScreenWidth / BlockSize
+	 * it is set to be just enough to cover the whole screen in blocks
+	 */
 	public static int WorldArrayWidth = 0;
+	/*
+	 * Determines the amount of blocks placed vertically on the array list
+	 */
 	public static int WorldArrayHeight = 0;
 	
 	/*
@@ -36,12 +53,20 @@ public class World {
 	public static int getWorldHeightInPixels(){
 		return WorldArrayHeight * World.BLOCK_SIZE();
 	}
-	
+	/*
+	 * GravityModifier is possible to change, but gravity isn't
+	 * this is in case you wish to change the modifier on the fly for cool
+	 * effects :D
+	 */
+	public static double gravityModifier = 0.04;
 	public static double gravity(int delta){
-		return (delta * 0.04);
+		return (delta * gravityModifier);
 	};
+	
+	//Integer showing the block location of the camera (top left hand side of the screen)
 	private static int camXDivided = (int) Math.round(Screen.translate_x / BLOCK_SIZE());
 	private static int camYDivided = (int) Math.round(Screen.translate_y / BLOCK_SIZE());
+	//Integer showing the width and height in blocks
 	private static int camWidthDivided = (int) Math.round(Screen.getWidth() / BLOCK_SIZE()) + 1;
 	private static int camHeightDivided = (int) Math.round(Screen.getHeight() / BLOCK_SIZE()) + 1;
 	
@@ -50,20 +75,30 @@ public class World {
 		WorldArrayWidth = x;
 		WorldArrayHeight = y;
 	}
-	private static BlockAir air_Block = new BlockAir(0, 0);
-	public static Block getBlockTypeAtLocation(int x, int y){
+	/*
+	 * Returns the type of block at the specified location, these aren't screen coordinates, but instead
+	 * block coordinates, so you have to make sure you divide by block size and round it before calling this
+	 * function
+	 */
+	public static Block getBlockTypeAtLocation(int x, int y) throws NullPointerException{
 		if(x < WorldArrayWidth && x >= 0 && y < WorldArrayHeight && y >= 0){
 			return blockList[x][y].getType();
 		}
-		return air_Block;
-		
+		return null;
 	}
+	/*
+	 * Checks if the block at location is solid, again it's in block coordinates so you must divide again
+	 */
 	public static boolean isSolidAtLocation(int x, int y){
 		if(getBlockTypeAtLocation(x, y).isSolid()){
 			return true;
 		}
 		return false;
 	}
+	/*
+	 * Clears the world list and checks if the game type, if it's SIDE_SCROLLER it sets the bottom 2 layers 
+	 * stone to make sure the player doesn't fall through the world.
+	 */
 	public static void setArrayListClear(){
 		for(int x = 0; x < WorldArrayWidth; x++){
 			for(int y = 0; y < WorldArrayHeight; y++){
@@ -123,19 +158,23 @@ public class World {
 				}
 				int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
 				int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
-				//TODO Do a for loop :(
-				//Bottom left
-				boolean one = eX >= bX && eX <= bX + bDimensions && eY + eH + 10 >= bY && eY + eH <= bY + 7;
-				//Bottom right
-				boolean two = eX + eW >= bX && eX + eW <= bX + bDimensions && eY + eH + 10 >= bY && eY + eH <= bY + 7;
-				if(one || two){
-					if(blockList[x][y].isSolid()){
-						e.setY(bY - 1 - eH);
-						e.doEffectFromBlock(blockList[x][y].getType());
-						blockEffectX = x;
-						blockEffectY = y;
-						return true;
+				/*
+				 * For loop because in case the blocks are smaller than the players width, so the player doesn't fall
+				 * through the blocks
+				 */
+				for(int x2 = 0; x2 < eW / 4; x2++){
+					boolean one = eX + (x2 * 4) >= bX && eX + (x2 * 4) <= bX + bDimensions && eY + eH + 10 >= bY && eY + eH <= bY  + 7;
+				
+					if(one){
+						if(blockList[x][y].isSolid()){
+							e.setY(bY - 1 - eH);
+							e.doEffectFromBlock(blockList[x][y].getType());
+							blockEffectX = x;
+							blockEffectY = y;
+							return true;
+						}
 					}
+				
 				}
 			}
 		}

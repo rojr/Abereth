@@ -29,7 +29,7 @@ public class Engine {
 	public static void update(int delta){
 		updateAllEmitters(delta);
 		updateAllEntities(delta);
-		
+		updateAllItems();
 		if(Keyboard.isKeyPressed(Key.L)){
 			if(isDevMode){
 				isDevMode = false;
@@ -127,8 +127,7 @@ public class Engine {
 		return i;
 	}
 	
-	public static void updateItems(){
-		
+	public static void updateAllItems(){
 		VisibleItemList.clear();
 		for(int i = 0; i < itemList.size(); i++){
 			double eX = itemList.get(i).getX();

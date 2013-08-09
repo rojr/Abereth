@@ -4,7 +4,13 @@ import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Input.Mouse;
-
+/*
+ * Buttons are quite simple, they really serve only one purpose, they can't
+ * be moved about but can be made to useTranslate (so when the camera moves, so does the
+ * button)
+ * 
+ * All Gui objects implement the GUI interface
+ */
 public class Button implements Gui{
 	private double x,y;
 	private int width,height,layer, texture;

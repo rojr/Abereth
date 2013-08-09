@@ -5,6 +5,7 @@ import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Input.Mouse;
+import com.gmail.robmadeyou.World.World;
 
 public class Item {
 	private double x, y;
@@ -110,7 +111,14 @@ public class Item {
 	}
 	
 	public void onUpdate(){
-		
+		if(isHeld()){
+			x += Mouse.getDX();
+			y += Mouse.getDY();
+		}
+		//TODO work in progress
+		//if(!World.isSolidAtLocation(x / World.BLOCK_SIZE(), y / World.BLOCK_SIZE()){
+		//	
+		//}
 	}
 	public void draw(){
 		Collector.add(new DrawParameters("box", x, y, width, height, Texture, Color.White, 1, layer, true));

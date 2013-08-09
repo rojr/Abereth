@@ -39,7 +39,7 @@ public class Mouse {
 	
 	
 	private static int x = org.lwjgl.input.Mouse.getX();
-	private static int y = com.gmail.robmadeyou.Screen.getHeight() - org.lwjgl.input.Mouse.getY();
+	private static int y = Screen.getHeight() - org.lwjgl.input.Mouse.getY();
 	
 	public static boolean isOverGui = false;
 	
@@ -48,6 +48,12 @@ public class Mouse {
 	}
 	public static int getY(){
 		return y;
+	}
+	public static int getDX(){
+		return org.lwjgl.input.Mouse.getDX();
+	}
+	public static int getDY(){
+		return org.lwjgl.input.Mouse.getDY();
 	}
 	public static void onUpdate(){
 		isOverGui = false;
@@ -66,8 +72,8 @@ public class Mouse {
 		rightMouseButtonReleased = false;
 		
 		/*
-		 * Checking if the right or left mouse buttons are pressed, then setting released variables to true if buttons were 
-		 * pressed previous frame.
+		 * Checking if the right or left mouse buttons are pressed, then setting released variables to 
+		 * true if buttons were pressed previous frame.
 		 */
 		if(leftMouseButtonDown && !org.lwjgl.input.Mouse.isButtonDown(0)){
 			leftMouseButtonReleased = true;
