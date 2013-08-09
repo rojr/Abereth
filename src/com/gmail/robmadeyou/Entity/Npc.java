@@ -24,6 +24,7 @@ public class Npc extends Entity {
 	private int delta;
 	private Color color;
 	private double speedDecrease;
+	private int texture;
 	/*
 	 * Directions are as follows (think of a compass)
 	 * 
@@ -40,6 +41,7 @@ public class Npc extends Entity {
 		this.speed = 1;
 		this.color = Color.White;
 		this.speedDecrease = speed * 0.8;
+		this.texture = -1;
 	}
 	//TODO tidy up pls
 	public void setNumber(int number) {
@@ -76,6 +78,9 @@ public class Npc extends Entity {
 	public void setLogic(boolean args){
 		this.usingLogic = args;
 	}
+	public void setTexture(int tex){
+		this.texture = tex;
+	}
 	public double getX() {
 		return x;
 	}
@@ -105,6 +110,9 @@ public class Npc extends Entity {
 	}
 	public int getNumber() {
 		return number;
+	}
+	public int getTexture(){
+		return texture;
 	}
 	public void onUpdate(int delta){
 		this.delta = delta;
@@ -157,6 +165,7 @@ public class Npc extends Entity {
 			jumpDY = finalJumpDY;
 		}
 	}
+	
 	public boolean isNear(Entity other){
 		int oX =(int) other.getX() + getWidth() / 2;
 		int oY =(int) other.getY() + getHeight() / 2;
@@ -167,6 +176,7 @@ public class Npc extends Entity {
 		
 		return false;
 	}
+	
 	public void onTalk(){
 		
 	}
@@ -206,10 +216,8 @@ public class Npc extends Entity {
 		}//TODO Logic for other game modes for AI
 	}
 	public void draw() {
-		Collector.add(new DrawParameters("box", x, y, width, height, -1, color, layer, true));
+		Collector.add(new DrawParameters("box", x, y, width, height, texture, color, layer, true));
 	}
-	
-	
 	
 	public enum EnemyMovement{
 		UP,LEFT,DOWN,RIGHT,JUMP,WAIT;

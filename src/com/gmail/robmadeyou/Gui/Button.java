@@ -99,7 +99,7 @@ public class Button implements Gui{
 	public boolean isPressed(){
 		isPressed = false;
 		if(isMouseOver()){
-			if(Mouse.isLeftMouseButtonDown){
+			if(Mouse.leftMouseButtonDown){
 				isPressed = true;
 				return true;
 			}

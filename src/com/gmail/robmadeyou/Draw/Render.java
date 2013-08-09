@@ -31,7 +31,7 @@ public class Render {
 			boolean four = x >= -Screen.translate_x && x <= -Screen.translate_x + Screen.getWidth() &&
 					y + height >= -Screen.translate_y && y + height<= -Screen.translate_y + Screen.getHeight();
 			
-			if(one || two || !useTranslate){
+			if(one || two || three || four || !useTranslate){
 				Textures.none.bind();
 				color.bind(opacity);
 				if(Collector.drawArraySorted.get(i).useTranslate()){

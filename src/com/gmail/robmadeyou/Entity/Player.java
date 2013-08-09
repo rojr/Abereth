@@ -518,14 +518,16 @@ public class Player extends Entity{
 				int mY = Mouse.getY();
 				if(mX >= x2 && mX <= x2 + width && mY >= y2 && mY <= y2 + height){
 					if(Mouse.isRightMouseButtonPressed()){
+						try{
 						targetedEnemy = (Npc) Engine.onScreenEntity.get(i);
-						
 						String message[] = {"Hi, my name is: " + targetedEnemy.getNumber()};
 						MessageArea.addListOfMessages(message);
+						}catch(ClassCastException c){ c.printStackTrace();}
 					}
 				}
 			}
 		}
+		
 		if(!isNear(targetedEnemy)){
 			targetedEnemy = null;
 		}

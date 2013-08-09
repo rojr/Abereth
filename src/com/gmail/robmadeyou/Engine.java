@@ -81,7 +81,11 @@ public class Engine {
 					eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
 			boolean two = eX + eW >= -Screen.translate_x && eX + eW<= -Screen.translate_x + Screen.getWidth() &&
 					eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
-			if(one || two){
+			boolean three = eX + eW >= -Screen.translate_x && eX + eW <= -Screen.translate_x + Screen.getWidth() &&
+					eY + eH >= -Screen.translate_y && eY + eH <= -Screen.translate_y + Screen.getHeight();
+			boolean four = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
+					eY + eH >= -Screen.translate_y && eY + eH <= -Screen.translate_y + Screen.getHeight();
+			if(one || two || three || four){
 				onScreenEntity.add(entityList.get(i));
 				entityList.get(i).draw();
 			}
@@ -116,17 +120,34 @@ public class Engine {
 	 * 
 	 */
 	public static ArrayList<Item> itemList = new ArrayList<Item>();
+	public static ArrayList<Item> VisibleItemList = new ArrayList<Item>();
+	
+	public static Item addNewItem(Item i){
+		itemList.add(i);
+		return i;
+	}
 	
 	public static void updateItems(){
 		
-		
-		
-		boolean one = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
-				eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
-		boolean two = eX + eW >= -Screen.translate_x && eX + eW<= -Screen.translate_x + Screen.getWidth() &&
-				eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
-		if(one || two){
-			
+		VisibleItemList.clear();
+		for(int i = 0; i < itemList.size(); i++){
+			double eX = itemList.get(i).getX();
+			double eY = itemList.get(i).getY();
+			int eW = itemList.get(i).getWidth();
+			int eH = itemList.get(i).getHeight();
+			boolean one = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
+						eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
+			boolean two = eX + eW >= -Screen.translate_x && eX + eW<= -Screen.translate_x + Screen.getWidth() &&
+						eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
+			boolean three = eX + eW >= -Screen.translate_x && eX + eW <= -Screen.translate_x + Screen.getWidth() &&
+						eY + eH >= -Screen.translate_y && eY + eH <= -Screen.translate_y + Screen.getHeight();
+			boolean four = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
+						eY + eH >= -Screen.translate_y && eY + eH <= -Screen.translate_y + Screen.getHeight();
+			if(one || two || three || four){
+				VisibleItemList.add(itemList.get(i));
+				itemList.get(i).onUpdate();
+				itemList.get(i).draw();
+			}
 		}
 	}
 	

@@ -17,13 +17,12 @@ public class Textures {
 	public static int Block_Sky;
 	public static int Block_Stone;
 	
-	static ArrayList<Tex> tex = new ArrayList<Tex>();
-	
 	public static void setUpTextures(){
 		
 		try {
 			none = org.newdawn.slick.opengl.TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/none.png"), true);
 			texSetUp = true;
+			System.out.println("Yay");
 		} catch (IOException e) {e.printStackTrace();}
 		
 		test = TextureLoader.createTexture("res/powerUp/PaddleFreeze.png");
@@ -33,13 +32,5 @@ public class Textures {
 	}
 	public static void addTexture(){
 		
-	}
-	class Tex{
-		
-		String location;
-		String name;
-		public Tex(String location, Texture tex){
-			
-		}
 	}
 }

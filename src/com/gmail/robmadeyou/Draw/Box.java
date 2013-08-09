@@ -7,14 +7,20 @@ import static org.lwjgl.opengl.GL11.glTexCoord2d;
 import static org.lwjgl.opengl.GL11.glVertex2d;
 
 import com.gmail.robmadeyou.Effects.TextureLoader;
+import com.gmail.robmadeyou.Effects.Textures;
 
 public class Box {
 	
 	public static void drawBox(double x, double y, double width, double height){
+		Textures.none.bind();
 		glBegin(GL_QUADS);
+			glTexCoord2d(1,0);
 			glVertex2d(x , y);
+			glTexCoord2d(0,0);
 			glVertex2d(x + width, y);
+			glTexCoord2d(0,1);
 			glVertex2d(x + width, y + height);
+			glTexCoord2d(1,1);
 			glVertex2d(x , y + height);
 		glEnd();
 	}
