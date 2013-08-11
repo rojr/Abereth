@@ -22,6 +22,7 @@ public class Player extends Entity{
 	//private int originalHeight, width, height;
 	private int crouchHeight;
 	private int number;
+    private int texture;
 	private double speed;
 	private double originalSpeed;
 	private double speedDecrease;
@@ -76,6 +77,7 @@ public class Player extends Entity{
 		this.jumpDY = 0;
 		this.speedDecrease = speed * 0.8;
 		this.originalSpeed = speed;
+        this.texture = -1;
 		isJumping = false;
 		isInAir = false;
 		isCrouching = false;
@@ -94,6 +96,10 @@ public class Player extends Entity{
 	public void setDY(double dY){
 		vDirection.setY((float) dY);
 	}
+
+    public void setTexture(int tex){
+        this.texture = tex;
+    }
 	public void setSpeed(double speed){
 		this.speed = speed;
 		this.speedDecrease = speed * 0.8;
@@ -167,6 +173,10 @@ public class Player extends Entity{
 	public double getSpeed() {
 		return speed;
 	}
+
+    public int getTexture(){
+        return texture;
+    }
 	public int getFacingDirection(){
 		return direction;
 	}
@@ -594,7 +604,7 @@ public class Player extends Entity{
 			Collector.add(new DrawParameters("box", x2, y2, width2, height2, -1, Color.Red, 1, layer, true, false));
 		}
 
-		Collector.add(new DrawParameters("box", getX(), getY(), getWidth(), getHeight(), -1, color, 1, layer, true, false));
+		Collector.add(new DrawParameters("box", getX(), getY(), getWidth(), getHeight(), texture, color, 1, layer, true, false));
 	}
 	public enum MovementType{
 		ARROW_KEYS(),

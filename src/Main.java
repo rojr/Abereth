@@ -1,12 +1,8 @@
-import com.gmail.robmadeyou.Engine;
-import com.gmail.robmadeyou.Layer;
-import com.gmail.robmadeyou.Screen;
-import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Emitter;
-import com.gmail.robmadeyou.Effects.TextDraw;
-import com.gmail.robmadeyou.Effects.Textures;
 import com.gmail.robmadeyou.Effects.Emitter.MovementDirection;
+import com.gmail.robmadeyou.Effects.Textures;
+import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Entity.Npc;
 import com.gmail.robmadeyou.Entity.Player;
 import com.gmail.robmadeyou.Gui.Button;
@@ -14,6 +10,9 @@ import com.gmail.robmadeyou.Gui.Interface;
 import com.gmail.robmadeyou.Gui.MessageArea;
 import com.gmail.robmadeyou.Gui.Text;
 import com.gmail.robmadeyou.Input.Mouse;
+import com.gmail.robmadeyou.Layer;
+import com.gmail.robmadeyou.Screen;
+import com.gmail.robmadeyou.Screen.GameType;
 
 
 public class Main {
@@ -25,7 +24,7 @@ public static void main (String []args){
 		Screen.setUpWorld();
 		Player player = new Player(40, 40, 32, 32);
 		Engine.addEntity(player);
-		
+		// "", 50, 50, 50, 50, 1
 		Button button = (Button) Interface.add(new Button("", 50, 50, 50, 50, 1));
 		button.useTranslate(true);
 		
@@ -52,13 +51,16 @@ public static void main (String []args){
 			emit.setY(Mouse.getY());
 			
 			enemy.setColor(Color.White);
-			enemy.setTexture(Textures.test);
+			enemy.setTexture(Textures.test2);
+
+            player.setTexture(Textures.test);
 			
 			Text.drawString("Translate_X: " + Screen.translate_x + "\nTranslate_Y: "
 					+ Screen.translate_y, player.getX() + 50, player.getY(), player.getLayer(), 1, 1, Color.Black, true, false);
 			
 			if(Engine.isDevMode){
 				Text.drawString(Screen.actualFps + "", Mouse.getX() + 10, Mouse.getY(), Layer.GUILayer(), 1, 1, Color.Black, true, false);
+                //SATCollisionDetection.getNonEffectingBlocks();
 			}
 			
 			if(button.isReleased()){

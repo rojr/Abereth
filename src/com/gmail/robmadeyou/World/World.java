@@ -89,10 +89,14 @@ public class World {
 	 * Checks if the block at location is solid, again it's in block coordinates so you must divide again
 	 */
 	public static boolean isSolidAtLocation(int x, int y){
-		if(getBlockTypeAtLocation(x, y).isSolid()){
-			return true;
-		}
-		return false;
+        try {
+            if(getBlockTypeAtLocation(x, y).isSolid()){
+                return true;
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return false;
 	}
 	/*
 	 * Clears the world list and checks if the game type, if it's SIDE_SCROLLER it sets the bottom 2 layers 
