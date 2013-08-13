@@ -1,25 +1,28 @@
 package com.gmail.robmadeyou.Entity;
 
-import com.gmail.robmadeyou.Engine;
-import com.gmail.robmadeyou.Screen;
-import com.gmail.robmadeyou.Screen.GameType;
-import com.gmail.robmadeyou.World.World;
 import com.gmail.robmadeyou.Block.Block;
+import com.gmail.robmadeyou.Draw.Collector;
+import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 import com.gmail.robmadeyou.Effects.Color;
-import com.gmail.robmadeyou.Entity.Npc.EnemyMovement;
+import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Gui.MessageArea;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
-import com.gmail.robmadeyou.Draw.Collector;
-import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
+import com.gmail.robmadeyou.Physics.Physics;
+import com.gmail.robmadeyou.Screen;
+import com.gmail.robmadeyou.Screen.GameType;
+import com.gmail.robmadeyou.World.World;
+import org.lwjgl.util.vector.Vector2f;
 
 public class Player extends Entity{
-	private double x, y;
-	private double dX, dY;
-	private int originalHeight, width, height;
+    protected Vector2f vLocation, vDimensions, vDirection, vOrigLoc, vOrigDim, vOrigDir;
+	//private double x, y;
+	//private double dX, dY;
+	//private int originalHeight, width, height;
 	private int crouchHeight;
 	private int number;
+    private int texture;
 	private double speed;
 	private double originalSpeed;
 	private double speedDecrease;
@@ -41,9 +44,9 @@ public class Player extends Entity{
 	 *         0
 	 *       3   1
 	 *         2
-	 *         
+	 *
 	 * This would translate to:
-	 * 
+	 *
 	 * 			up
 	 * 	  right     left
 	 * 		   down
@@ -52,13 +55,21 @@ public class Player extends Entity{
 	private Key upKey, downKey, rightKey, leftKey;
 	private MovementType movementType = MovementType.ARROW_KEYS;
 	public Player(double x, double y, int width, int height){
-		this.x = x;
-		this.y = y;
-		this.originalHeight = height;
-		this.width = width;
-		this.height = height;
+
+        vDirection = new Vector2f();
+        vLocation = new Vector2f();
+        vDimensions = new Vector2f();
+        vOrigDim = new Vector2f();
+        vOrigDir = new Vector2f();
+        vOrigLoc = new Vector2f();
+
+		vLocation.setX((float)x);;
+		vLocation.setY((float)y);
+		vOrigDim.setY(height);;
+		vDimensions.setX(width);;
+		vDimensions.setY(height);;
 		this.speed = 1;
-		this.crouchHeight = (height / 4) * 3;
+		this.crouchHeight = (int) ((vDimensions.getY() / 4) * 3);
 		this.upKey = Key.UpArrow;
 		this.downKey = Key.DownArrow;
 		this.rightKey = Key.RightArrow;
@@ -66,6 +77,7 @@ public class Player extends Entity{
 		this.jumpDY = 0;
 		this.speedDecrease = speed * 0.8;
 		this.originalSpeed = speed;
+        this.texture = -1;
 		isJumping = false;
 		isInAir = false;
 		isCrouching = false;
@@ -79,18 +91,22 @@ public class Player extends Entity{
 		this.layer = layer;
 	}
 	public void setDX(double dX){
-		this.dX = dX;
+		vDirection.setX((float) dX);
 	}
 	public void setDY(double dY){
-		this.dY = dY;
+		vDirection.setY((float) dY);
 	}
+
+    public void setTexture(int tex){
+        this.texture = tex;
+    }
 	public void setSpeed(double speed){
 		this.speed = speed;
 		this.speedDecrease = speed * 0.8;
 		/*
 		 * I was so stupid.. I did
-		 * this.speedDecrase = speed * speedDecrease
-		 * 
+		 * this.speedDecrease = speed * speedDecrease
+		 *
 		 * I couldn't understand why the speed was inverting and increasing
 		 * every time I jumped. I'm honestly too stupid :s
 		 */
@@ -104,7 +120,7 @@ public class Player extends Entity{
 		this.downKey = downKey;
 		this.leftKey = leftKey;
 		this.rightKey = rightKey;
-		
+
 	}
 	public void setDirection(int direction){
 		this.direction = direction;
@@ -113,22 +129,22 @@ public class Player extends Entity{
 		this.number = num;
 	}
 	public void setX(double x){
-		this.x = x;
+		vLocation.x = (float) x;
 	}
 	public void setY(double y){
-		this.y = y;
+		vLocation.y = (float) y;
 	}
 	public void setWidth(int w) {
-		this.width = w;
+		vDimensions.x = w;
 	}
 	public void setHeight(int h) {
-		this.height = h;
+		vLocation.y = h;
 	}
 	public int getHealth(){
 		return amountOfHealth;
 	}
 	public double getX(){
-		return x;
+		return vLocation.x;
 	}
 	public int getLayer(){
 		return layer;
@@ -137,26 +153,30 @@ public class Player extends Entity{
 		return number;
 	}
 	public double getY(){
-		return y;
+		return vLocation.y;
 	}
 	public int getWidth(){
-		return width;
+		return (int)vDimensions.x;
 	}
 	public int getHeight(){
-		return height;
+		return (int)vDimensions.y;
 	}
 	public MovementType getMovementType(){
 		return movementType;
 	}
 	public double getDX() {
-		return dX;
+		return vDirection.x;
 	}
 	public double getDY() {
-		return dY;
+		return vDirection.y;
 	}
 	public double getSpeed() {
 		return speed;
 	}
+
+    public int getTexture(){
+        return texture;
+    }
 	public int getFacingDirection(){
 		return direction;
 	}
@@ -216,31 +236,31 @@ public class Player extends Entity{
 		}
 	}
 	public void handleInput(int delta){
-		
+
 		double centerX = (Screen.getWidth() / 2) - Screen.translate_x;
 		double distFromSideX = (Screen.getWidth() / 5) - Screen.translate_x;
-		double distFromCenterX = centerX - x;
-		
+		double distFromCenterX = centerX - getX();
+
 		double centerY = (Screen.getHeight() / 2) - Screen.translate_y;
 		double distFromSideY = (Screen.getHeight() / 5) - Screen.translate_y;
-		double distFromCenterY = centerY - y;
+		double distFromCenterY = centerY - getY();
 			/*
 		 	*     /
 		 	*    /
 		 	*   /
 		 	*  /
 		 	* ---------------
-		 	*  \ 
+		 	*  \
 		 	*   \
 		 	*    \
 		 	*     \
-		 	* 
+		 	*
 		 	*/
 		if(Keyboard.isKeyDown(getLeftKey(movementType))){//No need for lots and lots of lines of code! Yaay!
 			direction = 3;
-			boolean one = x + width <= (Screen.getWidth() / 5) - Screen.translate_x;
-			if(!World.isSolidLeft(this)){
-				x -= (delta * (speed - speedDecrease));
+			boolean one = getX() + getWidth() <= (Screen.getWidth() / 5) - Screen.translate_x;
+			if(!Physics.isSolidLeft(this)){
+                setX((getX() - (delta * (speed - speedDecrease))));
 				isSolidLeft = false;
 			}else{
 				isSolidLeft = true;
@@ -266,14 +286,14 @@ public class Player extends Entity{
 			 *             /
 			 *            /
 			 *           /
-			 * 
+			 *
 			 */
 		if(Keyboard.isKeyDown(getRightKey(movementType))){
 			direction = 1;
-			boolean one = x + width >= (Screen.getWidth() - (Screen.getWidth() / 5)) - Screen.translate_x;
+			boolean one = getX() + getWidth()>= (Screen.getWidth() - (Screen.getWidth() / 5)) - Screen.translate_x;
 			boolean two = -Screen.translate_x + Screen.getWidth() < World.getWorldWidthInPixels() - World.BLOCK_SIZE();
-			if(!World.isSolidRight(this)){
-				x += (delta * (speed - speedDecrease));
+			if(!Physics.isSolidRight(this)){
+				setX((getX() + (delta * (speed - speedDecrease))));
 				isSolidRight = false;
 			}else{
 				isSolidRight = true;
@@ -302,7 +322,7 @@ public class Player extends Entity{
 			 */
 		if(Keyboard.isKeyDown(getUpKey(movementType))){
 			if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
-				if(!World.isSolidAtLocation((int)Math.round(x / World.BLOCK_SIZE()),(int) Math.round(y / World.BLOCK_SIZE()) - 1)){
+				if(!World.isSolidAtLocation((int)Math.round(getX() / World.BLOCK_SIZE()),(int) Math.round(getY() / World.BLOCK_SIZE()) - 1)){
 					if(!isJumping){
 						isJumping = true;
 						jumpDY = finalJumpDY;
@@ -314,7 +334,7 @@ public class Player extends Entity{
 			}
 			if(Screen.TypeOfGame == GameType.RPG_STYLE){
 				direction = 0;
-				boolean checkIfInTopBit = y < (Screen.getHeight() / 5) - Screen.translate_y;
+				boolean checkIfInTopBit = getY() < (Screen.getHeight() / 5) - Screen.translate_y;
 				if(checkIfInTopBit && Screen.translate_y < 0){
 					Screen.translate_y += (delta * (speed - speedDecrease));
 				}
@@ -325,14 +345,14 @@ public class Player extends Entity{
 					if(distFromCenterY > 0)
 						Screen.translate_y += (delta * (speed - speedDecrease)) * (distFromCenterY / distFromSideY);
 				}
-				if(!World.isSolidAbove(this) && y > 0){
-					y -= (delta * (speed - speedDecrease));
+				if(!Physics.isSolidAbove(this) && getY() > 0){
+                    setY((float) (getY() - (delta * (speed - speedDecrease))));
 					isSolidAbove = false;
 				}else{
 					isSolidAbove = true;
 				}
-				if(y < 0){
-					y = 0;
+				if(getY() < 0){
+                    setY(0);
 				}
 			}
 		}
@@ -353,7 +373,7 @@ public class Player extends Entity{
 			}
 			if(Screen.TypeOfGame == GameType.RPG_STYLE){
 				direction = 2;
-				boolean checkIfInBottomBit = y + height > (Screen.getHeight() - (Screen.getHeight() / 5)) - Screen.translate_y;
+				boolean checkIfInBottomBit = getY() + getHeight() > (Screen.getHeight() - (Screen.getHeight() / 5)) - Screen.translate_y;
 				boolean isInBottomBounds = -Screen.translate_y + Screen.getHeight() < World.getWorldHeightInPixels();
 				if(checkIfInBottomBit && isInBottomBounds){
 					Screen.translate_y -= (delta * (speed - speedDecrease));
@@ -365,16 +385,16 @@ public class Player extends Entity{
 				if(!isInBottomBounds){
 					Screen.translate_y = -World.getWorldHeightInPixels() + Screen.getHeight();
 				}
-				if(!World.isSolidUnder(this)){
+				if(!Physics.isSolidUnder(this)){
 					isSolidBelow = false;
-					if(y + height < World.getWorldHeightInPixels()){
-						y += (delta * (speed - speedDecrease));
+					if(getY() + getHeight() < World.getWorldHeightInPixels()){
+                        setY((getY() + (delta * (speed - speedDecrease))));
 					}
 				}else{
 					isSolidBelow = true;
 				}
-				if(y + height > World.getWorldHeightInPixels()){
-					y = World.getWorldHeightInPixels() - height;
+				if(getY() + getHeight() > World.getWorldHeightInPixels()){
+                    setY(World.getWorldHeightInPixels() - getHeight());
 				}
 			}
 		}else{
@@ -406,8 +426,8 @@ public class Player extends Entity{
 		if(Screen.TypeOfGame == GameType.SIDE_SCROLLER){
 			double centerY = (Screen.getHeight() / 2) - Screen.translate_y;
 			double distFromSideY = (Screen.getHeight() / 5) - Screen.translate_y;
-			double distFromCenterY = centerY - y - height;
-			boolean checkIfInTopBit = y + height - Screen.translate_y< (Screen.getHeight() / 5);
+			double distFromCenterY = centerY - getY() - getHeight();
+			boolean checkIfInTopBit = getY() + getHeight() - Screen.translate_y< (Screen.getHeight() / 5);
 			if(checkIfInTopBit && Screen.translate_y < 0 && jumpDY > 0){
 				Screen.translate_y += jumpDY * (delta * 0.1);
 			}
@@ -418,17 +438,17 @@ public class Player extends Entity{
 				if(distFromCenterY > 0 && jumpDY > 0)
 					Screen.translate_y += (jumpDY * (delta * 0.1)) * (distFromCenterY / distFromSideY);
 			}
-			if(y < 0){
-				y = 0;
+			if(getY() < 0){
+                setY(0);
 			}
 			if(isJumping || isInAir){
 				/*
 				 * Screen moving down if player is in bottom area and is falling, otherwise it would
 				 * make things really awkward all the time
 				 */
-				boolean checkIfInBottomBit = y + height > (Screen.getHeight() - (Screen.getHeight() / 5)) - Screen.translate_y;
+				boolean checkIfInBottomBit = getY() + getHeight() > (Screen.getHeight() - (Screen.getHeight() / 5)) - Screen.translate_y;
 				boolean isInBottomBounds = -Screen.translate_y + Screen.getHeight() < World.getWorldHeightInPixels();
-				
+
 				if(checkIfInBottomBit && isInBottomBounds && jumpDY < 0){
 					Screen.translate_y += jumpDY * (delta * 0.1);
 				}
@@ -442,17 +462,17 @@ public class Player extends Entity{
 				/*
 				 * End of screen moving down
 				 */
-				
-				y -= jumpDY * (delta * 0.1);
+
+                setY((getY() - jumpDY * (delta * 0.1)));
 				jumpDY = jumpDY  - World.gravity(delta);
 				if(jumpDY < -16){
 					jumpDY = -16;
 				}
-				if(y + height > World.getWorldHeightInPixels() - (World.BLOCK_SIZE() * 2)){
+				if(getY() + getHeight() > World.getWorldHeightInPixels() - (World.BLOCK_SIZE() * 2)){
 					isJumping = false;
 					jumpDY = 0;
 				}
-				if(World.isSolidAbove(this)){
+				if(Physics.isSolidAbove(this)){
 					isSolidAbove = true;
 					isJumping = true;
 					isInAir = true;
@@ -460,14 +480,14 @@ public class Player extends Entity{
 					isSolidAbove = false;
 				}
 			}
-			
-			if(y + height < World.getWorldHeightInPixels() - (World.BLOCK_SIZE() * 2)){
-				isInAir = true;
+
+			if(getY() + getHeight() < World.getWorldHeightInPixels() - (World.BLOCK_SIZE() * 2)){
+                    isInAir = true;
 			}else{
 				isInAir = false;
 				jumpDY = 0;
 			}
-			if(World.isSolidUnder(this)){
+			if(Physics.isSolidUnder(this)){
 				isSolidBelow = true;
 				isJumping = false;
 				jumpDY = 0;
@@ -475,36 +495,36 @@ public class Player extends Entity{
 				isSolidBelow = false;
 				this.removeEffectFromBlock(World.blockList[World.blockEffectX][World.blockEffectY].getType());
 			}
-			
+
 			if(isCrouching){
 				if(hasClicked){
-					height = crouchHeight;
-					y += originalHeight - crouchHeight;
+					setHeight(crouchHeight);
+					setY(getY() + getOriginalHeight() - crouchHeight);
 					hasClicked = false;
-					
+
 				}
-				
+
 			}else{
-				if(!World.isSolidAbove(this) || !World.isSolidAtLocation((int) Math.round((x - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((y)/ World.BLOCK_SIZE() -1))
-						|| !World.isSolidAtLocation((int) Math.round((x + width - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((y) / World.BLOCK_SIZE() -1))){
+				if(!Physics.isSolidAbove(this) || !World.isSolidAtLocation((int) Math.round((getX() - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((getY())/ World.BLOCK_SIZE() -1))
+						|| !World.isSolidAtLocation((int) Math.round((getX() + getWidth() - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((getY()) / World.BLOCK_SIZE() -1))){
 					if(!hasClicked){
-						height = originalHeight;
+						setHeight(getOriginalHeight());
 						hasClicked = true;
-						
+
 					}
 				}
 			}
-			while(World.isSolidAtLocation((int) Math.round(((x + ((width / 4) * 2)) - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((y + height + World.BLOCK_SIZE() / 2)/ World.BLOCK_SIZE() -1))
-			|| World.isSolidAtLocation((int) Math.round((x + ((width / 4) * 3) - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((y + height + World.BLOCK_SIZE() / 2) / World.BLOCK_SIZE() -1))){
-				y--;
+			while(World.isSolidAtLocation((int) Math.round(((getX()+ ((getWidth() / 4) * 2)) - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((getY() + getHeight() + World.BLOCK_SIZE() / 2)/ World.BLOCK_SIZE() -1))
+			|| World.isSolidAtLocation((int) Math.round((getX() + ((getWidth() / 4) * 3) - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((getY() + getHeight() + World.BLOCK_SIZE() / 2) / World.BLOCK_SIZE() -1))){
+				setY(getY() - 1);
 			}
 		}else if(Screen.TypeOfGame == GameType.RPG_STYLE){
 			//TODO RPG STYLE ON UPDATE
 		}
-		
+
 		/*
-		 * Check if enemy is near and then target it. 
-		 * 
+		 * Check if enemy is near and then target it.
+		 *
 		 */
 		for(int i = 0; i < Engine.onScreenEntity.size(); i++){
 			double x2 = Engine.onScreenEntity.get(i).getX();
@@ -516,7 +536,7 @@ public class Player extends Entity{
 				//Check if right mouse button is pressed on the enemy to select it
 				int mX = Mouse.getX();
 				int mY = Mouse.getY();
-				if(mX >= x2 && mX <= x2 + width && mY >= y2 && mY <= y2 + height){
+				if(mX >= x2 && mX <= x2 + getWidth() && mY >= y2 && mY <= y2 + getHeight()){
 					if(Mouse.isRightMouseButtonPressed()){
 						try{
 						targetedEnemy = (Npc) Engine.onScreenEntity.get(i);
@@ -527,31 +547,36 @@ public class Player extends Entity{
 				}
 			}
 		}
-		
+
 		if(!isNear(targetedEnemy)){
 			targetedEnemy = null;
 		}
-		
+
 		handleInput(delta);
 	}
-	
+
 	public boolean isNear(Entity other){
 		//Gotta do them null checks man
 		if(other != null){
 			int oX =(int) other.getX() + getWidth() / 2;
 			int oY =(int) other.getY() + getHeight() / 2;
-		
-			boolean one = oX >= x && oX <= x + width && oY >= y && oY <= y + height;
-			boolean two = oX >= x - width && oX <= x + width * 2&& oY >= y - height && oY <= y + height * 2;
-		
+
+			boolean one = oX >= getX()
+                    && oX <= getX() + getWidth()
+                    && oY >= getY() && oY <= getY() + getHeight();
+			boolean two = oX >= getX() - getWidth()
+                    && oX <= getX() + getWidth() * 2
+                    && oY >= getY() - getHeight()
+                    && oY <= getY()  + getHeight() * 2;
+
 			if(one || two){
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	public void draw() {
 		Color color = Color.White;
 		/*
@@ -560,7 +585,7 @@ public class Player extends Entity{
 		 *     2
 		 *
 		 */
-		 
+
 		if(isMoving){
 			if(direction == 0){
 				color = Color.Black;
@@ -578,8 +603,8 @@ public class Player extends Entity{
 			int height2 = targetedEnemy.getHeight();
 			Collector.add(new DrawParameters("box", x2, y2, width2, height2, -1, Color.Red, 1, layer, true, false));
 		}
-		
-		Collector.add(new DrawParameters("box", x, y, width, height, -1, color, 1, layer, true, false));
+
+		Collector.add(new DrawParameters("box", getX(), getY(), getWidth(), getHeight(), texture, color, 1, layer, true, false));
 	}
 	public enum MovementType{
 		ARROW_KEYS(),
