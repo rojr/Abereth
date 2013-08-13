@@ -1,12 +1,11 @@
 package com.gmail.robmadeyou.World;
 
-import com.gmail.robmadeyou.Engine;
-import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Block.Block;
 import com.gmail.robmadeyou.Block.BlockAir;
 import com.gmail.robmadeyou.Block.BlockStone;
-import com.gmail.robmadeyou.Entity.Entity;
+import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Input.Mouse;
+import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
 
 
@@ -90,10 +89,14 @@ public class World {
 	 * Checks if the block at location is solid, again it's in block coordinates so you must divide again
 	 */
 	public static boolean isSolidAtLocation(int x, int y){
-		if(getBlockTypeAtLocation(x, y).isSolid()){
-			return true;
-		}
-		return false;
+        try {
+            if(getBlockTypeAtLocation(x, y).isSolid()){
+                return true;
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return false;
 	}
 	/*
 	 * Clears the world list and checks if the game type, if it's SIDE_SCROLLER it sets the bottom 2 layers 
@@ -114,213 +117,7 @@ public class World {
 			}
 		}
 	}
-	/*
-	 * Checks collision for the legs of the entity, this will
-	 * decide if player can go down, or when falling is possible to jump on the block and stop
-	 * instead of falling constantly
-	 */
-	public static boolean isSolidUnder(Entity e){
-		int eX = (int)e.getX();
-		int eY = (int)e.getY();
-		int eW = e.getWidth();
-		int eH = e.getHeight();
-		
-		int bDimensions = World.BLOCK_SIZE();
-		/*
-		 * Starting math to decide where the for loop should start from
-		 * and end from, taking into consideration the array lengths so the
-		 * engine no longer crashes when player is out of bounds
-		 */
-		int startX = (int) Math.round(e.getX() / BLOCK_SIZE()) - 2;
-		if(startX < 0){
-			startX = 0;
-		}
-		int durationX = startX + 4;
-		while(durationX + startX >= WorldArrayWidth){
-			durationX--;
-		}
-		
-		int startY = (int) Math.round(e.getY() / BLOCK_SIZE()) - 2;
-		if(startY < 0){
-			startY = 0;
-		}
-		int durationY = startY + 4;
-		while(durationY + startY >= WorldArrayHeight){
-			durationY--;
-		}
-		for(int sX = startX; sX < startX + durationX + 1; sX++){
-			for(int y = startY; y < startY + durationY; y++){
-				int x;
-				if(sX >= 1){
-					x = sX -1;
-				}else{
-					x = sX;
-				}
-				int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
-				int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
-				/*
-				 * For loop because in case the blocks are smaller than the players width, so the player doesn't fall
-				 * through the blocks
-				 */
-				for(int x2 = 0; x2 < eW / 4; x2++){
-					boolean one = eX + (x2 * 4) >= bX && eX + (x2 * 4) <= bX + bDimensions && eY + eH + 10 >= bY && eY + eH <= bY  + 7;
-				
-					if(one){
-						if(blockList[x][y].isSolid()){
-							e.setY(bY - 1 - eH);
-							e.doEffectFromBlock(blockList[x][y].getType());
-							blockEffectX = x;
-							blockEffectY = y;
-							return true;
-						}
-					}
-				
-				}
-			}
-		}
-		return false;
-	}
-	
-	public static boolean isSolidAbove(Entity e){
-		int eX = (int)e.getX();
-		int eY = (int)e.getY();
-		int eW = e.getWidth();
-		int bDimensions = World.BLOCK_SIZE();
-		
-		int startX = (int) Math.round(e.getX() / BLOCK_SIZE()) - 2;
-		if(startX < 0){
-			startX = 0;
-		}
-		int durationX = startX + 4;
-		while(durationX + startX >= WorldArrayWidth){
-			durationX--;
-		}
-		
-		int startY = (int) Math.round(e.getY() / BLOCK_SIZE()) - 2;
-		if(startY < 0){
-			startY = 0;
-		}
-		int durationY = startY + 4;
-		while(durationY + startY >= WorldArrayHeight){
-			durationY--;
-		}
-		for(int sX = startX; sX < startX + durationX + 1; sX++){
-			for(int y = startY; y < startY + durationY; y++){
-				int x;
-				if(sX >= 1){
-					x = sX -1;
-				}else{
-					x = sX;
-				}
-				int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
-				int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
-				for(int x2 = 0; x2 <= eW / 4; x2++){
-					boolean one = eX + (x2 * 4) >= bX && eX + (x2 * 4) <= bX + bDimensions && eY + 5 >= bY + bDimensions - 5 && eY  - 5<= bY + bDimensions + 5;
-					if(one){
-						if(blockList[x][y].isSolid()){
-							e.setY(y * BLOCK_SIZE() + BLOCK_SIZE() + 5);
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}
-	
-	public static boolean isSolidLeft(Entity e){
-		int eX = (int)e.getX();
-		int eY = (int)e.getY();
-		int bDimensions = World.BLOCK_SIZE();
-		
-		int startX = (int) Math.round(e.getX() / BLOCK_SIZE()) - 2;
-		if(startX < 0){
-			startX = 0;
-		}
-		int durationX = startX + 4;
-		while(durationX + startX >= WorldArrayWidth){
-			durationX--;
-		}
-		
-		int startY = (int) Math.round(e.getY() / BLOCK_SIZE()) - 2;
-		if(startY < 0){
-			startY = 0;
-		}
-		int durationY = startY + 4;
-		while(durationY + startY >= WorldArrayHeight){
-			durationY--;
-		}
-		for(int sX = startX; sX < startX + durationX + 1; sX++){
-			for(int y = startY; y < startY + durationY; y++){
-				int x;
-				if(sX >= 1){
-					x = sX -1;
-				}else{
-					x = sX;
-				}
-				int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
-				int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
 
-				for(int y2 = 0; y2 <= e.getHeight() / 4; y2++){
-					boolean one = eX <= bX + bDimensions + 3 && eX >= bX + bDimensions - 3 && eY - 1+ (4 * y2) >= bY && eY- 1 + (4 * y2) <= bY + bDimensions;
-					if(one){
-						if(blockList[x][y].isSolid()){
-							e.setX(x * BLOCK_SIZE() + BLOCK_SIZE() + 2);
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}
-	public static boolean isSolidRight(Entity e){
-		int eX = (int)e.getX();
-		int eY = (int)e.getY();
-		int eW = e.getWidth();
-		int bDimensions = World.BLOCK_SIZE();
-		
-		int startX = (int) Math.round(e.getX() / BLOCK_SIZE()) - 2;
-		if(startX < 0){
-			startX = 0;
-		}
-		int durationX = startX + 4;
-		while(durationX + startX >= WorldArrayWidth){
-			durationX--;
-		}
-		
-		int startY = (int) Math.round(e.getY() / BLOCK_SIZE()) - 2;
-		if(startY < 0){
-			startY = 0;
-		}
-		int durationY = startY + 4;
-		while(durationY + startY >= WorldArrayHeight){
-			durationY--;
-		}
-		for(int sX = startX; sX < startX + durationX + 1; sX++){
-			for(int y = startY; y < startY + durationY; y++){
-				int x;
-				if(sX >= 1){
-					x = sX -1;
-				}else{
-					x = sX;
-				}
-				
-				int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
-				int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
-				
-				for(int y2 = 0; y2 <= e.getHeight() / 4; y2++){
-					boolean one = eX + eW<= bX + 3 && eX + eW>= bX - 3 && eY - 1+ (4 * y2) >= bY && eY- 1 + (4 * y2) <= bY + bDimensions;
-					if(one){
-						if(blockList[x][y].isSolid()){
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}
 	public static void onUpdate(){
 		camXDivided = (int) Math.round(-Screen.translate_x / BLOCK_SIZE());
 		camYDivided = (int) Math.round(-Screen.translate_y / BLOCK_SIZE());

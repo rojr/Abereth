@@ -1,13 +1,23 @@
 package com.gmail.robmadeyou.Entity;
 
 import com.gmail.robmadeyou.Block.Block;
+import org.lwjgl.util.vector.Vector2f;
 
 public class Entity {
-	
+
+    protected Vector2f location, dimensions, direction, origLoc, origDim, origDir;
 	private double x, y, dX, dY, speed, originalSpeed = 1,
 					originalX, originalY, originalDX, originalDY;
 	private int number,h,w, originalW, originalH, layer;
-	
+
+    public Entity() {
+        location   = new Vector2f();
+        dimensions = new Vector2f();
+        direction  = new Vector2f();
+        origLoc    = new Vector2f();
+        origDim    = new Vector2f();
+        origDir    = new Vector2f();
+    }
 	public int getNumber(){
 		return number;
 	}
@@ -15,91 +25,91 @@ public class Entity {
 		this.number = num;
 	}
 	public void setWidth(int w){
-		this.w = w;
+		dimensions.x = w;
 	}
 	public void setHeight(int h){
-		this.h = h;
+		dimensions.y = h;
 	}
 	public void setX(double x){
-		this.x = x;
+		location.x = (float) x;
 	}
 	public void setY(double y){
-		this.y = y;
+		location.y = (float)y;
 	}
 	public void setDX(double dX){
-		this.dX = dX;
+		direction.x = (float) dX;
 	}
 	public void setDY(double dY){
-		this.dY = dY;
+        direction.y = (float) dY;
 	}
 	public void setSpeed(double speed){
 		this.speed = speed;
 	}
 	public double getX(){
-		return x;
+		return location.x;
 	}
 	public double getY(){
-		return y;
+		return location.y;
 	}
 	public double getDX(){
-		return dX;
+		return dimensions.x;
 	}
 	public double getDY(){
-		return dY;
+		return dimensions.y;
 	}
 	public double getSpeed(){
 		return speed;
 	}
 	public int getWidth(){
-		return w;
+		return (int)dimensions.x;
 	}
 	public int getHeight(){
-		return h;
+		return (int)dimensions.y;
 	}
 	public void setLayer(int layer){
 		this.layer = layer;
 	}
 	public void setOriginalWidth(int w){
-		this.originalW = w;
+		origDim.x = w;
 	}
 	public void setOriginalHeight(int h){
-		this.originalH = h;
+        origDim.y = h;
 	}
 	public void setOriginalX(double x){
-		this.originalX = x;
+		origLoc.x = (float) x;
 	}
 	public void setOriginalY(double y){
-		this.originalY = y;
+        origLoc.y = (float) y;
 	}
 	public void setOriginalDX(double dX){
-		this.originalDX = dX;
+		origDir.x = (float) dX;
 	}
 	public void setOriginalDY(double dY){
-		this.originalDY = dY;
+		origDir.y = (float) dY;
 	}
 	public void setOriginalSpeed(double speed){
 		this.originalSpeed = speed;
 	}
 	public double getOriginalX(){
-		return originalX;
+		return origLoc.x;
 	}
 	public double getOriginalY(){
-		return originalY;
+		return origLoc.y;
 	}
 	public double getOriginalDX(){
-		return originalDX;
+		return origDir.x;
 	}
 	public double getOriginalDY(){
-		return originalDY;
+		return origLoc.y;
 	}
 	public double getOriginalSpeed(){
 		return originalSpeed;
 	}
 	public int getOriginalWidth(){
-		return originalW;
+		return (int)origDim.x;
 	}
 	public int getOriginalHeight(){
-		return originalH;
+		return (int)origDim.y;
 	}
 	public int getLayer(){
 		return layer;

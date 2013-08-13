@@ -1,8 +1,5 @@
 package com.gmail.robmadeyou;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import com.gmail.robmadeyou.Effects.Animate;
 import com.gmail.robmadeyou.Effects.Emitter;
 import com.gmail.robmadeyou.Entity.Entity;
@@ -10,6 +7,9 @@ import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Item.Item;
 import com.gmail.robmadeyou.Quest.Quest;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Engine {
 	
@@ -39,12 +39,12 @@ public class Engine {
 		}
 	}
 	/*
-	 * 
-	 * 
-	 * 	CODE FOR ADDING ENITITES
-	 * 
-	 * 
-	 * 
+	 *
+	 *
+	 * 	CODE FOR ADDING ENTITIES
+	 *
+	 *
+	 *
 	 */
 	public static ArrayList<Entity> entityList = new ArrayList<Entity>();
 	public static ArrayList<Entity> onScreenEntity = new ArrayList<Entity>();
@@ -103,8 +103,8 @@ public class Engine {
 	/*
 	 * 
 	 * CODE FOR ANIMATION
-	 * 
-	 * 
+	 *
+	 *
 	 */
 	public static ArrayList<Animate> animID = new ArrayList<Animate>();
 	
@@ -116,8 +116,8 @@ public class Engine {
 	/*
 	 * 
 	 * CODE FOR ITEMS
-	 * 
-	 * 
+	 *
+	 *
 	 */
 	public static ArrayList<Item> itemList = new ArrayList<Item>();
 	public static ArrayList<Item> VisibleItemList = new ArrayList<Item>();
@@ -154,8 +154,8 @@ public class Engine {
 	/*
 	 * 
 	 * Various small handlers
-	 * 
-	 * 
+	 *
+	 *
 	 */
 	public static boolean isDevMode = false;
 	

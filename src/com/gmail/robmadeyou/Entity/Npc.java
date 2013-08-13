@@ -1,13 +1,14 @@
 package com.gmail.robmadeyou.Entity;
 
-import java.util.ArrayList;
-
-import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 import com.gmail.robmadeyou.Effects.Color;
+import com.gmail.robmadeyou.Physics.Physics;
+import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.World.World;
+
+import java.util.ArrayList;
 
 public class Npc extends Entity {
 	public ArrayList<moveUpdate> MovementArray = new ArrayList<moveUpdate>();
@@ -136,25 +137,25 @@ public class Npc extends Entity {
 		
 	}
 	public void moveLeft(){
-		if(!World.isSolidLeft(this)){
+		if(!Physics.isSolidLeft(this)){
 			x -= (delta * (speed - speedDecrease));
 		}
 	}
 	public void moveRight(){
-		if(!World.isSolidRight(this)){
+		if(!Physics.isSolidRight(this)){
 			x += (delta * (speed - speedDecrease));
 		}
 	}
 	public void moveUp(){
 		if(Screen.TypeOfGame != GameType.SIDE_SCROLLER){
-			if(!World.isSolidAbove(this)){
+			if(!Physics.isSolidAbove(this)){
 				y -= (delta * (speed - speedDecrease));
 			}
 		}
 	}
 	public void moveDown(){
 		if(Screen.TypeOfGame != GameType.SIDE_SCROLLER){
-			if(!World.isSolidUnder(this)){
+			if(!Physics.isSolidUnder(this)){
 				y += (delta * (speed - speedDecrease));
 			}
 		}
@@ -193,11 +194,11 @@ public class Npc extends Entity {
 					isJumping = false;
 					jumpDY = 0;
 				}
-				if(World.isSolidUnder(this)){
+				if(Physics.isSolidUnder(this)){
 					isJumping = false;
 					jumpDY = 0;
 				}
-				if(World.isSolidAbove(this)){
+				if(Physics.isSolidAbove(this)){
 					isJumping = true;
 					isInAir = true;
 				}

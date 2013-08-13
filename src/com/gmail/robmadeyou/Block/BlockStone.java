@@ -68,4 +68,11 @@ public class BlockStone implements Block {
 	public void removeEffect(Entity e){
 		//Stone does no effect
 	}
+
+    @Override
+    public String toString(){
+
+        return "BlockStone " + "at coordinates (" + getX() + ", " + getY()+").";
+
+    }
 }
