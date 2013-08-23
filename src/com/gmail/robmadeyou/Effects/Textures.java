@@ -1,12 +1,9 @@
 package com.gmail.robmadeyou.Effects;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.ResourceLoader;
 
-import com.gmail.robmadeyou.Effects.TextureLoader;
+import java.io.IOException;
 public class Textures {
 	
 	public static boolean texSetUp = false;
@@ -16,6 +13,7 @@ public class Textures {
 	public static int player_default;
 	public static int Block_Sky;
 	public static int Block_Stone;
+    public static int Block_Gravel;
 	
 	public static void setUpTextures(){
 		
@@ -28,6 +26,8 @@ public class Textures {
 		test = TextureLoader.createTexture("res/powerUp/PaddleFreeze.png");
 		Block_Sky = TextureLoader.createTexture("res/World/Sky.png");
 		Block_Stone = TextureLoader.createTexture("res/World/Stone.png");
+        Block_Gravel = TextureLoader.createTexture("res/World/Gravel.png");
+
 		
 	}
 	public static void addTexture(){
