@@ -4,11 +4,15 @@ import com.gmail.robmadeyou.Effects.Emitter.MovementDirection;
 import com.gmail.robmadeyou.Effects.Textures;
 import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Entity.Npc;
+import com.gmail.robmadeyou.Entity.Npc.EnemyMovement;
 import com.gmail.robmadeyou.Entity.Player;
 import com.gmail.robmadeyou.Gui.Button;
 import com.gmail.robmadeyou.Gui.Interface;
 import com.gmail.robmadeyou.Gui.Text;
+import com.gmail.robmadeyou.Input.Keyboard;
+import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
+import com.gmail.robmadeyou.World.World;
 import com.gmail.robmadeyou.Layer;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
@@ -27,7 +31,7 @@ public static void main (String []args){
 		Button button = (Button) Interface.add(new Button("", 50, 50, 50, 50, 1));
 		button.useTranslate(true);
 		
-		Npc enemy = new Npc(0, 40, 32, 32);
+		Npc enemy = new Npc(32, 40, 32, 32);
         enemy.setLogic(true);
         enemy.setTargetPlayer(player);
 		Engine.addEntity(enemy);
@@ -53,7 +57,15 @@ public static void main (String []args){
 			
 			enemy.setColor(Color.White);
 			enemy.setTexture(Textures.test);
-
+			
+			if(Keyboard.isKeyPressed(Key.T)){
+				if(enemy.isAStarActive()){
+					enemy.setAStar(false);
+				}else{
+					enemy.setAStar(true);
+				}
+			}
+			
 			Text.drawString("Translate_X: " + Screen.translate_x + "\nTranslate_Y: "
 					+ Screen.translate_y, player.getX() + 50, player.getY(), player.getLayer(), 1, 1, Color.Black, true, false);
 			

@@ -4,13 +4,23 @@ import com.gmail.robmadeyou.Astar.Astar;
 import com.gmail.robmadeyou.Astar.Heuristic;
 import com.gmail.robmadeyou.Astar.ManhattenHeuristic;
 import com.gmail.robmadeyou.Block.Block;
+import com.gmail.robmadeyou.Block.BlockAir;
 import com.gmail.robmadeyou.Block.BlockGravel;
+import com.gmail.robmadeyou.Block.BlockStone;
 import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 import com.gmail.robmadeyou.Effects.Color;
+import com.gmail.robmadeyou.Gui.Text;
+import com.gmail.robmadeyou.Engine;
+import com.gmail.robmadeyou.Layer;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.World.World;
+
+import static org.lwjgl.opengl.GL11.glVertex2f;
+import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.GL_LINES;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +31,9 @@ public class Npc extends Entity {
     private int number;
     private int width, height;
     private double speed;
-    protected int cX;
-    protected int cY;
+    private int cX;
+    private int cY;
+    private boolean isAStarActive = false;
     private boolean isJumping = false;
     private boolean isInAir = false;
     private boolean usingLogic = false;
@@ -159,6 +170,8 @@ public class Npc extends Entity {
     }
 
     public void onUpdate(int delta) {
+    	cX = (int) Math.round(x / World.BLOCK_SIZE());
+        cY = (int) Math.round(y / World.BLOCK_SIZE());
         this.delta = delta;
         gameTypeLogic();
 
@@ -208,14 +221,25 @@ public class Npc extends Entity {
 //        System.out.println("Total size of map:" + World.blockList.length * World.blockList[0].length);
 //        System.out.println("Number of points in open set: " + openSetCount);
 //        System.out.println("Path length: " + resultList.size());
-
+        int lastX = -1;
+        int lastY = -1;
         for (Block b : resultList) {
-
-            //moveToBlock(b.getX()/World.BLOCK_SIZE(),b.getY()/World.BLOCK_SIZE());
-            World.blockList[b.getX()][b.getY()] = new BlockGravel(b.getX(), b.getY());
-            System.out.println("current location is: (" + this.x + ", "  + this.y + ")\n" + "Targeting " + b.toString());
+        	
+        	if(isAStarActive){
+        		moveToBlock(b.getX()/World.BLOCK_SIZE(),b.getY()/World.BLOCK_SIZE());
+        		if(lastX != -1 && lastY != -1){
+        			if(Engine.isDevMode)
+        				Collector.add(new DrawParameters("line", b.getX() * World.BLOCK_SIZE(), b.getY() * World.BLOCK_SIZE(), lastX * World.BLOCK_SIZE(),
+        												lastY * World.BLOCK_SIZE(), -1, color, 1, Layer.GUILayer(), true));
+        		}
+        	}
+            lastX = b.getX();
+            lastY = b.getY();
         }
-
+        if(isAStarActive){
+        	MovementArray.clear();
+        	moveToBlock(resultList.get(0).getX(), resultList.get(0).getY());
+        }
 
     }
 
@@ -234,19 +258,24 @@ public class Npc extends Entity {
         if(cX < xx){
             direction = EnemyMovement.RIGHT;
             orders(direction, times);
-        }if(cX > xx){
+        }else if(cX > xx){
             direction = EnemyMovement.LEFT;
             orders(direction, times);
-        }if(cY < yy){
+        }else if(cY > yy){
             direction = EnemyMovement.UP;
             orders(direction, times);
-        }if(cY > yy){
+        }else if(cY < yy){
             direction = EnemyMovement.DOWN;
             orders(direction, times);
         }
 
     }
-
+    public void setAStar(boolean AStar){
+    	this.isAStarActive = AStar;
+    }
+    public boolean isAStarActive(){
+    	return isAStarActive;
+    }
     public void moveLeft() {
         if (!World.isSolidLeft(this)) {
             x -= (delta * (speed - speedDecrease));
@@ -334,6 +363,7 @@ public class Npc extends Entity {
     }
 
     public void draw() {
+    	Text.drawString("cX = " + cX, x + width, y, 1, 2, 1, color, true, false);
         Collector.add(new DrawParameters("box", x, y, width, height, texture, color, layer, true));
     }
 
@@ -342,9 +372,6 @@ public class Npc extends Entity {
     }
 
     public class moveUpdate {
-        int cX = (int) Math.round(x / World.BLOCK_SIZE());
-        int cY = (int) Math.round(y / World.BLOCK_SIZE());
-
         private int amount;
         private EnemyMovement direction;
         private int currentTick;
