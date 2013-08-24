@@ -44,6 +44,8 @@ public class Render {
 					}else{
 						Box.drawBox(x, y, width, height);
 					}
+				}else if(type.toLowerCase().equals("line")){
+					Line.drawLine((float)x, (float)y, (float)width, (float)height);
 				}
 				if(Collector.drawArraySorted.get(i).useTranslate()){
 					glPopMatrix();
