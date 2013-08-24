@@ -7,7 +7,7 @@ import com.gmail.robmadeyou.Effects.Textures;
 import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.World.World;
 
-public class BlockAir implements Block, Comparable<Block> {
+public class BlockGravel implements Block, Comparable<Block> {
 
     private int x, y;
     private int id = 0;
@@ -22,10 +22,10 @@ public class BlockAir implements Block, Comparable<Block> {
     private boolean isConsidered;
     private boolean isVisited = false;
 
-    public BlockAir(int x, int y) {
+    public BlockGravel(int x, int y) {
         this.x = x;
         this.y = y;
-        this.texture = Textures.Block_Sky;
+        this.texture = Textures.Block_Gravel;
         this.color = Color.White;
     }
 
@@ -141,7 +141,7 @@ public class BlockAir implements Block, Comparable<Block> {
 
     @Override
     public String toString() {
-        return "BlockAir:" +  "\nCoordinates: (" + this.x + ", " + this.y + ")";
+        return "BlockGravel:" +  "\nCoordinates: (" + this.x + ", " + this.y + ")";
     }
 
     @Override
