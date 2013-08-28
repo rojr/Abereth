@@ -63,11 +63,12 @@ public class Player extends Entity{
         vOrigDir = new Vector2f();
         vOrigLoc = new Vector2f();
 
-		vLocation.setX((float)x);;
+		vLocation.setX((float)x);
 		vLocation.setY((float)y);
-		vOrigDim.setY(height);;
-		vDimensions.setX(width);;
-		vDimensions.setY(height);;
+		vOrigDim.setX(width);
+		vOrigDim.setY(height);
+		vDimensions.setX(width);
+		vDimensions.setY(height);
 		this.speed = 1;
 		this.crouchHeight = (int) ((vDimensions.getY() / 4) * 3);
 		this.upKey = Key.UpArrow;
@@ -138,7 +139,7 @@ public class Player extends Entity{
 		vDimensions.x = w;
 	}
 	public void setHeight(int h) {
-		vLocation.y = h;
+		vDimensions.y = h;
 	}
 	public int getHealth(){
 		return amountOfHealth;
@@ -495,22 +496,18 @@ public class Player extends Entity{
 				isSolidBelow = false;
 				this.removeEffectFromBlock(World.blockList[World.blockEffectX][World.blockEffectY].getType());
 			}
-
 			if(isCrouching){
 				if(hasClicked){
 					setHeight(crouchHeight);
-					setY(getY() + getOriginalHeight() - crouchHeight);
+					setY(getY() + vOrigDim.y - crouchHeight);
 					hasClicked = false;
-
 				}
-
 			}else{
-				if(!Physics.isSolidAbove(this) || !World.isSolidAtLocation((int) Math.round((getX() - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((getY())/ World.BLOCK_SIZE() -1))
-						|| !World.isSolidAtLocation((int) Math.round((getX() + getWidth() - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((getY()) / World.BLOCK_SIZE() -1))){
-					if(!hasClicked){
-						setHeight(getOriginalHeight());
+				if(!hasClicked){
+					if(!Physics.isSolidAbove(this) || !World.isSolidAtLocation((int) Math.round((getX() - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((getY())/ World.BLOCK_SIZE() -1))
+							|| !World.isSolidAtLocation((int) Math.round((getX() + getWidth() - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((getY()) / World.BLOCK_SIZE() -1))){
+						setHeight((int)vOrigDim.y);
 						hasClicked = true;
-
 					}
 				}
 			}

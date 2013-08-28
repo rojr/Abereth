@@ -189,14 +189,14 @@ public class Npc extends Entity {
     }
 
     private void logic() {
+    	try{
         //Block[][] map = World.blockList;
         Heuristic heuristic = new ManhattenHeuristic();
         Astar myAstar = new Astar(World.blockList, heuristic);
 
 
         List<Block> resultList = null;
-
-
+        
         int sX = (int)Math.round(this.x/ World.BLOCK_SIZE());
         int sY = (int) Math.round(this.y / World.BLOCK_SIZE());
         int eX = (int) Math.round(targetPlayer.getX() / World.BLOCK_SIZE());
@@ -225,18 +225,18 @@ public class Npc extends Entity {
         		moveToBlock(b.getX()/World.BLOCK_SIZE(),b.getY()/World.BLOCK_SIZE());
         		if(lastX != -1 && lastY != -1){
         			if(Engine.isDevMode)
-        				Collector.add(new DrawParameters("line", b.getX() * World.BLOCK_SIZE(), b.getY() * World.BLOCK_SIZE(), lastX * World.BLOCK_SIZE(),
-        												lastY * World.BLOCK_SIZE(), -1, color, 1, Layer.GUILayer(), true));
+        					Collector.add(new DrawParameters("line", b.getX() * World.BLOCK_SIZE(), b.getY() * World.BLOCK_SIZE(), lastX * World.BLOCK_SIZE(),
+        													lastY * World.BLOCK_SIZE(), -1, color, 1, Layer.GUILayer(), true));
+        			}
         		}
+            	lastX = b.getX();
+            	lastY = b.getY();
         	}
-            lastX = b.getX();
-            lastY = b.getY();
-        }
-        if(isAStarActive){
-        	MovementArray.clear();
-        	moveToBlock(resultList.get(0).getX(), resultList.get(0).getY());
-        }
-
+        	if(isAStarActive){
+        		MovementArray.clear();
+        		moveToBlock(resultList.get(0).getX(), resultList.get(0).getY());
+        	}
+    	}catch(ArrayIndexOutOfBoundsException e){ e.printStackTrace();};
     }
 
     public void moveToBlock(int xx, int yy){

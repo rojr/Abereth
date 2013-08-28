@@ -18,12 +18,11 @@ import com.gmail.robmadeyou.Screen.GameType;
 public class Main {
 public static void main (String []args){
 	
-	
-		Screen.create(800, 512, "Our Screen", GameType.RPG_STYLE, false);
-		Screen.setWorldDimensionsInBlocks(100, 100);
 		
+		Screen.create(800, 512, "Our Screen", GameType.SIDE_SCROLLER, false);
 		Screen.setUpWorld();
-		Player player = new Player(50, 40, 32, 32);
+		
+		Player player = new Player(200, 40, 32, 32);
 		Engine.addEntity(player);
 		// "", 50, 50, 50, 50, 1
 		Button button = (Button) Interface.add(new Button("", 50, 50, 50, 50, 1));
