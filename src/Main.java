@@ -1,6 +1,10 @@
+import java.util.ArrayList;
+
+import com.gmail.robmadeyou.Effects.Animate;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Emitter;
 import com.gmail.robmadeyou.Effects.Emitter.MovementDirection;
+import com.gmail.robmadeyou.Effects.TextureLoader;
 import com.gmail.robmadeyou.Effects.Textures;
 import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Entity.Npc;
@@ -43,6 +47,12 @@ public static void main (String []args){
 		emit.setMovementDirection(MovementDirection.RIGHT);
 		Engine.addNewEmitter(emit);
 		
+		
+		ArrayList<Integer> listOfTextures = new ArrayList<Integer>();
+		listOfTextures.add(TextureLoader.createTexture("res/Player.png"));
+		listOfTextures.add(TextureLoader.createTexture("res/Player.png", 0, 0, 16, 16));
+		Animate animTest = new Animate(listOfTextures, 2, 0, true);
+		
 		while(!Screen.isAskedToClose()){
 			//Updating the screen. the maximum frame rate is 60.
 			Screen.update(60);
@@ -52,7 +62,7 @@ public static void main (String []args){
 			enemy.setColor(Color.White);
 			enemy.setTexture(Textures.test2);
 
-            player.setTexture(Textures.test);
+            player.setTexture(animTest.getTextureID());
 			
 			if(Keyboard.isKeyPressed(Key.T)){
 				if(enemy.isAStarActive()){
