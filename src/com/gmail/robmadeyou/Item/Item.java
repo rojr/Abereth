@@ -5,7 +5,6 @@ import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Input.Mouse;
-import com.gmail.robmadeyou.World.World;
 
 public class Item {
 	private double x, y;
@@ -79,36 +78,24 @@ public class Item {
 	public boolean isNear(Entity other){
 		int oX =(int) other.getX() + getWidth() / 2;
 		int oY =(int) other.getY() + getHeight() / 2;
-		
-		if(oX >= x && oX <= x + width && oY >= y && oY <= y + height){
-			return true;
-		}
-		
-		return false;
-	}
+
+        return oX >= x && oX <= x + width && oY >= y && oY <= y + height;
+
+    }
 	
 	public boolean isMouseOver(){
 		int mX = Mouse.getX();
 		int mY = Mouse.getY();
-		if(mX >= x && mX <= x + width && mY >= y && mY <= y + height){
-			return true;
-		}
-		return false;
-	}
+        return mX >= x && mX <= x + width && mY >= y && mY <= y + height;
+    }
 	
 	public boolean isPressed(){
-		if(isMouseOver() && Mouse.isLeftMouseButtonPressed()){
-			return true;
-		}
-		return false;
-	}
+        return isMouseOver() && Mouse.isLeftMouseButtonPressed();
+    }
 	
 	public boolean isHeld(){
-		if(Mouse.leftMouseButtonDown && isMouseOver()){
-			return true;
-		}
-		return false;
-	}
+        return Mouse.leftMouseButtonDown && isMouseOver();
+    }
 	
 	public void onUpdate(){
 		if(isHeld()){

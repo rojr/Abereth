@@ -1,8 +1,5 @@
 package com.gmail.robmadeyou;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import com.gmail.robmadeyou.Effects.Animate;
 import com.gmail.robmadeyou.Effects.Emitter;
 import com.gmail.robmadeyou.Entity.Entity;
@@ -10,6 +7,9 @@ import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Item.Item;
 import com.gmail.robmadeyou.Quest.Quest;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Engine {
 	
@@ -22,20 +22,16 @@ public class Engine {
 		return Emitters.get(Emitters.size() - 1);
 	}
 	public static void updateAllEmitters(int delta){
-		for(int i = 0; i < Emitters.size(); i++){
-			Emitters.get(i).onUpdate(delta);
-		}
+        for (com.gmail.robmadeyou.Effects.Emitter Emitter : Emitters) {
+            Emitter.onUpdate(delta);
+        }
 	}
 	public static void update(int delta){
 		updateAllEmitters(delta);
 		updateAllEntities(delta);
 		updateAllItems();
 		if(Keyboard.isKeyPressed(Key.L)){
-			if(isDevMode){
-				isDevMode = false;
-			}else{
-				isDevMode = true;
-			}
+			isDevMode = !isDevMode;
 		}
 	}
 	/*
@@ -55,22 +51,22 @@ public class Engine {
 		int id = ran.nextInt(1024);
 		boolean hasIDSet = false;
 		while(!hasIDSet){
-			for(int i = 0; i < entityList.size(); i++){
-				if(entityList.get(i).getNumber() == id){
-					id = ran.nextInt(1024);
-					break;
-				}
-			}
+            for (Entity anEntityList : entityList) {
+                if (anEntityList.getNumber() == id) {
+                    id = ran.nextInt(1024);
+                    break;
+                }
+            }
 			entityList.get(entityList.size() - 1).setNumber(id);
 			hasIDSet = true;
 		}
 		return e;
 	}
 	public static void updateAllEntities(int delta){
-		
-		for(int i = 0; i < entityList.size(); i++){
-			entityList.get(i).onUpdate(delta);
-		}
+
+        for (Entity anEntityList : entityList) {
+            anEntityList.onUpdate(delta);
+        }
 		onScreenEntity.clear();
 		for(int i = entityList.size() -1; i >= 0; i--){
 			double eX = entityList.get(i).getX();
@@ -92,11 +88,11 @@ public class Engine {
 		}
 	}
 	public static Entity getEntityByNumber(int number){
-		for(int i = 0; i < entityList.size(); i++){
-			if(entityList.get(i).getNumber() == number){
-				return entityList.get(i).getType();
-			}
-		}
+        for (Entity anEntityList : entityList) {
+            if (anEntityList.getNumber() == number) {
+                return anEntityList.getType();
+            }
+        }
 		return null;
 	}
 	
@@ -129,25 +125,25 @@ public class Engine {
 	
 	public static void updateAllItems(){
 		VisibleItemList.clear();
-		for(int i = 0; i < itemList.size(); i++){
-			double eX = itemList.get(i).getX();
-			double eY = itemList.get(i).getY();
-			int eW = itemList.get(i).getWidth();
-			int eH = itemList.get(i).getHeight();
-			boolean one = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
-						eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
-			boolean two = eX + eW >= -Screen.translate_x && eX + eW<= -Screen.translate_x + Screen.getWidth() &&
-						eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
-			boolean three = eX + eW >= -Screen.translate_x && eX + eW <= -Screen.translate_x + Screen.getWidth() &&
-						eY + eH >= -Screen.translate_y && eY + eH <= -Screen.translate_y + Screen.getHeight();
-			boolean four = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
-						eY + eH >= -Screen.translate_y && eY + eH <= -Screen.translate_y + Screen.getHeight();
-			if(one || two || three || four){
-				VisibleItemList.add(itemList.get(i));
-				itemList.get(i).onUpdate();
-				itemList.get(i).draw();
-			}
-		}
+        for (Item anItemList : itemList) {
+            double eX = anItemList.getX();
+            double eY = anItemList.getY();
+            int eW = anItemList.getWidth();
+            int eH = anItemList.getHeight();
+            boolean one = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
+                    eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
+            boolean two = eX + eW >= -Screen.translate_x && eX + eW <= -Screen.translate_x + Screen.getWidth() &&
+                    eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
+            boolean three = eX + eW >= -Screen.translate_x && eX + eW <= -Screen.translate_x + Screen.getWidth() &&
+                    eY + eH >= -Screen.translate_y && eY + eH <= -Screen.translate_y + Screen.getHeight();
+            boolean four = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
+                    eY + eH >= -Screen.translate_y && eY + eH <= -Screen.translate_y + Screen.getHeight();
+            if (one || two || three || four) {
+                VisibleItemList.add(anItemList);
+                anItemList.onUpdate();
+                anItemList.draw();
+            }
+        }
 	}
 	
 	

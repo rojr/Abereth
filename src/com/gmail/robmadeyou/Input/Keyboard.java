@@ -4,11 +4,7 @@ public class Keyboard {
 	
 	public static boolean isKeyPressed(Key key){
 		isKeyDown(key);
-		if(key.isPressed){
-			return true;
-		}else{
-			return false;
-		}
+        return key.isPressed;
 	}
 	public static boolean isKeyDown(Key key){
 		if(org.lwjgl.input.Keyboard.isKeyDown((key.getValue()))){
