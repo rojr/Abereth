@@ -10,8 +10,12 @@ import com.gmail.robmadeyou.Entity.Entity;
  */
 public interface BaseActor {
     public boolean isNear(Entity other);
+
     public void doEffectFromBlock(Block type);
+
     public void removeEffectFromBlock(Block type);
+
     public void onUpdate(int delta);
+
     public void draw();
 }

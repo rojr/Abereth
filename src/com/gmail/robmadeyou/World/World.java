@@ -18,7 +18,7 @@ import org.newdawn.slick.SlickException;
  * statements checking if the current location is a solid block or not.
  */
 public class World {
-	
+
     /*
      * Determines the amount of blocks placed horizontally (if this figure was set to be lower
      * than ScreenWidth / BlockSize then there would be errors if the player walks out of the
@@ -49,7 +49,7 @@ public class World {
         return 32;
     }
 
-    ;
+
 
     public static int getWorldWidthInPixels() {
         return WorldArrayWidth * World.BLOCK_SIZE();
@@ -70,7 +70,7 @@ public class World {
         return (delta * gravityModifier);
     }
 
-    ;
+
 
     //Integer showing the block location of the camera (top left hand side of the screen)
     private static int camXDivided = (int) Math.round(Screen.translate_x / BLOCK_SIZE());
@@ -101,12 +101,9 @@ public class World {
      * Checks if the block at location is solid, again it's in block coordinates so you must divide again
      */
     public static boolean isSolidAtLocation(int x, int y) {
-        if (getBlockTypeAtLocation(x, y) != null
-                && getBlockTypeAtLocation(x, y).isSolid()) {
-            return true;
-        }
+        return getBlockTypeAtLocation(x, y) != null
+                && getBlockTypeAtLocation(x, y).isSolid();
 
-        return false;
     }
 
     /*
@@ -125,7 +122,7 @@ public class World {
                 }
             }
         } else {
-                blockList = MapLoader.generateMap(MapLoader.MAP_STRING);
+            blockList = MapLoader.generateMap(MapLoader.MAP_STRING);
         }
     }
 
@@ -174,7 +171,7 @@ public class World {
                 int bX = blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
                 int bY = blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
                 /*
-				 * For loop because in case the blocks are smaller than the players width, so the player doesn't fall
+                 * For loop because in case the blocks are smaller than the players width, so the player doesn't fall
 				 * through the blocks
 				 */
                 for (int x2 = 0; x2 < eW / 4; x2++) {

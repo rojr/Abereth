@@ -141,7 +141,7 @@ public class BlockGravel implements Block, Comparable<Block> {
 
     @Override
     public String toString() {
-        return "BlockGravel:" +  "\nCoordinates: (" + this.x + ", " + this.y + ")";
+        return "BlockGravel:" + "\nCoordinates: (" + this.x + ", " + this.y + ")";
     }
 
     @Override

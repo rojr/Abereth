@@ -5,20 +5,21 @@ import com.gmail.robmadeyou.Screen;
 import java.util.ArrayList;
 
 public class Interface {
-	
-	public static ArrayList<Gui> visibleObjects = new ArrayList<Gui>();
-	public static ArrayList<Gui> guiArray = new ArrayList<Gui>();
-	
-	public static Gui add(Gui gui){
-		guiArray.add(gui);
-		return gui;
-	}
-	public static void onUpdate(){
-		/*
+
+    public static ArrayList<Gui> visibleObjects = new ArrayList<Gui>();
+    public static ArrayList<Gui> guiArray = new ArrayList<Gui>();
+
+    public static Gui add(Gui gui) {
+        guiArray.add(gui);
+        return gui;
+    }
+
+    public static void onUpdate() {
+        /*
 		 * Clearing visible objects on every onUpdate call
 		 * to make sure objects don't randomly come up on the screen
 		 */
-		visibleObjects.clear();
+        visibleObjects.clear();
         for (Gui aGuiArray : guiArray) {
             aGuiArray.onUpdate();
 
@@ -73,5 +74,5 @@ public class Interface {
                 visibleObjects.add(aGuiArray);
             }
         }
-	}
+    }
 }

@@ -36,7 +36,7 @@ public class Physics {
         return Math.abs(value - other) <= MAX_MOVEMENT_SPEED;
     }
 
-    public static boolean intersectsWith(Entity other){
+    public static boolean intersectsWith(Entity other) {
         return false;
     }
 
@@ -74,15 +74,15 @@ public class Physics {
                 } else {
                     x = sX;
                 }
-                int bX = World.blockList[x][y].getX() * World.BLOCK_SIZE();
-                int bY = World.blockList[x][y].getY() * World.BLOCK_SIZE();
+                int bX = World.blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
+                int bY = World.blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
                 for (int x2 = 0; x2 <= eW / 4; x2++) {
                     boolean one = eX + (x2 * 4) >= bX
                             && eX + (x2 * 4) <= bX + bDimensions
                             && eY + 5 >= bY + bDimensions - 5
                             && eY - 5 <= bY + bDimensions + 5;
                     if (one) {
-                        if (World.blockList[x][y].isSolid()) {
+                        if (World.blockList.getBlock(x, y).isSolid()) {
                             e.setY(y * World.BLOCK_SIZE() + World.BLOCK_SIZE() + 5);
                             return true;
                         }
@@ -98,57 +98,57 @@ public class Physics {
 //        return CollidedWith(a, b)
 //                && isWithinMaxThreshold(a.getY(), b.getY() + b.getHeight());
         int eX = (int) e.getX();
-        int eY = (int)e.getY();
+        int eY = (int) e.getY();
         int eW = e.getWidth();
         int eH = e.getHeight();
 
         int bDimensions = World.BLOCK_SIZE();
-		/*
+        /*
 		 * Starting math to decide where the for loop should start from
 		 * and end from, taking into consideration the array lengths so the
 		 * engine no longer crashes when player is out of bounds
 		 */
         int startX = (int) Math.round(e.getX() / World.BLOCK_SIZE()) - 2;
-        if(startX < 0){
+        if (startX < 0) {
             startX = 0;
         }
         int durationX = startX + 4;
-        while(durationX + startX >= World.WorldArrayWidth){
+        while (durationX + startX >= World.WorldArrayWidth) {
             durationX--;
         }
 
         int startY = (int) Math.round(e.getY() / World.BLOCK_SIZE()) - 2;
-        if(startY < 0){
+        if (startY < 0) {
             startY = 0;
         }
         int durationY = startY + 4;
-        while(durationY + startY >= World.WorldArrayHeight){
+        while (durationY + startY >= World.WorldArrayHeight) {
             durationY--;
         }
-        for(int sX = startX; sX < startX + durationX + 1; sX++){
-            for(int y = startY; y < startY + durationY; y++){
+        for (int sX = startX; sX < startX + durationX + 1; sX++) {
+            for (int y = startY; y < startY + durationY; y++) {
                 int x;
-                if(sX >= 1){
-                    x = sX -1;
-                }else{
+                if (sX >= 1) {
+                    x = sX - 1;
+                } else {
                     x = sX;
                 }
-                int bX = World.blockList[x][y].getX() * World.BLOCK_SIZE();
-                int bY = World.blockList[x][y].getY() * World.BLOCK_SIZE();
+                int bX = World.blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
+                int bY = World.blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
 				/*
 				 * For loop because in case the blocks are smaller than the players width, so the player doesn't fall
 				 * through the blocks
 				 */
-                for(int x2 = 0; x2 < eW / 4; x2++){
+                for (int x2 = 0; x2 < eW / 4; x2++) {
                     boolean one = eX + (x2 * 4) >= bX
                             && eX + (x2 * 4) <= bX + bDimensions
                             && eY + eH + 10 >= bY
-                            && eY + eH <= bY  + 7;
+                            && eY + eH <= bY + 7;
 
-                    if(one){
-                        if(World.blockList[x][y].isSolid()){
+                    if (one) {
+                        if (World.blockList.getBlock(x, y).isSolid()) {
                             e.setY(bY - 1 - eH);
-                            e.doEffectFromBlock(World.blockList[x][y].getType());
+                            e.doEffectFromBlock(World.blockList.getBlock(x, y).getType());
                             World.blockEffectX = x;
                             World.blockEffectY = y;
                             return true;
@@ -164,45 +164,45 @@ public class Physics {
     public static boolean isSolidLeft(Entity e) {
 //        return CollidedWith(a, b)
 //                && isWithinMaxThreshold(a.getX() + a.getWidth(), b.getX());
-        int eX = (int)e.getX();
-        int eY = (int)e.getY();
+        int eX = (int) e.getX();
+        int eY = (int) e.getY();
         int bDimensions = World.BLOCK_SIZE();
 
         int startX = (int) Math.round(e.getX() / World.BLOCK_SIZE()) - 2;
-        if(startX < 0){
+        if (startX < 0) {
             startX = 0;
         }
         int durationX = startX + 4;
-        while(durationX + startX >= World.WorldArrayWidth){
+        while (durationX + startX >= World.WorldArrayWidth) {
             durationX--;
         }
 
         int startY = (int) Math.round(e.getY() / World.BLOCK_SIZE()) - 2;
-        if(startY < 0){
+        if (startY < 0) {
             startY = 0;
         }
         int durationY = startY + 4;
-        while(durationY + startY >= World.WorldArrayHeight){
+        while (durationY + startY >= World.WorldArrayHeight) {
             durationY--;
         }
-        for(int sX = startX; sX < startX + durationX + 1; sX++){
-            for(int y = startY; y < startY + durationY; y++){
+        for (int sX = startX; sX < startX + durationX + 1; sX++) {
+            for (int y = startY; y < startY + durationY; y++) {
                 int x;
-                if(sX >= 1){
-                    x = sX -1;
-                }else{
+                if (sX >= 1) {
+                    x = sX - 1;
+                } else {
                     x = sX;
                 }
-                int bX = World.blockList[x][y].getX() * World.BLOCK_SIZE();
-                int bY = World.blockList[x][y].getY() * World.BLOCK_SIZE();
+                int bX = World.blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
+                int bY = World.blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
 
-                for(int y2 = 0; y2 <= e.getHeight() / 4; y2++){
+                for (int y2 = 0; y2 <= e.getHeight() / 4; y2++) {
                     boolean one = eX <= bX + bDimensions + 3
                             && eX >= bX + bDimensions - 3
-                            && eY - 1+ (4 * y2) >= bY
-                            && eY- 1 + (4 * y2) <= bY + bDimensions;
-                    if(one){
-                        if(World.blockList[x][y].isSolid()){
+                            && eY - 1 + (4 * y2) >= bY
+                            && eY - 1 + (4 * y2) <= bY + bDimensions;
+                    if (one) {
+                        if (World.blockList.getBlock(x, y).isSolid()) {
                             e.setX(x * World.BLOCK_SIZE() + World.BLOCK_SIZE() + 2);
                             return true;
                         }
@@ -216,47 +216,47 @@ public class Physics {
     public static boolean isSolidRight(Entity e) {
 //        return CollidedWith(a, b)
 //                && isWithinMaxThreshold(a.getX(), b.getX() + b.getWidth());
-        int eX = (int)e.getX();
-        int eY = (int)e.getY();
+        int eX = (int) e.getX();
+        int eY = (int) e.getY();
         int eW = e.getWidth();
         int bDimensions = World.BLOCK_SIZE();
 
         int startX = (int) Math.round(e.getX() / World.BLOCK_SIZE()) - 2;
-        if(startX < 0){
+        if (startX < 0) {
             startX = 0;
         }
         int durationX = startX + 4;
-        while(durationX + startX >= World.WorldArrayWidth){
+        while (durationX + startX >= World.WorldArrayWidth) {
             durationX--;
         }
 
         int startY = (int) Math.round(e.getY() / World.BLOCK_SIZE()) - 2;
-        if(startY < 0){
+        if (startY < 0) {
             startY = 0;
         }
         int durationY = startY + 4;
-        while(durationY + startY >= World.WorldArrayHeight){
+        while (durationY + startY >= World.WorldArrayHeight) {
             durationY--;
         }
-        for(int sX = startX; sX < startX + durationX + 1; sX++){
-            for(int y = startY; y < startY + durationY; y++){
+        for (int sX = startX; sX < startX + durationX + 1; sX++) {
+            for (int y = startY; y < startY + durationY; y++) {
                 int x;
-                if(sX >= 1){
-                    x = sX -1;
-                }else{
+                if (sX >= 1) {
+                    x = sX - 1;
+                } else {
                     x = sX;
                 }
 
-                int bX = World.blockList[x][y].getX() * World.BLOCK_SIZE();
-                int bY = World.blockList[x][y].getY() * World.BLOCK_SIZE();
+                int bX = World.blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
+                int bY = World.blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
 
-                for(int y2 = 0; y2 <= e.getHeight() / 4; y2++){
-                    boolean one = eX + eW<= bX + 3
-                            && eX + eW>= bX - 3
-                            && eY - 1+ (4 * y2) >= bY
-                            && eY- 1 + (4 * y2) <= bY + bDimensions;
-                    if(one){
-                        if(World.blockList[x][y].isSolid()){
+                for (int y2 = 0; y2 <= e.getHeight() / 4; y2++) {
+                    boolean one = eX + eW <= bX + 3
+                            && eX + eW >= bX - 3
+                            && eY - 1 + (4 * y2) >= bY
+                            && eY - 1 + (4 * y2) <= bY + bDimensions;
+                    if (one) {
+                        if (World.blockList.getBlock(x, y).isSolid()) {
                             return true;
                         }
                     }

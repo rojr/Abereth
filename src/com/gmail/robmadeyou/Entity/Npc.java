@@ -4,23 +4,15 @@ import com.gmail.robmadeyou.Astar.Astar;
 import com.gmail.robmadeyou.Astar.Heuristic;
 import com.gmail.robmadeyou.Astar.ManhattenHeuristic;
 import com.gmail.robmadeyou.Block.Block;
-import com.gmail.robmadeyou.Block.BlockAir;
-import com.gmail.robmadeyou.Block.BlockGravel;
-import com.gmail.robmadeyou.Block.BlockStone;
 import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 import com.gmail.robmadeyou.Effects.Color;
-import com.gmail.robmadeyou.Gui.Text;
 import com.gmail.robmadeyou.Engine;
+import com.gmail.robmadeyou.Gui.Text;
 import com.gmail.robmadeyou.Layer;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.World.World;
-
-import static org.lwjgl.opengl.GL11.glVertex2f;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.GL_LINES;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -170,7 +162,7 @@ public class Npc extends Entity {
     }
 
     public void onUpdate(int delta) {
-    	cX = (int) Math.round(x / World.BLOCK_SIZE());
+        cX = (int) Math.round(x / World.BLOCK_SIZE());
         cY = (int) Math.round(y / World.BLOCK_SIZE());
         this.delta = delta;
         gameTypeLogic();
@@ -193,25 +185,25 @@ public class Npc extends Entity {
     }
 
     private void logic() {
-    	try{
-        //Block[][] map = World.blockList;
-        Heuristic heuristic = new ManhattenHeuristic();
-        Astar myAstar = new Astar(World.blockList, heuristic);
+        try {
+            //Block[][] map = World.blockList;
+            Heuristic heuristic = new ManhattenHeuristic();
+            Astar myAstar = new Astar(World.blockList, heuristic);
 
 
-        List<Block> resultList = null;
-        
-        int sX = (int)Math.round(this.x/ World.BLOCK_SIZE());
-        int sY = (int) Math.round(this.y / World.BLOCK_SIZE());
-        int eX = (int) Math.round(targetPlayer.getX() / World.BLOCK_SIZE());
-        int eY = (int) Math.round(targetPlayer.getY() / World.BLOCK_SIZE());
-        Block start = World.blockList[sX][sY];
-        Block end = World.blockList[eX][eY];
-        resultList = myAstar.search(start, end);
+            List<Block> resultList;
 
-        if (resultList == null) {
-            System.err.println("No path found! Exiting...");
-        }
+            int sX = (int) Math.round(this.x / World.BLOCK_SIZE());
+            int sY = (int) Math.round(this.y / World.BLOCK_SIZE());
+            int eX = (int) Math.round(targetPlayer.getX() / World.BLOCK_SIZE());
+            int eY = (int) Math.round(targetPlayer.getY() / World.BLOCK_SIZE());
+            Block start = World.blockList.getBlock(sX, sY);
+            Block end = World.blockList.getBlock(eX, eY);
+            resultList = myAstar.search(start, end);
+
+            if (resultList == null) {
+                System.err.println("No path found! Exiting...");
+            }
 
 
 //        int openSetCount = 0;
@@ -221,29 +213,34 @@ public class Npc extends Entity {
 //        System.out.println("Total size of map:" + World.blockList.length * World.blockList[0].length);
 //        System.out.println("Number of points in open set: " + openSetCount);
 //        System.out.println("Path length: " + resultList.size());
-        int lastX = -1;
-        int lastY = -1;
-        for (Block b : resultList) {
-        	
-        	if(isAStarActive){
-        		moveToBlock(b.getX()/World.BLOCK_SIZE(),b.getY()/World.BLOCK_SIZE());
-        		if(lastX != -1 && lastY != -1){
-        			if(Engine.isDevMode)
-        					Collector.add(new DrawParameters("line", b.getX() * World.BLOCK_SIZE(), b.getY() * World.BLOCK_SIZE(), lastX * World.BLOCK_SIZE(),
-        													lastY * World.BLOCK_SIZE(), -1, color, 1, Layer.GUILayer(), true));
-        			}
-        		}
-            	lastX = b.getX();
-            	lastY = b.getY();
-        	}
-        	if(isAStarActive){
-        		MovementArray.clear();
-        		moveToBlock(resultList.get(0).getX(), resultList.get(0).getY());
-        	}
-    	}catch(ArrayIndexOutOfBoundsException e){ e.printStackTrace();};
+            int lastX = -1;
+            int lastY = -1;
+            if (resultList != null) {
+                for (Block b : resultList) {
+
+                    if (isAStarActive) {
+                        moveToBlock(b.getX() / World.BLOCK_SIZE(), b.getY() / World.BLOCK_SIZE());
+                        if (lastX != -1 && lastY != -1) {
+                            if (Engine.isDevMode)
+                                Collector.add(new DrawParameters("line", b.getX() * World.BLOCK_SIZE(), b.getY() * World.BLOCK_SIZE(), lastX * World.BLOCK_SIZE(),
+                                        lastY * World.BLOCK_SIZE(), -1, color, 1, Layer.GUILayer(), true));
+                        }
+                    }
+                    lastX = b.getX();
+                    lastY = b.getY();
+                }
+            }
+            if (isAStarActive) {
+                MovementArray.clear();
+                moveToBlock(resultList.get(0).getX(), resultList.get(0).getY());
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    public void moveToBlock(int xx, int yy){
+    public void moveToBlock(int xx, int yy) {
                 /*
                         Calculates how many pixels can the npc potentially move, only every tick. This will
                         help us check how many times does he have to move in the certain direction
@@ -252,30 +249,33 @@ public class Npc extends Entity {
                 /*
                         Check how many times npc has to move to move exactly one block
                 */
-        int times = (int)Math.round(World.BLOCK_SIZE() / pixelsMovedByEveryTick);
-        EnemyMovement direction = EnemyMovement.RIGHT;
+        int times = (int) Math.round(World.BLOCK_SIZE() / pixelsMovedByEveryTick);
+        EnemyMovement direction = EnemyMovement.WAIT;
 
-        if(cX < xx){
+        if (cX < xx) {
             direction = EnemyMovement.RIGHT;
             orders(direction, times);
-        }else if(cX > xx){
+        } else if (cX > xx) {
             direction = EnemyMovement.LEFT;
             orders(direction, times);
-        }else if(cY > yy){
+        } else if (cY > yy) {
             direction = EnemyMovement.UP;
             orders(direction, times);
-        }else if(cY < yy){
+        } else if (cY < yy) {
             direction = EnemyMovement.DOWN;
             orders(direction, times);
         }
 
     }
-    public void setAStar(boolean AStar){
-    	this.isAStarActive = AStar;
+
+    public void setAStar(boolean AStar) {
+        this.isAStarActive = AStar;
     }
-    public boolean isAStarActive(){
-    	return isAStarActive;
+
+    public boolean isAStarActive() {
+        return isAStarActive;
     }
+
     public void moveLeft() {
         if (!World.isSolidLeft(this)) {
             x -= (delta * (speed - speedDecrease));
@@ -315,11 +315,8 @@ public class Npc extends Entity {
         int oX = (int) other.getX() + getWidth() / 2;
         int oY = (int) other.getY() + getHeight() / 2;
 
-        if (oX >= x && oX <= x + width && oY >= y && oY <= y + height) {
-            return true;
-        }
+        return oX >= x && oX <= x + width && oY >= y && oY <= y + height;
 
-        return false;
     }
 
     public void onTalk() {
@@ -363,12 +360,12 @@ public class Npc extends Entity {
     }
 
     public void draw() {
-    	Text.drawString("cX = " + cX, x + width, y, 1, 2, 1, color, true, false);
+        Text.drawString("cX = " + cX, x + width, y, 1, 2, 1, color, true, false);
         Collector.add(new DrawParameters("box", x, y, width, height, texture, color, layer, true));
     }
 
     public enum EnemyMovement {
-        UP, LEFT, DOWN, RIGHT, JUMP, WAIT;
+        UP, LEFT, DOWN, RIGHT, JUMP, WAIT
     }
 
     public class moveUpdate {

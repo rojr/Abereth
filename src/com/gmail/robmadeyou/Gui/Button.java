@@ -4,6 +4,7 @@ import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Input.Mouse;
+
 /*
  * Buttons are quite simple, they really serve only one purpose, they can't
  * be moved about but can be made to useTranslate (so when the camera moves, so does the
@@ -11,122 +12,125 @@ import com.gmail.robmadeyou.Input.Mouse;
  * 
  * All Gui objects implement the GUI interface
  */
-public class Button implements Gui{
-	private double x,y;
-	private int width,height,layer, texture;
-	private float opacity;
-	private boolean useTranslate;
-	private boolean isPressed,isReleased,isOver;
-	private String state;
-	public Button(String state, double x, double y, int width, int height, int layer){
-		this.state = state;
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.layer = layer;
-		this.texture = -1;
-		this.opacity = 1f;
-		this.useTranslate = false;
-	}
-	
-	public void setX(double x){
-		this.x = x;
-	}
+public class Button implements Gui {
+    private double x, y;
+    private int width, height, layer, texture;
+    private float opacity;
+    private boolean useTranslate;
+    private boolean isPressed, isReleased, isOver;
+    private String state;
 
-	public void setY(double y){
-		this.y = y;
-	}
+    public Button(String state, double x, double y, int width, int height, int layer) {
+        this.state = state;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.layer = layer;
+        this.texture = -1;
+        this.opacity = 1f;
+        this.useTranslate = false;
+    }
 
-	public void setWidth(int width){
-		this.width = width;
-	}
+    public void setX(double x) {
+        this.x = x;
+    }
 
-	public void setHeight(int height){
-		this.height = height;
-	}
+    public void setY(double y) {
+        this.y = y;
+    }
 
-	public void setLayer(int layer){
-		this.layer = layer;
-	}
-	
-	public void setTexture(int texture){
-		this.texture = texture;
-	}
-	
-	public void useTranslate(boolean args){
-		this.useTranslate = args;
-	}
-	
-	public void setOpacity(float opacity){
-		this.opacity = opacity;
-	}
-	
-	public void setState(String state) {
-		this.state = state;
-	}
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setLayer(int layer) {
+        this.layer = layer;
+    }
+
+    public void setTexture(int texture) {
+        this.texture = texture;
+    }
+
+    public void useTranslate(boolean args) {
+        this.useTranslate = args;
+    }
+
+    public void setOpacity(float opacity) {
+        this.opacity = opacity;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
 
-	public double getX(){
-		return x;
-	}
+    public double getX() {
+        return x;
+    }
 
-	public double getY(){
-		return y;
-	}
+    public double getY() {
+        return y;
+    }
 
-	public int getWidth(){
-		return width;
-	}
+    public int getWidth() {
+        return width;
+    }
 
-	public int getHeight(){
-		return height;
-	}
+    public int getHeight() {
+        return height;
+    }
 
-	public int getLayer(){
-		return layer;
-	}
-	
-	public String getState() {
-		return state;
-	}
-	
-	public boolean isMouseOver(){
-		isOver = false;
-		int mX = Mouse.getX();
-		int mY = Mouse.getY();
-		if(mX >= x && mX <= x + width && mY >= y && mY <= y + height){
-			isOver = true;
-			return true;
-		}
-		return false;
-	}
-	
-	public boolean isPressed(){
-		isPressed = false;
-		if(isMouseOver()){
-			if(Mouse.leftMouseButtonDown){
-				isPressed = true;
-				return true;
-			}
-		}
-		return false;
-	}
-	private boolean lastIsPressed = false;
-	
-	public boolean isReleased(){
-		if(lastIsPressed && !isPressed() && isMouseOver()){
-			lastIsPressed = isPressed();
-			return true;
-		}
-		lastIsPressed = isPressed();
-		return false;
-	}
-	
-	public void onUpdate(){
-		draw();
-	}
-	public void draw(){
-		Collector.add(new DrawParameters("box", x, y, width, height, texture, Color.White, opacity, layer, useTranslate));
-	}
+    public int getLayer() {
+        return layer;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public boolean isMouseOver() {
+        isOver = false;
+        int mX = Mouse.getX();
+        int mY = Mouse.getY();
+        if (mX >= x && mX <= x + width && mY >= y && mY <= y + height) {
+            isOver = true;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isPressed() {
+        isPressed = false;
+        if (isMouseOver()) {
+            if (Mouse.leftMouseButtonDown) {
+                isPressed = true;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean lastIsPressed = false;
+
+    public boolean isReleased() {
+        if (lastIsPressed && !isPressed() && isMouseOver()) {
+            lastIsPressed = isPressed();
+            return true;
+        }
+        lastIsPressed = isPressed();
+        return false;
+    }
+
+    public void onUpdate() {
+        draw();
+    }
+
+    public void draw() {
+        Collector.add(new DrawParameters("box", x, y, width, height, texture, Color.White, opacity, layer, useTranslate));
+    }
 }

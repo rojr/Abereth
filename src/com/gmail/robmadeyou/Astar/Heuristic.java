@@ -9,5 +9,6 @@ import com.gmail.robmadeyou.Block.Block;
  */
 public interface Heuristic {
     double calculate(Block start, Block end);
+
     String getName();
 }

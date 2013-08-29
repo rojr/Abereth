@@ -141,7 +141,7 @@ public class BlockAir implements Block, Comparable<Block> {
 
     @Override
     public String toString() {
-        return "BlockAir:" +  "\nCoordinates: (" + this.x + ", " + this.y + ")";
+        return "BlockAir:" + "\nCoordinates: (" + this.x + ", " + this.y + ")";
     }
 
     @Override

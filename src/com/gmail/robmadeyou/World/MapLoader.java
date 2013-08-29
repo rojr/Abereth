@@ -26,13 +26,12 @@ public class MapLoader {
 
         SAND,
 
-        DIRT,
-        ;
+        DIRT,;
     }
 
     public static BlockMap generateMap(String image) throws SlickException {
 
-        BlockMap returnValue = null;
+        BlockMap returnValue;
 
         Image img = new Image(image);
         int width = img.getWidth();
@@ -41,7 +40,7 @@ public class MapLoader {
         //System.out.println(returnValue.getLength() + "\n" + returnValue.getHeight() + "\n");
 
         for (int x = 0; x < width; x++) {
-            for(int y = 0; y < height; y++) {
+            for (int y = 0; y < height; y++) {
 
                 Color color = img.getColor(x, y);
                 BLOCK_TYPE type = getBlockIDFromColor(color.getRedByte(), color.
@@ -50,8 +49,7 @@ public class MapLoader {
                 if (type != null) {
                     Block tile = getBlockType(x, y, type);
                     returnValue.setBlock(x, y, tile);
-                }
-                else {
+                } else {
                     returnValue.setBlock(x, y, new BlockAir(x, y));
                 }
 

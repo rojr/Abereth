@@ -2,13 +2,14 @@ import com.gmail.robmadeyou.Effects.*;
 import com.gmail.robmadeyou.Effects.Emitter.MovementDirection;
 import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Entity.Npc;
-Player;
+import com.gmail.robmadeyou.Entity.Player;
 import com.gmail.robmadeyou.Gui.Button;
 import com.gmail.robmadeyou.Gui.Interface;
 import com.gmail.robmadeyou.Gui.Text;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
-import com.gmail.robmadeyou.Input.Mouseimport com.gmail.robmadeyou.Layer;
+import com.gmail.robmadeyou.Input.Mouse;
+import com.gmail.robmadeyou.Layer;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
 

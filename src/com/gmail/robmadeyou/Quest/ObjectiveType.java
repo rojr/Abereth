@@ -1,5 +1,5 @@
 package com.gmail.robmadeyou.Quest;
 
 public enum ObjectiveType {
-	TALK, COLLECT, DELIVER;
+    TALK, COLLECT, DELIVER
 }

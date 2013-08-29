@@ -25,12 +25,12 @@ public class Astar {
     }
 
     public ArrayList<Block> search(Block start, Block end) {
-        int MAP_WIDTH =  World.blockList.getLength();
+        int MAP_WIDTH = World.blockList.getLength();
         int MAP_HEIGHT = World.blockList.getMapHeight();
 
 
-        for (int x = 0; x < MAP_WIDTH; ++x ) {
-            for (int y = 0; y < MAP_HEIGHT; ++y ) {
+        for (int x = 0; x < MAP_WIDTH; ++x) {
+            for (int y = 0; y < MAP_HEIGHT; ++y) {
                 double val1 = Math.abs(x - start.getX());
                 double val2 = Math.abs(y - start.getY());
                 World.blockList.getBlock(x, y).setG_Score(val1 + val2);
@@ -52,22 +52,22 @@ public class Astar {
 
             ArrayList<Block> neighbors = new ArrayList<Block>();
 
-            if (current.getY() - 1 >= 0 && !map.getBlock(current.getX(),current.getY()-1).isSolid())
-                neighbors.add(map.getBlock(current.getX(),current.getY()-1));
+            if (current.getY() - 1 >= 0 && !map.getBlock(current.getX(), current.getY() - 1).isSolid())
+                neighbors.add(map.getBlock(current.getX(), current.getY() - 1));
 
-            if (current.getY() + 1 < MAP_HEIGHT && !map.getBlock(current.getX(),current.getY() + 1).isSolid())
-                neighbors.add(map.getBlock(current.getX(),current.getY()+1));
+            if (current.getY() + 1 < MAP_HEIGHT && !map.getBlock(current.getX(), current.getY() + 1).isSolid())
+                neighbors.add(map.getBlock(current.getX(), current.getY() + 1));
 
-            if (current.getX() - 1 >= 0 && !map.getBlock(current.getX()-1,current.getY()).isSolid())
-                neighbors.add(map.getBlock(current.getX()-1,current.getY()));
+            if (current.getX() - 1 >= 0 && !map.getBlock(current.getX() - 1, current.getY()).isSolid())
+                neighbors.add(map.getBlock(current.getX() - 1, current.getY()));
 
-            if (current.getX() + 1 < MAP_WIDTH && !map.getBlock(current.getX()+1,current.getY()).isSolid())
-                neighbors.add(map.getBlock(current.getX()+1,current.getY()));
+            if (current.getX() + 1 < MAP_WIDTH && !map.getBlock(current.getX() + 1, current.getY()).isSolid())
+                neighbors.add(map.getBlock(current.getX() + 1, current.getY()));
 
             for (Block neighbor : neighbors) {
                 double cost = current.getG_Score() + movement_cost(current, neighbor);
 
-                if(openSet.contains(neighbor) && cost <= neighbor.getG_Score())
+                if (openSet.contains(neighbor) && cost <= neighbor.getG_Score())
                     openSet.remove(neighbor);
 
                 if (closedSet.contains(neighbor) && cost <= neighbor.getG_Score())
