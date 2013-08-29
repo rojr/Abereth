@@ -1,9 +1,9 @@
 package com.gmail.robmadeyou.Draw;
 
-import java.util.ArrayList;
-
-import com.gmail.robmadeyou.Layer;
 import com.gmail.robmadeyou.Effects.Color;
+import com.gmail.robmadeyou.Layer;
+
+import java.util.ArrayList;
 
 public class Collector {
 	
@@ -16,11 +16,11 @@ public class Collector {
 	public static void organize(){
 		int currentLayer = 0;
 		while(drawArrayUnsorted.size() != drawArraySorted.size()){
-			for(int i = 0; i < drawArrayUnsorted.size(); i++){
-				if(drawArrayUnsorted.get(i).getLayer() == currentLayer){
-					drawArraySorted.add(drawArrayUnsorted.get(i));
-				}
-			}
+            for (DrawParameters aDrawArrayUnsorted : drawArrayUnsorted) {
+                if (aDrawArrayUnsorted.getLayer() == currentLayer) {
+                    drawArraySorted.add(aDrawArrayUnsorted);
+                }
+            }
 			currentLayer++;
 			if(currentLayer > Layer.layers){break;}
 		}

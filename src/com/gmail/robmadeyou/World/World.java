@@ -7,7 +7,7 @@ import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Input.Mouse;
 import com.gmail.robmadeyou.Screen;
-import com.gmail.robmadeyou.Screen.GameType;
+import org.newdawn.slick.SlickException;
 
 
 /*
@@ -34,7 +34,8 @@ public class World {
     /*
      * Array list that holds the current world currently visible on screen
      */
-    public static Block[][] blockList;
+    //public static Block[][] blockList;
+    public static BlockMap blockList;
 
     public static int blockEffectX = 0;
     public static int blockEffectY = 0;
@@ -75,11 +76,11 @@ public class World {
     private static int camXDivided = (int) Math.round(Screen.translate_x / BLOCK_SIZE());
     private static int camYDivided = (int) Math.round(Screen.translate_y / BLOCK_SIZE());
     //Integer showing the width and height in blocks
-    private static int camWidthDivided = (int) Math.round(Screen.getWidth() / BLOCK_SIZE()) + 1;
-    private static int camHeightDivided = (int) Math.round(Screen.getHeight() / BLOCK_SIZE()) + 1;
+    private static int camWidthDivided = Math.round(Screen.getWidth() / BLOCK_SIZE()) + 1;
+    private static int camHeightDivided = Math.round(Screen.getHeight() / BLOCK_SIZE()) + 1;
 
     public static void setWorldDimensions(int x, int y) {
-        blockList = new Block[x][y];
+        blockList = new BlockMap(x, y);
         WorldArrayWidth = x;
         WorldArrayHeight = y;
     }
@@ -90,8 +91,8 @@ public class World {
      * function
      */
     public static Block getBlockTypeAtLocation(int x, int y) throws NullPointerException {
-        if (x < WorldArrayWidth && x >= 0 && y < WorldArrayHeight && y >= 0) {
-            return blockList[x][y].getType();
+        if (blockList.withinBounds(x, y)) {
+            return blockList.getBlock(x, y).getType();
         }
         return null;
     }
@@ -100,10 +101,9 @@ public class World {
      * Checks if the block at location is solid, again it's in block coordinates so you must divide again
      */
     public static boolean isSolidAtLocation(int x, int y) {
-        if (getBlockTypeAtLocation(x, y) != null) {
-            if (getBlockTypeAtLocation(x, y).isSolid()) {
-                return true;
-            }
+        if (getBlockTypeAtLocation(x, y) != null
+                && getBlockTypeAtLocation(x, y).isSolid()) {
+            return true;
         }
 
         return false;
@@ -113,19 +113,19 @@ public class World {
      * Clears the world list and checks if the game type, if it's SIDE_SCROLLER it sets the bottom 2 layers
      * stone to make sure the player doesn't fall through the world.
      */
-    public static void setArrayListClear() {
-        for (int x = 0; x < WorldArrayWidth; x++) {
-            for (int y = 0; y < WorldArrayHeight; y++) {
-                if (y == WorldArrayHeight - 2 || y == WorldArrayHeight - 1) {
-                    if (Screen.TypeOfGame == GameType.SIDE_SCROLLER) {
-                        blockList[x][y] = new BlockStone(x, y);
+    public static void setArrayListClear() throws SlickException {
+        if (Screen.TypeOfGame == Screen.GameType.SIDE_SCROLLER) {
+            for (int x = 0; x < WorldArrayWidth; x++) {
+                for (int y = 0; y < WorldArrayHeight; y++) {
+                    if (y == WorldArrayHeight - 2 || y == WorldArrayHeight - 1) {
+                        blockList.setBlock(new BlockStone(x, y));
                     } else {
-                        blockList[x][y] = new BlockAir(x, y);
+                        blockList.setBlock(new BlockAir(x, y));
                     }
-                } else {
-                    blockList[x][y] = new BlockAir(x, y);
                 }
             }
+        } else {
+                blockList = MapLoader.generateMap(MapLoader.MAP_STRING);
         }
     }
 
@@ -142,7 +142,7 @@ public class World {
 
         int bDimensions = World.BLOCK_SIZE();
         /*
-		 * Starting math to decide where the for loop should start from
+         * Starting math to decide where the for loop should start from
 		 * and end from, taking into consideration the array lengths so the
 		 * engine no longer crashes when player is out of bounds
 		 */
@@ -171,9 +171,9 @@ public class World {
                 } else {
                     x = sX;
                 }
-                int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
-                int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
-				/*
+                int bX = blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
+                int bY = blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
+                /*
 				 * For loop because in case the blocks are smaller than the players width, so the player doesn't fall
 				 * through the blocks
 				 */
@@ -181,9 +181,9 @@ public class World {
                     boolean one = eX + (x2 * 4) >= bX && eX + (x2 * 4) <= bX + bDimensions && eY + eH + 10 >= bY && eY + eH <= bY + 7;
 
                     if (one) {
-                        if (blockList[x][y].isSolid()) {
+                        if (blockList.getBlock(x, y).isSolid()) {
                             e.setY(bY - 1 - eH);
-                            e.doEffectFromBlock(blockList[x][y].getType());
+                            e.doEffectFromBlock(blockList.getBlock(x, y).getType());
                             blockEffectX = x;
                             blockEffectY = y;
                             return true;
@@ -227,12 +227,12 @@ public class World {
                 } else {
                     x = sX;
                 }
-                int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
-                int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
+                int bX = blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
+                int bY = blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
                 for (int x2 = 0; x2 <= eW / 4; x2++) {
                     boolean one = eX + (x2 * 4) >= bX && eX + (x2 * 4) <= bX + bDimensions && eY + 5 >= bY + bDimensions - 5 && eY - 5 <= bY + bDimensions + 5;
                     if (one) {
-                        if (blockList[x][y].isSolid()) {
+                        if (blockList.getBlock(x, y).isSolid()) {
                             e.setY(y * BLOCK_SIZE() + BLOCK_SIZE() + 5);
                             return true;
                         }
@@ -273,13 +273,13 @@ public class World {
                 } else {
                     x = sX;
                 }
-                int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
-                int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
+                int bX = blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
+                int bY = blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
 
                 for (int y2 = 0; y2 <= e.getHeight() / 4; y2++) {
                     boolean one = eX <= bX + bDimensions + 3 && eX >= bX + bDimensions - 3 && eY - 1 + (4 * y2) >= bY && eY - 1 + (4 * y2) <= bY + bDimensions;
                     if (one) {
-                        if (blockList[x][y].isSolid()) {
+                        if (blockList.getBlock(x, y).isSolid()) {
                             e.setX(x * BLOCK_SIZE() + BLOCK_SIZE() + 2);
                             return true;
                         }
@@ -322,13 +322,13 @@ public class World {
                     x = sX;
                 }
 
-                int bX = blockList[x][y].getX() * World.BLOCK_SIZE();
-                int bY = blockList[x][y].getY() * World.BLOCK_SIZE();
+                int bX = blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
+                int bY = blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
 
                 for (int y2 = 0; y2 <= e.getHeight() / 4; y2++) {
                     boolean one = eX + eW <= bX + 3 && eX + eW >= bX - 3 && eY - 1 + (4 * y2) >= bY && eY - 1 + (4 * y2) <= bY + bDimensions;
                     if (one) {
-                        if (blockList[x][y].isSolid()) {
+                        if (blockList.getBlock(x, y).isSolid()) {
                             return true;
                         }
                     }
@@ -349,10 +349,10 @@ public class World {
             try {
                 if (!Mouse.isOverGui) {
                     if (Mouse.leftMouseButtonDown) {
-                        blockList[mX][mY] = new BlockStone(mX, mY);
+                        blockList.setBlock(new BlockStone(mX, mY));
                     }
                     if (Mouse.rightMouseButtonDown) {
-                        blockList[mX][mY] = new BlockAir(mX, mY);
+                        blockList.setBlock(new BlockAir(mX, mY));
                     }
                 }
             } catch (IndexOutOfBoundsException ex) {
@@ -375,7 +375,7 @@ public class World {
                     y = sY;
                 }
                 if (x < WorldArrayWidth && y < WorldArrayHeight && x >= 0 && y >= 0) {
-                    blockList[x][y].onUpdate();
+                    blockList.getBlock(x, y).onUpdate();
                 }
             }
         }

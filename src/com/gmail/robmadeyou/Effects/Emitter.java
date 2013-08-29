@@ -1,11 +1,11 @@
 package com.gmail.robmadeyou.Effects;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
+import com.gmail.robmadeyou.Screen;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Emitter{
 	
@@ -144,14 +144,12 @@ public class Emitter{
 					}
 				}
 			}
-			for(int i = 0; i < part.length; i++){
-				if(part[i] != null){
-					part[i].onUpdate(velocity, delta, size, direction);
-					if(part[i] != null){
-						part[i].draw();
-					}
-				}
-			}
+            for (Particles aPart : part) {
+                if (aPart != null) {
+                    aPart.onUpdate(velocity, delta, size, direction);
+                    aPart.draw();
+                }
+            }
 		}
 	}
 	public class Particles{
@@ -172,7 +170,7 @@ public class Emitter{
 		}
 		public void onUpdate(double speed, int delta, float size, MovementDirection direction){
 			double s = speed;
-			double tan = (float) Math.atan2(toX,toY);
+			double tan = (float) Math.atan2(toX,toY); // (toX, toY)
 			double dX = s*Math.sin(tan);
 			double dY = s*Math.cos(tan);
 			if(direction == MovementDirection.OUT){

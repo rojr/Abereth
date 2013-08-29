@@ -14,6 +14,7 @@ import com.gmail.robmadeyou.World.World;
 import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Render;
 import com.gmail.robmadeyou.Effects.Textures;
+import org.newdawn.slick.SlickException;
 
 import static org.lwjgl.opengl.GL11.GL_BLEND;
 import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
@@ -68,12 +69,9 @@ public class Screen {
 		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
 	}
 	private static boolean vSync = false;
+
 	public static void toggleVSync(){
-		if(vSync == false){
-			Display.setVSyncEnabled(true);
-		}else{
-			Display.setVSyncEnabled(false);
-		}
+		vSync = !vSync;
 	}
 	public static void changeGameMode(GameType type){
 		TypeOfGame = type;
@@ -108,11 +106,8 @@ public class Screen {
 		return Display.getHeight();
 	}
 	public static boolean isAskedToClose(){
-		if(Display.isCloseRequested()){
-			return true;
-		}
-		return false;
-	}
+        return Display.isCloseRequested();
+    }
 	public static GameType TypeOfGame = GameType.SIDE_SCROLLER;
 	
 	public static double translate_x = 0;
@@ -199,8 +194,12 @@ public class Screen {
 			System.out.println(engineName + "WorldHeight TOO LOW. default to: " + WorldHeight);
 		}
 		World.setWorldDimensions(WorldWidth, WorldHeight);
-		World.setArrayListClear();
-		System.out.println(engineName + "World loaded");
+        try {
+            World.setArrayListClear();
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
+        System.out.println(engineName + "World loaded");
 		worldCreated = true;
 	}
 	public static void setWorldBlockSizeInPixels(int size){
@@ -232,11 +231,7 @@ public class Screen {
 			Interface.onUpdate();
 			
 			if(Keyboard.isKeyPressed(Key.Grave)){
-				if(detailsActive == false){
-					detailsActive = true;
-				}else{
-					detailsActive = false;
-				}
+				detailsActive = !detailsActive;
 			}
 		Display.sync(60);
 	}

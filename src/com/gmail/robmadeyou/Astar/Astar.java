@@ -1,6 +1,7 @@
 package com.gmail.robmadeyou.Astar;
 
 import com.gmail.robmadeyou.Block.Block;
+import com.gmail.robmadeyou.World.BlockMap;
 import com.gmail.robmadeyou.World.World;
 
 import java.util.ArrayList;
@@ -14,26 +15,26 @@ import java.util.PriorityQueue;
  */
 public class Astar {
 
-    private Block[][] map;
+    private BlockMap map;
     private Heuristic heuristic;
 
-    public Astar(Block[][] map, Heuristic heuristic) {
+    public Astar(BlockMap map, Heuristic heuristic) {
 
         this.map = map;
         this.heuristic = heuristic;
     }
 
     public ArrayList<Block> search(Block start, Block end) {
-        int MAP_WIDTH =  World.blockList.length;
-        int MAP_HEIGHT = World.blockList[0].length;
+        int MAP_WIDTH =  World.blockList.getLength();
+        int MAP_HEIGHT = World.blockList.getMapHeight();
 
 
         for (int x = 0; x < MAP_WIDTH; ++x ) {
             for (int y = 0; y < MAP_HEIGHT; ++y ) {
                 double val1 = Math.abs(x - start.getX());
                 double val2 = Math.abs(y - start.getY());
-                World.blockList[x][y].setG_Score(val1 + val2);
-                World.blockList[x][y].setHscore(heuristic.calculate(World.blockList[x][y], end));
+                World.blockList.getBlock(x, y).setG_Score(val1 + val2);
+                World.blockList.getBlock(x, y).setHscore(heuristic.calculate(World.blockList.getBlock(x, y), end));
             }
         }
 
@@ -51,17 +52,17 @@ public class Astar {
 
             ArrayList<Block> neighbors = new ArrayList<Block>();
 
-            if (current.getY() - 1 >= 0 && !World.blockList[current.getX()][current.getY()-1].isSolid())
-                neighbors.add(World.blockList[current.getX()][current.getY()-1]);
+            if (current.getY() - 1 >= 0 && !map.getBlock(current.getX(),current.getY()-1).isSolid())
+                neighbors.add(map.getBlock(current.getX(),current.getY()-1));
 
-            if (current.getY() + 1 < MAP_HEIGHT && !map[current.getX()][current.getY() + 1].isSolid())
-                neighbors.add(World.blockList[current.getX()][current.getY()+1]);
+            if (current.getY() + 1 < MAP_HEIGHT && !map.getBlock(current.getX(),current.getY() + 1).isSolid())
+                neighbors.add(map.getBlock(current.getX(),current.getY()+1));
 
-            if (current.getX() - 1 >= 0 && !World.blockList[current.getX()-1][current.getY()].isSolid())
-                neighbors.add(World.blockList[current.getX()-1][current.getY()]);
+            if (current.getX() - 1 >= 0 && !map.getBlock(current.getX()-1,current.getY()).isSolid())
+                neighbors.add(map.getBlock(current.getX()-1,current.getY()));
 
-            if (current.getX() + 1 < MAP_WIDTH && !map[current.getX()+1][current.getY()].isSolid())
-                neighbors.add(World.blockList[current.getX()+1][current.getY()]);
+            if (current.getX() + 1 < MAP_WIDTH && !map.getBlock(current.getX()+1,current.getY()).isSolid())
+                neighbors.add(map.getBlock(current.getX()+1,current.getY()));
 
             for (Block neighbor : neighbors) {
                 double cost = current.getG_Score() + movement_cost(current, neighbor);

@@ -1,10 +1,10 @@
 package com.gmail.robmadeyou.Effects;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.ResourceLoader;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class TextureLoader{
 	public static ArrayList<TexInfo> TextureInfo = new ArrayList<TexInfo>();
@@ -44,7 +44,7 @@ public class TextureLoader{
 			}else{
 				this.xPercent = (double) x / (double) texWidth;
 				this.yPercent = (double) y / (double) texHeight;
-				this.yPercent = (double) 1 - (double) yPercent;
+				this.yPercent = (double) 1 -  yPercent;
 				this.widthPercent = (double) width / (double)texWidth;
 				this.heightPercent = (double) height / (double)texHeight;
 			}

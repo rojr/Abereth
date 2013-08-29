@@ -7,13 +7,14 @@ import com.gmail.robmadeyou.Block.Block;
  * Date: 8/22/13
  * Time: 1:16 AM
  */
-public class ManhattenHeuristic implements Heuristic{
+public class ManhattenHeuristic implements Heuristic {
 
     private int d = 1;
 
     @Override
     public double calculate(Block start, Block end) {
-        return (d * ((Math.abs(start.getX()-end.getX()) + (Math.abs(start.getY()-end.getY())))));
+
+        return (d * ((Math.abs(start.getX() - end.getX()) + (Math.abs(start.getY() - end.getY())))));
     }
 
     @Override
