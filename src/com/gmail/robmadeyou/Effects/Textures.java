@@ -10,6 +10,7 @@ public class Textures {
 	
 	public static Texture none;
 	public static int test;
+    public static int test2;
 	public static int player_default;
 	public static int Block_Sky;
 	public static int Block_Stone;
@@ -22,8 +23,9 @@ public class Textures {
 			texSetUp = true;
 			System.out.println("Yay");
 		} catch (IOException e) {e.printStackTrace();}
-		
-		test = TextureLoader.createTexture("res/powerUp/PaddleFreeze.png");
+
+        test = TextureLoader.createTexture("res/player/player1.png");
+		test2 = TextureLoader.createTexture("res/powerUp/PaddleFreeze.png");
 		Block_Sky = TextureLoader.createTexture("res/World/Sky.png");
 		Block_Stone = TextureLoader.createTexture("res/World/Stone.png");
         Block_Gravel = TextureLoader.createTexture("res/World/Gravel.png");

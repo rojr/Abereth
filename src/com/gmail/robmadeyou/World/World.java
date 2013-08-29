@@ -18,7 +18,7 @@ import org.newdawn.slick.SlickException;
  * statements checking if the current location is a solid block or not.
  */
 public class World {
-
+	
     /*
      * Determines the amount of blocks placed horizontally (if this figure was set to be lower
      * than ScreenWidth / BlockSize then there would be errors if the player walks out of the
