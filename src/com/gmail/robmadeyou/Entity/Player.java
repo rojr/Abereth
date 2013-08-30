@@ -28,6 +28,7 @@ public class Player extends Entity {
     private boolean isJumping;
     private boolean isInAir;
     private boolean isCrouching;
+    private boolean textureInverts = false;
     private double jumpDY = 0;
     private boolean hasClicked;
     private int amountOfHealth;
@@ -154,6 +155,10 @@ public class Player extends Entity {
     public void setHeight(int h) {
         vDimensions.y = h;
     }
+    
+    public void setTextureInverts(boolean args){
+    	this.textureInverts = args;
+    }
 
     public int getHealth() {
         return amountOfHealth;
@@ -209,6 +214,9 @@ public class Player extends Entity {
 
     public double getOriginalSpeed() {
         return originalSpeed;
+    }
+    public boolean textureInverts(){
+    	return textureInverts;
     }
 
     public Key getUpKey(MovementType type) {
@@ -637,7 +645,7 @@ public class Player extends Entity {
             Collector.add(new Collector.DrawParameters("box", x2, y2, width2, height2, -1, Color.Red, 1, layer, true, false));
         }
 
-        Collector.add(new Collector.DrawParameters("box", getX(), getY(), getWidth(), getHeight(), texture, color, 1, layer, true, false));
+        Collector.add(new Collector.DrawParameters("box", getX(), getY(), getWidth(), getHeight(), texture, color, 1, layer, true, textureInverts));
     }
 
     public enum MovementType {
