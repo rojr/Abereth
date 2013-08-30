@@ -9,6 +9,7 @@ import com.gmail.robmadeyou.Gui.Text;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
+import com.gmail.robmadeyou.Item.Item;
 import com.gmail.robmadeyou.Layer;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
 
-        Screen.create(800, 512, "Our Screen", GameType.RPG_STYLE, false);
+        Screen.create(800, 512, "Our Screen", GameType.SIDE_SCROLLER, false);
         Screen.setWorldDimensionsInBlocks(50, 50);
 
         Screen.setUpWorld();
@@ -36,7 +37,7 @@ public class Main {
 
         //Npc enemy2 = new Npc(20, 40, 32, 32);
         //Engine.addEntity(enemy2);
-
+          Item item = new Item(60, 40, 16, 16,1, Textures.ITEM_TEST);
 
         //MessageArea.setUp(0, 400, 800, 200);
         //MessageArea.setUpTextStart(20, 420);
@@ -60,7 +61,7 @@ public class Main {
             enemy.setColor(Color.White);
             enemy.setTexture(Textures.test);
 
-            //player.setTexture(animTest.getTextureID());
+            player.setTexture(animTest.getTextureID());
 
             if (Keyboard.isKeyPressed(Key.T)) {
                 enemy.setAStar(!enemy.isAStarActive());

@@ -16,6 +16,7 @@ public class Textures {
     public static int Block_Sky;
     public static int Block_Stone;
     public static int Block_Gravel;
+    public static int ITEM_TEST;
 
     public static void setUpTextures() {
 
@@ -32,6 +33,7 @@ public class Textures {
         Block_Sky = TextureLoader.createTexture("res/World/Sky.png");
         Block_Stone = TextureLoader.createTexture("res/World/Stone.png");
         Block_Gravel = TextureLoader.createTexture("res/World/Gravel.png");
+        ITEM_TEST = TextureLoader.createTexture("res/powerUp/PaddleFreeze.png");
 
 
     }

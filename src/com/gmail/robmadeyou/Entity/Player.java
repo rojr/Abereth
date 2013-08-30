@@ -110,7 +110,7 @@ public class Player extends Entity {
         this.speed = speed;
         this.speedDecrease = speed * 0.8;
         /*
-		 * I was so stupid.. I did
+         * I was so stupid.. I did
 		 * this.speedDecrease = speed * speedDecrease
 		 *
 		 * I couldn't understand why the speed was inverting and increasing
@@ -307,6 +307,9 @@ public class Player extends Entity {
             if (Screen.translate_x > 0.0) {
                 Screen.translate_x = 0.0;
             }
+            if (getX() < 0) {
+                setX(0);
+            }
         }
 			/*
 			 *           \
@@ -340,6 +343,7 @@ public class Player extends Entity {
             if (!two) {
                 Screen.translate_x = -World.getWorldWidthInPixels() + Screen.getWidth() + World.BLOCK_SIZE();
             }
+
         }
 			/*
 			 *              .

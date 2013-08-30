@@ -2,7 +2,6 @@ package com.gmail.robmadeyou.Astar;
 
 import com.gmail.robmadeyou.Block.Block;
 import com.gmail.robmadeyou.World.BlockMap;
-import com.gmail.robmadeyou.World.World;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,28 +12,28 @@ import java.util.PriorityQueue;
  * Date: 8/21/13
  * Time: 7:25 PM
  */
-public class Astar {
+public class AstarSearch {
 
     private BlockMap map;
     private Heuristic heuristic;
 
-    public Astar(BlockMap map, Heuristic heuristic) {
+    public AstarSearch(BlockMap map, Heuristic heuristic) {
 
         this.map = map;
         this.heuristic = heuristic;
     }
 
     public ArrayList<Block> search(Block start, Block end) {
-        int MAP_WIDTH = World.blockList.getLength();
-        int MAP_HEIGHT = World.blockList.getMapHeight();
+        int MAP_WIDTH = map.getLength();
+        int MAP_HEIGHT = map.getMapHeight();
 
 
         for (int x = 0; x < MAP_WIDTH; ++x) {
             for (int y = 0; y < MAP_HEIGHT; ++y) {
                 double val1 = Math.abs(x - start.getX());
                 double val2 = Math.abs(y - start.getY());
-                World.blockList.getBlock(x, y).setG_Score(val1 + val2);
-                World.blockList.getBlock(x, y).setHscore(heuristic.calculate(World.blockList.getBlock(x, y), end));
+                map.getBlock(x, y).setG_Score(val1 + val2);
+                map.getBlock(x, y).setHscore(heuristic.calculate(map.getBlock(x, y), end));
             }
         }
 

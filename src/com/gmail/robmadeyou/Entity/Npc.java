@@ -1,6 +1,7 @@
 package com.gmail.robmadeyou.Entity;
 
-import com.gmail.robmadeyou.Astar.Astar;
+import com.gmail.robmadeyou.Astar.AstarSearch;
+import com.gmail.robmadeyou.Astar.DijkstraHeuristic;
 import com.gmail.robmadeyou.Astar.Heuristic;
 import com.gmail.robmadeyou.Astar.ManhattenHeuristic;
 import com.gmail.robmadeyou.Block.Block;
@@ -187,8 +188,14 @@ public class Npc extends Entity {
     private void logic() {
         try {
             //Block[][] map = World.blockList;
-            Heuristic heuristic = new ManhattenHeuristic();
-            Astar myAstar = new Astar(World.blockList, heuristic);
+            Heuristic heuristic;
+            if (Screen.TypeOfGame == GameType.SIDE_SCROLLER){
+            heuristic = new DijkstraHeuristic();
+            }
+            else {
+                heuristic = new ManhattenHeuristic();
+            }
+            AstarSearch myAstar = new AstarSearch(World.blockList, heuristic);
 
 
             List<Block> resultList;
@@ -204,15 +211,6 @@ public class Npc extends Entity {
             if (resultList == null) {
                 System.err.println("No path found! Exiting...");
             }
-
-
-//        int openSetCount = 0;
-//        for (int i = 0; i < World.blockList.length; ++i)
-//            for (int j = 0; j < World.blockList[0].length; ++j)
-//                openSetCount += World.blockList[i][j].isConsidered() ? 1 : 0;
-//        System.out.println("Total size of map:" + World.blockList.length * World.blockList[0].length);
-//        System.out.println("Number of points in open set: " + openSetCount);
-//        System.out.println("Path length: " + resultList.size());
             int lastX = -1;
             int lastY = -1;
             if (resultList != null) {
@@ -259,13 +257,12 @@ public class Npc extends Entity {
             direction = EnemyMovement.LEFT;
             orders(direction, times);
         } else if (cY > yy) {
-            direction = EnemyMovement.UP;
+            direction = Screen.TypeOfGame == GameType.RPG_STYLE ? EnemyMovement.UP: EnemyMovement.JUMP;
             orders(direction, times);
         } else if (cY < yy) {
             direction = EnemyMovement.DOWN;
             orders(direction, times);
         }
-
     }
 
     public void setAStar(boolean AStar) {
