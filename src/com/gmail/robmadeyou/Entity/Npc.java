@@ -206,8 +206,11 @@ public class Npc extends Entity {
             int eY = (int) Math.round(targetPlayer.getY() / World.BLOCK_SIZE());
             Block start = World.blockList.getBlock(sX, sY);
             Block end = World.blockList.getBlock(eX, eY);
+            resultList = null;
+            try{
             resultList = myAstar.search(start, end);
-
+            }catch(NullPointerException e){}
+            
             if (resultList == null) {
                 System.err.println("No path found! Exiting...");
             }

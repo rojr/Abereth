@@ -144,7 +144,6 @@ public class Item {
             }
         }
     }
-
     public void draw() {
         Collector.add(new DrawParameters("box", x, y, width, height, Texture, Color.White, 1, layer, true));
     }

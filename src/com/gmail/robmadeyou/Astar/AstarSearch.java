@@ -27,7 +27,7 @@ public class AstarSearch {
         int MAP_WIDTH = map.getLength();
         int MAP_HEIGHT = map.getMapHeight();
 
-
+        
         for (int x = 0; x < MAP_WIDTH; ++x) {
             for (int y = 0; y < MAP_HEIGHT; ++y) {
                 double val1 = Math.abs(x - start.getX());

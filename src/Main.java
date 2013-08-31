@@ -21,7 +21,7 @@ public class Main {
     public static void main(String[] args) {
 
         Screen.create(800, 512, "Our Screen", GameType.SIDE_SCROLLER, false);
-        Screen.setWorldDimensionsInBlocks(50, 50);
+        Screen.setWorldDimensionsInBlocks(50, 0);
 
         Screen.setUpWorld();
         Player player = new Player(50, 40, 32, 32);
@@ -37,7 +37,7 @@ public class Main {
 
         //Npc enemy2 = new Npc(20, 40, 32, 32);
         //Engine.addEntity(enemy2);
-          Item item = new Item(60, 40, 16, 16,1, Textures.ITEM_TEST);
+        Item item = Engine.addNewItem(new Item(60, 40, 16, 16,1, Textures.ITEM_TEST));
 
         //MessageArea.setUp(0, 400, 800, 200);
         //MessageArea.setUpTextStart(20, 420);
@@ -50,23 +50,23 @@ public class Main {
         listOfTextures.add(TextureLoader.createTexture("res/sheet01.png", 192, 64, 32, 32));
         listOfTextures.add(TextureLoader.createTexture("res/sheet01.png", 224, 64, 32, 32));
         Animate animTest = new Animate(listOfTextures, 20, 0, true);
-
+        Layer.addLayer(3);
 
         while (!Screen.isAskedToClose()) {
             //Updating the screen. the maximum frame rate is 60.
             Screen.update(60);
             emit.setX(Mouse.getX());
             emit.setY(Mouse.getY());
-
             enemy.setColor(Color.White);
             enemy.setTexture(Textures.test);
 
             player.setTexture(animTest.getTextureID());
-
+            if(item.isPressed()){
+            	Engine.removeItem(item);
+            }
             if (Keyboard.isKeyPressed(Key.T)) {
                 enemy.setAStar(!enemy.isAStarActive());
             }
-
             Text.drawString("Translate_X: " + Screen.translate_x + "\nTranslate_Y: "
                     + Screen.translate_y, player.getX() + 50, player.getY(), player.getLayer(), 1, 1, Color.Black, true, false);
 

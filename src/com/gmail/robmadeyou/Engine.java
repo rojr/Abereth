@@ -124,18 +124,21 @@ public class Engine {
     public static ArrayList<Item> itemList = new ArrayList<Item>();
     public static ArrayList<Item> VisibleItemList = new ArrayList<Item>();
 
-    public static Item addNewItem(Item i) {
+    public static Item addNewItem(Item i){
         itemList.add(i);
         return i;
     }
+    public static void removeItem(Item i){
+    	itemList.remove(i);
+    }
 
-    public static void updateAllItems() {
+    public static void updateAllItems(){
         VisibleItemList.clear();
-        for (Item anItemList : itemList) {
-            double eX = anItemList.getX();
-            double eY = anItemList.getY();
-            int eW = anItemList.getWidth();
-            int eH = anItemList.getHeight();
+        for (int i = 0; i < itemList.size(); i++){
+            double eX = itemList.get(i).getX();
+            double eY = itemList.get(i).getY();
+            int eW = itemList.get(i).getWidth();
+            int eH = itemList.get(i).getHeight();
             boolean one = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
                     eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
             boolean two = eX + eW >= -Screen.translate_x && eX + eW <= -Screen.translate_x + Screen.getWidth() &&
@@ -145,9 +148,10 @@ public class Engine {
             boolean four = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
                     eY + eH >= -Screen.translate_y && eY + eH <= -Screen.translate_y + Screen.getHeight();
             if (one || two || three || four) {
-                VisibleItemList.add(anItemList);
-                anItemList.onUpdate();
-                anItemList.draw();
+                VisibleItemList.add(itemList.get(i));
+                itemList.get(i).onUpdate();
+                itemList.get(i).draw();
+                
             }
         }
     }

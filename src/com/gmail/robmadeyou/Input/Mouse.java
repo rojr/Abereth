@@ -55,7 +55,7 @@ public class Mouse {
     }
 
     public static int getDY() {
-        return org.lwjgl.input.Mouse.getDY();
+        return -org.lwjgl.input.Mouse.getDY();
     }
 
     public static void onUpdate() {
