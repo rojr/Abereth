@@ -2,6 +2,7 @@ package com.gmail.robmadeyou.Effects;
 
 import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
+import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Screen;
 
 import java.util.ArrayList;
@@ -13,9 +14,11 @@ public class Emitter {
     private double x, y, velocity;
     private int width = 5, height = 5;
     private boolean randomSizes = false;
+    private boolean repeats = true;
     private int minRandom, maxRandom;
     private Color color;
     private int texID = -1, amount, spawnRate;
+    private int amountDone = 0;
     private int speedTimer;
     private float size;
     private int drawType;
@@ -121,7 +124,9 @@ public class Emitter {
     public int getLayer() {
         return layer;
     }
-
+    public boolean repeats(){
+    	return repeats;
+    }
     public void setRandomParticleDimensions(int min, int max) {
         this.randomSizes = true;
         this.minRandom = min;
@@ -143,25 +148,34 @@ public class Emitter {
     public void enableFollowPattern(boolean args) {
         this.drawType = 3;
     }
+    public void setRepeat(boolean args){
+    	this.repeats = args;
+    }
 
     public void onUpdate(int delta) {
         if (x >= -Screen.translate_x && x <= -Screen.translate_x + Screen.getWidth()
                 && y >= -Screen.translate_y && y <= -Screen.translate_y + Screen.getHeight()) {
             speedTimer++;
             if (spawnRate <= speedTimer) {
-                speedTimer = 0;
+            	speedTimer = 0;
                 for (int i = 0; i < part.length; i++) {
                     if (part[i] == null) {
-                        Random ran = new Random();
-                        part[i] = new Particles(x, y, ran.nextInt(), ran.nextInt(), i);
-                        if (randomSizes) {
-                            part[i].setHeight(minRandom + ran.nextInt(maxRandom - minRandom));
-                            part[i].setWidth(minRandom + ran.nextInt(maxRandom - minRandom));
-                        } else {
-                            part[i].setHeight(height);
-                            part[i].setWidth(width);
-                        }
-                        break;
+                    	if(!repeats && amount <= amountDone){
+                    		
+                    	}else{
+                    		Random ran = new Random();
+                        	part[i] = new Particles(x, y, ran.nextInt(), ran.nextInt(), i);
+                        
+                        	if (randomSizes) {
+                            	part[i].setHeight(minRandom + ran.nextInt(maxRandom - minRandom));
+                            	part[i].setWidth(minRandom + ran.nextInt(maxRandom - minRandom));
+                        	} else {
+                            	part[i].setHeight(height);
+                            	part[i].setWidth(width);
+                        	}
+                        	amountDone++;
+                        	break;
+                    	}
                     }
                 }
             }
@@ -171,6 +185,21 @@ public class Emitter {
                     aPart.draw();
                 }
             }
+        }
+        
+        if(!repeats && amountDone >= amount){
+        	boolean allIsEmpty = false;
+        	for(int i = 0; i < part.length; i++){
+        		if(part[i] != null){
+        			allIsEmpty = false;
+        		}else{
+        			allIsEmpty = true;
+        		}
+        	}
+        	if(allIsEmpty){
+        		Engine.removeEmitter(this);
+        	}
+        	
         }
     }
 

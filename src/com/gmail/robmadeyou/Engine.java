@@ -9,6 +9,7 @@ import com.gmail.robmadeyou.Item.Item;
 import com.gmail.robmadeyou.Quest.Quest;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Random;
 
 public class Engine {
@@ -22,11 +23,16 @@ public class Engine {
         Emitters.add(e);
         return Emitters.get(Emitters.size() - 1);
     }
+    public static void removeEmitter(Emitter e){
+    	Emitters.remove(e);
+    }
 
     public static void updateAllEmitters(int delta) {
-        for (com.gmail.robmadeyou.Effects.Emitter Emitter : Emitters) {
-            Emitter.onUpdate(delta);
-        }
+    	try{
+    		for (Emitter emitter : Emitters) {
+        		emitter.onUpdate(delta);
+        	}
+    	}catch(ConcurrentModificationException e){}
     }
 
     public static void update(int delta) {

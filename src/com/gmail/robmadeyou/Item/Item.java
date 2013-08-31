@@ -135,7 +135,10 @@ public class Item {
     }
 
     public void onUpdate() {
-        if (isDragged()) {
+    	gravityEffect();
+    }
+    public void gravityEffect(){
+    	if (isDragged()) {
             x += Mouse.getDX();
             y += Mouse.getDY();
         } else {
