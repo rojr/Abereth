@@ -18,15 +18,7 @@ public class MapLoader {
     public static String MAP_STRING = "res/World/maptest.png";
 
     public static enum BLOCK_TYPE {
-        WATER,
-
-        ROCK,
-
-        GRASS,
-
-        SAND,
-
-        DIRT,;
+        WATER, ROCK, GRASS, SAND, DIRT,;
     }
 
     public static BlockMap generateMap(String image) throws SlickException {

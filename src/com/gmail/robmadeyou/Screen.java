@@ -76,7 +76,7 @@ public class Screen {
      * quite fast end PC it will move faster than for someone with a lower end PC, where
      * as frame independent movement would add the same amount each time to make the movement
      * seem fluid for both low end and high end computers. This is very useful when doing things through
-     * Multi-Player as one person might have a very fast computer and the other might have a slow one, the slow one
+     * Multi-PlayerData as one person might have a very fast computer and the other might have a slow one, the slow one
      * is at a disadvantage as they can't move as fast
      */
     private static int getDelta() {

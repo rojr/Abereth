@@ -22,8 +22,8 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
 
-        Screen.create(800, 512, "Our Screen", GameType.SIDE_SCROLLER, false);
-        Screen.setWorldDimensionsInBlocks(50, 50);
+        Screen.create(800, 512, "Our Screen", GameType.RPG_STYLE, false);
+        Screen.setWorldDimensionsInBlocks(50, 0);
 
         Screen.setUpWorld();
         Camera cam = new Camera(0, 0);
@@ -35,7 +35,10 @@ public class Main {
         Player player = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
         
         Npc enemy = new Npc(32, 40, 32, 32);
+        enemy.setLogic(true);
+        enemy.setTargetPlayer(player);
         Engine.addEntity(enemy);
+
         //Npc enemy2 = new Npc(20, 40, 32, 32);
         //Engine.addEntity(enemy2);
         Item item = Engine.addNewItem(new Item(60, 40, 16, 16,1, Textures.ITEM_TEST));
@@ -54,6 +57,8 @@ public class Main {
         Layer.addLayer(3);
         
         cam.setTarget(new Target(player));
+        // Simple way to insert data into the database
+        //InsertPlayerData p = new InsertPlayerData(1, "James", 5867412587l,"jman@gmail.com");
 
         while (!Screen.isAskedToClose()) {
         	

@@ -171,6 +171,9 @@ public class Npc extends Entity {
         if (MovementArray.size() > 0) {
             MovementArray.get(0).move();
         }
+        // quick fix: when isAstarActive boolean
+        // //is set to false the Astar algorithm is still being calculated but move to block is not because logic was still being called
+        // this caused a block on the thread?  making sure both are activated eliminated the bug
 
         if (usingLogic) {
             logic();
@@ -186,13 +189,18 @@ public class Npc extends Entity {
     }
 
     private void logic() {
+        if (isAStarActive) {
+            activateAstarSearch();
+        }
+
+    }
+
+    private void activateAstarSearch() {
         try {
-            //Block[][] map = World.blockList;
             Heuristic heuristic;
-            if (Screen.TypeOfGame == GameType.SIDE_SCROLLER){
-            heuristic = new DijkstraHeuristic();
-            }
-            else {
+            if (Screen.TypeOfGame == GameType.SIDE_SCROLLER) {
+                heuristic = new DijkstraHeuristic();
+            } else {
                 heuristic = new ManhattenHeuristic();
             }
             AstarSearch myAstar = new AstarSearch(World.blockList, heuristic);
@@ -207,10 +215,11 @@ public class Npc extends Entity {
             Block start = World.blockList.getBlock(sX, sY);
             Block end = World.blockList.getBlock(eX, eY);
             resultList = null;
-            try{
-            resultList = myAstar.search(start, end);
-            }catch(NullPointerException e){}
-            
+            try {
+                resultList = myAstar.search(start, end);
+            } catch (NullPointerException e) {
+            }
+
             if (resultList == null) {
                 System.err.println("No path found! Exiting...");
             }
@@ -238,7 +247,6 @@ public class Npc extends Entity {
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
-
     }
 
     public void moveToBlock(int xx, int yy) {
@@ -260,7 +268,7 @@ public class Npc extends Entity {
             direction = EnemyMovement.LEFT;
             orders(direction, times);
         } else if (cY > yy) {
-            direction = Screen.TypeOfGame == GameType.RPG_STYLE ? EnemyMovement.UP: EnemyMovement.JUMP;
+            direction = Screen.TypeOfGame == GameType.RPG_STYLE ? EnemyMovement.UP : EnemyMovement.JUMP;   // hack for now later check for solid blocks in movement direction
             orders(direction, times);
         } else if (cY < yy) {
             direction = EnemyMovement.DOWN;
