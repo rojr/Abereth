@@ -277,13 +277,7 @@ public class Player extends Entity {
 
     public void handleInput(int delta) {
 
-        double centerX = (Screen.getWidth() / 2) - Screen.translate_x;
-        double distFromSideX = (Screen.getWidth() / 5) - Screen.translate_x;
-        double distFromCenterX = centerX - getX();
 
-        double centerY = (Screen.getHeight() / 2) - Screen.translate_y;
-        double distFromSideY = (Screen.getHeight() / 5) - Screen.translate_y;
-        double distFromCenterY = centerY - getY();
 			/*
 		 	*     /
 		 	*    /
@@ -298,22 +292,11 @@ public class Player extends Entity {
 		 	*/
         if (Keyboard.isKeyDown(getLeftKey(movementType))) {//No need for lots and lots of lines of code! Yaay!
             direction = 3;
-            boolean one = getX() + getWidth() <= (Screen.getWidth() / 5) - Screen.translate_x;
             if (!Physics.isSolidLeft(this)) {
                 setX((getX() - (delta * (speed - speedDecrease))));
                 isSolidLeft = false;
             } else {
                 isSolidLeft = true;
-            }
-            if (one && Screen.translate_x < 0.0) {
-                Screen.translate_x += (delta * (speed - speedDecrease));
-            }
-            if (!one && Screen.translate_x < 0.0) {
-                if (distFromCenterX > 0)
-                    Screen.translate_x += (delta * (speed - speedDecrease)) * (distFromCenterX / distFromSideX);
-            }
-            if (Screen.translate_x > 0.0) {
-                Screen.translate_x = 0.0;
             }
             if (getX() < 0) {
                 setX(0);
@@ -333,25 +316,12 @@ public class Player extends Entity {
 			 */
         if (Keyboard.isKeyDown(getRightKey(movementType))) {
             direction = 1;
-            boolean one = getX() + getWidth() >= (Screen.getWidth() - (Screen.getWidth() / 5)) - Screen.translate_x;
-            boolean two = -Screen.translate_x + Screen.getWidth() < World.getWorldWidthInPixels() - World.BLOCK_SIZE();
             if (!Physics.isSolidRight(this)) {
                 setX((getX() + (delta * (speed - speedDecrease))));
                 isSolidRight = false;
             } else {
                 isSolidRight = true;
             }
-            if (one && two) {
-                Screen.translate_x -= (delta * (speed - speedDecrease));
-            }
-            if (!one && two) {
-                if (distFromCenterX < 0)
-                    Screen.translate_x += (delta * (speed - speedDecrease)) * (distFromCenterX / distFromSideX);
-            }
-            if (!two) {
-                Screen.translate_x = -World.getWorldWidthInPixels() + Screen.getWidth() + World.BLOCK_SIZE();
-            }
-
         }
 			/*
 			 *              .
@@ -377,18 +347,7 @@ public class Player extends Entity {
                 }
             }
             if (Screen.TypeOfGame == GameType.RPG_STYLE) {
-                direction = 0;
-                boolean checkIfInTopBit = getY() < (Screen.getHeight() / 5) - Screen.translate_y;
-                if (checkIfInTopBit && Screen.translate_y < 0) {
-                    Screen.translate_y += (delta * (speed - speedDecrease));
-                }
-                if (Screen.translate_y > 0) {
-                    Screen.translate_y = 0;
-                }
-                if (!checkIfInTopBit && Screen.translate_y < 0.0) {
-                    if (distFromCenterY > 0)
-                        Screen.translate_y += (delta * (speed - speedDecrease)) * (distFromCenterY / distFromSideY);
-                }
+                direction = 0;                
                 if (!Physics.isSolidAbove(this) && getY() > 0) {
                     setY((float) (getY() - (delta * (speed - speedDecrease))));
                     isSolidAbove = false;
@@ -417,18 +376,6 @@ public class Player extends Entity {
             }
             if (Screen.TypeOfGame == GameType.RPG_STYLE) {
                 direction = 2;
-                boolean checkIfInBottomBit = getY() + getHeight() > (Screen.getHeight() - (Screen.getHeight() / 5)) - Screen.translate_y;
-                boolean isInBottomBounds = -Screen.translate_y + Screen.getHeight() < World.getWorldHeightInPixels();
-                if (checkIfInBottomBit && isInBottomBounds) {
-                    Screen.translate_y -= (delta * (speed - speedDecrease));
-                }
-                if (!checkIfInBottomBit && Screen.translate_y < 0.0) {
-                    if (distFromCenterY < 0)
-                        Screen.translate_y += (delta * (speed - speedDecrease)) * (distFromCenterY / distFromSideY);
-                }
-                if (!isInBottomBounds) {
-                    Screen.translate_y = -World.getWorldHeightInPixels() + Screen.getHeight();
-                }
                 if (!Physics.isSolidUnder(this)) {
                     isSolidBelow = false;
                     if (getY() + getHeight() < World.getWorldHeightInPixels()) {
