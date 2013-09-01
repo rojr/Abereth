@@ -65,16 +65,31 @@ public class Camera {
 		double toX = Screen.translate_x + (target.getX() - camWidth / 2);
 		double toY = Screen.translate_y + (target.getY() - camHeight / 2);
 		
+		
+		if(toX < 2 && toX > -2){
+			toX = 0;
+			Screen.translate_x = -(target.getX() - camWidth / 2);
+		}
+		if(toY < 2 && toY > -2){
+			toY = 0;
+			Screen.translate_y = -(target.getY() - camHeight / 2);
+		}
+		
 		System.out.println("x; " + toX + "  y:  " + toY);
 		
-		double s = 6;
-		double tan = Math.atan2(toX,toY);
-
-		double dX = s*Math.sin(tan);
-		double dY = s*Math.cos(tan);
 		
-		Screen.translate_x -= dX;
-		Screen.translate_y -= dY;
+		double s = 3.8;
+		double tan = Math.atan2(toX,toY);
+		
+		System.out.println(tan);
+		if(tan != Math.PI){
+			double dX = s*Math.sin(tan);
+			double dY = s*Math.cos(tan);
+			
+			Screen.translate_x -= dX;
+			Screen.translate_y -= dY;
+		}
+		
 	}
 	
 }

@@ -23,7 +23,7 @@ public class Main {
     public static void main(String[] args) {
 
         Screen.create(800, 512, "Our Screen", GameType.RPG_STYLE, false);
-        Screen.setWorldDimensionsInBlocks(50, 0);
+        Screen.setWorldDimensionsInBlocks(50, 50);
 
         Screen.setUpWorld();
         Camera cam = new Camera(0, 0);
