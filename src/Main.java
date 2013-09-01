@@ -57,8 +57,6 @@ public class Main {
         Layer.addLayer(3);
         
         cam.setTarget(new Target(player));
-        // Simple way to insert data into the database
-        //InsertPlayerData p = new InsertPlayerData(1, "James", 5867412587l,"jman@gmail.com");
 
         while (!Screen.isAskedToClose()) {
         	
