@@ -23,7 +23,7 @@ public class Main {
     public static void main(String[] args) {
 
         Screen.create(800, 512, "Our Screen", GameType.RPG_STYLE, false);
-        Screen.setWorldDimensionsInBlocks(50, 0);
+        Screen.setWorldDimensionsInBlocks(50, 50);
 
         Screen.setUpWorld();
         Camera cam = new Camera(0, 0);
@@ -57,8 +57,6 @@ public class Main {
         Layer.addLayer(3);
         
         cam.setTarget(new Target(player));
-        // Simple way to insert data into the database
-        //InsertPlayerData p = new InsertPlayerData(1, "James", 5867412587l,"jman@gmail.com");
 
         while (!Screen.isAskedToClose()) {
         	
