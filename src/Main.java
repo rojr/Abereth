@@ -3,6 +3,7 @@ import com.gmail.robmadeyou.Effects.Emitter.MovementDirection;
 import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Entity.Npc;
 import com.gmail.robmadeyou.Entity.Player;
+import com.gmail.robmadeyou.Entity.Player.MovementType;
 import com.gmail.robmadeyou.Gui.Button;
 import com.gmail.robmadeyou.Gui.Interface;
 import com.gmail.robmadeyou.Gui.Text;
@@ -26,17 +27,15 @@ public class Main {
         Screen.setWorldDimensionsInBlocks(50, 50);
 
         Screen.setUpWorld();
-        Camera cam = new Camera(0, 0);
-        
         
         Button button = (Button) Interface.add(new Button("", 50, 50, 50, 50, 1));
         button.useTranslate(true);
         
-        Player player = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
-        
+        Player player2 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
+        player2.setFixedMovementType(MovementType.WASD_KEYS);
         Npc enemy = new Npc(32, 40, 32, 32);
         enemy.setLogic(true);
-        enemy.setTargetPlayer(player);
+        enemy.setTargetPlayer(player2);
         Engine.addEntity(enemy);
 
         //Npc enemy2 = new Npc(20, 40, 32, 32);
@@ -56,16 +55,12 @@ public class Main {
         Animate animTest = new Animate(listOfTextures, 20, 0, true);
         Layer.addLayer(3);
         
-        cam.setTarget(new Target(player));
-
+        
+        Camera cam = Engine.addNewCamera(new Camera(0, 0, 0, 0, Screen.getWidth(), Screen.getHeight() / 2));
+        cam.setFollowingTarget(true);
+        cam.setTarget(new Target(player2));
         while (!Screen.isAskedToClose()) {
         	
-        	if(Keyboard.isKeyPressed(Key.A)){
-        		cam.setTarget(new Target(enemy));
-        	}
-        	if(Keyboard.isKeyPressed(Key.S)){
-        		cam.setTarget(new Target(player));
-        	}
         
             //Updating the screen. the maximum frame rate is 60.
             Screen.update(60);
@@ -88,7 +83,6 @@ public class Main {
             if (button.isReleased()) {
                 System.out.println("Magic");
             }
-            cam.onUpdate();
             //Refreshing the screen
             Screen.refresh();
         }

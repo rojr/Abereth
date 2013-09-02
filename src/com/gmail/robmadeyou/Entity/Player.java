@@ -414,45 +414,10 @@ public class Player extends Entity {
     public void onUpdate(int delta) {
         isMoving = Keyboard.isKeyDown(getLeftKey(movementType)) || Keyboard.isKeyDown(getRightKey(movementType));
         if (Screen.TypeOfGame == GameType.SIDE_SCROLLER) {
-            double centerY = (Screen.getHeight() / 2) - Screen.translate_y;
-            double distFromSideY = (Screen.getHeight() / 5) - Screen.translate_y;
-            double distFromCenterY = centerY - getY() - getHeight();
-            boolean checkIfInTopBit = getY() + getHeight() - Screen.translate_y < (Screen.getHeight() / 5);
-            if (checkIfInTopBit && Screen.translate_y < 0 && jumpDY > 0) {
-                Screen.translate_y += jumpDY * (delta * 0.1);
-            }
-            if (Screen.translate_y > 0) {
-                Screen.translate_y = 0;
-            }
-            if (!checkIfInTopBit && Screen.translate_y < 0.0 && jumpDY > 0) {
-                if (distFromCenterY > 0 && jumpDY > 0)
-                    Screen.translate_y += (jumpDY * (delta * 0.1)) * (distFromCenterY / distFromSideY);
-            }
             if (getY() < 0) {
                 setY(0);
             }
             if (isJumping || isInAir) {
-				/*
-				 * Screen moving down if player is in bottom area and is falling, otherwise it would
-				 * make things really awkward all the time
-				 */
-                boolean checkIfInBottomBit = getY() + getHeight() > (Screen.getHeight() - (Screen.getHeight() / 5)) - Screen.translate_y;
-                boolean isInBottomBounds = -Screen.translate_y + Screen.getHeight() < World.getWorldHeightInPixels();
-
-                if (checkIfInBottomBit && isInBottomBounds && jumpDY < 0) {
-                    Screen.translate_y += jumpDY * (delta * 0.1);
-                }
-                if (!checkIfInBottomBit && Screen.translate_y < 0.0 && jumpDY < 0) {
-                    if (distFromCenterY < 0 && jumpDY < 0)
-                        Screen.translate_y += (jumpDY * (delta * 0.1)) * (-distFromCenterY / distFromSideY);
-                }
-                if (!isInBottomBounds) {
-                    Screen.translate_y = -World.getWorldHeightInPixels() + Screen.getHeight();
-                }
-				/*
-				 * End of screen moving down
-				 */
-
                 setY((getY() - jumpDY * (delta * 0.1)));
                 jumpDY = jumpDY - World.gravity(delta);
                 if (jumpDY < -16) {

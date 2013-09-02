@@ -3,12 +3,15 @@ package com.gmail.robmadeyou;
 import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Render;
 import com.gmail.robmadeyou.Effects.Textures;
+import com.gmail.robmadeyou.Entity.Player;
 import com.gmail.robmadeyou.Gui.Interface;
 import com.gmail.robmadeyou.Gui.Text;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
+import com.gmail.robmadeyou.World.Camera;
 import com.gmail.robmadeyou.World.World;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -161,6 +164,10 @@ public class Screen {
 
         long endTimer = getTime() - startTimer;
         double finishTime = endTimer / 1000;
+        Player player = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
+        Camera cam = Engine.addNewCamera(new Camera(0, Screen.getHeight() / 2, 0, 0, getWidth(), Screen.getHeight() / 2));
+        cam.setFollowingTarget(true);
+        cam.setTarget(new Target(player));
         System.out.println(engineName + "v" + version + " Loaded in: " + finishTime + " seconds");
     }
 
@@ -233,7 +240,7 @@ public class Screen {
 
     public static void refresh() {
         Collector.organize();
-        Render.renderAll();
+        Engine.updateAllCameras();
         Collector.clear();
         Display.update();
     }

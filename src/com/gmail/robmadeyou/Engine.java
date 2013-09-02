@@ -7,6 +7,7 @@ import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Item.Item;
 import com.gmail.robmadeyou.Quest.Quest;
+import com.gmail.robmadeyou.World.Camera;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -161,7 +162,33 @@ public class Engine {
             }
         }
     }
-
+    
+    /*
+     * 
+     * Multiple camera stuff here
+     * 
+     */
+    static boolean hasAddedNewCamera = false;
+    
+    static ArrayList<Camera> cameraList = new ArrayList<Camera>();
+    
+    public static Camera addNewCamera(Camera c){
+    	if(!hasAddedNewCamera){
+    		hasAddedNewCamera = true;
+    		cameraList.add(c);
+    		return c;
+    	}else{
+    		cameraList.add(c);
+    		return c;
+    	}
+    }
+    
+    public static void updateAllCameras(){
+    	for(int i = 0; i < cameraList.size(); i++){
+    		cameraList.get(i).onUpdate();
+    	}
+    }
+    
 
     /*
      *
