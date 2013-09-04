@@ -34,6 +34,15 @@ public class Main {
         
         Player player2 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
         player2.setFixedMovementType(MovementType.WASD_KEYS);
+        
+        Player player3 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
+        player3.setFixedMovementType(MovementType.IJKL_KEYS);
+        
+        Player player4 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
+        player4.setFixedMovementType(MovementType.NUMPAD_KEYS);
+        
+        Player player5 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
+        player5.setFixedMovementType(MovementType.ARROW_KEYS);
         Npc enemy = new Npc(32, 40, 32, 32);
         enemy.setLogic(true);
         enemy.setTargetPlayer(player2);
@@ -57,12 +66,23 @@ public class Main {
         Layer.addLayer(3);
         
         
-        Camera cam = Engine.addNewCamera(new Camera(0, 0, 0, 0, Screen.getWidth(), Screen.getHeight() / 2));
+        Camera cam = Engine.addNewCamera(new Camera(0, 0, 0, 0, Screen.getWidth() / 2, Screen.getHeight() / 2));
         cam.setFollowingTarget(true);
         cam.setTarget(new Target(player2));
+        
+        Camera cam2 = Engine.addNewCamera(new Camera(Screen.getWidth() / 2, 0, 0, 0, Screen.getWidth() / 2, Screen.getHeight() / 2));
+        cam2.setFollowingTarget(true);
+        cam2.setTarget(new Target(player3));
+        
+        Camera cam3 = Engine.addNewCamera(new Camera(0, Screen.getHeight() / 2, 0, 0, Screen.getWidth() / 2, Screen.getHeight() / 2));
+        cam3.setFollowingTarget(true);
+        cam3.setTarget(new Target(player4));
+        
+        Camera cam4 = Engine.addNewCamera(new Camera(Screen.getWidth() / 2, Screen.getHeight() / 2, 0, 0, Screen.getWidth() / 2, Screen.getHeight() / 2));
+        cam4.setFollowingTarget(true);
+        cam4.setTarget(new Target(player5));
         while (!Screen.isAskedToClose()) {
         	
-        	System.out.println(cam.getX() / World.BLOCK_SIZE());
             //Updating the screen. the maximum frame rate is 60.
             Screen.update(60);
             emit.setX(Mouse.getX());

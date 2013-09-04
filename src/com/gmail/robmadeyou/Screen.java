@@ -164,10 +164,7 @@ public class Screen {
 
         long endTimer = getTime() - startTimer;
         double finishTime = endTimer / 1000;
-        Player player = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
-        Camera cam = Engine.addNewCamera(new Camera(0, Screen.getHeight() / 2, 0, 0, getWidth(), Screen.getHeight() / 2));
-        cam.setFollowingTarget(true);
-        cam.setTarget(new Target(player));
+        new Camera(0, Screen.getHeight() / 2, 0, 0, getWidth(), Screen.getHeight() / 2);
         System.out.println(engineName + "v" + version + " Loaded in: " + finishTime + " seconds");
     }
 

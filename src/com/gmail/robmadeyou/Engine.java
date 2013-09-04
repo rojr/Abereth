@@ -38,7 +38,8 @@ public class Engine {
     }
 
     public static void update(int delta) {
-        for(Camera c : cameraList){
+        for(int i = cameraList.size() - 1; i >= 0; i--){
+        	Camera c = cameraList.get(i);
         	updateAllEmitters(delta, c);
         	if (Screen.worldCreated) {
                 World.onUpdate(c);

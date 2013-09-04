@@ -2,6 +2,7 @@ package com.gmail.robmadeyou.World;
 
 import com.gmail.robmadeyou.Target;
 import com.gmail.robmadeyou.Draw.Render;
+import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
 public class Camera{
 	private double camX, camY, x, y;
@@ -97,18 +98,19 @@ public class Camera{
 		double toY = camY + (target.getY() - camHeight / 2);
 		
 		
-		if(toX < 2 && toX > -2){
+		if(toX <= 4 && toX >= -4){
 			toX = 0;
 			camX = -(target.getX() - camWidth / 2);
 		}
-		if(toY < 2 && toY > -2){
+		if(toY <= 4 && toY >= -6){
 			toY = 0;
 			camY = -(target.getY() - camHeight / 2);
 		}
 		
-		double s = 3.8;
+		double s = 6;//target.getSpeed() * ();
 		double tan = Math.atan2(toX,toY);
-		
+		System.out.println(toX);
+		System.out.println(toY);
 		double dX = s*Math.sin(tan);
 		double dY = s*Math.cos(tan);
 			
