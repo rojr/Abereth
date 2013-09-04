@@ -190,7 +190,7 @@ public class Engine {
      */
     static boolean hasAddedNewCamera = false;
     
-    static ArrayList<Camera> cameraList = new ArrayList<Camera>();
+    public static ArrayList<Camera> cameraList = new ArrayList<Camera>();
     
     public static Camera addNewCamera(Camera c){
     	if(!hasAddedNewCamera){
