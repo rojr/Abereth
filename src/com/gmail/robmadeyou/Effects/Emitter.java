@@ -2,6 +2,7 @@ package com.gmail.robmadeyou.Effects;
 
 import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
+import com.gmail.robmadeyou.World.Camera;
 import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Screen;
 
@@ -152,9 +153,14 @@ public class Emitter {
     	this.repeats = args;
     }
 
-    public void onUpdate(int delta) {
-        if (x >= -Screen.translate_x && x <= -Screen.translate_x + Screen.getWidth()
-                && y >= -Screen.translate_y && y <= -Screen.translate_y + Screen.getHeight()) {
+    public void onUpdate(int delta, Camera cam) {
+    	
+    	double tX = cam.getX();
+        double tY = cam.getY();
+        double cW = cam.getWidth();
+        double cH = cam.getHeight();
+    	
+        if (x >= -tX && x <= -tX + cW && y >= -tY && y <= -tY + cH) {
             speedTimer++;
             if (spawnRate <= speedTimer) {
             	speedTimer = 0;

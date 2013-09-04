@@ -71,14 +71,6 @@ public class World {
     }
 
 
-
-    //Integer showing the block location of the camera (top left hand side of the screen)
-    private static int camXDivided = (int) Math.round(Screen.translate_x / BLOCK_SIZE());
-    private static int camYDivided = (int) Math.round(Screen.translate_y / BLOCK_SIZE());
-    //Integer showing the width and height in blocks
-    private static int camWidthDivided = Math.round(Screen.getWidth() / BLOCK_SIZE()) + 1;
-    private static int camHeightDivided = Math.round(Screen.getHeight() / BLOCK_SIZE()) + 1;
-
     public static void setWorldDimensions(int x, int y) {
         blockList = new BlockMap(x, y);
         WorldArrayWidth = x;
@@ -335,9 +327,12 @@ public class World {
         return false;
     }
 
-    public static void onUpdate() {
-        camXDivided = (int) Math.round(-Screen.translate_x / BLOCK_SIZE());
-        camYDivided = (int) Math.round(-Screen.translate_y / BLOCK_SIZE());
+    public static void onUpdate(Camera cam) {
+        int camXDivided = (int) Math.round(-cam.getX() / BLOCK_SIZE());
+        int camYDivided = (int) Math.round(-cam.getY() / BLOCK_SIZE());
+        
+        int camWidthDivided = (int) Math.round(cam.getWidth() / BLOCK_SIZE() + 1);
+        int camHeightDivided = (int) Math.round(cam.getHeight() / BLOCK_SIZE() + 2);
 
         int mX = Math.round((Mouse.getX() / BLOCK_SIZE()));
         int mY = Math.round((Mouse.getY() / BLOCK_SIZE()));

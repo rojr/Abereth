@@ -8,6 +8,7 @@ import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Item.Item;
 import com.gmail.robmadeyou.Quest.Quest;
 import com.gmail.robmadeyou.World.Camera;
+import com.gmail.robmadeyou.World.World;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -28,18 +29,24 @@ public class Engine {
     	Emitters.remove(e);
     }
 
-    public static void updateAllEmitters(int delta) {
+    public static void updateAllEmitters(int delta, Camera cam) {
     	try{
     		for (Emitter emitter : Emitters) {
-        		emitter.onUpdate(delta);
+        		emitter.onUpdate(delta, cam);
         	}
     	}catch(ConcurrentModificationException e){}
     }
 
     public static void update(int delta) {
-        updateAllEmitters(delta);
-        updateAllEntities(delta);
-        updateAllItems();
+        for(Camera c : cameraList){
+        	updateAllEmitters(delta, c);
+        	if (Screen.worldCreated) {
+                World.onUpdate(c);
+            }
+        	updateAllEntities(delta, c);
+        	updateAllItems(c);
+        }
+        
         if (Keyboard.isKeyPressed(Key.L)) {
             isDevMode = !isDevMode;
         }
@@ -74,25 +81,31 @@ public class Engine {
         return e;
     }
 
-    public static void updateAllEntities(int delta) {
+    public static void updateAllEntities(int delta, Camera cam) {
 
         for (Entity anEntityList : entityList) {
             anEntityList.onUpdate(delta);
         }
         onScreenEntity.clear();
+        
+        double tX = cam.getX();
+        double tY = cam.getY();
+        double cW = cam.getWidth();
+        double cH = cam.getHeight();
+        
         for (int i = entityList.size() - 1; i >= 0; i--) {
             double eX = entityList.get(i).getX();
             double eY = entityList.get(i).getY();
             int eW = entityList.get(i).getWidth();
             int eH = entityList.get(i).getHeight();
-            boolean one = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
-                    eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
-            boolean two = eX + eW >= -Screen.translate_x && eX + eW <= -Screen.translate_x + Screen.getWidth() &&
-                    eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
-            boolean three = eX + eW >= -Screen.translate_x && eX + eW <= -Screen.translate_x + Screen.getWidth() &&
-                    eY + eH >= -Screen.translate_y && eY + eH <= -Screen.translate_y + Screen.getHeight();
-            boolean four = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
-                    eY + eH >= -Screen.translate_y && eY + eH <= -Screen.translate_y + Screen.getHeight();
+            boolean one = eX >= -tX && eX <= -tX + cW &&
+                    eY >= -tY && eY <= -tY + cH;
+            boolean two = eX + eW >= -tX && eX + eW <= -tX + cW &&
+                    eY >= -tY && eY <= -tY + cH;
+            boolean three = eX + eW >= -tX && eX + eW <= -tX + cW &&
+                    eY + eH >= -tY && eY + eH <= -tY + cH;
+            boolean four = eX >= -tX && eX <= -tX + cW &&
+                    eY + eH >= -tY && eY + eH <= -tY + cH;
             if (one || two || three || four) {
                 onScreenEntity.add(entityList.get(i));
                 entityList.get(i).draw();
@@ -139,21 +152,27 @@ public class Engine {
     	itemList.remove(i);
     }
 
-    public static void updateAllItems(){
+    public static void updateAllItems(Camera cam){
         VisibleItemList.clear();
+        
+        double tX = cam.getX();
+        double tY = cam.getY();
+        double cW = cam.getWidth();
+        double cH = cam.getHeight();
+        
         for (int i = 0; i < itemList.size(); i++){
             double eX = itemList.get(i).getX();
             double eY = itemList.get(i).getY();
             int eW = itemList.get(i).getWidth();
             int eH = itemList.get(i).getHeight();
-            boolean one = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
-                    eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
-            boolean two = eX + eW >= -Screen.translate_x && eX + eW <= -Screen.translate_x + Screen.getWidth() &&
-                    eY >= -Screen.translate_y && eY <= -Screen.translate_y + Screen.getHeight();
-            boolean three = eX + eW >= -Screen.translate_x && eX + eW <= -Screen.translate_x + Screen.getWidth() &&
-                    eY + eH >= -Screen.translate_y && eY + eH <= -Screen.translate_y + Screen.getHeight();
-            boolean four = eX >= -Screen.translate_x && eX <= -Screen.translate_x + Screen.getWidth() &&
-                    eY + eH >= -Screen.translate_y && eY + eH <= -Screen.translate_y + Screen.getHeight();
+            boolean one = eX >= -tX && eX <= -tX + cW &&
+                    eY >= -tY && eY <= -tY + cH;
+            boolean two = eX + eW >= -tX && eX + eW <= -tX + cW &&
+                    eY >= -tY && eY <= -tY + cH;
+            boolean three = eX + eW >= -tX && eX + eW <= -tX + cW &&
+                    eY + eH >= -tY && eY + eH <= -tY + cH;
+            boolean four = eX >= -tX && eX <= -tX + cW &&
+                    eY + eH >= -tY && eY + eH <= -tY + cH;
             if (one || two || three || four) {
                 VisibleItemList.add(itemList.get(i));
                 itemList.get(i).onUpdate();

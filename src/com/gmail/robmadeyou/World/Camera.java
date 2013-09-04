@@ -19,6 +19,21 @@ public class Camera{
 		camHeight = height;
 	}
 	
+	public double getX(){
+		return camX;
+	}
+	
+	public double getY(){
+		return camY;
+	}
+	public double getWidth(){
+		return camWidth;
+	}
+	
+	public double getHeight(){
+		return camHeight;
+	}
+	
 	public void setTarget(Target target){
 		this.target = target;
 	}
@@ -59,6 +74,18 @@ public class Camera{
 			}else if(typeOfFollowing.equals("soft")){
 				softMove();
 			}
+		}
+		if(camX > 0){
+			camX = 0;
+		}
+		if(camY > 0){
+			camY = 0;
+		}
+		if(-camX > World.getWorldWidthInPixels() - camWidth){
+			camX = -World.getWorldWidthInPixels() + camWidth;
+		}
+		if(-camY > World.getWorldHeightInPixels() - camHeight){
+			camY = -World.getWorldHeightInPixels() + camHeight;
 		}
 	}
 	public void hardMove(){

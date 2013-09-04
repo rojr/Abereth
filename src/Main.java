@@ -16,6 +16,7 @@ import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.Target;
 import com.gmail.robmadeyou.World.Camera;
+import com.gmail.robmadeyou.World.World;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class Main {
 
         Screen.setUpWorld();
         
-        Button button = (Button) Interface.add(new Button("", 50, 50, 50, 50, 1));
+        Button button = (Button) Interface.add(new Button("", 25, 50, 50, 50, 1));
         button.useTranslate(true);
         
         Player player2 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
@@ -61,14 +62,14 @@ public class Main {
         cam.setTarget(new Target(player2));
         while (!Screen.isAskedToClose()) {
         	
-        
+        	System.out.println(cam.getX() / World.BLOCK_SIZE());
             //Updating the screen. the maximum frame rate is 60.
             Screen.update(60);
             emit.setX(Mouse.getX());
             emit.setY(Mouse.getY());
             enemy.setColor(Color.White);
             enemy.setTexture(Textures.test);
-
+            player2.setTexture(animTest.getTextureID());
             if(item.isPressed()){
             	Engine.removeItem(item);
             }

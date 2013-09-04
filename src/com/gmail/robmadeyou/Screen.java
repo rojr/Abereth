@@ -39,7 +39,7 @@ public class Screen {
     public static String version = "0.1";
 
     public static boolean detailsActive = false;
-    private static boolean worldCreated = false;
+    static boolean worldCreated = false;
     private static long lastFrame;
     private static long lastFPS;
     private static int fps = 0;
@@ -225,11 +225,9 @@ public class Screen {
         Interface.onUpdate();
 
         Mouse.onUpdate();
-
-        if (worldCreated) {
-            World.onUpdate();
-        }
+        
         Engine.update(delta);
+        
         Interface.onUpdate();
 
         if (Keyboard.isKeyPressed(Key.Grave)) {
