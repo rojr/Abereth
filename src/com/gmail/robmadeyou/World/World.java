@@ -331,7 +331,7 @@ public class World {
         int camXDivided = (int) Math.round(-cam.getX() / BLOCK_SIZE());
         int camYDivided = (int) Math.round(-cam.getY() / BLOCK_SIZE());
         
-        int camWidthDivided = (int) Math.round(cam.getWidth() / BLOCK_SIZE() + 1);
+        int camWidthDivided = (int) Math.round(cam.getWidth() / BLOCK_SIZE() + 2);
         int camHeightDivided = (int) Math.round(cam.getHeight() / BLOCK_SIZE() + 2);
 
         int mX = Math.round((Mouse.getX() / BLOCK_SIZE()));
@@ -352,8 +352,8 @@ public class World {
             }
         }
 
-        for (int sX = camXDivided; sX < camXDivided + camWidthDivided + 1; sX++) {
-            for (int sY = camYDivided; sY < camYDivided + camHeightDivided + 2; sY++) {
+        for (int sX = camXDivided; sX < camXDivided + camWidthDivided; sX++) {
+            for (int sY = camYDivided; sY < camYDivided + camHeightDivided; sY++) {
                 int x;
                 int y;
                 if (sX >= 1) {

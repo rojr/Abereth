@@ -98,19 +98,11 @@ public class Camera{
 		double toY = camY + (target.getY() - camHeight / 2);
 		
 		
-		if(toX <= 4 && toX >= -4){
-			toX = 0;
-			camX = -(target.getX() - camWidth / 2);
-		}
-		if(toY <= 4 && toY >= -6){
-			toY = 0;
-			camY = -(target.getY() - camHeight / 2);
-		}
 		
-		double s = 6;//target.getSpeed() * ();
+		
+		double s = 3;//target.getSpeed() * ();
 		double tan = Math.atan2(toX,toY);
-		System.out.println(toX);
-		System.out.println(toY);
+		
 		double dX = s*Math.sin(tan);
 		double dY = s*Math.cos(tan);
 			

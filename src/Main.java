@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
 
-        Screen.create(800, 512, "Our Screen", GameType.RPG_STYLE, false);
+        Screen.create(800, 512, "Our Screen", GameType.SIDE_SCROLLER, false);
         Screen.setWorldDimensionsInBlocks(50, 50);
 
         Screen.setUpWorld();
@@ -60,7 +60,6 @@ public class Main {
         Animate animTest = new Animate(listOfTextures, 20, 0, true);
         Layer.addLayer(3);
         
-        
         Camera cam = Engine.addNewCamera(new Camera(0, 0, 0, 0, Screen.getWidth() / 2, Screen.getHeight()));
         cam.setFollowingTarget(true);
         cam.setTarget(new Target(player2));
@@ -68,6 +67,12 @@ public class Main {
         Camera cam2 = Engine.addNewCamera(new Camera(Screen.getWidth() / 2, 0, 0, 0, Screen.getWidth() / 2, Screen.getHeight()));
         cam2.setFollowingTarget(true);
         cam2.setTarget(new Target(player3));
+        
+        
+        
+        
+        
+        
         
         boolean camsCreated = false;
         while (!Screen.isAskedToClose()) {
@@ -93,31 +98,6 @@ public class Main {
             if (button.isReleased()) {
                 System.out.println("Magic");
             }
-            
-            
-            boolean one = player2.getX() >= cam2.getX() && player2.getX() <= cam2.getX() + cam2.getWidth() &&
-            				player2.getY() >= cam2.getY() && player2.getY() <= cam2.getY() + cam2.getHeight();
-            
-            if(one){
-            	camsCreated = false;
-            	double cX = cam.getX();
-            	Engine.cameraList.clear();
-            	Engine.cameraList.add(new Camera(0, 0, cX, 0, Screen.getWidth(), Screen.getHeight()));
-            }else{
-            	
-            	if(!camsCreated){
-            		camsCreated = true;
-            		cam = Engine.addNewCamera(new Camera(0, 0, 0, 0, Screen.getWidth() / 2, Screen.getHeight()));
-                	cam.setFollowingTarget(true);
-                	cam.setTarget(new Target(player2));
-                
-                	cam2 = Engine.addNewCamera(new Camera(Screen.getWidth() / 2, 0, 0, 0, Screen.getWidth() / 2, Screen.getHeight()));
-                	cam2.setFollowingTarget(true);
-                	cam2.setTarget(new Target(player3));
-            	}
-            }
-            
-            
             //Refreshing the screen
             Screen.refresh();
         }

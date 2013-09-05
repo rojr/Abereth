@@ -44,9 +44,10 @@ public class Engine {
         	if (Screen.worldCreated) {
                 World.onUpdate(c);
             }
-        	updateAllEntities(delta, c);
         	updateAllItems(c);
         }
+        
+        updateAllEntities(delta);
         
         if (Keyboard.isKeyPressed(Key.L)) {
             isDevMode = !isDevMode;
@@ -82,35 +83,41 @@ public class Engine {
         return e;
     }
 
-    public static void updateAllEntities(int delta, Camera cam) {
+    public static void updateAllEntities(int delta) {
 
         for (Entity anEntityList : entityList) {
             anEntityList.onUpdate(delta);
+            anEntityList.setWasUpdated(false);
         }
         onScreenEntity.clear();
+        for(Camera cam : cameraList){
+        	double tX = cam.getX();
+        	double tY = cam.getY();
+        	double cW = cam.getWidth();
+        	double cH = cam.getHeight();
         
-        double tX = cam.getX();
-        double tY = cam.getY();
-        double cW = cam.getWidth();
-        double cH = cam.getHeight();
-        
-        for (int i = entityList.size() - 1; i >= 0; i--) {
-            double eX = entityList.get(i).getX();
-            double eY = entityList.get(i).getY();
-            int eW = entityList.get(i).getWidth();
-            int eH = entityList.get(i).getHeight();
-            boolean one = eX >= -tX && eX <= -tX + cW &&
-                    eY >= -tY && eY <= -tY + cH;
-            boolean two = eX + eW >= -tX && eX + eW <= -tX + cW &&
-                    eY >= -tY && eY <= -tY + cH;
-            boolean three = eX + eW >= -tX && eX + eW <= -tX + cW &&
-                    eY + eH >= -tY && eY + eH <= -tY + cH;
-            boolean four = eX >= -tX && eX <= -tX + cW &&
-                    eY + eH >= -tY && eY + eH <= -tY + cH;
-            if (one || two || three || four) {
-                onScreenEntity.add(entityList.get(i));
-                entityList.get(i).draw();
-            }
+        	for (int i = entityList.size() - 1; i >= 0; i--) {
+            	double eX = entityList.get(i).getX();
+            	double eY = entityList.get(i).getY();
+            	int eW = entityList.get(i).getWidth();
+            	int eH = entityList.get(i).getHeight();
+            	boolean one = eX >= -tX && eX <= -tX + cW &&
+                    	eY >= -tY && eY <= -tY + cH;
+                    boolean two = eX + eW >= -tX && eX + eW <= -tX + cW &&
+                    	eY >= -tY && eY <= -tY + cH;
+                    boolean three = eX + eW >= -tX && eX + eW <= -tX + cW &&
+                    	eY + eH >= -tY && eY + eH <= -tY + cH;
+                    boolean four = eX >= -tX && eX <= -tX + cW &&
+                    	eY + eH >= -tY && eY + eH <= -tY + cH;
+                    if (one || two || three || four) {
+                    	
+                    	if(!entityList.get(i).getWasUpdated()){
+                    		entityList.get(i).setWasUpdated(true);
+                    		onScreenEntity.add(entityList.get(i));
+                    		entityList.get(i).draw();
+                    	}
+            	}
+        	}
         }
     }
 

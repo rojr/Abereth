@@ -9,6 +9,7 @@ public class Entity {
     private double x, y, dX, dY, speed, originalSpeed = 1,
             originalX, originalY, originalDX, originalDY;
     private int number, h, w, originalW, originalH, layer;
+    private boolean wasUpdated = false;;
 
     public Entity() {
         location = new Vector2f();
@@ -114,6 +115,10 @@ public class Entity {
     public void setOriginalSpeed(double speed) {
         this.originalSpeed = speed;
     }
+    
+    public void setWasUpdated(boolean updated){
+    	this.wasUpdated = updated;
+    }
 
     public double getOriginalX() {
         return origLoc.x;
@@ -141,6 +146,10 @@ public class Entity {
 
     public int getOriginalHeight() {
         return (int) origDim.y;
+    }
+    
+    public boolean getWasUpdated(){
+    	return wasUpdated;
     }
 
     public int getLayer() {
