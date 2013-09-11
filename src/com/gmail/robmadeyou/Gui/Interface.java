@@ -31,8 +31,8 @@ public class Interface {
             int width = aGuiArray.getWidth();
             int height = aGuiArray.getHeight();
 
-            double sX = -Screen.translate_x;
-            double sY = -Screen.translate_y;
+            double sX = 0;
+            double sY = 0;
             int sWidth = Screen.getWidth();
             int sHeight = Screen.getHeight();
 			/*

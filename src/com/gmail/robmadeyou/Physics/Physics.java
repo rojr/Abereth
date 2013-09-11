@@ -133,6 +133,8 @@ public class Physics {
                 } else {
                     x = sX;
                 }
+                //Returns null values if y is more than 816? weird
+                try{
                 int bX = World.blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
                 int bY = World.blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
 				/*
@@ -156,6 +158,7 @@ public class Physics {
                     }
 
                 }
+                }catch(NullPointerException ex){}
             }
         }
         return false;

@@ -1,15 +1,15 @@
 package com.gmail.robmadeyou.World;
 
+import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Target;
 import com.gmail.robmadeyou.Draw.Render;
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
 public class Camera{
 	private double camX, camY, x, y;
 	private double camWidth, camHeight;
 	private Target target;
 	private boolean followingTarget = false;
-	private float maxDistanceFromCamera = 300;
+	private float maxDistanceFromCamera = 10;
 	private String typeOfFollowing = "soft";
 	public Camera(double x, double y, double camX, double camY, double width, double height){
 		this.x = x;
@@ -97,17 +97,37 @@ public class Camera{
 		double toX = camX + (target.getX() - camWidth / 2);
 		double toY = camY + (target.getY() - camHeight / 2);
 		
+		double tan = Math.atan2(toX,toY);
 		
+		double targetSpeed = target.getSpeed();
 		
+		if(toX < 0){
+			toX = -toX;
+		}
+		if(toY < 0){
+			toY = -toY;
+		}
+		
+		double biggest = 0;
+		if(toX >= toY){
+			biggest = toX;
+		}else{
+			biggest = toY;
+		}
+		
+		double multiplier = biggest / maxDistanceFromCamera;
 		
 		double s = 3;//target.getSpeed() * ();
-		double tan = Math.atan2(toX,toY);
+		System.out.println(biggest);
 		
 		double dX = s*Math.sin(tan);
 		double dY = s*Math.cos(tan);
-			
-		camX -= dX;
-		camY -= dY;
+		if(toX > 5){
+			camX -= dX;
+		}
+		if(toY > 5){
+			camY -= dY;
+		}
 		
 	}
 	

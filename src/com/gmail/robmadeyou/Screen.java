@@ -1,9 +1,7 @@
 package com.gmail.robmadeyou;
 
 import com.gmail.robmadeyou.Draw.Collector;
-import com.gmail.robmadeyou.Draw.Render;
 import com.gmail.robmadeyou.Effects.Textures;
-import com.gmail.robmadeyou.Entity.Player;
 import com.gmail.robmadeyou.Gui.Interface;
 import com.gmail.robmadeyou.Gui.Text;
 import com.gmail.robmadeyou.Input.Keyboard;
@@ -106,8 +104,7 @@ public class Screen {
 
     public static GameType TypeOfGame = GameType.SIDE_SCROLLER;
 
-    public static double translate_x = 0;
-    public static double translate_y = 0;
+    
 
     public static int WorldTileSize = 32;
 
@@ -164,7 +161,6 @@ public class Screen {
 
         long endTimer = getTime() - startTimer;
         double finishTime = endTimer / 1000;
-        new Camera(0, Screen.getHeight() / 2, 0, 0, getWidth(), Screen.getHeight() / 2);
         System.out.println(engineName + "v" + version + " Loaded in: " + finishTime + " seconds");
     }
 

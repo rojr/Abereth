@@ -66,8 +66,8 @@ public class Mouse {
             }
         }
 
-        x = (int) (org.lwjgl.input.Mouse.getX() - Screen.translate_x);
-        y = (int) (com.gmail.robmadeyou.Screen.getHeight() - org.lwjgl.input.Mouse.getY() - Screen.translate_y);
+        x = (int) (org.lwjgl.input.Mouse.getX());
+        y = (int) (com.gmail.robmadeyou.Screen.getHeight());
         /*
 		 * Here we set the two mouse buttons to be not pressed by default. So they aren't activated "accidentally"
 		 */

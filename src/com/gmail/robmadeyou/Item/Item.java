@@ -4,6 +4,7 @@ import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Entity.Entity;
+import com.gmail.robmadeyou.Gui.Container;
 import com.gmail.robmadeyou.Gui.Gui;
 import com.gmail.robmadeyou.Input.Mouse;
 import com.gmail.robmadeyou.Screen;
@@ -16,8 +17,7 @@ public class Item {
     private int Texture;
     private int layer;
     private boolean wasPressed = false;
-    private boolean isInGui = false;
-    private Gui inGui = null;
+    private Container inGui = null;
 
 
     //Possibly making some gravity effect
@@ -137,6 +137,15 @@ public class Item {
     public void onUpdate() {
     	gravityEffect();
     }
+    
+    public void setContainer(Container gui){
+    	this.inGui = gui;
+    }
+    
+    public Container getContainer(){
+    	return inGui;
+    }
+    
     public void gravityEffect(){
     	if (isDragged()) {
             x += Mouse.getDX();

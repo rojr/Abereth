@@ -347,7 +347,7 @@ public class Player extends Entity {
                 }
             }
             if (Screen.TypeOfGame == GameType.RPG_STYLE) {
-                direction = 0;                
+                direction = 0;
                 if (!Physics.isSolidAbove(this) && getY() > 0) {
                     setY((float) (getY() - (delta * (speed - speedDecrease))));
                     isSolidAbove = false;

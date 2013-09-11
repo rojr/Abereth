@@ -7,6 +7,7 @@ import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Input.Mouse;
 import com.gmail.robmadeyou.Screen;
+
 import org.newdawn.slick.SlickException;
 
 
@@ -367,7 +368,11 @@ public class World {
                     y = sY;
                 }
                 if (x < WorldArrayWidth && y < WorldArrayHeight && x >= 0 && y >= 0) {
-                    blockList.getBlock(x, y).onUpdate();
+                	try{
+                		blockList.getBlock(x, y).onUpdate();
+                	}catch(NullPointerException ex){
+                		
+                	}
                 }
             }
         }
