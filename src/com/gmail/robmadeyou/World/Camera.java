@@ -19,7 +19,12 @@ public class Camera{
 		camWidth = width;
 		camHeight = height;
 	}
-	
+	public double getCamX(){
+		return x;
+	}
+	public double getCamY(){
+		return y;
+	}
 	public double getX(){
 		return camX;
 	}
@@ -118,7 +123,6 @@ public class Camera{
 		double multiplier = biggest / maxDistanceFromCamera;
 		
 		double s = 3;//target.getSpeed() * ();
-		System.out.println(biggest);
 		
 		double dX = s*Math.sin(tan);
 		double dY = s*Math.cos(tan);

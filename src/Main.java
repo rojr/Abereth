@@ -25,7 +25,7 @@ public class Main {
     public static void main(String[] args) {
 
         Screen.create(800, 700, "Our Screen", GameType.SIDE_SCROLLER, false);
-        Screen.setWorldDimensionsInBlocks(50, 40);
+        Screen.setWorldDimensionsInBlocks(50, 0);
 
         Screen.setUpWorld();
         
@@ -52,6 +52,7 @@ public class Main {
 
         Emitter emit = new Emitter(0, 0, 50, 0.02f, 1, 0, Color.Green);
         emit.setMovementDirection(MovementDirection.RIGHT);
+        emit.setLayer(2);
         Engine.addNewEmitter(emit);
 
         ArrayList<Integer> listOfTextures = new ArrayList<Integer>();
@@ -76,11 +77,11 @@ public class Main {
         
         boolean camsCreated = false;
         while (!Screen.isAskedToClose()) {
-        	
+        	System.out.println(Mouse.getY());
             //Updating the screen. the maximum frame rate is 60.
             Screen.update(60);
-            emit.setX(Mouse.getX());
-            emit.setY(Mouse.getY());
+            emit.setX(Mouse.getTranslatedX());
+            emit.setY(Mouse.getTranslatedY());
             enemy.setColor(Color.White);
             enemy.setTexture(Textures.test);
             player2.setTexture(animTest.getTextureID());

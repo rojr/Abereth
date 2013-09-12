@@ -49,6 +49,33 @@ public class Mouse {
     public static int getY() {
         return y;
     }
+    
+    public static double getTranslatedX(){
+    	for(int i = 0; i < Engine.cameraList.size(); i++){
+    		double sX = Math.round(Engine.cameraList.get(i).getCamX());
+    		double sY = Math.round(Engine.cameraList.get(i).getCamY());
+    		double sW = Engine.cameraList.get(i).getWidth();
+    		double sH = Engine.cameraList.get(i).getHeight();
+    		
+    		if(x >= sX && x <= sX + sW && y >= sY && y <= sY + sH){
+    			return x - Engine.cameraList.get(i).getX() - sX;
+    		}
+    	}
+    	return x;
+    }
+    public static double getTranslatedY(){
+    	for(int i = 0; i < Engine.cameraList.size(); i++){
+    		double sX = Engine.cameraList.get(i).getCamX();
+    		double sY = Engine.cameraList.get(i).getCamY();
+    		double sW = Engine.cameraList.get(i).getWidth();
+    		double sH = Engine.cameraList.get(i).getHeight();
+    		
+    		if(x >= sX && x <= sX + sW && y >= sY && y <= sY + sH){
+    			return y - Engine.cameraList.get(i).getY();
+    		}
+    	}
+    	return y;
+    }
 
     public static int getDX() {
         return org.lwjgl.input.Mouse.getDX();
@@ -67,7 +94,7 @@ public class Mouse {
         }
 
         x = (int) (org.lwjgl.input.Mouse.getX());
-        y = (int) (com.gmail.robmadeyou.Screen.getHeight());
+        y = (int) (com.gmail.robmadeyou.Screen.getHeight() - org.lwjgl.input.Mouse.getY());
         /*
 		 * Here we set the two mouse buttons to be not pressed by default. So they aren't activated "accidentally"
 		 */
