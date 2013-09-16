@@ -508,27 +508,7 @@ public class Player extends Entity {
         handleInput(delta);
     }
 
-    public boolean isNear(Entity other) {
-        //Gotta do them null checks man
-        if (other != null) {
-            int oX = (int) other.getX() + getWidth() / 2;
-            int oY = (int) other.getY() + getHeight() / 2;
-
-            boolean one = oX >= getX()
-                    && oX <= getX() + getWidth()
-                    && oY >= getY() && oY <= getY() + getHeight();
-            boolean two = oX >= getX() - getWidth()
-                    && oX <= getX() + getWidth() * 2
-                    && oY >= getY() - getHeight()
-                    && oY <= getY() + getHeight() * 2;
-
-            if (one || two) {
-                return true;
-            }
-        }
-
-        return false;
-    }
+    
 
     public void draw() {
         Color color = Color.White;

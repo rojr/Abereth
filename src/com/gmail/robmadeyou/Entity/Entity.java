@@ -159,8 +159,26 @@ public class Entity {
     public Entity getType() {
         return this;
     }
-
+    public boolean intersects(Entity other){
+    	return false;
+    }
     public boolean isNear(Entity other) {
+    	if (other != null) {
+            int oX = (int) other.getX() + getWidth() / 2;
+            int oY = (int) other.getY() + getHeight() / 2;
+
+            boolean one = oX >= getX()
+                    && oX <= getX() + getWidth()
+                    && oY >= getY() && oY <= getY() + getHeight();
+            boolean two = oX >= getX() - getWidth()
+                    && oX <= getX() + getWidth() * 2
+                    && oY >= getY() - getHeight()
+                    && oY <= getY() + getHeight() * 2;
+
+            if (one || two) {
+                return true;
+            }
+        }
         return false;
     }
 

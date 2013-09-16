@@ -101,8 +101,8 @@ public class Item {
     }
 
     public boolean isMouseOver() {
-        int mX = Mouse.getX();
-        int mY = Mouse.getY();
+        int mX = (int)Mouse.getTranslatedX();
+        int mY = (int)Mouse.getTranslatedY();
         return mX >= x && mX <= x + width && mY >= y && mY <= y + height;
     }
 

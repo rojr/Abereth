@@ -319,14 +319,6 @@ public class Npc extends Entity {
         }
     }
 
-    public boolean isNear(Entity other) {
-        int oX = (int) other.getX() + getWidth() / 2;
-        int oY = (int) other.getY() + getHeight() / 2;
-
-        return oX >= x && oX <= x + width && oY >= y && oY <= y + height;
-
-    }
-
     public void onTalk() {
 
     }

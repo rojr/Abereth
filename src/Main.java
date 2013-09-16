@@ -50,7 +50,7 @@ public class Main {
         //MessageArea.setUp(0, 400, 800, 200);
         //MessageArea.setUpTextStart(20, 420);
 
-        Emitter emit = new Emitter(0, 0, 50, 0.02f, 1, 0, Color.Green);
+        Emitter emit = new Emitter(0, 0, 50, 0.02f, 1, 0, Color.White);
         emit.setMovementDirection(MovementDirection.RIGHT);
         emit.setLayer(2);
         Engine.addNewEmitter(emit);
@@ -74,10 +74,10 @@ public class Main {
         
         
         
-        
+        emit.setCustomTexture(TextureLoader.createTexture("/flame.png"));
         boolean camsCreated = false;
         while (!Screen.isAskedToClose()) {
-        	System.out.println(Mouse.getY());
+        	
             //Updating the screen. the maximum frame rate is 60.
             Screen.update(60);
             emit.setX(Mouse.getTranslatedX());
@@ -91,12 +91,15 @@ public class Main {
             if (Keyboard.isKeyPressed(Key.T)) {
                 enemy.setAStar(!enemy.isAStarActive());
             }
+            if(button.isMouseOver()){
+            	System.out.println("aaaaa");
+            }
 
             if (Engine.isDevMode) {
-                Text.drawString(Screen.actualFps + "", Mouse.getX() + 10, Mouse.getY(), Layer.GUILayer(), 1, 1, Color.Black, true, false);
+                Text.drawString(Screen.actualFps + "", Mouse.getTranslatedX() + 10, Mouse.getTranslatedY(), Layer.GUILayer(), 1, 1, Color.Black, true, false);
             }
             if(Mouse.leftMouseButtonDown){
-            	Engine.addNewItem(new Item(Mouse.getX(), Mouse.getY(), 16, 16,1, Textures.ITEM_TEST));
+            	Engine.addNewItem(new Item(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 16, 16,1, Textures.ITEM_TEST));
             }
 
             if (button.isReleased()) {

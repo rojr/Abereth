@@ -95,8 +95,8 @@ public class Button implements Gui {
 
     public boolean isMouseOver() {
         isOver = false;
-        int mX = Mouse.getX();
-        int mY = Mouse.getY();
+        int mX = (int) Mouse.getTranslatedX();
+        int mY = (int) Mouse.getTranslatedY();
         if (mX >= x && mX <= x + width && mY >= y && mY <= y + height) {
             isOver = true;
             return true;
@@ -131,6 +131,6 @@ public class Button implements Gui {
     }
 
     public void draw() {
-        Collector.add(new DrawParameters("box", x, y, width, height, texture, Color.White, opacity, layer, useTranslate));
+        Collector.add(new DrawParameters("box", x, y, width, height, texture, Color.Green, opacity, layer, useTranslate));
     }
 }
