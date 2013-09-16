@@ -74,20 +74,22 @@ public class Physics {
                 } else {
                     x = sX;
                 }
-                int bX = World.blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
-                int bY = World.blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
-                for (int x2 = 0; x2 <= eW / 4; x2++) {
-                    boolean one = eX + (x2 * 4) >= bX
-                            && eX + (x2 * 4) <= bX + bDimensions
-                            && eY + 5 >= bY + bDimensions - 5
-                            && eY - 5 <= bY + bDimensions + 5;
-                    if (one) {
-                        if (World.blockList.getBlock(x, y).isSolid()) {
-                            e.setY(y * World.BLOCK_SIZE() + World.BLOCK_SIZE() + 5);
-                            return true;
-                        }
-                    }
-                }
+                try{
+                	int bX = World.blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
+                	int bY = World.blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
+                	for (int x2 = 0; x2 <= eW / 4; x2++) {
+                    	boolean one = eX + (x2 * 4) >= bX
+                            	&& eX + (x2 * 4) <= bX + bDimensions
+                            	&& eY + 5 >= bY + bDimensions - 5
+                            	&& eY - 5 <= bY + bDimensions + 5;
+                            if (one) {
+                        	if (World.blockList.getBlock(x, y).isSolid()) {
+                            	e.setY(y * World.BLOCK_SIZE() + World.BLOCK_SIZE() + 5);
+                            	return true;
+                        	}
+                    	}
+                	}
+                }catch(NullPointerException ex){}
             }
         }
         return false;
@@ -196,21 +198,23 @@ public class Physics {
                 } else {
                     x = sX;
                 }
-                int bX = World.blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
-                int bY = World.blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
+                try{
+                	int bX = World.blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
+                	int bY = World.blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
 
-                for (int y2 = 0; y2 <= e.getHeight() / 4; y2++) {
-                    boolean one = eX <= bX + bDimensions + 3
-                            && eX >= bX + bDimensions - 3
-                            && eY - 1 + (4 * y2) >= bY
-                            && eY - 1 + (4 * y2) <= bY + bDimensions;
-                    if (one) {
-                        if (World.blockList.getBlock(x, y).isSolid()) {
-                            e.setX(x * World.BLOCK_SIZE() + World.BLOCK_SIZE() + 2);
-                            return true;
-                        }
-                    }
-                }
+                	for (int y2 = 0; y2 <= e.getHeight() / 4; y2++) {
+                		boolean one = eX <= bX + bDimensions + 3
+                				&& eX >= bX + bDimensions - 3
+                				&& eY - 1 + (4 * y2) >= bY
+                				&& eY - 1 + (4 * y2) <= bY + bDimensions;
+                		if (one) {
+                			if (World.blockList.getBlock(x, y).isSolid()) {
+                				e.setX(x * World.BLOCK_SIZE() + World.BLOCK_SIZE() + 2);
+                				return true;
+                			}
+                		}
+                	}
+                }catch(NullPointerException ex){}
             }
         }
         return false;
@@ -249,24 +253,24 @@ public class Physics {
                 } else {
                     x = sX;
                 }
+                try{
+                	int bX = World.blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
+                	int bY = World.blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
 
-                int bX = World.blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
-                int bY = World.blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
-
-                for (int y2 = 0; y2 <= e.getHeight() / 4; y2++) {
-                    boolean one = eX + eW <= bX + 3
-                            && eX + eW >= bX - 3
-                            && eY - 1 + (4 * y2) >= bY
-                            && eY - 1 + (4 * y2) <= bY + bDimensions;
-                    if (one) {
-                        if (World.blockList.getBlock(x, y).isSolid()) {
-                            return true;
-                        }
-                    }
-                }
+                	for (int y2 = 0; y2 <= e.getHeight() / 4; y2++) {
+                		boolean one = eX + eW <= bX + 3
+                				&& eX + eW >= bX - 3
+                				&& eY - 1 + (4 * y2) >= bY
+                				&& eY - 1 + (4 * y2) <= bY + bDimensions;
+                		if (one) {
+                			if (World.blockList.getBlock(x, y).isSolid()) {
+                				return true;
+                			}
+                		}
+                	}
+                }catch(NullPointerException ex){}
             }
         }
         return false;
     }
-
 }

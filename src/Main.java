@@ -24,8 +24,8 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
 
-        Screen.create(800, 700, "Our Screen", GameType.SIDE_SCROLLER, false);
-        Screen.setWorldDimensionsInBlocks(50, 0);
+        Screen.create(800, 700, "Our Screen", GameType.RPG_STYLE, false);
+        Screen.setWorldDimensionsInBlocks(500, 500);
 
         Screen.setUpWorld();
         
@@ -91,14 +91,11 @@ public class Main {
             if (Keyboard.isKeyPressed(Key.T)) {
                 enemy.setAStar(!enemy.isAStarActive());
             }
-            if(button.isMouseOver()){
-            	System.out.println("aaaaa");
-            }
 
             if (Engine.isDevMode) {
                 Text.drawString(Screen.actualFps + "", Mouse.getTranslatedX() + 10, Mouse.getTranslatedY(), Layer.GUILayer(), 1, 1, Color.Black, true, false);
             }
-            if(Mouse.leftMouseButtonDown){
+            if(Mouse.leftMouseButtonPressed){
             	Engine.addNewItem(new Item(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 16, 16,1, Textures.ITEM_TEST));
             }
 
