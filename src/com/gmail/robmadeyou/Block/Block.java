@@ -18,6 +18,8 @@ public interface Block {
     int getX();
 
     int getY();
+    
+    //boolean wasUpdated();
 
     void setTexture(int tex);
 

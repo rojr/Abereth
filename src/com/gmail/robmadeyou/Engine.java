@@ -49,7 +49,7 @@ public class Engine {
         
         updateAllEntities(delta);
         
-        if (Keyboard.isKeyPressed(Key.L)) {
+        if(Keyboard.isKeyPressed(DevModeKey)) {
             isDevMode = !isDevMode;
         }
     }
@@ -110,7 +110,6 @@ public class Engine {
                     boolean four = eX >= -tX && eX <= -tX + cW &&
                     	eY + eH >= -tY && eY + eH <= -tY + cH;
                     if (one || two || three || four) {
-                    	
                     	if(!entityList.get(i).getWasUpdated()){
                     		entityList.get(i).setWasUpdated(true);
                     		onScreenEntity.add(entityList.get(i));
@@ -227,5 +226,7 @@ public class Engine {
 
     public static boolean islmbpThisTick = false;
     public static boolean isrmbpThisTick = false;
+    
+    public static Key DevModeKey = Keyboard.Key.L;
 
 }

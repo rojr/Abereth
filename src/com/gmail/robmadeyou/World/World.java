@@ -335,8 +335,8 @@ public class World {
         int camWidthDivided = (int) Math.round(cam.getWidth() / BLOCK_SIZE() + 2);
         int camHeightDivided = (int) Math.round(cam.getHeight() / BLOCK_SIZE() + 2);
 
-        int mX = (int) Math.round((Mouse.getTranslatedX() / BLOCK_SIZE()));
-        int mY = (int) Math.round((Mouse.getTranslatedY() / BLOCK_SIZE()));
+        int mX = (int) Math.round(((Mouse.getTranslatedX() - BLOCK_SIZE() / 2) / BLOCK_SIZE()));
+        int mY = (int) Math.round(((Mouse.getTranslatedY() - BLOCK_SIZE() / 2) / BLOCK_SIZE()));
         //Nice one
         if (Engine.isDevMode) {
             try {

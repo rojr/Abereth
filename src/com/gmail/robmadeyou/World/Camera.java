@@ -1,6 +1,5 @@
 package com.gmail.robmadeyou.World;
 
-import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Target;
 import com.gmail.robmadeyou.Draw.Render;
 
@@ -10,6 +9,7 @@ public class Camera{
 	private Target target;
 	private boolean followingTarget = false;
 	private float maxDistanceFromCamera = 10;
+	private boolean cameraBounds = true;
 	private String typeOfFollowing = "soft";
 	public Camera(double x, double y, double camX, double camY, double width, double height){
 		this.x = x;
@@ -18,6 +18,9 @@ public class Camera{
 		this.camY = camY;
 		camWidth = width;
 		camHeight = height;
+	}
+	public boolean getCameraBounds(){
+		return cameraBounds;
 	}
 	public double getCamX(){
 		return x;
@@ -38,6 +41,10 @@ public class Camera{
 	
 	public double getHeight(){
 		return camHeight;
+	}
+	
+	public void setCameraBounds(boolean args){
+		this.cameraBounds = args;
 	}
 	
 	public void setTarget(Target target){
@@ -81,17 +88,19 @@ public class Camera{
 				softMove();
 			}
 		}
-		if(camX > 0){
-			camX = 0;
-		}
-		if(camY > 0){
-			camY = 0;
-		}
-		if(-camX > World.getWorldWidthInPixels() - camWidth){
-			camX = -World.getWorldWidthInPixels() + camWidth;
-		}
-		if(-camY > World.getWorldHeightInPixels() - camHeight){
-			camY = -World.getWorldHeightInPixels() + camHeight;
+		if(cameraBounds){
+			if(camX > 0){
+				camX = 0;
+			}
+			if(camY > 0){
+				camY = 0;
+			}
+			if(-camX > World.getWorldWidthInPixels() - camWidth){
+				camX = -World.getWorldWidthInPixels() + camWidth;
+			}
+			if(-camY > World.getWorldHeightInPixels() - camHeight){
+				camY = -World.getWorldHeightInPixels() + camHeight;
+			}
 		}
 	}
 	public void hardMove(){

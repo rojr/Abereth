@@ -1,3 +1,5 @@
+package com.gmail.robmadeyou.tests;
+import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Effects.*;
 import com.gmail.robmadeyou.Effects.Emitter.MovementDirection;
 import com.gmail.robmadeyou.Engine;
@@ -21,7 +23,7 @@ import com.gmail.robmadeyou.World.World;
 import java.util.ArrayList;
 
 
-public class Main {
+public class Camera_2 {
     public static void main(String[] args) {
 
         Screen.create(800, 700, "Our Screen", GameType.RPG_STYLE, false);
@@ -50,10 +52,6 @@ public class Main {
         //MessageArea.setUp(0, 400, 800, 200);
         //MessageArea.setUpTextStart(20, 420);
 
-        Emitter emit = new Emitter(0, 0, 50, 0.02f, 1, 0, Color.White);
-        emit.setMovementDirection(MovementDirection.RIGHT);
-        emit.setLayer(2);
-        Engine.addNewEmitter(emit);
 
         ArrayList<Integer> listOfTextures = new ArrayList<Integer>();
         listOfTextures.add(TextureLoader.createTexture("res/sheet01.png", 192, 64, 32, 32));
@@ -74,13 +72,11 @@ public class Main {
         
         
         
-        emit.setCustomTexture(TextureLoader.createTexture("/flame.png"));
         boolean camsCreated = false;
         while (!Screen.isAskedToClose()) {
+        	
             //Updating the screen. the maximum frame rate is 60.
             Screen.update(60);
-            emit.setX(Mouse.getTranslatedX());
-            emit.setY(Mouse.getTranslatedY());
             enemy.setColor(Color.White);
             enemy.setTexture(Textures.test);
             player2.setTexture(animTest.getTextureID());
@@ -92,7 +88,7 @@ public class Main {
             }
 
             if (Engine.isDevMode) {
-                Text.drawString(Screen.actualFps + "", Mouse.getTranslatedX() + 10, Mouse.getTranslatedY(), Layer.GUILayer(), 1, 1, Color.Black, true, false);
+                Text.drawString(Screen.actualFps + "", Mouse.getTranslatedX() + 10, Mouse.getTranslatedY(), Layer.GUILayer(), 1, 1, Color.Banana, true, false);
             }
             if(Mouse.leftMouseButtonPressed){
             	Engine.addNewItem(new Item(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 16, 16,1, Textures.ITEM_TEST));

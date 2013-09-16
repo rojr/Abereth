@@ -27,6 +27,7 @@ public class Collector {
                 break;
             }
         }
+        System.out.println(drawArraySorted.size());
     }
 
     public static void clear() {

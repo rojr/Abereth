@@ -1,3 +1,5 @@
+package com.gmail.robmadeyou.tests;
+
 import com.gmail.robmadeyou.Effects.*;
 import com.gmail.robmadeyou.Effects.Emitter.MovementDirection;
 import com.gmail.robmadeyou.Engine;
@@ -16,12 +18,11 @@ import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.Target;
 import com.gmail.robmadeyou.World.Camera;
-import com.gmail.robmadeyou.World.World;
 
 import java.util.ArrayList;
 
 
-public class Main {
+public class Camera_1 {
     public static void main(String[] args) {
 
         Screen.create(800, 700, "Our Screen", GameType.RPG_STYLE, false);
@@ -51,7 +52,6 @@ public class Main {
         //MessageArea.setUpTextStart(20, 420);
 
         Emitter emit = new Emitter(0, 0, 50, 0.02f, 1, 0, Color.White);
-        emit.setMovementDirection(MovementDirection.RIGHT);
         emit.setLayer(2);
         Engine.addNewEmitter(emit);
 
@@ -61,22 +61,14 @@ public class Main {
         Animate animTest = new Animate(listOfTextures, 20, 0, true);
         Layer.addLayer(3);
         
-        Camera cam = Engine.addNewCamera(new Camera(0, 0, 0, 0, Screen.getWidth() / 2, Screen.getHeight()));
+        Camera cam = Engine.addNewCamera(new Camera(0, 0, 0, 0, Screen.getWidth(), Screen.getHeight()));
         cam.setFollowingTarget(true);
         cam.setTarget(new Target(player2));
-        
-        Camera cam2 = Engine.addNewCamera(new Camera(Screen.getWidth() / 2, 0, 0, 0, Screen.getWidth() / 2, Screen.getHeight()));
-        cam2.setFollowingTarget(true);
-        cam2.setTarget(new Target(player3));
-        
-        
-        
-        
-        
         
         emit.setCustomTexture(TextureLoader.createTexture("/flame.png"));
         boolean camsCreated = false;
         while (!Screen.isAskedToClose()) {
+        	
             //Updating the screen. the maximum frame rate is 60.
             Screen.update(60);
             emit.setX(Mouse.getTranslatedX());
@@ -107,3 +99,4 @@ public class Main {
         Screen.destroy();
     }
 }
+
