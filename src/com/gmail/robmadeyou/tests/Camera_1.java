@@ -25,8 +25,8 @@ import java.util.ArrayList;
 public class Camera_1 {
     public static void main(String[] args) {
 
-        Screen.create(800, 700, "Our Screen", GameType.RPG_STYLE, false);
-        Screen.setWorldDimensionsInBlocks(50, 50);
+        Screen.create(800, 800, "Our Screen", GameType.RPG_STYLE, false);
+        Screen.setWorldDimensionsInBlocks(01, 010);
 
         Screen.setUpWorld();
         
@@ -84,7 +84,7 @@ public class Camera_1 {
             }
 
             if (Engine.isDevMode) {
-                Text.drawString(Screen.actualFps + "", Mouse.getTranslatedX() + 10, Mouse.getTranslatedY(), Layer.GUILayer(), 1, 1, Color.Black, true, false);
+                Text.drawString(Screen.actualFps + "", (float) Mouse.getTranslatedX() + 10, Mouse.getTranslatedY(), Layer.GUILayer(), 1, 1, Color.Black, true, false);
             }
             if(Mouse.leftMouseButtonPressed){
             	Engine.addNewItem(new Item(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 16, 16,1, Textures.ITEM_TEST));

@@ -21,7 +21,7 @@ public class TextDraw {
         if (numOfCharacters > currentCharacter) {
             convertexText = text.split(text.substring(currentCharacter));
             currentCharacter++;
-            Text.drawString(convertexText[0], x, y, Layer.GUILayer(), 1, 1, color, false, false);
+            Text.drawString(convertexText[0], (float) x, y, Layer.GUILayer(), 1, 1, color, false, false);
             if (numOfCharacters == currentCharacter) {
                 lastText = convertexText[0];
                 try {
@@ -31,7 +31,7 @@ public class TextDraw {
                 }
             }
         } else {
-            Text.drawString(lastText, x, y, Layer.GUILayer(), 1, 1, color, false, false);
+            Text.drawString(lastText,(float) x, y, Layer.GUILayer(), 1, 1, color, false, false);
         }
 
     }

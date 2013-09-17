@@ -9,7 +9,8 @@ public class Entity {
     private double x, y, dX, dY, speed, originalSpeed = 1,
             originalX, originalY, originalDX, originalDY;
     private int number, h, w, originalW, originalH, layer;
-    private boolean wasUpdated = false;;
+    private boolean wasUpdated = false;
+    private boolean isOnScreen = false;
 
     public Entity() {
         location = new Vector2f();
@@ -59,6 +60,10 @@ public class Entity {
     public double getX() {
         return location.x;
     }
+    
+    public boolean isOnScreen(){
+    	return isOnScreen;
+    }
 
     public double getY() {
         return location.y;
@@ -74,6 +79,10 @@ public class Entity {
 
     public double getSpeed() {
         return speed;
+    }
+    
+    public void isOnScreen(boolean args){
+    	this.isOnScreen = args;
     }
 
     public int getWidth() {
@@ -188,7 +197,12 @@ public class Entity {
     public void removeEffectFromBlock(Block type) {
     }
 
+    public void update(){
+    	
+    }
+    
     public void onUpdate(int delta) {
+    	
     }
 
     public void draw() {

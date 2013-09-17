@@ -42,7 +42,7 @@ public class Engine {
         	Camera c = cameraList.get(i);
         	updateAllEmitters(delta, c);
         	if (Screen.worldCreated) {
-                World.onUpdate(c);
+                //World.onUpdate(c);
             }
         	updateAllItems(c);
         }
@@ -73,7 +73,7 @@ public class Engine {
         while (!hasIDSet) {
             for (Entity anEntityList : entityList) {
                 if (anEntityList.getNumber() == id) {
-                    id = ran.nextInt(1024);
+                    id = ran.nextInt(2048);
                     break;
                 }
             }
@@ -84,39 +84,16 @@ public class Engine {
     }
 
     public static void updateAllEntities(int delta) {
-
+    	onScreenEntity.clear();
+    	
+    	for (Entity anEntityList : entityList) {
+            if(anEntityList.isOnScreen()){
+            	onScreenEntity.add(anEntityList);
+            }
+        }
         for (Entity anEntityList : entityList) {
             anEntityList.onUpdate(delta);
-            anEntityList.setWasUpdated(false);
-        }
-        onScreenEntity.clear();
-        for(Camera cam : cameraList){
-        	double tX = cam.getX();
-        	double tY = cam.getY();
-        	double cW = cam.getWidth();
-        	double cH = cam.getHeight();
-        
-        	for (int i = entityList.size() - 1; i >= 0; i--) {
-            	double eX = entityList.get(i).getX();
-            	double eY = entityList.get(i).getY();
-            	int eW = entityList.get(i).getWidth();
-            	int eH = entityList.get(i).getHeight();
-            	boolean one = eX >= -tX && eX <= -tX + cW &&
-                    	eY >= -tY && eY <= -tY + cH;
-                    boolean two = eX + eW >= -tX && eX + eW <= -tX + cW &&
-                    	eY >= -tY && eY <= -tY + cH;
-                    boolean three = eX + eW >= -tX && eX + eW <= -tX + cW &&
-                    	eY + eH >= -tY && eY + eH <= -tY + cH;
-                    boolean four = eX >= -tX && eX <= -tX + cW &&
-                    	eY + eH >= -tY && eY + eH <= -tY + cH;
-                    if (one || two || three || four) {
-                    	if(!entityList.get(i).getWasUpdated()){
-                    		entityList.get(i).setWasUpdated(true);
-                    		onScreenEntity.add(entityList.get(i));
-                    		entityList.get(i).draw();
-                    	}
-            	}
-        	}
+            anEntityList.draw();
         }
     }
 
@@ -161,30 +138,11 @@ public class Engine {
 
     public static void updateAllItems(Camera cam){
         VisibleItemList.clear();
-        
-        double tX = cam.getX();
-        double tY = cam.getY();
-        double cW = cam.getWidth();
-        double cH = cam.getHeight();
-        
         for (int i = 0; i < itemList.size(); i++){
-            double eX = itemList.get(i).getX();
-            double eY = itemList.get(i).getY();
-            int eW = itemList.get(i).getWidth();
-            int eH = itemList.get(i).getHeight();
-            boolean one = eX >= -tX && eX <= -tX + cW &&
-                    eY >= -tY && eY <= -tY + cH;
-            boolean two = eX + eW >= -tX && eX + eW <= -tX + cW &&
-                    eY >= -tY && eY <= -tY + cH;
-            boolean three = eX + eW >= -tX && eX + eW <= -tX + cW &&
-                    eY + eH >= -tY && eY + eH <= -tY + cH;
-            boolean four = eX >= -tX && eX <= -tX + cW &&
-                    eY + eH >= -tY && eY + eH <= -tY + cH;
-            if (one || two || three || four) {
-                VisibleItemList.add(itemList.get(i));
-                itemList.get(i).onUpdate();
-                itemList.get(i).draw();
-                
+            itemList.get(i).onUpdate();
+            itemList.get(i).draw();
+            if(itemList.get(i).isVisible()){
+            	VisibleItemList.add(itemList.get(i));
             }
         }
     }

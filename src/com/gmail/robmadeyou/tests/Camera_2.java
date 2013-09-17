@@ -1,7 +1,5 @@
 package com.gmail.robmadeyou.tests;
-import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Effects.*;
-import com.gmail.robmadeyou.Effects.Emitter.MovementDirection;
 import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Entity.Npc;
 import com.gmail.robmadeyou.Entity.Player;
@@ -18,7 +16,6 @@ import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.Target;
 import com.gmail.robmadeyou.World.Camera;
-import com.gmail.robmadeyou.World.World;
 
 import java.util.ArrayList;
 
@@ -26,8 +23,8 @@ import java.util.ArrayList;
 public class Camera_2 {
     public static void main(String[] args) {
 
-        Screen.create(800, 700, "Our Screen", GameType.RPG_STYLE, false);
-        Screen.setWorldDimensionsInBlocks(50, 50);
+        Screen.create(800, 700, "Our Screen", GameType.SIDE_SCROLLER, false);
+        Screen.setWorldDimensionsInBlocks(-0, 0);
 
         Screen.setUpWorld();
         
@@ -88,9 +85,9 @@ public class Camera_2 {
             }
 
             if (Engine.isDevMode) {
-                Text.drawString(Screen.actualFps + "", Mouse.getTranslatedX() + 10, Mouse.getTranslatedY(), Layer.GUILayer(), 1, 1, Color.Banana, true, false);
+                Text.drawString(Screen.actualFps + "  Hel^4lo!awq^rawdawdawdawdadwadwd",(float) Mouse.getTranslatedX() + 10, Mouse.getTranslatedY(), Layer.GUILayer(), 1, 1, Color.Banana, true, false);
             }
-            if(Mouse.leftMouseButtonPressed){
+            if(Mouse.leftMouseButtonDown){
             	Engine.addNewItem(new Item(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 16, 16,1, Textures.ITEM_TEST));
             }
 

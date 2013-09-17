@@ -18,6 +18,7 @@ public class Item {
     private int layer;
     private boolean wasPressed = false;
     private Container inGui = null;
+    private boolean isVisible = false;
 
 
     //Possibly making some gravity effect
@@ -47,6 +48,9 @@ public class Item {
     public int getWidth() {
         return width;
     }
+    public boolean isVisible(){
+    	return isVisible;
+    }
 
     public void setWidth(int width) {
         this.width = width;
@@ -66,6 +70,10 @@ public class Item {
 
     public void setY(double y) {
         this.y = y;
+    }
+    
+    public void isVisible(boolean args){
+    	this.isVisible = args;
     }
 
     public int getHeight() {
@@ -128,7 +136,6 @@ public class Item {
         isHeld();
         if (!Mouse.leftMouseButtonDown && wasPressed) {
             wasPressed = false;
-            System.out.println(Mouse.getDX());
             return false;
         }
         return wasPressed;
@@ -157,6 +164,10 @@ public class Item {
         }
     }
     public void draw() {
-        Collector.add(new DrawParameters("box", x, y, width, height, Texture, Color.White, 1, layer, true));
+    	if(Collector.add(new DrawParameters("box", x, y, width, height, Texture, Color.White, 1, layer, true))){
+    		isVisible = true;
+    	}else{
+    		isVisible = false;
+    	}
     }
 }

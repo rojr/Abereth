@@ -1,6 +1,8 @@
 package com.gmail.robmadeyou.Draw;
 
 import com.gmail.robmadeyou.Effects.Color;
+import com.gmail.robmadeyou.World.Camera;
+import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Layer;
 
 import java.util.ArrayList;
@@ -10,8 +12,34 @@ public class Collector {
     static ArrayList<DrawParameters> drawArraySorted = new ArrayList<DrawParameters>();
     static ArrayList<DrawParameters> drawArrayUnsorted = new ArrayList<DrawParameters>();
 
-    public static void add(DrawParameters p) {
-        drawArrayUnsorted.add(p);
+    public static boolean add(DrawParameters p) {
+    	/*
+    	 * This is to make sure the graphic is in bounds when added, otherwise if it's not it won't add it
+    	 */
+    	for(Camera cam : Engine.cameraList){
+    		double tX = cam.getX();
+        	double tY = cam.getY();
+        	double cW = cam.getWidth();
+        	double cH = cam.getHeight();
+        
+            double eX = p.getX();
+            double eY = p.getY();
+            int eW = (int) p.getWidth();
+            int eH = (int) p.getHeight();
+            boolean one = eX >= -tX && eX <= -tX + cW &&
+                    eY >= -tY && eY <= -tY + cH;
+            boolean two = eX + eW >= -tX && eX + eW <= -tX + cW &&
+                    eY >= -tY && eY <= -tY + cH;
+            boolean three = eX + eW >= -tX && eX + eW <= -tX + cW &&
+                    eY + eH >= -tY && eY + eH <= -tY + cH;
+            boolean four = eX >= -tX && eX <= -tX + cW &&
+                    eY + eH >= -tY && eY + eH <= -tY + cH;
+            if (one || two || three || four) {
+                drawArrayUnsorted.add(p);
+                return true;
+            }
+        }
+    	return false;
     }
 
     public static void organize() {
@@ -27,7 +55,6 @@ public class Collector {
                 break;
             }
         }
-        System.out.println(drawArraySorted.size());
     }
 
     public static void clear() {

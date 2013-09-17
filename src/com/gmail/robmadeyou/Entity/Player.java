@@ -537,7 +537,7 @@ public class Player extends Entity {
             Collector.add(new Collector.DrawParameters("box", x2, y2, width2, height2, -1, Color.Red, 1, layer, true, false));
         }
 
-        Collector.add(new Collector.DrawParameters("box", getX(), getY(), getWidth(), getHeight(), texture, color, 1, layer, true, textureInverts));
+        isOnScreen(Collector.add(new Collector.DrawParameters("box", getX(), getY(), getWidth(), getHeight(), texture, color, 1, layer, true, textureInverts)));
     }
 
     public enum MovementType {

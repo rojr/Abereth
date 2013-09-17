@@ -6,6 +6,7 @@ import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.TextureLoader;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Text {
 
@@ -34,40 +35,95 @@ public class Text {
         }
     }
 
-    public static void drawString(String text, double x, double y, int layerID, float opacity, double size, Color color, boolean useTranslate, boolean inverts) {
-        double originalX = x;
+    public static void drawString(String text, float x, double y, int layerID, float opacity, double size, Color color, boolean useTranslate, boolean inverts) {
+        float originalX = x;
+        boolean wasLastDigitModifier = false;
+        boolean isThisCharModifier = false;
+        boolean randomizeCharacter = false;
+        boolean randomizeColor = false;
+        
         for (char c : text.toCharArray()) {
-            for (int i = 0; i < letters.length; i++) {
-                if (c == letters[i]) {
-                    if (c == 'g' || c == 'q' || c == 'p' || c == 'j' || c == 'y') {
-                        y += 1;
-                    }
-                    Collector.add(new DrawParameters("box", x, y, 8, 8, letterTexID.get(i), color, opacity, layerID, useTranslate, inverts));
-                    if (c == 'g' || c == 'q' || c == 'p' || c == 'j' || c == 'y') {
-                        y -= 1;
-                    }
-                    if (c == 'f' || c == 'l' || c == 't') {
-                        x += 7;
-                    } else if (c == 'i') {
-                        x += 5;
-                    } else {
-                        x += 8;
-                    }
-                }
-            }
-            if (c == ' ') {
-                x += 8;
-            } else if (c == '\n') {
-                x = originalX;
-                y += 9;
-            }
-            for (int i = 0; i < numbers.length; i++) {
-                if (c == numbers[i]) {
-                    Collector.add(new DrawParameters("box", x, y, 8, 8, numberTexID.get(i), color, opacity, layerID, useTranslate, inverts));
-                    x += 8;
-                }
-            }
+        	if(c == '^'){
+        		if(wasLastDigitModifier){
+    				wasLastDigitModifier = false;
+    			}else{
+    				wasLastDigitModifier = true;
+    			}
+    		}
+        	if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' ||c == '7' ||c == '8' ||c == '9' || c == 'g' || c == 'n'){
+        		isThisCharModifier = true;
+        	}else{
+        		isThisCharModifier = false;
+        	}
+        	
+        	if(wasLastDigitModifier && isThisCharModifier){
+        		if(c == 'r'){
+        			color = Color.Peach_Puff;
+        		}else if(c == '1'){
+        			color = Color.Black;
+        		}else if(c == '2'){
+        			color = Color.White;
+        		}else if(c == '3'){
+        			color = Color.Red;
+        		}else if(c == '4'){
+        			color = Color.Blue;
+        		}else if(c == '5'){
+        			color = Color.Green;
+        		}else if(c == '6'){
+        			color = Color.Yellow;
+        		}else if(c == '7'){
+        			color = Color.Pink;
+        		}else if(c == '8'){
+        			color = Color.Purple;
+        		}else if(c == '9'){
+        			color = Color.Banana;
+        		}else if(c == '0'){
+        			randomizeCharacter = true;
+        			System.out.println("yes");
+        		}else if(c == 'n'){
+        			randomizeCharacter = false;
+        		}
+        	}else{
+        		for(int i = 0; i < letters.length; i++) {
+        			if(c == letters[i]) {
+        				if (c == 'g' || c == 'q' || c == 'p' || c == 'j' || c == 'y') {
+        					y += 1;
+        				}
+        				Random ran;
+        				if(randomizeCharacter){
+        					ran = new Random();
+        					int ranID = ran.nextInt(letterTexID.size());
+        					ranID = letterTexID.get(ranID);
+        					Collector.add(new DrawParameters("box", x, y, 8, 8, ranID, color, opacity, layerID, useTranslate, inverts));
+        				}else{
+        					Collector.add(new DrawParameters("box", x, y, 8, 8, letterTexID.get(i), color, opacity, layerID, useTranslate, inverts));
+        				}
+        				if(c == 'g' || c == 'q' || c == 'p' || c == 'j' || c == 'y') {
+        					y -= 1;
+        				}
+        				if(c == 'f' || c == 'l' || c == 't') {
+        					x += 7;
+        				}else if (c == 'i') {
+        					x += 5;
+        				}else {
+        					x += 8;
+        				}
+        				
+        			}
+        		}
+        		if(c == ' ') {
+    				x += 8;
+    			}else if (c == '\n') {
+    				x = originalX;
+    				y += 9;
+    			}
+        		for(int i = 0; i < numbers.length; i++) {
+        			if(c == numbers[i]) {
+        					Collector.add(new DrawParameters("box", x, y, 8, 8, numberTexID.get(i), color, opacity, layerID, useTranslate, inverts));
+        					x += 8;
+        			}
+        		}
+        	}
         }
     }
-
 }

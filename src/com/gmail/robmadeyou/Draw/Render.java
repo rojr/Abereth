@@ -38,7 +38,7 @@ public class Render {
                 }
                 if (type.toLowerCase().equals("box")) {
                     if (texID != -1) {
-                        Box.drawBox(x + startX, y + startY, width, height, texID, inverts);
+                        Box.drawBox((float)(x + startX),(float) (y + startY),(float) width,(float) height, texID, inverts);
                     } else {
                         Box.drawBox(x + startX, y + startY, width, height);
                     }

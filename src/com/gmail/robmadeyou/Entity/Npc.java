@@ -360,8 +360,7 @@ public class Npc extends Entity {
     }
 
     public void draw() {
-        Text.drawString("cX = " + cX, x + width, y, 1, 2, 1, color, true, false);
-        Collector.add(new DrawParameters("box", x, y, width, height, texture, color, layer, true));
+        isOnScreen(Collector.add(new DrawParameters("box", x, y, width, height, texture, color, layer, true)));
     }
 
     public enum EnemyMovement {

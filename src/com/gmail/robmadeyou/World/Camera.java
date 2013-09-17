@@ -79,8 +79,6 @@ public class Camera{
 	}
 	
 	public void onUpdate(){
-		Render.renderAll(x, y, camX, camY, camWidth, camHeight);
-		
 		if(isFollowingTarget()){
 			if(typeOfFollowing.equals("hard")){
 				hardMove();
@@ -102,6 +100,7 @@ public class Camera{
 				camY = -World.getWorldHeightInPixels() + camHeight;
 			}
 		}
+		Render.renderAll(x, y, camX, camY, camWidth, camHeight);
 	}
 	public void hardMove(){
 		camX = -target.getX() + camWidth / 2;
