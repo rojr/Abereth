@@ -43,21 +43,14 @@ public class Text {
         boolean randomizeColor = false;
         
         for (char c : text.toCharArray()) {
-        	if(c == '^'){
-        		if(wasLastDigitModifier){
-    				wasLastDigitModifier = false;
-    			}else{
-    				wasLastDigitModifier = true;
-    			}
-    		}
-        	if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' ||c == '7' ||c == '8' ||c == '9' || c == 'g' || c == 'n'){
+        	if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' ||c == '7' ||c == '8' ||c == '9' || c == 'r' || c == 'n'){
         		isThisCharModifier = true;
         	}else{
         		isThisCharModifier = false;
         	}
         	
         	if(wasLastDigitModifier && isThisCharModifier){
-        		if(c == 'r'){
+        		if(c == '0'){
         			color = Color.Peach_Puff;
         		}else if(c == '1'){
         			color = Color.Black;
@@ -77,7 +70,7 @@ public class Text {
         			color = Color.Purple;
         		}else if(c == '9'){
         			color = Color.Banana;
-        		}else if(c == '0'){
+        		}else if(c == 'r'){
         			randomizeCharacter = true;
         			System.out.println("yes");
         		}else if(c == 'n'){
@@ -124,6 +117,11 @@ public class Text {
         			}
         		}
         	}
+        	if(c == '^'){
+        		wasLastDigitModifier = true;
+    		}else{
+    			wasLastDigitModifier = false;
+    		}
         }
     }
 }

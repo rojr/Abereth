@@ -353,8 +353,8 @@ public class World {
             }
         }
 
-        for (int sX = camXDivided; sX < camXDivided + camWidthDivided; sX++) {
-            for (int sY = camYDivided; sY < camYDivided + camHeightDivided; sY++) {
+        for (int sX = camXDivided - 2; sX < camXDivided + camWidthDivided; sX++) {
+            for (int sY = camYDivided - 2; sY < camYDivided + camHeightDivided; sY++) {
                 int x;
                 int y;
                 if (sX >= 1) {
@@ -371,7 +371,7 @@ public class World {
                 	try{
                 		blockList.getBlock(x, y).onUpdate();
                 	}catch(NullPointerException ex){
-                		
+                		ex.printStackTrace();
                 	}
                 }
             }

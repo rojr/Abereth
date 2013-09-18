@@ -85,7 +85,7 @@ public class Camera_2 {
             }
 
             if (Engine.isDevMode) {
-                Text.drawString(Screen.actualFps + "  Hel^4lo!awq^rawdawdawdawdadwadwd",(float) Mouse.getTranslatedX() + 10, Mouse.getTranslatedY(), Layer.GUILayer(), 1, 1, Color.Banana, true, false);
+                Text.drawString(Screen.actualFps + "  Hel^4lo!awq^3awd^rawdaw^9da^5wda^ndwadwd",(float) Mouse.getTranslatedX() + 10, Mouse.getTranslatedY(), Layer.GUILayer(), 1, 1, Color.Banana, true, false);
             }
             if(Mouse.leftMouseButtonDown){
             	Engine.addNewItem(new Item(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 16, 16,1, Textures.ITEM_TEST));
