@@ -72,7 +72,6 @@ public class Text {
         			color = Color.Banana;
         		}else if(c == 'r'){
         			randomizeCharacter = true;
-        			System.out.println("yes");
         		}else if(c == 'n'){
         			randomizeCharacter = false;
         		}
