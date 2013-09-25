@@ -9,6 +9,8 @@ An open source game engine, free for everyone.
 <a name="about">
 ##About
 
+A series of tutorials are on their way to explain the flow of the game engine. These will explain how the engine works and the ideas behind all the implementations. This should hopefully help developers who want to make games or create extensions for the game engine to be able to do so easily.
+
 <a name="install">
 ##Install
 
