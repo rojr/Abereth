@@ -12,6 +12,8 @@ An open source game engine, free for everyone.
 <a name="install">
 ##Install
 
+Usually starting to use the game engine would take quite some time to set up, but we've made an easy launcher that should simplify the whole process, it is suitable for multiple IDE's and different desktop environments. Download it here: (currently in progress)
+
 <a name="todo">
 ##Todo
 
