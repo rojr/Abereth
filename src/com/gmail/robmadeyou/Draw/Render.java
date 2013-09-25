@@ -7,8 +7,13 @@ import com.gmail.robmadeyou.Screen;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Render {
+    /**
+     * This method renders everything that is in the sorted array in order of layers, this gives the effect of having things in front of other things and behind certain others
+     */
     public static void renderAll(double startX, double startY, double camX, double camY, double camWidth, double camHeight) {
         for (int i = 0; i < Collector.drawArraySorted.size(); i++) {
+            //Initializes all the variables used for rendering afterwards
+             
             double x = Collector.drawArraySorted.get(i).getX();
             double y = Collector.drawArraySorted.get(i).getY();
             double width = Collector.drawArraySorted.get(i).getWidth();
@@ -19,7 +24,7 @@ public class Render {
             Float opacity = Collector.drawArraySorted.get(i).getOpacity();
             boolean inverts = Collector.drawArraySorted.get(i).getInverts();
             boolean useTranslate = Collector.drawArraySorted.get(i).useTranslate();
-
+            //A check is done if the objects are in bounds of the camera
             boolean one = x >= -camX && x <= -camX + camWidth &&
                     y >= -camY && y <= -camY + camHeight;
             boolean two = x + width >= -camX && x + width <= -camX + camWidth &&
@@ -36,6 +41,7 @@ public class Render {
                     glPushMatrix();
                     glTranslated(camX, camY, 0);
                 }
+                //Here we determine the type of object to draw, either line, box
                 if (type.toLowerCase().equals("box")) {
                     if (texID != -1) {
                         Box.drawBox((float)(x + startX),(float) (y + startY),(float) width,(float) height, texID, inverts);
@@ -49,8 +55,6 @@ public class Render {
                     glPopMatrix();
                 }
             }
-
-            //TODO Add code for Lines, Points, so on so forth OK? :)
         }
     }
 }
