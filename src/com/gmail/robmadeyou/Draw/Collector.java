@@ -12,6 +12,13 @@ public class Collector {
     static ArrayList<DrawParameters> drawArraySorted = new ArrayList<DrawParameters>();
     static ArrayList<DrawParameters> drawArrayUnsorted = new ArrayList<DrawParameters>();
 
+    /**
+     * 
+     * Adds a call to the array that is left for sorting at the end of the tick
+     * 
+     * This returns a boolean to say if the adding was done right without errors
+     * 
+     **/ 
     public static boolean add(DrawParameters p) {
     	/*
     	 * This is to make sure the graphic is in bounds when added, otherwise if it's not it won't add it
@@ -41,7 +48,13 @@ public class Collector {
         }
     	return false;
     }
-
+    /**
+     * !!It is advized against to call this more than once per tick as it would cause serious
+     * performance issues!!
+     * 
+     * This method organizes the unsorted array list into a sorted one that is later taken in for rendering
+     * 
+     */
     public static void organize() {
         int currentLayer = 0;
         while (drawArrayUnsorted.size() != drawArraySorted.size()) {
@@ -57,11 +70,15 @@ public class Collector {
         }
     }
 
+    /**
+     * Clears both array lists that hold all the draw calls
+     */
     public static void clear() {
         drawArraySorted.clear();
         drawArrayUnsorted.clear();
     }
 
+    
     public static class DrawParameters {
 
         private double x, y, w, h;
