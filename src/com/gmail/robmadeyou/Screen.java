@@ -158,7 +158,7 @@ public class Screen {
         System.out.println(engineName + "Font set up");
         Textures.setUpTextures();
         System.out.println(engineName + "Textures set up: " + Textures.texSetUp);
-
+        Display.setResizable(true);
         long endTimer = getTime() - startTimer;
         double finishTime = endTimer / 1000;
         System.out.println(engineName + "v" + version + " Loaded in: " + finishTime + " seconds");

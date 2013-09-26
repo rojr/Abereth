@@ -76,7 +76,13 @@ public class Camera_2 {
             Screen.update(60);
             enemy.setColor(Color.White);
             enemy.setTexture(Textures.test);
+            if(Keyboard.isKeyDown(Keyboard.Key.A)){
+            	animTest.setInvert(true);
+            }else{
+            	animTest.setInvert(false);
+            }
             player2.setTexture(animTest.getTextureID());
+            
             if(item.isPressed()){
             	Engine.removeItem(item);
             }

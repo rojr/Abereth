@@ -1,5 +1,7 @@
 package com.gmail.robmadeyou.tests;
 
+import com.gmail.robmadeyou.Commands.Print;
+import com.gmail.robmadeyou.Commands.TheArchitect;
 import com.gmail.robmadeyou.Effects.*;
 import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Entity.Npc;
@@ -18,6 +20,7 @@ import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.Target;
 import com.gmail.robmadeyou.World.Camera;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -63,6 +66,12 @@ public class Camera_1 {
         cam.setTarget(new Target(player2));
         
         emit.setCustomTexture(TextureLoader.createTexture("/flame.png"));
+        try {
+			TheArchitect.searchPackages();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         boolean camsCreated = false;
         while (!Screen.isAskedToClose()) {
         	
