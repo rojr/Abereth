@@ -118,7 +118,7 @@ public class Item {
         return isMouseOver() && Mouse.isLeftMouseButtonPressed();
     }
 
-    /*
+    /**
      * Boolean checking if the item is being held, only returned true if the mouse is
      * inside the item, this can be tricky to work with as the mouse would move too
      * fast from the item and the mouse would end up not being inside the bounds of the item
@@ -164,7 +164,14 @@ public class Item {
         }
     }
     public void draw() {
-    	if(Collector.add(new DrawParameters("box", x, y, width, height, Texture, Color.White, 1, layer, true))){
+    	DrawParameters p = new DrawParameters("box", x, y, width, height);
+    	p.setTextureID(Texture);
+    	p.setColor(Color.White);
+    	p.setOpacity(1);
+    	p.setLayer(layer);
+    	p.setUseTranslate(true);
+    
+    	if(Collector.add(p)){
     		isVisible = true;
     	}else{
     		isVisible = false;

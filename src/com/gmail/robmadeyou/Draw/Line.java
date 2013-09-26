@@ -5,7 +5,8 @@ import static org.lwjgl.opengl.GL11.*;
 public class Line {
     /**
      * Simply draws lines, this is used by the rendering system to draw single lines.
-     * 
+     * <br>
+     * <br>
      * !!It is advised against to use this as well as the rendering system as independant calls would
      * most likely not draw lines (unless called after the Screen.refresh() method!!
      */

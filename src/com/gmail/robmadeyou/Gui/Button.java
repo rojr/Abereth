@@ -18,6 +18,7 @@ public class Button implements Gui {
     private float opacity;
     private boolean useTranslate;
     private boolean isPressed, isReleased, isOver;
+    private Color color;
     private String state;
 
     public Button(String state, double x, double y, int width, int height, int layer) {
@@ -30,6 +31,7 @@ public class Button implements Gui {
         this.texture = -1;
         this.opacity = 1f;
         this.useTranslate = false;
+        this.color = Color.White;
     }
 
     public void setX(double x) {
@@ -67,6 +69,10 @@ public class Button implements Gui {
     public void setState(String state) {
         this.state = state;
     }
+    
+    public void setColor(Color color){
+    	this.color = color;
+    }
 
 
     public double getX() {
@@ -91,6 +97,10 @@ public class Button implements Gui {
 
     public String getState() {
         return state;
+    }
+    
+    public Color getColor(){
+    	return color;
     }
 
     public boolean isMouseOver() {
@@ -131,6 +141,12 @@ public class Button implements Gui {
     }
 
     public void draw() {
-        Collector.add(new DrawParameters("box", x, y, width, height, texture, Color.Green, opacity, layer, useTranslate));
+    	DrawParameters p = new DrawParameters("box", x, y, width, height);
+    	p.setTextureID(texture);
+    	p.setColor(color);
+    	p.setOpacity(opacity);
+    	p.setLayer(layer);
+    	p.setUseTranslate(useTranslate);
+        Collector.add(p);
     }
 }

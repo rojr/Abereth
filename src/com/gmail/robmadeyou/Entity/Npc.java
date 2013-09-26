@@ -18,6 +18,8 @@ import com.gmail.robmadeyou.World.World;
 import java.util.ArrayList;
 import java.util.List;
 
+import sun.security.acl.WorldGroupImpl;
+
 public class Npc extends Entity {
     public ArrayList<moveUpdate> MovementArray = new ArrayList<moveUpdate>();
     private double x, y, dX, dY;
@@ -227,13 +229,16 @@ public class Npc extends Entity {
             int lastY = -1;
             if (resultList != null) {
                 for (Block b : resultList) {
-
                     if (isAStarActive) {
                         moveToBlock(b.getX() / World.BLOCK_SIZE(), b.getY() / World.BLOCK_SIZE());
                         if (lastX != -1 && lastY != -1) {
-                            if (Engine.isDevMode)
-                                Collector.add(new DrawParameters("line", b.getX() * World.BLOCK_SIZE(), b.getY() * World.BLOCK_SIZE(), lastX * World.BLOCK_SIZE(),
-                                        lastY * World.BLOCK_SIZE(), -1, color, 1, Layer.GUILayer(), true));
+                            if (Engine.isDevMode){
+                            	DrawParameters param = new DrawParameters("line", b.getX() * World.BLOCK_SIZE(), b.getY() * World.BLOCK_SIZE(), lastX * World.BLOCK_SIZE(), lastY * World.BLOCK_SIZE());
+                            		param.setColor(color);
+                            		param.setLayer(Layer.GUILayer());
+                            		param.setUseTranslate(true);
+                                Collector.add(param);
+                            }
                         }
                     }
                     lastX = b.getX();
@@ -360,7 +365,12 @@ public class Npc extends Entity {
     }
 
     public void draw() {
-        isOnScreen(Collector.add(new DrawParameters("box", x, y, width, height, texture, color, layer, true)));
+    	DrawParameters p = new DrawParameters("box", x, y, width, height);
+    		p.setTextureID(texture);
+    		p.setColor(color);
+    		p.setLayer(layer);
+    		p.setUseTranslate(true);
+        isOnScreen(Collector.add(p));
     }
 
     public enum EnemyMovement {

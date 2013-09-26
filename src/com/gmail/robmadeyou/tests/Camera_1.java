@@ -1,7 +1,6 @@
 package com.gmail.robmadeyou.tests;
 
 import com.gmail.robmadeyou.Effects.*;
-import com.gmail.robmadeyou.Effects.Emitter.MovementDirection;
 import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Entity.Npc;
 import com.gmail.robmadeyou.Entity.Player;
@@ -25,11 +24,9 @@ import java.util.ArrayList;
 public class Camera_1 {
     public static void main(String[] args) {
 
-        Screen.create(800, 800, "Our Screen", GameType.RPG_STYLE, false);
+        Screen.create(400, 400, "Our Screen", GameType.RPG_STYLE, false);
         Screen.setWorldDimensionsInBlocks(01, 010);
-
         Screen.setUpWorld();
-        
         Button button = (Button) Interface.add(new Button("", 25, 50, 50, 50, 1));
         button.useTranslate(true);
         

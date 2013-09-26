@@ -86,9 +86,23 @@ public class Text {
         					ran = new Random();
         					int ranID = ran.nextInt(letterTexID.size());
         					ranID = letterTexID.get(ranID);
-        					Collector.add(new DrawParameters("box", x, y, 8, 8, ranID, color, opacity, layerID, useTranslate, inverts));
+        					DrawParameters p = new DrawParameters("box", x, y, 8, 8);
+        						p.setTextureID(ranID);
+        						p.setColor(color);
+        						p.setOpacity(opacity);
+        						p.setLayer(layerID);
+        						p.setUseTranslate(useTranslate);
+        						p.setInverts(inverts);
+        					Collector.add(p);
         				}else{
-        					Collector.add(new DrawParameters("box", x, y, 8, 8, letterTexID.get(i), color, opacity, layerID, useTranslate, inverts));
+        					DrawParameters p = new DrawParameters("box", x, y, 8, 8);
+    							p.setTextureID(letterTexID.get(i));
+    							p.setColor(color);
+    							p.setOpacity(opacity);
+    							p.setLayer(layerID);
+    							p.setUseTranslate(useTranslate);
+    							p.setInverts(inverts);
+        					Collector.add(p);
         				}
         				if(c == 'g' || c == 'q' || c == 'p' || c == 'j' || c == 'y') {
         					y -= 1;
@@ -111,8 +125,15 @@ public class Text {
     			}
         		for(int i = 0; i < numbers.length; i++) {
         			if(c == numbers[i]) {
-        					Collector.add(new DrawParameters("box", x, y, 8, 8, numberTexID.get(i), color, opacity, layerID, useTranslate, inverts));
-        					x += 8;
+        				DrawParameters p = new DrawParameters("box", x, y, 8, 8);
+        					p.setTextureID(numberTexID.get(i));
+        					p.setColor(color);
+        					p.setOpacity(opacity);
+        					p.setLayer(layerID);
+        					p.setUseTranslate(useTranslate);
+        					p.setInverts(inverts);
+        				Collector.add(p);
+        				x += 8;
         			}
         		}
         	}

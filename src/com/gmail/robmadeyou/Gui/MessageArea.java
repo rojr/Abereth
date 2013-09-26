@@ -47,7 +47,12 @@ public class MessageArea {
     }
 
     public static void onUpdate() {
-        Collector.add(new DrawParameters("box", x, y, width, height, -1, Color.Blue, opacity, Layer.GUILayer(), false, false));
+    	DrawParameters p = new DrawParameters("box", x, y, width, height);
+    		p.setTextureID(-1);
+    		p.setColor(color);
+    		p.setOpacity(opacity);
+    		p.setLayer(Layer.GUILayer());
+        Collector.add(p);
         if (Keyboard.isKeyPressed(Key.Return)) {
             if (messageList.length > messageIndex + 1) {
                 nextMessage();

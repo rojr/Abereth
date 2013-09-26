@@ -59,7 +59,12 @@ public class BlockAir implements Block, Comparable<Block> {
     }
 
     public void draw() {
-        Collector.add(new DrawParameters("box", x * World.BLOCK_SIZE(), y * World.BLOCK_SIZE(), World.BLOCK_SIZE(), World.BLOCK_SIZE(), texture, color, 0, true));
+    	DrawParameters p = new DrawParameters("box", x * World.BLOCK_SIZE(), y * World.BLOCK_SIZE(), World.BLOCK_SIZE(), World.BLOCK_SIZE());
+    		p.setTextureID(texture);
+    		p.setColor(color);
+    		p.setLayer(0);
+    		p.setUseTranslate(true);
+        Collector.add(p);
     }
 
     public void doEffect(Entity e) {

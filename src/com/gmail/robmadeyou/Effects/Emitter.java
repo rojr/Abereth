@@ -283,25 +283,48 @@ public class Emitter {
 
         public void draw() {
             if (drawType == 1) {
-                Collector.add(new DrawParameters("box", x, y, width, height, texID, color, opacity, layer, true));
+            	DrawParameters p = new DrawParameters("box", x, y, width, height);
+            		p.setTextureID(texID);
+            		p.setColor(color);
+            		p.setOpacity(opacity);
+            		p.setLayer(layer);
+            		p.setUseTranslate(true);
+                Collector.add(p);
             } else if (drawType == 2) {
                 Random random = new Random();
                 int firstTexID = textureList.get(0);
                 int randomTexID = firstTexID + random.nextInt(textureList.size());
-                Collector.add(new DrawParameters("box", x, y, width, height, randomTexID, color, opacity, layer, true));
+                
+                DrawParameters p = new DrawParameters("box", x, y, width, height);
+        			p.setTextureID(randomTexID);
+        			p.setColor(color);
+        			p.setOpacity(opacity);
+        			p.setLayer(layer);
+        			p.setUseTranslate(true);
+        		Collector.add(p);
             } else if (drawType == 3) {
                 try {
                     int maxTexOrder = textureList.size();
                     if (texOrder >= maxTexOrder) texOrder = 0;
-                    Collector.add(new DrawParameters("box", x, y, width, height, texOrder + textureList.get(0), color,
-                            opacity, layer, true));
+                    DrawParameters p = new DrawParameters("box", x, y, width, height);
+            			p.setTextureID(texOrder + textureList.get(0));
+            			p.setColor(color);
+            			p.setOpacity(opacity);
+            			p.setLayer(layer);
+            			p.setUseTranslate(true);
+            		Collector.add(p);
                     texOrder++;
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                     System.out.println("ERROR: BAD TEXTURE PATH/NONE SPECIFIED");
                 }
             } else {
-                Collector.add(new DrawParameters("box", x, y, width, height, -1, color, opacity, layer, true));
+            	DrawParameters p = new DrawParameters("box", x, y, width, height - 1);
+    				p.setColor(color);
+    				p.setOpacity(opacity);
+    				p.setLayer(layer);
+    				p.setUseTranslate(true);
+                Collector.add(p);
             }
         }
     }

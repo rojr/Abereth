@@ -2,6 +2,7 @@ package com.gmail.robmadeyou.Entity;
 
 import com.gmail.robmadeyou.Block.Block;
 import com.gmail.robmadeyou.Draw.Collector;
+import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Gui.MessageArea;
@@ -12,6 +13,7 @@ import com.gmail.robmadeyou.Physics.Physics;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.World.World;
+
 import org.lwjgl.util.vector.Vector2f;
 
 public class Player extends Entity {
@@ -483,7 +485,10 @@ public class Player extends Entity {
             int width2 = Engine.onScreenEntity.get(i).getWidth();
             int height2 = Engine.onScreenEntity.get(i).getHeight();
             if (isNear(Engine.onScreenEntity.get(i)) && Engine.onScreenEntity.get(i).getNumber() != number) {
-                Collector.add(new Collector.DrawParameters("box", x2, y2, width2, height2, -1, Color.Blue, 1, 1, true));
+            	DrawParameters p = new DrawParameters("box", x2, y2, width2, height2);
+            		p.setColor(Color.Blue);
+            		p.setUseTranslate(true);
+                Collector.add(p);
                 //Check if right mouse button is pressed on the enemy to select it
                 int mX = Mouse.getX();
                 int mY = Mouse.getY();
@@ -534,10 +539,19 @@ public class Player extends Entity {
             double y2 = targetedEnemy.getY();
             int width2 = targetedEnemy.getWidth();
             int height2 = targetedEnemy.getHeight();
-            Collector.add(new Collector.DrawParameters("box", x2, y2, width2, height2, -1, Color.Red, 1, layer, true, false));
+            DrawParameters p = new DrawParameters("box", x2, y2, width2, height2);
+            	p.setColor(Color.Red);
+            	p.setLayer(layer);
+            	p.setUseTranslate(true);
+            Collector.add(p);
         }
-
-        isOnScreen(Collector.add(new Collector.DrawParameters("box", getX(), getY(), getWidth(), getHeight(), texture, color, 1, layer, true, textureInverts)));
+        DrawParameters p = new DrawParameters("box", getX(), getY(), getWidth(), getHeight());
+        	p.setTextureID(texture);
+        	p.setColor(color);
+        	p.setLayer(layer);
+        	p.setUseTranslate(true);
+        	p.setInverts(textureInverts);
+        isOnScreen(Collector.add(p));
     }
 
     public enum MovementType {
