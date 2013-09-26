@@ -37,20 +37,35 @@ public class Animate {
         currentFrame = 0;
         this.inverts = inverts;
     }
-
+    /**
+     * Every thime this method is called the animation updates
+     * giving the efffect of the given drawable object change
+     *  
+     * @return current texture ID in the Arraylist
+     */
     public int getTextureID() {
         onUpdate();
         return listOfTextures.get(currentFrame);
     }
-
+    /**
+     * Set the current frame number
+     * 
+     * @see Textures
+     */
     public void setCurrentFrame(int frame) {
         this.currentFrame = frame;
     }
-
+    /**
+     * Set if the texture inverts
+     * <br> 
+     * This is used for making the frames be drawn inverted
+     */
     public void setInvert(boolean args) {
         this.inverts = args;
     }
-
+    /**
+     * @return boolean - the invert value
+     */ 
     public boolean getInverts() {
         return inverts;
     }
