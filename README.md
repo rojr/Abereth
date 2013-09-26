@@ -19,6 +19,8 @@ Usually starting to use the game engine would take quite some time to set up, bu
 <a name="todo">
 ##Todo
 
+###[Official Todo list is here](https://docs.google.com/document/d/15pJNpBVsGNgIP5JEK-XAOeDHOKSZQomSIZvVS1veLZw/edit?usp=sharing).
+
 Helping out on the project isn't hard, and to make it even easier for you we've created a list of things that you could work on!
 [You can find the link here](https://docs.google.com/spreadsheet/ccc?key=0AkKO-7fYlAFudG40TnRTSzBUTjg5cHN3OUJqajRPNFE#gid=0)
 
