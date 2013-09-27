@@ -24,7 +24,7 @@ public class Npc extends Entity {
     public ArrayList<moveUpdate> MovementArray = new ArrayList<moveUpdate>();
     private double x, y, dX, dY;
     private int number;
-    private int width, height;
+    private float width, height;
     private double speed;
     private int cX;
     private int cY;
@@ -50,7 +50,8 @@ public class Npc extends Entity {
     private int directionFacing = 1;
 
 
-    public Npc(double x, double y, int width, int height) {
+    public Npc(float x, float y, float width, float height) {
+    	super(x,y,width,height);
         this.x = x;
         this.y = y;
         this.width = width;
@@ -120,14 +121,6 @@ public class Npc extends Entity {
         this.texture = tex;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
     public double getDX() {
         return dX;
     }
@@ -138,14 +131,6 @@ public class Npc extends Entity {
 
     public double getSpeed() {
         return speed;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
     }
 
     public int getLayer() {
@@ -411,4 +396,10 @@ public class Npc extends Entity {
             }
         }
     }
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 }

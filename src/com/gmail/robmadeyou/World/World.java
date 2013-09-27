@@ -125,10 +125,10 @@ public class World {
      * instead of falling constantly
      */
     public static boolean isSolidUnder(Entity e) {
-        int eX = (int) e.getX();
-        int eY = (int) e.getY();
-        int eW = e.getWidth();
-        int eH = e.getHeight();
+    	float eX = e.getX();
+        float eY = e.getY();
+        float eW = e.getWidth();
+        float eH = e.getHeight();
 
         int bDimensions = World.BLOCK_SIZE();
         /*
@@ -187,9 +187,9 @@ public class World {
     }
 
     public static boolean isSolidAbove(Entity e) {
-        int eX = (int) e.getX();
-        int eY = (int) e.getY();
-        int eW = e.getWidth();
+        float eX = e.getX();
+        float eY = e.getY();
+        float eW = e.getWidth();
         int bDimensions = World.BLOCK_SIZE();
 
         int startX = (int) Math.round(e.getX() / BLOCK_SIZE()) - 2;
@@ -234,8 +234,8 @@ public class World {
     }
 
     public static boolean isSolidLeft(Entity e) {
-        int eX = (int) e.getX();
-        int eY = (int) e.getY();
+        float eX = (int) e.getX();
+        float eY = (int) e.getY();
         int bDimensions = World.BLOCK_SIZE();
 
         int startX = (int) Math.round(e.getX() / BLOCK_SIZE()) - 2;
@@ -281,9 +281,9 @@ public class World {
     }
 
     public static boolean isSolidRight(Entity e) {
-        int eX = (int) e.getX();
-        int eY = (int) e.getY();
-        int eW = e.getWidth();
+        float eX = e.getX();
+        float eY = e.getY();
+        float eW = e.getWidth();
         int bDimensions = World.BLOCK_SIZE();
 
         int startX = (int) Math.round(e.getX() / BLOCK_SIZE()) - 2;

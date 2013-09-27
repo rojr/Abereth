@@ -9,15 +9,16 @@ import com.gmail.robmadeyou.Gui.MessageArea;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
-import com.gmail.robmadeyou.Physics.Physics;
+import com.gmail.robmadeyou.World.World;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.World.World;
 
 import org.lwjgl.util.vector.Vector2f;
 
-public class Player extends Entity {
-    protected Vector2f vLocation, vDimensions, vDirection, vOrigLoc, vOrigDim, vOrigDir;
+public class Player extends Entity{
+	//protected Vector2f vLocation, vDimensions;
+    protected Vector2f vDirection, vOrigLoc, vOrigDim, vOrigDir;
     //private double x, y;
     //private double dX, dY;
     //private int originalHeight, width, height;
@@ -57,23 +58,23 @@ public class Player extends Entity {
     private Key upKey, downKey, rightKey, leftKey;
     private MovementType movementType = MovementType.ARROW_KEYS;
 
-    public Player(double x, double y, int width, int height) {
-
+    public Player(float x, float y, float width, float height) {
+    	super(x,y,width,height);
         vDirection = new Vector2f();
-        vLocation = new Vector2f();
-        vDimensions = new Vector2f();
+        //vLocation = new Vector2f();
+        //vDimensions = new Vector2f();
         vOrigDim = new Vector2f();
         vOrigDir = new Vector2f();
         vOrigLoc = new Vector2f();
 
-        vLocation.setX((float) x);
-        vLocation.setY((float) y);
+        //vLocation.setX((float) x);
+        //vLocation.setY((float) y);
         vOrigDim.setX(width);
         vOrigDim.setY(height);
-        vDimensions.setX(width);
-        vDimensions.setY(height);
+        //vDimensions.setX(width);
+        //vDimensions.setY(height);
         this.speed = 1;
-        this.crouchHeight = (int) ((vDimensions.getY() / 4) * 3);
+        this.crouchHeight = (int) ((getY() / 4) * 3);
         this.upKey = Key.UpArrow;
         this.downKey = Key.DownArrow;
         this.rightKey = Key.RightArrow;
@@ -142,22 +143,6 @@ public class Player extends Entity {
         this.number = num;
     }
 
-    public void setX(double x) {
-        vLocation.x = (float) x;
-    }
-
-    public void setY(double y) {
-        vLocation.y = (float) y;
-    }
-
-    public void setWidth(int w) {
-        vDimensions.x = w;
-    }
-
-    public void setHeight(int h) {
-        vDimensions.y = h;
-    }
-    
     public void setTextureInverts(boolean args){
     	this.textureInverts = args;
     }
@@ -166,28 +151,12 @@ public class Player extends Entity {
         return amountOfHealth;
     }
 
-    public double getX() {
-        return vLocation.x;
-    }
-
     public int getLayer() {
         return layer;
     }
 
     public int getNumber() {
         return number;
-    }
-
-    public double getY() {
-        return vLocation.y;
-    }
-
-    public int getWidth() {
-        return (int) vDimensions.x;
-    }
-
-    public int getHeight() {
-        return (int) vDimensions.y;
     }
 
     public MovementType getMovementType() {
@@ -294,7 +263,7 @@ public class Player extends Entity {
 		 	*/
         if (Keyboard.isKeyDown(getLeftKey(movementType))) {//No need for lots and lots of lines of code! Yaay!
             direction = 3;
-            if (!Physics.isSolidLeft(this)) {
+            if (!World.isSolidLeft(this)) {
                 setX((getX() - (delta * (speed - speedDecrease))));
                 isSolidLeft = false;
             } else {
@@ -318,7 +287,7 @@ public class Player extends Entity {
 			 */
         if (Keyboard.isKeyDown(getRightKey(movementType))) {
             direction = 1;
-            if (!Physics.isSolidRight(this)) {
+            if (!World.isSolidRight(this)) {
                 setX((getX() + (delta * (speed - speedDecrease))));
                 isSolidRight = false;
             } else {
@@ -350,7 +319,7 @@ public class Player extends Entity {
             }
             if (Screen.TypeOfGame == GameType.RPG_STYLE) {
                 direction = 0;
-                if (!Physics.isSolidAbove(this) && getY() > 0) {
+                if (!World.isSolidAbove(this) && getY() > 0) {
                     setY((float) (getY() - (delta * (speed - speedDecrease))));
                     isSolidAbove = false;
                 } else {
@@ -378,7 +347,7 @@ public class Player extends Entity {
             }
             if (Screen.TypeOfGame == GameType.RPG_STYLE) {
                 direction = 2;
-                if (!Physics.isSolidUnder(this)) {
+                if (!World.isSolidUnder(this)) {
                     isSolidBelow = false;
                     if (getY() + getHeight() < World.getWorldHeightInPixels()) {
                         setY((getY() + (delta * (speed - speedDecrease))));
@@ -429,7 +398,7 @@ public class Player extends Entity {
                     isJumping = false;
                     jumpDY = 0;
                 }
-                if (Physics.isSolidAbove(this)) {
+                if (World.isSolidAbove(this)) {
                     isSolidAbove = true;
                     isJumping = true;
                     isInAir = true;
@@ -444,7 +413,7 @@ public class Player extends Entity {
                 isInAir = false;
                 jumpDY = 0;
             }
-            if (Physics.isSolidUnder(this)) {
+            if (World.isSolidUnder(this)) {
                 isSolidBelow = true;
                 isJumping = false;
                 jumpDY = 0;
@@ -460,7 +429,7 @@ public class Player extends Entity {
                 }
             } else {
                 if (!hasClicked) {
-                    if (!Physics.isSolidAbove(this) || !World.isSolidAtLocation((int) Math.round((getX() - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((getY()) / World.BLOCK_SIZE() - 1))
+                    if (!World.isSolidAbove(this) || !World.isSolidAtLocation((int) Math.round((getX() - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((getY()) / World.BLOCK_SIZE() - 1))
                             || !World.isSolidAtLocation((int) Math.round((getX() + getWidth() - (World.BLOCK_SIZE() / 2)) / World.BLOCK_SIZE()), (int) Math.round((getY()) / World.BLOCK_SIZE() - 1))) {
                         setHeight((int) vOrigDim.y);
                         hasClicked = true;
@@ -480,10 +449,10 @@ public class Player extends Entity {
 		 *
 		 */
         for (int i = 0; i < Engine.onScreenEntity.size(); i++) {
-            double x2 = Engine.onScreenEntity.get(i).getX();
-            double y2 = Engine.onScreenEntity.get(i).getY();
-            int width2 = Engine.onScreenEntity.get(i).getWidth();
-            int height2 = Engine.onScreenEntity.get(i).getHeight();
+            float x2 = Engine.onScreenEntity.get(i).getX();
+            float y2 = Engine.onScreenEntity.get(i).getY();
+            float width2 = Engine.onScreenEntity.get(i).getWidth();
+            float height2 = Engine.onScreenEntity.get(i).getHeight();
             if (isNear(Engine.onScreenEntity.get(i)) && Engine.onScreenEntity.get(i).getNumber() != number) {
             	DrawParameters p = new DrawParameters("box", x2, y2, width2, height2);
             		p.setColor(Color.Blue);
@@ -537,8 +506,8 @@ public class Player extends Entity {
         if (targetedEnemy != null) {
             double x2 = targetedEnemy.getX();
             double y2 = targetedEnemy.getY();
-            int width2 = targetedEnemy.getWidth();
-            int height2 = targetedEnemy.getHeight();
+            float width2 = targetedEnemy.getWidth();
+            float height2 = targetedEnemy.getHeight();
             DrawParameters p = new DrawParameters("box", x2, y2, width2, height2);
             	p.setColor(Color.Red);
             	p.setLayer(layer);
@@ -564,4 +533,8 @@ public class Player extends Entity {
         MovementType() {
         }
     }
+    
+	public void update() {
+
+	}
 }

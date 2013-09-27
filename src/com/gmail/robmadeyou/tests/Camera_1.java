@@ -1,7 +1,5 @@
 package com.gmail.robmadeyou.tests;
 
-import com.gmail.robmadeyou.Commands.Print;
-import com.gmail.robmadeyou.Commands.TheArchitect;
 import com.gmail.robmadeyou.Effects.*;
 import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Entity.Npc;
@@ -20,12 +18,12 @@ import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.Target;
 import com.gmail.robmadeyou.World.Camera;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 
 public class Camera_1 {
-    public static void main(String[] args) {
+    
+	public static void main(String[] args) {
 
         Screen.create(400, 400, "Our Screen", GameType.RPG_STYLE, false);
         Screen.setWorldDimensionsInBlocks(01, 010);
@@ -42,7 +40,7 @@ public class Camera_1 {
         Npc enemy = new Npc(32, 40, 32, 32);
         enemy.setLogic(true);
         enemy.setTargetPlayer(player2);
-        Engine.addEntity(enemy);
+       Engine.addEntity(enemy);
 
         //Npc enemy2 = new Npc(20, 40, 32, 32);
         //Engine.addEntity(enemy2);
@@ -66,12 +64,6 @@ public class Camera_1 {
         cam.setTarget(new Target(player2));
         
         emit.setCustomTexture(TextureLoader.createTexture("/flame.png"));
-        try {
-			TheArchitect.searchPackages();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
         boolean camsCreated = false;
         while (!Screen.isAskedToClose()) {
         	

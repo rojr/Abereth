@@ -46,7 +46,7 @@ public class Physics {
 
         int eX = (int) e.getX();
         int eY = (int) e.getY();
-        int eW = e.getWidth();
+        float eW = e.getWidth();
         int bDimensions = World.BLOCK_SIZE();
 
         int startX = (int) Math.round(e.getX() / World.BLOCK_SIZE()) - 2;
@@ -101,8 +101,8 @@ public class Physics {
 //                && isWithinMaxThreshold(a.getY(), b.getY() + b.getHeight());
         int eX = (int) e.getX();
         int eY = (int) e.getY();
-        int eW = e.getWidth();
-        int eH = e.getHeight();
+        float eW = e.getWidth();
+        float eH = e.getHeight();
 
         int bDimensions = World.BLOCK_SIZE();
         /*
@@ -225,7 +225,7 @@ public class Physics {
 //                && isWithinMaxThreshold(a.getX(), b.getX() + b.getWidth());
         int eX = (int) e.getX();
         int eY = (int) e.getY();
-        int eW = e.getWidth();
+        float eW = e.getWidth();
         int bDimensions = World.BLOCK_SIZE();
 
         int startX = (int) Math.round(e.getX() / World.BLOCK_SIZE()) - 2;

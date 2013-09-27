@@ -1,9 +1,11 @@
 package com.gmail.robmadeyou.Entity;
 
 import com.gmail.robmadeyou.Block.Block;
+import com.gmail.robmadeyou.Draw.Drawable;
+
 import org.lwjgl.util.vector.Vector2f;
 
-public class Entity {
+public abstract class Entity extends Drawable{
 
     protected Vector2f location, dimensions, direction, origLoc, origDim, origDir;
     private double x, y, dX, dY, speed, originalSpeed = 1,
@@ -12,13 +14,19 @@ public class Entity {
     private boolean wasUpdated = false;
     private boolean isOnScreen = false;
 
-    public Entity() {
-        location = new Vector2f();
-        dimensions = new Vector2f();
+    public Entity(float x, float y, float width, float height) {
+    	super(new Vector2f(), new Vector2f());
+    	location = new Vector2f();
+    	dimensions = new Vector2f();
+    	location.x = x;
+    	location.y = y;
+    	dimensions.x = width;
+    	dimensions.y = height;
         direction = new Vector2f();
-        origLoc = new Vector2f();
-        origDim = new Vector2f();
+        origLoc = location;
+        origDim = dimensions;
         origDir = new Vector2f();
+        
     }
 
     public int getNumber() {
@@ -57,7 +65,7 @@ public class Entity {
         this.speed = speed;
     }
 
-    public double getX() {
+    public float getX() {
         return location.x;
     }
     
@@ -65,7 +73,7 @@ public class Entity {
     	return isOnScreen;
     }
 
-    public double getY() {
+    public float getY() {
         return location.y;
     }
 
@@ -85,12 +93,12 @@ public class Entity {
     	this.isOnScreen = args;
     }
 
-    public int getWidth() {
-        return (int) dimensions.x;
+    public float getWidth() {
+        return dimensions.x;
     }
 
-    public int getHeight() {
-        return (int) dimensions.y;
+    public float getHeight() {
+        return dimensions.y;
     }
 
     public void setLayer(int layer) {
@@ -173,8 +181,8 @@ public class Entity {
     }
     public boolean isNear(Entity other) {
     	if (other != null) {
-            int oX = (int) other.getX() + getWidth() / 2;
-            int oY = (int) other.getY() + getHeight() / 2;
+            float oX = other.getX() + getWidth() / 2;
+            float oY = other.getY() + getHeight() / 2;
 
             boolean one = oX >= getX()
                     && oX <= getX() + getWidth()
@@ -197,14 +205,9 @@ public class Entity {
     public void removeEffectFromBlock(Block type) {
     }
 
-    public void update(){
-    	
-    }
+    public abstract void update();
     
-    public void onUpdate(int delta) {
-    	
-    }
+    public abstract void onUpdate(int delta);
 
-    public void draw() {
-    }
+    public abstract void draw();
 }

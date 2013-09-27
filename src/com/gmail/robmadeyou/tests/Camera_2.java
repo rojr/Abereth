@@ -17,13 +17,14 @@ import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.Target;
 import com.gmail.robmadeyou.World.Camera;
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 
 public class Camera_2 {
     public static void main(String[] args) {
-
-        Screen.create(800, 700, "Our Screen", GameType.SIDE_SCROLLER, false);
+        Screen.create(800, 700, "Our Screen", GameType.RPG_STYLE, false);
         Screen.setWorldDimensionsInBlocks(-0, 0);
 
         Screen.setUpWorld();
@@ -34,7 +35,7 @@ public class Camera_2 {
         Player player2 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
         player2.setFixedMovementType(MovementType.WASD_KEYS);
         
-        Player player3 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
+        Player player3 = (Player) Engine.addEntity(new Player(100, 32, 32, 32));
         player3.setFixedMovementType(MovementType.ARROW_KEYS);
         
         Npc enemy = new Npc(32, 40, 32, 32);
@@ -76,6 +77,7 @@ public class Camera_2 {
             Screen.update(60);
             enemy.setColor(Color.White);
             enemy.setTexture(Textures.test);
+            
             if(Keyboard.isKeyDown(Keyboard.Key.A)){
             	animTest.setInvert(true);
             }else{
