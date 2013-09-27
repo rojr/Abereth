@@ -9,7 +9,6 @@ import com.gmail.robmadeyou.Draw.Collector;
 import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Engine;
-import com.gmail.robmadeyou.Gui.Text;
 import com.gmail.robmadeyou.Layer;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
@@ -17,8 +16,6 @@ import com.gmail.robmadeyou.World.World;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import sun.security.acl.WorldGroupImpl;
 
 public class Npc extends Entity {
     public ArrayList<moveUpdate> MovementArray = new ArrayList<moveUpdate>();
