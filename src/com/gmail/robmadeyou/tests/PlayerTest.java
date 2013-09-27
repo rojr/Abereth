@@ -10,13 +10,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created with IntelliJ IDEA.
  * User: mrgadgetz
  * Date: 9/26/13
  * Time: 10:22 PM
- * To change this template use File | Settings | File Templates.
  */
-
+ // right click test class and click run as test
 @RunWith(JUnit4.class)
 public class PlayerTest {
     Player player = new Player(10, 20, 30, 40);
@@ -24,7 +22,7 @@ public class PlayerTest {
 
     /**
      * Need to get the @Before setup annotation working
-     * so we don't haVe to place
+     * so we don't have to place
      * initialization objects at the top of the class
      */
     @Before
@@ -54,6 +52,11 @@ public class PlayerTest {
     @org.junit.Test
     public void nearEnemy() {
         assertTrue(player.isNear(enemy));
+    }
 
+    @org.junit.Test
+    public void enemyTarget() {
+        enemy.setTargetPlayer(player);
+        assertEquals(enemy.getTargetPlayer(), player);
     }
 }
