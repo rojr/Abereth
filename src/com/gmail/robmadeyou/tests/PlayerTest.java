@@ -30,8 +30,20 @@ public class PlayerTest {
 
     @org.junit.Test
     public void playerCoordY() {
-        assertEquals(10, (int) player.getX());
+        assertEquals(20, (int) player.getY());
     }
+
+    @org.junit.Test
+    public void playerWidth() {
+        assertEquals(30, (int) player.getWidth());
+    }
+    @org.junit.Test
+    public void playerHeight() {
+        assertEquals(40, (int) player.getHeight());
+    }
+
+
+
 
 
 
