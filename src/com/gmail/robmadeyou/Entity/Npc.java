@@ -19,7 +19,8 @@ import java.util.List;
 
 public class Npc extends Entity {
     public ArrayList<moveUpdate> MovementArray = new ArrayList<moveUpdate>();
-    private double x, y, dX, dY;
+    private float x, y;
+    private double dX, dY;
     private int number;
     private float width, height;
     private double speed;

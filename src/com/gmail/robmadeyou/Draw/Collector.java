@@ -30,17 +30,17 @@ public class Collector {
     	/*
     	 * This is to make sure the graphic is in bounds when added, otherwise if it's not it won't add it
     	 */
-    	drawArrayUnsorted.add(p);
+    	
     	for(Camera cam : Engine.cameraList){
-    		double tX = cam.getX();
-        	double tY = cam.getY();
-        	double cW = cam.getWidth();
-        	double cH = cam.getHeight();
+    		float tX = cam.getX();
+        	float tY = cam.getY();
+        	float cW = cam.getWidth();
+        	float cH = cam.getHeight();
         
-            double eX = p.getX();
-            double eY = p.getY();
-            int eW = (int) p.getWidth();
-            int eH = (int) p.getHeight();
+            float eX = p.getX();
+            float eY = p.getY();
+            float eW = p.getWidth();
+            float eH = p.getHeight();
             boolean one = eX >= -tX && eX <= -tX + cW &&
                     eY >= -tY && eY <= -tY + cH;
             boolean two = eX + eW >= -tX && eX + eW <= -tX + cW &&
@@ -50,7 +50,7 @@ public class Collector {
             boolean four = eX >= -tX && eX <= -tX + cW &&
                     eY + eH >= -tY && eY + eH <= -tY + cH;
             if (one || two || three || four || !p.useTranslate) {
-                
+            	drawArrayUnsorted.add(p);
                 return true;
             }
         }
@@ -58,11 +58,11 @@ public class Collector {
     }
     /**
      * <b>
-     * !!It is advized against to call this more than once per tick as it would cause serious
+     * !!It is advised against to call this more than once per tick as it would cause serious
      * performance issues!!
      * </b>
      * <br>
-     * This method organizes the unsorted array list into a sorted one that is later taken in for rendering
+     * This method organises the unsorted array list into a sorted one that is later taken in for rendering
      */
     public static void organize() {
         int currentLayer = 0;
@@ -90,7 +90,7 @@ public class Collector {
     
     public static class DrawParameters {
 
-        private double x, y, w, h;
+        private float x, y, w, h;
         private int texID;
         private int layerID;
         private Color color;
@@ -101,7 +101,7 @@ public class Collector {
         /**
          * 
          */
-        public DrawParameters(String type, double x, double y, double width, double height) {
+        public DrawParameters(String type, float x, float y, float width, float height) {
             this.type = type;
             this.x = x;
             this.y = y;
@@ -195,19 +195,19 @@ public class Collector {
             return layerID;
         }
 
-        public double getX() {
+        public float getX() {
             return x;
         }
 
-        public double getY() {
+        public float getY() {
             return y;
         }
 
-        public double getWidth() {
+        public float getWidth() {
             return w;
         }
 
-        public double getHeight() {
+        public float getHeight() {
             return h;
         }
 

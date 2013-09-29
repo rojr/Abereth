@@ -35,13 +35,12 @@ public class Text{
         }
     }
 
-    public static void drawString(String text, float x, double y, int layerID, float opacity, double size, Color color, boolean useTranslate, boolean inverts) {
+    public static void drawString(String text, float x, float y, int layerID, float opacity, double size, Color color, boolean useTranslate, boolean inverts) {
         float originalX = x;
         boolean wasLastDigitModifier = false;
         boolean isThisCharModifier = false;
         boolean randomizeCharacter = false;
-        boolean randomizeColor = false;
-        
+        //boolean randomizeColor = false;
         for (char c : text.toCharArray()) {
         	if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' ||c == '7' ||c == '8' ||c == '9' || c == 'r' || c == 'n'){
         		isThisCharModifier = true;

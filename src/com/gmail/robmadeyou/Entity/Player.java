@@ -12,7 +12,6 @@ import com.gmail.robmadeyou.Input.Mouse;
 import com.gmail.robmadeyou.World.World;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
-import com.gmail.robmadeyou.World.World;
 
 import org.lwjgl.util.vector.Vector2f;
 
@@ -458,8 +457,8 @@ public class Player extends Entity{
             }
         }
         if (targetedEnemy != null) {
-            double x2 = targetedEnemy.getX();
-            double y2 = targetedEnemy.getY();
+            float x2 = targetedEnemy.getX();
+            float y2 = targetedEnemy.getY();
             float width2 = targetedEnemy.getWidth();
             float height2 = targetedEnemy.getHeight();
             DrawParameters p = new DrawParameters("box", x2, y2, width2, height2);

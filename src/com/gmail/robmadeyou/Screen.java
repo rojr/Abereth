@@ -7,7 +7,6 @@ import com.gmail.robmadeyou.Gui.Text;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
-import com.gmail.robmadeyou.World.Camera;
 import com.gmail.robmadeyou.World.World;
 
 import org.lwjgl.LWJGLException;

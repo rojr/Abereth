@@ -283,7 +283,7 @@ public class Emitter {
 
         public void draw() {
             if (drawType == 1) {
-            	DrawParameters p = new DrawParameters("box", x, y, width, height);
+            	DrawParameters p = new DrawParameters("box",(float) x, (float) y, width, height);
             		p.setTextureID(texID);
             		p.setColor(color);
             		p.setOpacity(opacity);
@@ -295,7 +295,7 @@ public class Emitter {
                 int firstTexID = textureList.get(0);
                 int randomTexID = firstTexID + random.nextInt(textureList.size());
                 
-                DrawParameters p = new DrawParameters("box", x, y, width, height);
+                DrawParameters p = new DrawParameters("box",(float) x,(float) y, width, height);
         			p.setTextureID(randomTexID);
         			p.setColor(color);
         			p.setOpacity(opacity);
@@ -306,7 +306,7 @@ public class Emitter {
                 try {
                     int maxTexOrder = textureList.size();
                     if (texOrder >= maxTexOrder) texOrder = 0;
-                    DrawParameters p = new DrawParameters("box", x, y, width, height);
+                    DrawParameters p = new DrawParameters("box",(float)  x, (float)y, width, height);
             			p.setTextureID(texOrder + textureList.get(0));
             			p.setColor(color);
             			p.setOpacity(opacity);
@@ -319,7 +319,7 @@ public class Emitter {
                     System.out.println("ERROR: BAD TEXTURE PATH/NONE SPECIFIED");
                 }
             } else {
-            	DrawParameters p = new DrawParameters("box", x, y, width, height - 1);
+            	DrawParameters p = new DrawParameters("box", (float) x, (float) y, width, height - 1);
     				p.setColor(color);
     				p.setOpacity(opacity);
     				p.setLayer(layer);

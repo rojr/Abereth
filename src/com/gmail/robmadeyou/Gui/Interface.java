@@ -70,7 +70,7 @@ public class Interface {
 			 *  |____@@@
 			 */
             boolean four = x + width >= sX && x + width <= sX + sWidth && y + height >= sY && y + height <= sY + sHeight;
-            if (one || two || three || four) {
+            if (one || two || three || four || aGuiArray.getUseTranslate()) {
                 visibleObjects.add(aGuiArray);
             }
         }

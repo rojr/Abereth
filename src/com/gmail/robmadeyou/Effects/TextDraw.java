@@ -5,11 +5,11 @@ import com.gmail.robmadeyou.Layer;
 
 public class TextDraw {
     private int numOfCharacters, currentCharacter = 1;
-    private double x, y;
+    private float x, y;
     private String text, convertexText[], lastText = "";
     private Color color;
 
-    public TextDraw(String text, double x, double y, Color color) {
+    public TextDraw(String text, float x, float y, Color color) {
         this.x = x;
         this.y = y;
         this.text = text;
@@ -21,7 +21,7 @@ public class TextDraw {
         if (numOfCharacters > currentCharacter) {
             convertexText = text.split(text.substring(currentCharacter));
             currentCharacter++;
-            Text.drawString(convertexText[0], (float) x, y, Layer.GUILayer(), 1, 1, color, false, false);
+            Text.drawString(convertexText[0], x, y, Layer.GUILayer(), 1, 1, color, false, false);
             if (numOfCharacters == currentCharacter) {
                 lastText = convertexText[0];
                 try {
