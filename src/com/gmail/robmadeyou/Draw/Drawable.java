@@ -13,6 +13,7 @@ public abstract class Drawable {
 	private int texture;
 	private Color color;
 	private float opacity;
+	private boolean useTranslate;
 	public Drawable(Vector2f coord, Vector2f dimension){
 		this.coord = coord;
 		this.dimension = dimension;
@@ -20,6 +21,7 @@ public abstract class Drawable {
 		this.opacity = 1f;
 		this.color = Color.White;
 		this.texture = -1;
+		this.useTranslate = false;
 	}
 	
 	/*
@@ -50,6 +52,9 @@ public abstract class Drawable {
 	public float getOpacity(){
 		return opacity;
 	}
+	public boolean getUseTranslate(){
+		return useTranslate;
+	}
 	
 	/*
 	 * Setters
@@ -79,6 +84,10 @@ public abstract class Drawable {
 	public void setOpacity(float opacity){
 		this.opacity = opacity;
 	}
+	public void setUseTranslate(boolean args){
+		this.useTranslate = args;
+	}
+	
 	
 	/*
 	 * Casuals

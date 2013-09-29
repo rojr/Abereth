@@ -62,7 +62,6 @@ public class Camera_1 {
         cam.setTarget(new Target(player2));
         
         emit.setCustomTexture(TextureLoader.createTexture("/flame.png"));
-        boolean camsCreated = false;
         while (!Screen.isAskedToClose()) {
         	
             //Updating the screen. the maximum frame rate is 60.

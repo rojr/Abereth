@@ -56,7 +56,7 @@ public class Button extends Gui {
     	p.setColor(getColor());
     	p.setOpacity(getOpacity());
     	p.setLayer(getLayer());
-    	p.setUseTranslate(true);
+    	p.setUseTranslate(getUseTranslate());
         Collector.add(p);
     }
 }

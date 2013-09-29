@@ -48,7 +48,7 @@ public class Collector {
                     eY + eH >= -tY && eY + eH <= -tY + cH;
             boolean four = eX >= -tX && eX <= -tX + cW &&
                     eY + eH >= -tY && eY + eH <= -tY + cH;
-            if (one || two || three || four) {
+            if (one || two || three || four || !p.useTranslate) {
                 drawArrayUnsorted.add(p);
                 return true;
             }

@@ -42,11 +42,31 @@ public class Mouse {
 
     public static boolean isOverGui = false;
 
-    public static int getX() {
+    public static float getX() {
+    	for(int i = 0; i < Engine.cameraList.size(); i++){
+    		float sX = Math.round(Engine.cameraList.get(i).getCamX());
+    		float sY = Math.round(Engine.cameraList.get(i).getCamY());
+    		float sW = Engine.cameraList.get(i).getWidth();
+    		float sH = Engine.cameraList.get(i).getHeight();
+    		
+    		if(x >= sX && x <= sX + sW && y >= sY && y <= sY + sH){
+    			return x - sX;
+    		}
+    	}
         return x;
     }
 
-    public static int getY() {
+    public static float getY() {
+    	for(int i = 0; i < Engine.cameraList.size(); i++){
+    		float sX = Engine.cameraList.get(i).getCamX();
+    		float sY = Engine.cameraList.get(i).getCamY();
+    		float sW = Engine.cameraList.get(i).getWidth();
+    		float sH = Engine.cameraList.get(i).getHeight();
+    		
+    		if(x >= sX && x <= sX + sW && y >= sY && y <= sY + sH){
+    			return y - sH;
+    		}
+    	}
         return y;
     }
     
@@ -71,7 +91,7 @@ public class Mouse {
     		double sH = Engine.cameraList.get(i).getHeight();
     		
     		if(x >= sX && x <= sX + sW && y >= sY && y <= sY + sH){
-    			return y - Engine.cameraList.get(i).getY();
+    			return (float) (y - Engine.cameraList.get(i).getY() - sY);
     		}
     	}
     	return y;

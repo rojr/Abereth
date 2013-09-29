@@ -413,8 +413,8 @@ public class Player extends Entity{
             		p.setUseTranslate(true);
                 Collector.add(p);
                 //Check if right mouse button is pressed on the enemy to select it
-                int mX = Mouse.getX();
-                int mY = Mouse.getY();
+                float mX = Mouse.getX();
+                float mY = Mouse.getY();
                 if (mX >= x2 && mX <= x2 + getWidth() && mY >= y2 && mY <= y2 + getHeight()) {
                     if (Mouse.isRightMouseButtonPressed()) {
                         try {

@@ -70,6 +70,7 @@ public class Camera_2 {
         boolean camsCreated = false;
         while (!Screen.isAskedToClose()) {
             //Updating the screen. the maximum frame rate is 60.
+        	System.out.println(Mouse.getX());
             Screen.update(60);
             enemy.setColor(Color.White);
             enemy.setTexture(Textures.test);
