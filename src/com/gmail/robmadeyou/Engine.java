@@ -5,7 +5,7 @@ import com.gmail.robmadeyou.Effects.Emitter;
 import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
-import com.gmail.robmadeyou.Item.Item;
+import com.gmail.robmadeyou.Object.Item;
 import com.gmail.robmadeyou.Quest.Quest;
 import com.gmail.robmadeyou.World.Camera;
 import com.gmail.robmadeyou.World.World;

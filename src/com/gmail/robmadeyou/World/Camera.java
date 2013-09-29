@@ -4,14 +4,14 @@ import com.gmail.robmadeyou.Target;
 import com.gmail.robmadeyou.Draw.Render;
 
 public class Camera{
-	private double camX, camY, x, y;
-	private double camWidth, camHeight;
+	private float camX, camY, x, y;
+	private float camWidth, camHeight;
 	private Target target;
 	private boolean followingTarget = false;
 	private float maxDistanceFromCamera = 10;
 	private boolean cameraBounds = true;
 	private String typeOfFollowing = "soft";
-	public Camera(double x, double y, double camX, double camY, double width, double height){
+	public Camera(float x, float y, float camX, float camY, float width, float height){
 		this.x = x;
 		this.y = y;
 		this.camX = camX;
@@ -22,24 +22,24 @@ public class Camera{
 	public boolean getCameraBounds(){
 		return cameraBounds;
 	}
-	public double getCamX(){
+	public float getCamX(){
 		return x;
 	}
-	public double getCamY(){
+	public float getCamY(){
 		return y;
 	}
-	public double getX(){
+	public float getX(){
 		return camX;
 	}
 	
-	public double getY(){
+	public float getY(){
 		return camY;
 	}
-	public double getWidth(){
+	public float getWidth(){
 		return camWidth;
 	}
 	
-	public double getHeight(){
+	public float getHeight(){
 		return camHeight;
 	}
 	
@@ -107,12 +107,12 @@ public class Camera{
 		camY = -target.getY() + camWidth / 2;
 	}
 	public void softMove(){
-		double toX = camX + (target.getX() - camWidth / 2);
-		double toY = camY + (target.getY() - camHeight / 2);
+		float toX = camX + (target.getX() - camWidth / 2);
+		float toY = camY + (target.getY() - camHeight / 2);
 		
 		double tan = Math.atan2(toX,toY);
 		
-		double targetSpeed = target.getSpeed();
+		float targetSpeed = target.getSpeed();
 		
 		if(toX < 0){
 			toX = -toX;
@@ -121,16 +121,16 @@ public class Camera{
 			toY = -toY;
 		}
 		
-		double biggest = 0;
+		float biggest = 0;
 		if(toX >= toY){
 			biggest = toX;
 		}else{
 			biggest = toY;
 		}
 		
-		double multiplier = biggest / maxDistanceFromCamera;
+		float multiplier = biggest / maxDistanceFromCamera;
 		
-		double s = 3;//target.getSpeed() * ();
+		float s = 3;//target.getSpeed() * ();
 		
 		double dX = s*Math.sin(tan);
 		double dY = s*Math.cos(tan);

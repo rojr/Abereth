@@ -3,7 +3,7 @@ package com.gmail.robmadeyou;
 import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Entity.Npc;
 import com.gmail.robmadeyou.Entity.Player;
-import com.gmail.robmadeyou.Item.Item;
+import com.gmail.robmadeyou.Object.Item;
 
 public class Target {
 
@@ -18,35 +18,35 @@ public class Target {
 		this.item = item;
 		from = "i";
 	}
-	public double getX(){
+	public float getX(){
 		if(from.equals("p")){
 			return player.getX();
 		}else{
 			return item.getX();
 		}
 	}
-	public double getY(){
+	public float getY(){
 		if(from.equals("p")){
 			return player.getY();
 		}else{
 			return item.getY();
 		}
 	}
-	public double getWidth(){
+	public float getWidth(){
 		if(from.equals("p")){
 			return player.getWidth();
 		}else{
 			return item.getWidth();
 		}
 	}
-	public double getHeight(){
+	public float getHeight(){
 		if(from.equals("p")){
 			return player.getHeight();
 		}else{
 			return item.getHeight();
 		}
 	}
-	public double getSpeed(){
+	public float getSpeed(){
 		if(from.equals("p")){
 			return player.getSpeed();
 		}else{

@@ -11,9 +11,9 @@ import com.gmail.robmadeyou.Gui.Text;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
-import com.gmail.robmadeyou.Item.Item;
 import com.gmail.robmadeyou.Layer;
 import com.gmail.robmadeyou.Screen;
+import com.gmail.robmadeyou.Object.Item;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.Target;
 import com.gmail.robmadeyou.World.Camera;
@@ -44,7 +44,7 @@ public class Camera_2 {
 
         //Npc enemy2 = new Npc(20, 40, 32, 32);
         //Engine.addEntity(enemy2);
-        Item item = Engine.addNewItem(new Item(60, 40, 16, 16,1, Textures.ITEM_TEST));
+        Item item = Engine.addNewItem(new Item(60, 40, 16, 16));
 
         //MessageArea.setUp(0, 400, 800, 200);
         //MessageArea.setUpTextStart(20, 420);
@@ -94,7 +94,7 @@ public class Camera_2 {
                 Text.drawString(Screen.actualFps + "  Hel^4lo!awq^3awd^rawdaw^9da^5wda^ndwadwd",(float) Mouse.getTranslatedX() + 10, Mouse.getTranslatedY(), Layer.GUILayer(), 1, 1, Color.Banana, true, false);
             }
             if(Mouse.leftMouseButtonDown){
-            	Engine.addNewItem(new Item(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 16, 16,1, Textures.ITEM_TEST));
+            	Engine.addNewItem(new Item(Mouse.getTranslatedX(),Mouse.getTranslatedY(), 32, 32));
             }
 
             //Refreshing the screen

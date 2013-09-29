@@ -151,14 +151,6 @@ public class Player extends Entity{
         return vDirection.y;
     }
 
-    public double getSpeed() {
-        return speed;
-    }
-
-    public int getTexture() {
-        return texture;
-    }
-
     public int getFacingDirection() {
         return direction;
     }

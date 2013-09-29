@@ -50,12 +50,12 @@ public class Mouse {
         return y;
     }
     
-    public static double getTranslatedX(){
+    public static float getTranslatedX(){
     	for(int i = 0; i < Engine.cameraList.size(); i++){
-    		double sX = Math.round(Engine.cameraList.get(i).getCamX());
-    		double sY = Math.round(Engine.cameraList.get(i).getCamY());
-    		double sW = Engine.cameraList.get(i).getWidth();
-    		double sH = Engine.cameraList.get(i).getHeight();
+    		float sX = Math.round(Engine.cameraList.get(i).getCamX());
+    		float sY = Math.round(Engine.cameraList.get(i).getCamY());
+    		float sW = Engine.cameraList.get(i).getWidth();
+    		float sH = Engine.cameraList.get(i).getHeight();
     		
     		if(x >= sX && x <= sX + sW && y >= sY && y <= sY + sH){
     			return x - Engine.cameraList.get(i).getX() - sX;
@@ -63,7 +63,7 @@ public class Mouse {
     	}
     	return x;
     }
-    public static double getTranslatedY(){
+    public static float getTranslatedY(){
     	for(int i = 0; i < Engine.cameraList.size(); i++){
     		double sX = Engine.cameraList.get(i).getCamX();
     		double sY = Engine.cameraList.get(i).getCamY();

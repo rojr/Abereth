@@ -64,7 +64,6 @@ public abstract class Gui extends Drawable{
 	public Gui setState(String state){
 		this.state = state;
 		return this;
-		
 	}
 	
 	/*

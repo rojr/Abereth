@@ -93,7 +93,7 @@ public enum Color {
     Peach_Puff_4(139, 119, 101), Sea_Shell(255, 245, 238), Sea_Shell_2(238, 229, 222), Sea_Shell_3(205, 197, 191),
     Sea_Shell_4(139, 134, 130), Brown_Sandy(244, 164, 96), Sienna_Raw(199, 97, 20), Chocolate(210, 105, 30),
     Chocolate_2(255, 127, 36), Chocolate_3(238, 118, 33), Chocolate_4(205, 102, 29), Chocolate_5(139, 69, 19),
-    Black_Ivory(41, 36, 33),;
+    Black_Ivory(41, 36, 33);
 
     private float r, g, b;
 
@@ -102,6 +102,7 @@ public enum Color {
         this.g = g;
         this.b = b;
     }
+    
 
     public void bind() {
         glColor4f(r, g, b, 1);
@@ -110,7 +111,6 @@ public enum Color {
     public void bind(float opacity) {
         glColor4f(r, g, b, opacity);
     }
-
     public float getR() {
         return r;
     }

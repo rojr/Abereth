@@ -85,16 +85,8 @@ public class Npc extends Entity {
         this.speedDecrease = speed * 0.8;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
     public void setLogic(boolean args) {
         this.usingLogic = args;
-    }
-
-    public void setTexture(int tex) {
-        this.texture = tex;
     }
 
     public double getDX() {
@@ -105,20 +97,8 @@ public class Npc extends Entity {
         return dY;
     }
 
-    public double getSpeed() {
-        return speed;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
     public int getNumber() {
         return number;
-    }
-
-    public int getTexture() {
-        return texture;
     }
 
     public void onUpdate(int delta) {
