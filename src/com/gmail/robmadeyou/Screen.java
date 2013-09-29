@@ -217,12 +217,11 @@ public class Screen {
 
         Interface.onUpdate();
 
+        
         Mouse.onUpdate();
         
         Engine.update(delta);
         
-        Interface.onUpdate();
-
         if (Keyboard.isKeyPressed(Key.Grave)) {
             detailsActive = !detailsActive;
         }

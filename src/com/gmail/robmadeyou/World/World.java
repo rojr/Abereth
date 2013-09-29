@@ -329,7 +329,7 @@ public class World {
     }
 
     public static void onUpdate(Camera cam) {
-        int camXDivided = (int) Math.round(-cam.getX() / BLOCK_SIZE());
+    	int camXDivided = (int) Math.round(-cam.getX() / BLOCK_SIZE());
         int camYDivided = (int) Math.round(-cam.getY() / BLOCK_SIZE());
         
         int camWidthDivided = (int) Math.round(cam.getWidth() / BLOCK_SIZE() + 2);
@@ -337,6 +337,9 @@ public class World {
 
         int mX = (int) Math.round(((Mouse.getTranslatedX() - BLOCK_SIZE() / 2) / BLOCK_SIZE()));
         int mY = (int) Math.round(((Mouse.getTranslatedY() - BLOCK_SIZE() / 2) / BLOCK_SIZE()));
+        
+        System.out.println("X" + (camXDivided - (camXDivided + camWidthDivided)));
+        System.out.println("Y" + (camYDivided - (camYDivided + camHeightDivided)));
         //Nice one
         if (Engine.isDevMode) {
             try {

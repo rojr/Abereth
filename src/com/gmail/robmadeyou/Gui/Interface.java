@@ -21,15 +21,15 @@ public class Interface {
 		 */
         visibleObjects.clear();
         for (Gui aGuiArray : guiArray) {
-            aGuiArray.onUpdate();
+            aGuiArray.update();
 
 			/*
 			 * Adding objects to visibleObjects array
 			 */
-            double x = aGuiArray.getX();
-            double y = aGuiArray.getY();
-            int width = aGuiArray.getWidth();
-            int height = aGuiArray.getHeight();
+            float x = aGuiArray.getX();
+            float y = aGuiArray.getY();
+            float width = aGuiArray.getWidth();
+            float height = aGuiArray.getHeight();
 
             double sX = 0;
             double sY = 0;

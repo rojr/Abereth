@@ -5,6 +5,7 @@ import com.gmail.robmadeyou.Entity.Npc;
 import com.gmail.robmadeyou.Entity.Player;
 import com.gmail.robmadeyou.Entity.Player.MovementType;
 import com.gmail.robmadeyou.Gui.Button;
+import com.gmail.robmadeyou.Gui.Gui;
 import com.gmail.robmadeyou.Gui.Interface;
 import com.gmail.robmadeyou.Gui.Text;
 import com.gmail.robmadeyou.Input.Keyboard;
@@ -17,10 +18,9 @@ import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.Target;
 import com.gmail.robmadeyou.World.Camera;
 
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 
 public class Camera_2 {
     public static void main(String[] args) {
@@ -29,8 +29,7 @@ public class Camera_2 {
 
         Screen.setUpWorld();
         
-        Button button = (Button) Interface.add(new Button("", 25, 50, 50, 50, 1));
-        button.useTranslate(true);
+        Button b = (Button)Interface.add(new Button(40, 40));
         
         Player player2 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
         player2.setFixedMovementType(MovementType.WASD_KEYS);
@@ -68,16 +67,15 @@ public class Camera_2 {
         
         
         
-        
-        
         boolean camsCreated = false;
         while (!Screen.isAskedToClose()) {
-        	
             //Updating the screen. the maximum frame rate is 60.
             Screen.update(60);
             enemy.setColor(Color.White);
             enemy.setTexture(Textures.test);
-            
+            if(b.isMouseOver()){
+            	System.out.println("YAAY!");
+            }
             if(Keyboard.isKeyDown(Keyboard.Key.A)){
             	animTest.setInvert(true);
             }else{
@@ -99,9 +97,6 @@ public class Camera_2 {
             	Engine.addNewItem(new Item(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 16, 16,1, Textures.ITEM_TEST));
             }
 
-            if (button.isReleased()) {
-                System.out.println("Magic");
-            }
             //Refreshing the screen
             Screen.refresh();
         }

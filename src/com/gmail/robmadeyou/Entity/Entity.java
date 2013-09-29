@@ -10,9 +10,10 @@ public abstract class Entity extends Drawable{
     protected Vector2f location, dimensions, direction, origLoc, origDim, origDir;
     private double x, y, dX, dY, speed, originalSpeed = 1,
             originalX, originalY, originalDX, originalDY;
-    private int number, h, w, originalW, originalH, layer;
+    private int number, h, w, originalW, originalH;
     private boolean wasUpdated = false;
     private boolean isOnScreen = false;
+    private int health;
 
     public Entity(float x, float y, float width, float height) {
     	super(new Vector2f(), new Vector2f());
@@ -26,7 +27,7 @@ public abstract class Entity extends Drawable{
         origLoc = location;
         origDim = dimensions;
         origDir = new Vector2f();
-        
+        health = 1;
     }
 
     public int getNumber() {
@@ -100,11 +101,14 @@ public abstract class Entity extends Drawable{
     public float getHeight() {
         return dimensions.y;
     }
-
-    public void setLayer(int layer) {
-        this.layer = layer;
+    public int getHealth(){
+    	return health;
     }
 
+    public void setHealth(int health){
+    	this.health = health;
+    }
+    
     public void setOriginalWidth(int w) {
         origDim.x = w;
     }
@@ -169,10 +173,6 @@ public abstract class Entity extends Drawable{
     	return wasUpdated;
     }
 
-    public int getLayer() {
-        return layer;
-    }
-
     public Entity getType() {
         return this;
     }
@@ -203,6 +203,10 @@ public abstract class Entity extends Drawable{
     }
 
     public void removeEffectFromBlock(Block type) {
+    }
+    
+    protected void backgroundRender(){
+    	updateDrawValues(location, dimensions);
     }
 
     public abstract void update();

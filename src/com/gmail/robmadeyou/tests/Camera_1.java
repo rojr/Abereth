@@ -28,8 +28,6 @@ public class Camera_1 {
         Screen.create(400, 400, "Our Screen", GameType.RPG_STYLE, false);
         Screen.setWorldDimensionsInBlocks(01, 010);
         Screen.setUpWorld();
-        Button button = (Button) Interface.add(new Button("", 25, 50, 50, 50, 1));
-        button.useTranslate(true);
         
         Player player2 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
         player2.setFixedMovementType(MovementType.WASD_KEYS);
@@ -86,10 +84,6 @@ public class Camera_1 {
             }
             if(Mouse.leftMouseButtonPressed){
             	Engine.addNewItem(new Item(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 16, 16,1, Textures.ITEM_TEST));
-            }
-
-            if (button.isReleased()) {
-                System.out.println("Magic");
             }
             //Refreshing the screen
             Screen.refresh();

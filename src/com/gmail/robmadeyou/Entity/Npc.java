@@ -31,7 +31,6 @@ public class Npc extends Entity {
     private boolean usingLogic = false;
     private double jumpDY = 0;
     private double finalJumpDY = 7;
-    private int layer = 0;
     private int delta;
     private Color color;
     private double speedDecrease;
@@ -73,22 +72,6 @@ public class Npc extends Entity {
         this.number = number;
     }
 
-    public void setWidth(int w) {
-        this.width = w;
-    }
-
-    public void setHeight(int h) {
-        this.height = h;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
     public void setDX(double dX) {
         this.dX = dX;
     }
@@ -100,10 +83,6 @@ public class Npc extends Entity {
     public void setSpeed(double speed) {
         this.speed = speed;
         this.speedDecrease = speed * 0.8;
-    }
-
-    public void setLayer(int layer) {
-        this.layer = layer;
     }
 
     public void setColor(Color color) {
@@ -128,10 +107,6 @@ public class Npc extends Entity {
 
     public double getSpeed() {
         return speed;
-    }
-
-    public int getLayer() {
-        return layer;
     }
 
     public Color getColor() {
@@ -350,7 +325,7 @@ public class Npc extends Entity {
     	DrawParameters p = new DrawParameters("box", x, y, width, height);
     		p.setTextureID(texture);
     		p.setColor(color);
-    		p.setLayer(layer);
+    		p.setLayer(getLayer());
     		p.setUseTranslate(true);
         isOnScreen(Collector.add(p));
     }

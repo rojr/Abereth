@@ -34,12 +34,9 @@ public class Player extends Entity{
     private boolean textureInverts = false;
     private double jumpDY = 0;
     private boolean hasClicked;
-    private int amountOfHealth;
     private double finalJumpDY = 7;
     private boolean isMoving = false;
     private boolean hasEffectTakenPlace = false, hasEffectBeenRemoved = true;
-    private boolean isSolidLeft = false, isSolidRight = false, isSolidAbove = false, isSolidBelow = false;
-    private int layer;
     private Npc targetedEnemy;
     /*
      * Direction is as shown:
@@ -87,15 +84,6 @@ public class Player extends Entity{
         isInAir = false;
         isCrouching = false;
         hasClicked = false;
-        layer = 0;
-    }
-
-    public void setHealth(int amount) {
-        this.amountOfHealth = amount;
-    }
-
-    public void setLayer(int layer) {
-        this.layer = layer;
     }
 
     public void setDX(double dX) {
@@ -145,14 +133,6 @@ public class Player extends Entity{
 
     public void setTextureInverts(boolean args){
     	this.textureInverts = args;
-    }
-
-    public int getHealth() {
-        return amountOfHealth;
-    }
-
-    public int getLayer() {
-        return layer;
     }
 
     public int getNumber() {
@@ -265,9 +245,6 @@ public class Player extends Entity{
             direction = 3;
             if (!World.isSolidLeft(this)) {
                 setX((getX() - (delta * (speed - speedDecrease))));
-                isSolidLeft = false;
-            } else {
-                isSolidLeft = true;
             }
             if (getX() < 0) {
                 setX(0);
@@ -289,9 +266,6 @@ public class Player extends Entity{
             direction = 1;
             if (!World.isSolidRight(this)) {
                 setX((getX() + (delta * (speed - speedDecrease))));
-                isSolidRight = false;
-            } else {
-                isSolidRight = true;
             }
         }
 			/*
@@ -311,19 +285,13 @@ public class Player extends Entity{
                     if (!isJumping) {
                         isJumping = true;
                         jumpDY = finalJumpDY;
-                        isSolidAbove = false;
                     }
-                } else {
-                    isSolidAbove = true;
                 }
             }
             if (Screen.TypeOfGame == GameType.RPG_STYLE) {
                 direction = 0;
                 if (!World.isSolidAbove(this) && getY() > 0) {
                     setY((float) (getY() - (delta * (speed - speedDecrease))));
-                    isSolidAbove = false;
-                } else {
-                    isSolidAbove = true;
                 }
                 if (getY() < 0) {
                     setY(0);
@@ -348,12 +316,9 @@ public class Player extends Entity{
             if (Screen.TypeOfGame == GameType.RPG_STYLE) {
                 direction = 2;
                 if (!World.isSolidUnder(this)) {
-                    isSolidBelow = false;
                     if (getY() + getHeight() < World.getWorldHeightInPixels()) {
                         setY((getY() + (delta * (speed - speedDecrease))));
                     }
-                } else {
-                    isSolidBelow = true;
                 }
                 if (getY() + getHeight() > World.getWorldHeightInPixels()) {
                     setY(World.getWorldHeightInPixels() - getHeight());
@@ -383,6 +348,8 @@ public class Player extends Entity{
     }
 
     public void onUpdate(int delta) {
+    	update();
+    	backgroundRender();
         isMoving = Keyboard.isKeyDown(getLeftKey(movementType)) || Keyboard.isKeyDown(getRightKey(movementType));
         if (Screen.TypeOfGame == GameType.SIDE_SCROLLER) {
             if (getY() < 0) {
@@ -399,11 +366,8 @@ public class Player extends Entity{
                     jumpDY = 0;
                 }
                 if (World.isSolidAbove(this)) {
-                    isSolidAbove = true;
                     isJumping = true;
                     isInAir = true;
-                } else {
-                    isSolidAbove = false;
                 }
             }
 
@@ -414,11 +378,9 @@ public class Player extends Entity{
                 jumpDY = 0;
             }
             if (World.isSolidUnder(this)) {
-                isSolidBelow = true;
                 isJumping = false;
                 jumpDY = 0;
             } else {
-                isSolidBelow = false;
                 this.removeEffectFromBlock(World.blockList.getBlock(World.blockEffectX, World.blockEffectY).getType());
             }
             if (isCrouching) {
@@ -510,14 +472,14 @@ public class Player extends Entity{
             float height2 = targetedEnemy.getHeight();
             DrawParameters p = new DrawParameters("box", x2, y2, width2, height2);
             	p.setColor(Color.Red);
-            	p.setLayer(layer);
+            	p.setLayer(getLayer());
             	p.setUseTranslate(true);
             Collector.add(p);
         }
         DrawParameters p = new DrawParameters("box", getX(), getY(), getWidth(), getHeight());
         	p.setTextureID(texture);
         	p.setColor(color);
-        	p.setLayer(layer);
+        	p.setLayer(getLayer());
         	p.setUseTranslate(true);
         	p.setInverts(textureInverts);
         isOnScreen(Collector.add(p));
@@ -534,7 +496,5 @@ public class Player extends Entity{
         }
     }
     
-	public void update() {
-
-	}
+	public void update() {}
 }
