@@ -64,7 +64,7 @@ public class Mouse {
     		float sH = Engine.cameraList.get(i).getHeight();
     		
     		if(x >= sX && x <= sX + sW && y >= sY && y <= sY + sH){
-    			return y - sH;
+    			return y - sY;
     		}
     	}
         return y;

@@ -8,7 +8,7 @@ import com.gmail.robmadeyou.Effects.TextureLoader;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Text {
+public class Text{
 
     private static char letters[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
             'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',

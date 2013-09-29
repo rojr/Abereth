@@ -73,7 +73,7 @@ public abstract class Gui extends Drawable{
 	public boolean isMouseOver(){
         float mX = 0;
         float mY = 0;
-        if(getUseTranslate()){
+        if(!getUseTranslate()){
         	mX = Mouse.getTranslatedX();
             mY = Mouse.getTranslatedY();
         }else{

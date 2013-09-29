@@ -214,14 +214,11 @@ public class Screen {
         delta = getDelta();
         Engine.islmbpThisTick = false;
         Engine.isrmbpThisTick = false;
-
-        Interface.onUpdate();
-
         
         Mouse.onUpdate();
         
         Engine.update(delta);
-        
+        Interface.onUpdate();
         if (Keyboard.isKeyPressed(Key.Grave)) {
             detailsActive = !detailsActive;
         }

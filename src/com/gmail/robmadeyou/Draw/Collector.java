@@ -30,6 +30,7 @@ public class Collector {
     	/*
     	 * This is to make sure the graphic is in bounds when added, otherwise if it's not it won't add it
     	 */
+    	drawArrayUnsorted.add(p);
     	for(Camera cam : Engine.cameraList){
     		double tX = cam.getX();
         	double tY = cam.getY();
@@ -49,7 +50,7 @@ public class Collector {
             boolean four = eX >= -tX && eX <= -tX + cW &&
                     eY + eH >= -tY && eY + eH <= -tY + cH;
             if (one || two || three || four || !p.useTranslate) {
-                drawArrayUnsorted.add(p);
+                
                 return true;
             }
         }

@@ -1,4 +1,7 @@
 package com.gmail.robmadeyou.tests;
+import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
+import com.gmail.robmadeyou.Draw.Collector;
+import com.gmail.robmadeyou.Draw.Line;
 import com.gmail.robmadeyou.Effects.*;
 import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Entity.Npc;
@@ -24,12 +27,10 @@ import javax.swing.JOptionPane;
 
 public class Camera_2 {
     public static void main(String[] args) {
-        Screen.create(800, 700, "Our Screen", GameType.RPG_STYLE, false);
+        Screen.create(800, 700, "Our Screen", GameType.SIDE_SCROLLER, false);
         Screen.setWorldDimensionsInBlocks(-0, 0);
 
         Screen.setUpWorld();
-        
-        Button b = (Button)Interface.add(new Button(40, 40));
         
         Player player2 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
         player2.setFixedMovementType(MovementType.WASD_KEYS);
@@ -56,27 +57,21 @@ public class Camera_2 {
         Animate animTest = new Animate(listOfTextures, 20, 0, true);
         Layer.addLayer(3);
         
-        Camera cam = Engine.addNewCamera(new Camera(0, 0, 0, 0, Screen.getWidth() / 2, Screen.getHeight()));
-        cam.setFollowingTarget(true);
-        cam.setTarget(new Target(player2));
-        
         Camera cam2 = Engine.addNewCamera(new Camera(Screen.getWidth() / 2, 0, 0, 0, Screen.getWidth() / 2, Screen.getHeight()));
         cam2.setFollowingTarget(true);
         cam2.setTarget(new Target(player3));
         
-        
-        
+        Camera cam = Engine.addNewCamera(new Camera(0, 0, 0, 0, Screen.getWidth() / 2, Screen.getHeight()));
+        cam.setFollowingTarget(true);
+        cam.setTarget(new Target(player2));
         
         boolean camsCreated = false;
         while (!Screen.isAskedToClose()) {
             //Updating the screen. the maximum frame rate is 60.
-        	System.out.println(Mouse.getX());
             Screen.update(60);
             enemy.setColor(Color.White);
             enemy.setTexture(Textures.test);
-            if(b.isMouseOver()){
-            	System.out.println("YAAY!");
-            }
+          
             if(Keyboard.isKeyDown(Keyboard.Key.A)){
             	animTest.setInvert(true);
             }else{
@@ -99,6 +94,9 @@ public class Camera_2 {
             }
 
             //Refreshing the screen
+            DrawParameters p = new DrawParameters("line", Screen.getWidth() / 2, 0, Screen.getWidth() / 2, Screen.getHeight());
+            p.setLayer(Layer.GUILayer());
+            Collector.add(p);
             Screen.refresh();
         }
         Screen.destroy();

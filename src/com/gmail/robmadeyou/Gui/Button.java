@@ -7,19 +7,13 @@ import com.gmail.robmadeyou.Input.Mouse;
 
 
 public class Button extends Gui {
-    private boolean useTranslate;
     private boolean isPressed, isReleased, isOver;
     private String state;
 
     public Button(float x, float y) {
     	super(x,y);
-        this.useTranslate = false;
     }
 
-    public void useTranslate(boolean args) {
-        this.useTranslate = args;
-    }
-    
     public String getState() {
         return state;
     }
