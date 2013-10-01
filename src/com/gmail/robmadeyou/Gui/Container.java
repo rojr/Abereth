@@ -1,39 +1,40 @@
 package com.gmail.robmadeyou.Gui;
 
-public class Container implements Gui{
+public class Container extends Gui {
 
 	
 	private double x, y, w, h;
-	public Container(double x, double y, double width, double height){
-		this.x = x;
+	public Container(float x, float y){
+        super(x, y);
+        this.x = x;
 		this.y = y;
-		this.w = width;
-		this.h = height;
+		this.w = 50;
+		this.h = 50;
 	}
 	
 	
 	@Override
-	public void setX(double x) {
+	public Gui setX(float x) {
 		// TODO Auto-generated method stub
-		
+		 return null;
 	}
 
 	@Override
-	public void setY(double y) {
+	public Gui setY(float y) {
 		// TODO Auto-generated method stub
-		
+		 return null;
 	}
 
 	@Override
-	public void setWidth(int width) {
+	public Gui setWidth(float width) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void setHeight(int height) {
+	public Gui setHeight(float height) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
@@ -43,9 +44,9 @@ public class Container implements Gui{
 	}
 
 	@Override
-	public void setState(String state) {
+	public Gui setState(String state) {
 		// TODO Auto-generated method stub
-		
+		 return null;
 	}
 
 	@Override
@@ -54,34 +55,37 @@ public class Container implements Gui{
 		
 	}
 
-	@Override
-	public double getX() {
-		// TODO Auto-generated method stub
-		return 0;
+    @Override
+    public void draw() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+	public float getX() {
+		return super.getDrawX();
 	}
 
 	@Override
-	public double getY() {
-		// TODO Auto-generated method stub
-		return 0;
+	public float getY() {
+		return super.getDrawY();
 	}
 
 	@Override
-	public int getWidth() {
+	public float getWidth() {
 		// TODO Auto-generated method stub
-		return 0;
+		return super.getDrawWidth();
 	}
 
 	@Override
-	public int getHeight() {
+	public float getHeight() {
 		// TODO Auto-generated method stub
-		return 0;
+		return super.getDrawHeight();
 	}
 
 	@Override
 	public int getLayer() {
 		// TODO Auto-generated method stub
-		return 0;
+		return super.getLayer();
 	}
 
 	@Override

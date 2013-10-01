@@ -87,7 +87,7 @@ public abstract class Drawable {
 	public void setUseTranslate(boolean args){
 		this.useTranslate = args;
 	}
-	
+
 	
 	/*
 	 * Casuals
