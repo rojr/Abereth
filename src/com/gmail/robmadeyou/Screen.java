@@ -42,6 +42,7 @@ public class Screen {
     private static int fps = 0;
     public static int actualFps = 0;
     public static int delta = getDelta();
+    public static boolean applet = false;
 
     private static void updateFPS() {
         if (getTime() - lastFPS > 1000) {
@@ -60,6 +61,9 @@ public class Screen {
 
     public static void toggleVSync() {
         vSync = !vSync;
+    }
+    public static void useApplet(boolean args){
+    	applet = args;
     }
 
     public static void changeGameMode(GameType type) {
@@ -120,25 +124,27 @@ public class Screen {
     public static void create(int dimensionX, int dimensionY, String name, GameType typeOfGame, boolean Minimalistic) {
         long startTimer = getTime();
         TypeOfGame = typeOfGame;
-        try {
-            /*
-			 * Here the Display that we are going to be using is created with the 
-			 * dimensions called in the parameters when the method was called
-			 */
-            Display.setDisplayMode(new DisplayMode(dimensionX, dimensionY));
-			/*
-			 * Sets the title of the Display to be what ever the parameter in the method
-			 */
-            Display.setTitle(name);
-            Display.create();
-            Display.setResizable(false);
+        if(!applet){
+        	try {
+            	/*
+			 	* Here the Display that we are going to be using is created with the 
+			 	* dimensions called in the parameters when the method was called
+			 	*/
+            	Display.setDisplayMode(new DisplayMode(dimensionX, dimensionY));
+				/*
+			 	* Sets the title of the Display to be what ever the parameter in the method
+			 	*/
+            	Display.setTitle(name);
+            	Display.create();
+            	Display.setResizable(false);
 
-        }
-		/*
-		 * Catching an exception in case a Display has already been created or some other error.
-		 */ catch (LWJGLException e) {
-            e.printStackTrace();
-            System.out.println("Error. Unable to create a Display");
+        	}
+			/*
+		 	* Catching an exception in case a Display has already been created or some other error.
+		 	*/ catch (LWJGLException e) {
+			 e.printStackTrace();
+            	System.out.println("Error. Unable to create a Display");
+		 }
         }
         lastFPS = getTime();
         if (!Minimalistic) {
