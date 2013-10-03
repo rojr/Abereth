@@ -1,5 +1,6 @@
 package com.gmail.robmadeyou.Draw;
 
+import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
 import com.gmail.robmadeyou.Effects.Color;
 import com.gmail.robmadeyou.Effects.Textures;
 import com.gmail.robmadeyou.Screen;
@@ -11,19 +12,20 @@ public class Render {
      * This method renders everything that is in the sorted array in order of layers, this gives the effect of having things in front of other things and behind certain others
      */
     public static void renderAll(double startX, double startY, double camX, double camY, double camWidth, double camHeight) {
-        for (int i = 0; i < Collector.drawArraySorted.size(); i++) {
+        for (int i = 0; i < Collector.drawArray.size(); i++) {
+        	for(DrawParameters p : Collector.drawArray.get(i).getList()){
             //Initializes all the variables used for rendering afterwards
              
-            double x = Collector.drawArraySorted.get(i).getX();
-            double y = Collector.drawArraySorted.get(i).getY();
-            double width = Collector.drawArraySorted.get(i).getWidth();
-            double height = Collector.drawArraySorted.get(i).getHeight();
-            int texID = Collector.drawArraySorted.get(i).getTextureID();
-            String type = Collector.drawArraySorted.get(i).getType();
-            Color color = Collector.drawArraySorted.get(i).getColor();
-            Float opacity = Collector.drawArraySorted.get(i).getOpacity();
-            boolean inverts = Collector.drawArraySorted.get(i).getInverts();
-            boolean useTranslate = Collector.drawArraySorted.get(i).useTranslate();
+            double x = p.getX();
+            double y = p.getY();
+            double width = p.getWidth();
+            double height = p.getHeight();
+            int texID = p.getTextureID();
+            String type = p.getType();
+            Color color = p.getColor();
+            Float opacity = p.getOpacity();
+            boolean inverts = p.getInverts();
+            boolean useTranslate = p.useTranslate();
             //A check is done if the objects are in bounds of the camera
             boolean one = x >= -camX && x <= -camX + camWidth &&
                     y >= -camY && y <= -camY + camHeight;
@@ -37,7 +39,7 @@ public class Render {
             if (one || two || three || four || !useTranslate) {
                 Textures.none.bind();
                 color.bind(opacity);
-                if (Collector.drawArraySorted.get(i).useTranslate()) {
+                if (p.useTranslate()) {
                     glPushMatrix();
                     glTranslated(camX, camY, 0);
                 }
@@ -51,10 +53,11 @@ public class Render {
                 } else if (type.toLowerCase().equals("line")) {
                     Line.drawLine((float) x, (float) y, (float) width, (float) height);
                 }
-                if (Collector.drawArraySorted.get(i).useTranslate()) {
+                if (p.useTranslate()) {
                     glPopMatrix();
                 }
             }
+        	}
         }
     }
 }

@@ -227,11 +227,10 @@ public class Screen {
         if (Keyboard.isKeyPressed(Key.Grave)) {
             detailsActive = !detailsActive;
         }
-        Display.sync(60);
+        Display.sync(rate);
     }
 
     public static void refresh() {
-        Collector.organize();
         Engine.updateAllCameras();
         Collector.clear();
         Display.update();

@@ -5,11 +5,15 @@ import com.gmail.robmadeyou.World.Camera;
 import com.gmail.robmadeyou.Engine;
 import com.gmail.robmadeyou.Layer;
 
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Collector {
 
     static ArrayList<DrawParameters> drawArraySorted = new ArrayList<DrawParameters>();
+    
+    public static ArrayList<Layer> drawArray = new ArrayList<Layer>();
     //TODO add arrays within arrays, where each array has a specified layer
     /*
      * This will save some performance as when rendering lots of objects at the same time the engine will not have
@@ -50,8 +54,24 @@ public class Collector {
             boolean four = eX >= -tX && eX <= -tX + cW &&
                     eY + eH >= -tY && eY + eH <= -tY + cH;
             if (one || two || three || four || !p.useTranslate) {
-            	drawArrayUnsorted.add(p);
-                return true;
+            	int layer = p.getLayer();
+            	for(Layer l : drawArray){
+            		if(l.getNumber() == layer){
+            			l.add(p);
+            			return true;
+            		}
+            	}
+            	drawArray.add(new Layer(layer));
+            	Layer[] temp = new Layer[drawArray.size()];
+            	for(int i = 0; i < drawArray.size(); i++){
+        			temp[i] = drawArray.get(i);
+        		}
+            	Arrays.sort(temp);
+            	for(int i = 0; i < drawArray.size(); i++){
+        			drawArray.set(i, temp[i]);
+        		}
+            	return true;
+            	//drawArrayUnsorted.add(p)
             }
         }
     	return false;
@@ -83,8 +103,9 @@ public class Collector {
      * Clears both array lists that hold all the draw calls
      */
     public static void clear() {
-        drawArraySorted.clear();
-        drawArrayUnsorted.clear();
+        for(Layer l : drawArray){
+        	l.clear();
+        }
     }
 
     

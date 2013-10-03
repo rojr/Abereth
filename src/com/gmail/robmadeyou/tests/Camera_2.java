@@ -29,7 +29,7 @@ public class Camera_2 {
     public static void main(String[] args) {
         Screen.create(800, 700, "Our Screen", GameType.SIDE_SCROLLER, false);
         Screen.setWorldDimensionsInBlocks(-0, 0);
-
+        
         Screen.setUpWorld();
         
         Player player2 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
@@ -50,7 +50,6 @@ public class Camera_2 {
         //MessageArea.setUp(0, 400, 800, 200);
         //MessageArea.setUpTextStart(20, 420);
 
-
         ArrayList<Integer> listOfTextures = new ArrayList<Integer>();
         listOfTextures.add(TextureLoader.createTexture("res/sheet01.png", 192, 64, 32, 32));
         listOfTextures.add(TextureLoader.createTexture("res/sheet01.png", 224, 64, 32, 32));
@@ -66,6 +65,11 @@ public class Camera_2 {
         cam.setTarget(new Target(player2));
         
         boolean camsCreated = false;
+        
+        
+        for(int i = 0; i < 1000; i++){
+        	Engine.addNewItem(new Item(0,0, 32, 32));
+        }
         while (!Screen.isAskedToClose()) {
             //Updating the screen. the maximum frame rate is 60.
             Screen.update(60);
