@@ -27,8 +27,8 @@ import javax.swing.JOptionPane;
 
 public class Camera_2 {
     public static void main(String[] args) {
-        Screen.create(800, 700, "Our Screen", GameType.SIDE_SCROLLER, false);
-        Screen.setWorldDimensionsInBlocks(-0, 0);
+        Screen.create(300, 738, "Our Screen", GameType.SIDE_SCROLLER, false);
+        Screen.setWorldDimensionsInBlocks(0, 0);
         
         Screen.setUpWorld();
         
@@ -75,7 +75,7 @@ public class Camera_2 {
             Screen.update(60);
             enemy.setColor(Color.White);
             enemy.setTexture(Textures.test);
-          
+            System.out.println(Screen.getWidth());
             if(Keyboard.isKeyDown(Keyboard.Key.A)){
             	animTest.setInvert(true);
             }else{

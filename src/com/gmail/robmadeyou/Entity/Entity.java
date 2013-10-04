@@ -15,6 +15,7 @@ public abstract class Entity extends Drawable{
     private boolean wasUpdated = false;
     private boolean isOnScreen = false;
     private int health;
+    private float speedDecrease;
 
     public Entity(float x, float y, float width, float height) {
     	super(new Vector2f(), new Vector2f());
@@ -29,6 +30,7 @@ public abstract class Entity extends Drawable{
         origDim = dimensions;
         origDir = new Vector2f();
         health = 1;
+        speedDecrease = speed *= 0.8;
     }
 
     public int getNumber() {
@@ -65,6 +67,10 @@ public abstract class Entity extends Drawable{
 
     public void setSpeed(float speed) {
         this.speed = speed;
+        this.speedDecrease = speed *= 0.8;
+    }
+    public void setSpeedDecrease(float speed){
+    	this.speedDecrease = speed;
     }
 
     public float getX() {
@@ -89,6 +95,9 @@ public abstract class Entity extends Drawable{
 
     public float getSpeed() {
         return speed;
+    }
+    public float getSpeedDecrease(){
+    	return speedDecrease;
     }
     
     public void isOnScreen(boolean args){

@@ -76,28 +76,6 @@ public class Collector {
         }
     	return false;
     }
-    /**
-     * <b>
-     * !!It is advised against to call this more than once per tick as it would cause serious
-     * performance issues!!
-     * </b>
-     * <br>
-     * This method organises the unsorted array list into a sorted one that is later taken in for rendering
-     */
-    public static void organize() {
-        int currentLayer = 0;
-        while (drawArrayUnsorted.size() != drawArraySorted.size()) {
-            for (DrawParameters aDrawArrayUnsorted : drawArrayUnsorted) {
-                if (aDrawArrayUnsorted.getLayer() == currentLayer) {
-                    drawArraySorted.add(aDrawArrayUnsorted);
-                }
-            }
-            currentLayer++;
-            if (currentLayer > Layer.layers) {
-                break;
-            }
-        }
-    }
 
     /**
      * Clears both array lists that hold all the draw calls

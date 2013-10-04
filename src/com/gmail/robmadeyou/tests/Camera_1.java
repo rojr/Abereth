@@ -17,6 +17,7 @@ import com.gmail.robmadeyou.Object.Item;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.Target;
 import com.gmail.robmadeyou.World.Camera;
+import com.gmail.robmadeyou.World.World;
 
 import java.util.ArrayList;
 
@@ -25,8 +26,8 @@ public class Camera_1 {
     
 	public static void main(String[] args) {
 
-        Screen.create(400, 400, "Our Screen", GameType.RPG_STYLE, false);
-        Screen.setWorldDimensionsInBlocks(01, 010);
+        Screen.create(800, 800, "Our Screen", GameType.SIDE_SCROLLER, false);
+        Screen.setWorldDimensionsInBlocks(100, 100);
         Screen.setUpWorld();
         
         Player player2 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
@@ -34,7 +35,8 @@ public class Camera_1 {
         
         Player player3 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
         player3.setFixedMovementType(MovementType.ARROW_KEYS);
-        
+        player2.setSpeed(5);
+        World.gravity(200);
         Npc enemy = new Npc(32, 40, 32, 32);
         enemy.setLogic(true);
         enemy.setTargetPlayer(player2);

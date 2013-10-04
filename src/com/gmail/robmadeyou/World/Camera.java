@@ -11,6 +11,7 @@ public class Camera{
 	private float maxDistanceFromCamera = 10;
 	private boolean cameraBounds = true;
 	private String typeOfFollowing = "soft";
+	private float speed;
 	public Camera(float x, float y, float camX, float camY, float width, float height){
 		this.x = x;
 		this.y = y;
@@ -18,6 +19,7 @@ public class Camera{
 		this.camY = camY;
 		camWidth = width;
 		camHeight = height;
+		this.speed = 20;
 	}
 	public boolean getCameraBounds(){
 		return cameraBounds;
@@ -54,6 +56,9 @@ public class Camera{
 	public void setTypeOfFollowing(String type){
 		this.typeOfFollowing = type;
 	}
+	public void setFollowSpeed(float speed){
+		this.speed = speed;
+	}
 	
 	public void setMaxDistanceFromCamera(float dist){
 		this.maxDistanceFromCamera = dist;
@@ -77,6 +82,9 @@ public class Camera{
 	public boolean isFollowingTarget(){
 		return followingTarget;
 	}
+	public float getFollowSpeed(){
+		return speed;
+	}
 	
 	public void onUpdate(){
 		if(isFollowingTarget()){
@@ -86,6 +94,8 @@ public class Camera{
 				softMove();
 			}
 		}
+		Math.round(camX);
+		Math.round(camY);
 		if(cameraBounds){
 			if(camX > 0){
 				camX = 0;
@@ -130,7 +140,9 @@ public class Camera{
 		
 		float multiplier = biggest / maxDistanceFromCamera;
 		
-		float s = 3;//target.getSpeed() * ();
+		System.out.println("biggest" + biggest);
+		System.out.println("y" + toY);
+		float s = biggest / speed;//target.getSpeed() * ();
 		
 		double dX = s*Math.sin(tan);
 		double dY = s*Math.cos(tan);

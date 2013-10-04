@@ -137,6 +137,7 @@ public class Screen {
             	Display.setTitle(name);
             	Display.create();
             	Display.setResizable(false);
+            	
 
         	}
 			/*
@@ -221,6 +222,10 @@ public class Screen {
         Engine.isrmbpThisTick = false;
         
         Mouse.onUpdate();
+        
+        if(Display.wasResized()){
+        	
+        }
         
         Engine.update(delta);
         Interface.onUpdate();

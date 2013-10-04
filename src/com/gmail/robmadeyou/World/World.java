@@ -311,7 +311,7 @@ public class World {
                 } else {
                     x = sX;
                 }
-
+                
                 int bX = blockList.getBlock(x, y).getX() * World.BLOCK_SIZE();
                 int bY = blockList.getBlock(x, y).getY() * World.BLOCK_SIZE();
 
@@ -330,10 +330,10 @@ public class World {
 
     public static void onUpdate(Camera cam) {
     	int camXDivided = (int) Math.round(-cam.getX() / BLOCK_SIZE());
-        int camYDivided = (int) Math.round(-cam.getY() / BLOCK_SIZE());
+        int camYDivided = (int) Math.round(-cam.getY() / BLOCK_SIZE()-1);
         
-        int camWidthDivided = (int) Math.round(cam.getWidth() / BLOCK_SIZE() + 2);
-        int camHeightDivided = (int) Math.round(cam.getHeight() / BLOCK_SIZE() + 2);
+        int camWidthDivided = (int) Math.round(cam.getWidth() / BLOCK_SIZE() + 4);
+        int camHeightDivided = (int) Math.round(cam.getHeight() / BLOCK_SIZE() + 4);
 
         int mX = (int) Math.round(((Mouse.getTranslatedX() - BLOCK_SIZE() / 2) / BLOCK_SIZE()));
         int mY = (int) Math.round(((Mouse.getTranslatedY() - BLOCK_SIZE() / 2) / BLOCK_SIZE()));
@@ -344,6 +344,7 @@ public class World {
                 if (!Mouse.isOverGui) {
                     if (Mouse.leftMouseButtonDown) {
                         blockList.setBlock(new BlockStone(mX, mY));
+                        System.out.println(mY);
                     }
                     if (Mouse.rightMouseButtonDown) {
                         blockList.setBlock(new BlockAir(mX, mY));

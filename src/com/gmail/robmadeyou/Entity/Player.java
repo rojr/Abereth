@@ -24,9 +24,7 @@ public class Player extends Entity{
     private int crouchHeight;
     private int number;
     private int texture;
-    private double speed;
     private double originalSpeed;
-    private double speedDecrease;
     private boolean isJumping;
     private boolean isInAir;
     private boolean isCrouching;
@@ -69,15 +67,12 @@ public class Player extends Entity{
         vOrigDim.setY(height);
         //vDimensions.setX(width);
         //vDimensions.setY(height);
-        this.speed = 1;
         this.crouchHeight = (int) ((getY() / 4) * 3);
         this.upKey = Key.UpArrow;
         this.downKey = Key.DownArrow;
         this.rightKey = Key.RightArrow;
         this.leftKey = Key.LeftArrow;
         this.jumpDY = 0;
-        this.speedDecrease = speed * 0.8;
-        this.originalSpeed = speed;
         this.texture = -1;
         isJumping = false;
         isInAir = false;
@@ -97,17 +92,7 @@ public class Player extends Entity{
         this.texture = tex;
     }
 
-    public void setSpeed(double speed) {
-        this.speed = speed;
-        this.speedDecrease = speed * 0.8;
-        /*
-         * I was so stupid.. I did
-		 * this.speedDecrease = speed * speedDecrease
-		 *
-		 * I couldn't understand why the speed was inverting and increasing
-		 * every time I jumped. I'm honestly too stupid :s
-		 */
-    }
+    
 
     public void setFixedMovementType(MovementType type) {
         this.movementType = type;
@@ -235,7 +220,7 @@ public class Player extends Entity{
         if (Keyboard.isKeyDown(getLeftKey(movementType))) {//No need for lots and lots of lines of code! Yaay!
             direction = 3;
             if (!World.isSolidLeft(this)) {
-                setX((getX() - (delta * (speed - speedDecrease))));
+                setX((getX() - (delta * (getSpeed() - getSpeedDecrease()))));
             }
             if (getX() < 0) {
                 setX(0);
@@ -256,7 +241,7 @@ public class Player extends Entity{
         if (Keyboard.isKeyDown(getRightKey(movementType))) {
             direction = 1;
             if (!World.isSolidRight(this)) {
-                setX((getX() + (delta * (speed - speedDecrease))));
+                setX((getX() + (delta * (getSpeed() - getSpeedDecrease()))));
             }
         }
 			/*
@@ -282,7 +267,7 @@ public class Player extends Entity{
             if (Screen.TypeOfGame == GameType.RPG_STYLE) {
                 direction = 0;
                 if (!World.isSolidAbove(this) && getY() > 0) {
-                    setY((float) (getY() - (delta * (speed - speedDecrease))));
+                    setY((float) (getY() - (delta * (getSpeed() - getSpeedDecrease()))));
                 }
                 if (getY() < 0) {
                     setY(0);
@@ -308,7 +293,7 @@ public class Player extends Entity{
                 direction = 2;
                 if (!World.isSolidUnder(this)) {
                     if (getY() + getHeight() < World.getWorldHeightInPixels()) {
-                        setY((getY() + (delta * (speed - speedDecrease))));
+                        setY((getY() + (delta * (getSpeed() - getSpeedDecrease()))));
                     }
                 }
                 if (getY() + getHeight() > World.getWorldHeightInPixels()) {
