@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
 
 public class Camera_2 {
     public static void main(String[] args) {
-        Screen.create(300, 738, "Our Screen", GameType.RPG_STYLE, false);
+        Screen.create(300, 738, "Our Screen", GameType.SIDE_SCROLLER, false);
         Screen.setWorldDimensionsInBlocks(0,0);
         
         Screen.setUpWorld();

@@ -7,7 +7,7 @@ import com.gmail.robmadeyou.Input.Mouse;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.World.World;
 
-public class Item extends Object{
+public class Item extends EObject{
     private int id;
     private boolean wasPressed = false;
     //private Container inGui = null;

@@ -7,12 +7,12 @@ import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Input.Mouse;
 import com.gmail.robmadeyou.World.World;
 
-public abstract class Object extends Drawable{
+public abstract class EObject extends Drawable{
 
 	
 	private Vector2f coord = new Vector2f(), dimension = new Vector2f(); 
 	private String state;
-	public Object(float x, float y) {
+	public EObject(float x, float y) {
 		super(new Vector2f(), new Vector2f());
 		this.coord.x = x;
 		this.coord.y = y;
@@ -46,24 +46,24 @@ public abstract class Object extends Drawable{
 	 * Setters
 	 */
 	
-	public Object setX(float x){
+	public EObject setX(float x){
 		setDrawX(x);
 		return this;
 	}
-	public Object setY(float y){
+	public EObject setY(float y){
 		setDrawY(y);
 		return this;
 	}
-	public Object setWidth(float width){
+	public EObject setWidth(float width){
 		setDrawWidth(width);
 		return this;
 	}
-	public Object setHeight(float height){
+	public EObject setHeight(float height){
 		setDrawHeight(height);
 		return this;
 	}
 	
-	public Object setState(String state){
+	public EObject setState(String state){
 		this.state = state;
 		return this;
 	}
