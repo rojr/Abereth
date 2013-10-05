@@ -9,6 +9,7 @@ import com.gmail.robmadeyou.Gui.MessageArea;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
+import com.gmail.robmadeyou.Physics.Physics;
 import com.gmail.robmadeyou.World.World;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.Screen.GameType;
@@ -219,7 +220,7 @@ public class Player extends Entity{
 		 	*/
         if (Keyboard.isKeyDown(getLeftKey(movementType))) {//No need for lots and lots of lines of code! Yaay!
             direction = 3;
-            if (!World.isSolidLeft(this)) {
+            if (!Physics.isSolidLeft(this)) {
                 setX((getX() - (delta * (getSpeed() - getSpeedDecrease()))));
             }
             if (getX() < 0) {
@@ -240,7 +241,7 @@ public class Player extends Entity{
 			 */
         if (Keyboard.isKeyDown(getRightKey(movementType))) {
             direction = 1;
-            if (!World.isSolidRight(this)) {
+            if (!Physics.isSolidRight(this)) {
                 setX((getX() + (delta * (getSpeed() - getSpeedDecrease()))));
             }
         }
@@ -266,7 +267,7 @@ public class Player extends Entity{
             }
             if (Screen.TypeOfGame == GameType.RPG_STYLE) {
                 direction = 0;
-                if (!World.isSolidAbove(this) && getY() > 0) {
+                if (!Physics.isSolidAbove(this) && getY() > 0) {
                     setY((float) (getY() - (delta * (getSpeed() - getSpeedDecrease()))));
                 }
                 if (getY() < 0) {
@@ -291,7 +292,7 @@ public class Player extends Entity{
             }
             if (Screen.TypeOfGame == GameType.RPG_STYLE) {
                 direction = 2;
-                if (!World.isSolidUnder(this)) {
+                if (!Physics.isSolidUnder(this)) {
                     if (getY() + getHeight() < World.getWorldHeightInPixels()) {
                         setY((getY() + (delta * (getSpeed() - getSpeedDecrease()))));
                     }

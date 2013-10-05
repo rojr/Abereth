@@ -27,14 +27,14 @@ import javax.swing.JOptionPane;
 
 public class Camera_2 {
     public static void main(String[] args) {
-        Screen.create(300, 738, "Our Screen", GameType.SIDE_SCROLLER, false);
-        Screen.setWorldDimensionsInBlocks(0, 0);
+        Screen.create(300, 738, "Our Screen", GameType.RPG_STYLE, false);
+        Screen.setWorldDimensionsInBlocks(0,0);
         
         Screen.setUpWorld();
         
         Player player2 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
         player2.setFixedMovementType(MovementType.WASD_KEYS);
-        
+        player2.setSpeed(3);
         Player player3 = (Player) Engine.addEntity(new Player(100, 32, 32, 32));
         player3.setFixedMovementType(MovementType.ARROW_KEYS);
         
@@ -56,9 +56,7 @@ public class Camera_2 {
         Animate animTest = new Animate(listOfTextures, 20, 0, true);
         Layer.addLayer(3);
         
-        Camera cam2 = Engine.addNewCamera(new Camera(Screen.getWidth() / 2, 0, 0, 0, Screen.getWidth() / 2, Screen.getHeight()));
-        cam2.setFollowingTarget(true);
-        cam2.setTarget(new Target(player3));
+     
         
         Camera cam = Engine.addNewCamera(new Camera(0, 0, 0, 0, Screen.getWidth() / 2, Screen.getHeight()));
         cam.setFollowingTarget(true);
@@ -66,10 +64,6 @@ public class Camera_2 {
         
         boolean camsCreated = false;
         
-        
-        for(int i = 0; i < 1000; i++){
-        	Engine.addNewItem(new Item(0,0, 32, 32));
-        }
         while (!Screen.isAskedToClose()) {
             //Updating the screen. the maximum frame rate is 60.
             Screen.update(60);

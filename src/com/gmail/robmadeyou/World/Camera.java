@@ -94,8 +94,6 @@ public class Camera{
 				softMove();
 			}
 		}
-		Math.round(camX);
-		Math.round(camY);
 		if(cameraBounds){
 			if(camX > 0){
 				camX = 0;
@@ -122,8 +120,6 @@ public class Camera{
 		
 		double tan = Math.atan2(toX,toY);
 		
-		float targetSpeed = target.getSpeed();
-		
 		if(toX < 0){
 			toX = -toX;
 		}
@@ -138,10 +134,6 @@ public class Camera{
 			biggest = toY;
 		}
 		
-		float multiplier = biggest / maxDistanceFromCamera;
-		
-		System.out.println("biggest" + biggest);
-		System.out.println("y" + toY);
 		float s = biggest / speed;//target.getSpeed() * ();
 		
 		double dX = s*Math.sin(tan);

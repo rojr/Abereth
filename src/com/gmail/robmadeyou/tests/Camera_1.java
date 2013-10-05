@@ -26,8 +26,8 @@ public class Camera_1 {
     
 	public static void main(String[] args) {
 
-        Screen.create(800, 800, "Our Screen", GameType.SIDE_SCROLLER, false);
-        Screen.setWorldDimensionsInBlocks(100, 100);
+        Screen.create(800, 800, "Our Screen", GameType.RPG_STYLE, false);
+        Screen.setWorldDimensionsInBlocks(50, 50);
         Screen.setUpWorld();
         
         Player player2 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
@@ -35,12 +35,12 @@ public class Camera_1 {
         
         Player player3 = (Player) Engine.addEntity(new Player(32, 32, 32, 32));
         player3.setFixedMovementType(MovementType.ARROW_KEYS);
-        player2.setSpeed(5);
+        player2.setSpeed(3);
         World.gravity(200);
         Npc enemy = new Npc(32, 40, 32, 32);
         enemy.setLogic(true);
         enemy.setTargetPlayer(player2);
-       Engine.addEntity(enemy);
+        Engine.addEntity(enemy);
 
         //Npc enemy2 = new Npc(20, 40, 32, 32);
         //Engine.addEntity(enemy2);
@@ -85,6 +85,11 @@ public class Camera_1 {
             }
             if(Mouse.leftMouseButtonPressed){
             	Engine.addNewItem(new Item(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 16, 16));
+            }
+            if(Keyboard.isKeyDown(Key.A)){
+            	player2.setTextureInverts(true);
+            }else if(Keyboard.isKeyDown(Key.D)){
+            	player2.setTextureInverts(false);
             }
             //Refreshing the screen
             Screen.refresh();

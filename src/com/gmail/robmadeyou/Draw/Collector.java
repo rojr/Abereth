@@ -184,6 +184,7 @@ public class Collector {
          * 
          */
         public void setInverts(boolean args) {
+        	this.inverts = args;
         }
         
         public String getType() {

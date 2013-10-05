@@ -8,9 +8,8 @@ import org.lwjgl.util.vector.Vector2f;
 public abstract class Entity extends Drawable{
 
     protected Vector2f location, dimensions, direction, origLoc, origDim, origDir;
-    private double x, y, dX, dY, originalSpeed = 1,
-            originalX, originalY, originalDX, originalDY;
     private float speed;
+    private float originalSpeed;
     private int number, h, w, originalW, originalH;
     private boolean wasUpdated = false;
     private boolean isOnScreen = false;
@@ -30,6 +29,7 @@ public abstract class Entity extends Drawable{
         origDim = dimensions;
         origDir = new Vector2f();
         health = 1;
+        speed = 1;
         speedDecrease = speed *= 0.8;
     }
 
@@ -143,7 +143,7 @@ public abstract class Entity extends Drawable{
         origDir.y = (float) dY;
     }
 
-    public void setOriginalSpeed(double speed) {
+    public void setOriginalSpeed(float speed) {
         this.originalSpeed = speed;
     }
     

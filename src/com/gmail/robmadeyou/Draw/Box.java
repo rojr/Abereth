@@ -1,7 +1,10 @@
 package com.gmail.robmadeyou.Draw;
 
+
 import com.gmail.robmadeyou.Effects.TextureLoader;
 import com.gmail.robmadeyou.Effects.Textures;
+import com.gmail.robmadeyou.Input.Keyboard;
+import com.gmail.robmadeyou.Input.Keyboard.Key;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -28,28 +31,27 @@ public class Box {
         float yPercent = (float) TextureLoader.TextureInfo.get(TextureID).getYPercent();
         float widthPercent = (float) TextureLoader.TextureInfo.get(TextureID).getWidthPercent();
         float heightPercent = (float) TextureLoader.TextureInfo.get(TextureID).getHeightPercent();
-
         if (inverts) {
             glBegin(GL_QUADS);
-            glTexCoord2f(xPercent + widthPercent, yPercent);
-            glVertex2f(x, y);
-            glTexCoord2f(xPercent, yPercent);
-            glVertex2f(x + width, y);
-            glTexCoord2f(xPercent, yPercent - heightPercent);
-            glVertex2f(x + width, y + height);
-            glTexCoord2f(xPercent + widthPercent, yPercent - heightPercent);
-            glVertex2f(x, y + height);
+            glTexCoord2d(xPercent + widthPercent, yPercent);
+            glVertex2d(x, y);
+            glTexCoord2d(xPercent, yPercent);
+            glVertex2d(x + width, y);
+            glTexCoord2d(xPercent, yPercent - heightPercent);
+            glVertex2d(x + width, y + height);
+            glTexCoord2d(xPercent + widthPercent, yPercent - heightPercent);
+            glVertex2d(x, y + height);
             glEnd();
         } else {
             glBegin(GL_QUADS);
-            glTexCoord2d(xPercent, yPercent);
-            glVertex2d(x, y);
-            glTexCoord2d(xPercent + widthPercent, yPercent);
-            glVertex2d(x + width, y);
-            glTexCoord2d(xPercent + widthPercent, yPercent - heightPercent);
-            glVertex2d(x + width, y + height);
-            glTexCoord2d(xPercent, yPercent - heightPercent);
-            glVertex2d(x, y + height);
+            glTexCoord2f(xPercent, yPercent);
+            glVertex2f(x, y);
+            glTexCoord2f(xPercent + widthPercent, yPercent);
+            glVertex2f(x + width, y);
+            glTexCoord2f(xPercent + widthPercent, yPercent - heightPercent);
+            glVertex2f(x + width, y + height);
+            glTexCoord2f(xPercent, yPercent - heightPercent);
+            glVertex2f(x, y + height);
             glEnd();
         }
     }
