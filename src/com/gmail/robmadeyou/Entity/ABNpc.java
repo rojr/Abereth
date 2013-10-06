@@ -19,7 +19,6 @@ import java.util.List;
 
 public class ABNpc extends ABEntity {
     public ArrayList<moveUpdate> MovementArray = new ArrayList<moveUpdate>();
-    private float x, y;
     private double dX, dY;
     private int number;
     private float width, height;
@@ -49,8 +48,6 @@ public class ABNpc extends ABEntity {
 
     public ABNpc(float x, float y, float width, float height) {
     	super(x,y,width,height);
-        this.x = x;
-        this.y = y;
         this.width = width;
         this.height = height;
         this.speed = 1;
@@ -103,8 +100,8 @@ public class ABNpc extends ABEntity {
     }
 
     public void onUpdate(int delta) {
-        cX = (int) Math.round(x / ABWorld.BLOCK_SIZE());
-        cY = (int) Math.round(y / ABWorld.BLOCK_SIZE());
+        cX = (int) Math.round(getX() / ABWorld.BLOCK_SIZE());
+        cY = (int) Math.round(getY() / ABWorld.BLOCK_SIZE());
         this.delta = delta;
         gameTypeLogic();
 
@@ -148,8 +145,8 @@ public class ABNpc extends ABEntity {
 
             List<ABBlock> resultList;
 
-            int sX = (int) Math.round(this.x / ABWorld.BLOCK_SIZE());
-            int sY = (int) Math.round(this.y / ABWorld.BLOCK_SIZE());
+            int sX = (int) Math.round(this.getX() / ABWorld.BLOCK_SIZE());
+            int sY = (int) Math.round(this.getY() / ABWorld.BLOCK_SIZE());
             int eX = (int) Math.round(targetPlayer.getX() / ABWorld.BLOCK_SIZE());
             int eY = (int) Math.round(targetPlayer.getY() / ABWorld.BLOCK_SIZE());
             ABBlock start = ABWorld.blockList.getBlock(sX, sY);
@@ -229,20 +226,20 @@ public class ABNpc extends ABEntity {
 
     public void moveLeft() {
         if (!ABWorld.isSolidLeft(this)) {
-            x -= (delta * (speed - speedDecrease));
+            setX(getX() - (delta * (speed - speedDecrease)));
         }
     }
 
     public void moveRight() {
         if (!ABWorld.isSolidRight(this)) {
-            x += (delta * (speed - speedDecrease));
+            setX(getX() + (delta * (speed - speedDecrease)));
         }
     }
 
     public void moveUp() {
         if (ABScreen.TypeOfGame != GameType.SIDE_SCROLLER) {
             if (!ABWorld.isSolidAbove(this)) {
-                y -= (delta * (speed - speedDecrease));
+                setY(getY() - (delta * (speed - speedDecrease)));
             }
         }
     }
@@ -250,7 +247,7 @@ public class ABNpc extends ABEntity {
     public void moveDown() {
         if (ABScreen.TypeOfGame != GameType.SIDE_SCROLLER) {
             if (!ABWorld.isSolidUnder(this)) {
-                y += (delta * (speed - speedDecrease));
+                setY(getY() + (delta * (speed - speedDecrease)));
             }
         }
     }
@@ -269,12 +266,12 @@ public class ABNpc extends ABEntity {
     private void gameTypeLogic() {
         if (ABScreen.TypeOfGame == GameType.SIDE_SCROLLER) {
             if (isJumping || isInAir) {
-                y -= jumpDY * (delta * 0.1);
+                setY(getY() - jumpDY * (delta * 0.1));
                 jumpDY = jumpDY - ABWorld.gravity(delta);
                 if (jumpDY < -8) {
                     jumpDY = -8;
                 }
-                if (y + height > ABWorld.getWorldHeightInPixels() - (ABWorld.BLOCK_SIZE() * 2)) {
+                if (getY() + height > ABWorld.getWorldHeightInPixels() - (ABWorld.BLOCK_SIZE() * 2)) {
                     isJumping = false;
                     jumpDY = 0;
                 }
@@ -288,22 +285,22 @@ public class ABNpc extends ABEntity {
                 }
             }
 
-            if (y + height < ABWorld.getWorldHeightInPixels() - (ABWorld.BLOCK_SIZE() * 2)) {
+            if (getY() + height < ABWorld.getWorldHeightInPixels() - (ABWorld.BLOCK_SIZE() * 2)) {
                 isInAir = true;
             } else {
                 isInAir = false;
                 jumpDY = 0;
             }
 
-            while (ABWorld.isSolidAtLocation((int) Math.round(((x + ((width / 4) * 2)) - (ABWorld.BLOCK_SIZE() / 2)) / ABWorld.BLOCK_SIZE()), (int) Math.round((y + height + ABWorld.BLOCK_SIZE() / 2) / ABWorld.BLOCK_SIZE() - 1))
-                    || ABWorld.isSolidAtLocation((int) Math.round((x + ((width / 4) * 3) - (ABWorld.BLOCK_SIZE() / 2)) / ABWorld.BLOCK_SIZE()), (int) Math.round((y + height + ABWorld.BLOCK_SIZE() / 2) / ABWorld.BLOCK_SIZE() - 1))) {
-                y--;
+            while (ABWorld.isSolidAtLocation((int) Math.round(((getX() + ((width / 4) * 2)) - (ABWorld.BLOCK_SIZE() / 2)) / ABWorld.BLOCK_SIZE()), (int) Math.round((getY() + height + ABWorld.BLOCK_SIZE() / 2) / ABWorld.BLOCK_SIZE() - 1))
+                    || ABWorld.isSolidAtLocation((int) Math.round((getX() + ((width / 4) * 3) - (ABWorld.BLOCK_SIZE() / 2)) / ABWorld.BLOCK_SIZE()), (int) Math.round((getY() + height + ABWorld.BLOCK_SIZE() / 2) / ABWorld.BLOCK_SIZE() - 1))) {
+                setY(getY() - 1);
             }
         }//TODO Logic for other game modes for AI
     }
 
     public void draw() {
-    	DrawParameters p = new DrawParameters("box", x, y, width, height);
+    	DrawParameters p = new DrawParameters("box", getX(), getY(), width, height);
     		p.setTextureID(texture);
     		p.setColor(color);
     		p.setLayer(getLayer());

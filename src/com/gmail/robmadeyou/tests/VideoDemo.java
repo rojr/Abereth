@@ -8,7 +8,7 @@ import com.gmail.robmadeyou.Entity.ABPlayer;
 import com.gmail.robmadeyou.Entity.ABPlayer.MovementType;
 import com.gmail.robmadeyou.Gui.ABText;
 import com.gmail.robmadeyou.Input.ABKeyboard;
-import com.gmail.robmadeyou.Input.ABKeyboard.Key;
+import com.gmail.robmadeyou.Input.ABKeyboard.ABKey;
 import com.gmail.robmadeyou.Input.ABMouse;
 import com.gmail.robmadeyou.ABLayer;
 import com.gmail.robmadeyou.ABScreen;
@@ -44,21 +44,21 @@ public class VideoDemo {
         ABCamera cam = Abereth.addNewCamera(new ABCamera(0, 0, 0, 0, ABScreen.getWidth(), ABScreen.getHeight()));
         cam.setFollowingTarget(true);
         cam.setTarget(new ABTarget(player2));
-        ABEmitter emit = new ABEmitter(player2.getX(), player2.getY(), 50, 0.02f, 1, 0, ABColor.White);
+        ABEmitter emit = new ABEmitter(player2.getX(), player2.getY(), 50);
         emit.setLayer(2);
-        emit.setRepeat(false);
+        emit.setRepeats(false);
         Abereth.addNewEmitter(emit);
         
         while (!ABScreen.isAskedToClose()) {
             ABScreen.update(60);
-            if (ABKeyboard.isKeyPressed(Key.T)) {
+            if (ABKeyboard.isKeyPressed(ABKey.T)) {
                 enemy.setAStar(!enemy.isAStarActive());
             }
-            if(ABMouse.leftMouseButtonDown){
-            emit = new ABEmitter(player2.getX(), player2.getY(), 50, 0.02f, 1, 0, ABColor.White);
-            emit.setLayer(2);
-            emit.setRepeat(false);
-            Abereth.addNewEmitter(emit);
+            	if(ABMouse.leftMouseButtonDown){
+            		ABEmitter emit2 = new ABEmitter(ABMouse.getTranslatedX(), player2.getY(), 50);
+            		emit.setLayer(2);
+            		emit.setRepeats(false);
+            		Abereth.addNewEmitter(emit2);
             }
             if (Abereth.isDevMode) {
                 ABText.drawString(ABScreen.actualFps + "", (float) ABMouse.getTranslatedX() + 10, ABMouse.getTranslatedY(), ABLayer.GUILayer(), 1, 1, ABColor.Black, true, false);
@@ -66,13 +66,11 @@ public class VideoDemo {
             if(ABMouse.leftMouseButtonPressed){
             	Abereth.addNewItem(new ABItem(ABMouse.getTranslatedX(), ABMouse.getTranslatedY(), 16, 16));
             }
-            if(ABKeyboard.isKeyDown(Key.A)){
+            if(ABKeyboard.isKeyDown(ABKey.A)){
             	player2.setTextureInverts(true);
-            }else if(ABKeyboard.isKeyDown(Key.D)){
+            }else if(ABKeyboard.isKeyDown(ABKey.D)){
             	player2.setTextureInverts(false);
             }
-            //Refreshing the screen
-            System.out.println(ABCollector.drawArray.get(2).getList().size());
             ABScreen.refresh();
         }
         ABScreen.destroy();

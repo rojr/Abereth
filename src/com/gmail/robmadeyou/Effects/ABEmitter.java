@@ -24,6 +24,8 @@ public class ABEmitter extends ABDrawable{
 	private MovementDirection direction;
 	public ABEmitter(float x, float y, int amount) {
 		super(new Vector2f(), new Vector2f());
+		setX(x);
+		setY(y);
 		setDrawWidth(5);
 		setDrawHeight(5);
 		velocity = 1;
@@ -31,7 +33,7 @@ public class ABEmitter extends ABDrawable{
 		this.amount = amount;
 		part = new Particle[amount];
 		drawType = 0;
-		setLayer(2);
+		setLayer(1);
 		direction = MovementDirection.OUT;
 	}
 	/*

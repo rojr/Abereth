@@ -71,20 +71,21 @@ public class ABMouse {
     }
     
     public static float getTranslatedX(){
-    	for(int i = 0; i < Abereth.cameraList.size(); i++){
+    	for(int i = Abereth.cameraList.size() - 1; i >= 0; i--){
     		float sX = Math.round(Abereth.cameraList.get(i).getCamX());
     		float sY = Math.round(Abereth.cameraList.get(i).getCamY());
     		float sW = Abereth.cameraList.get(i).getWidth();
     		float sH = Abereth.cameraList.get(i).getHeight();
     		
     		if(x >= sX && x <= sX + sW && y >= sY && y <= sY + sH){
+    			System.out.println("tea");
     			return x - Abereth.cameraList.get(i).getX() - sX;
     		}
     	}
     	return x;
     }
     public static float getTranslatedY(){
-    	for(int i = 0; i < Abereth.cameraList.size(); i++){
+    	for(int i = Abereth.cameraList.size() - 1; i >= 0; i--){
     		double sX = Abereth.cameraList.get(i).getCamX();
     		double sY = Abereth.cameraList.get(i).getCamY();
     		double sW = Abereth.cameraList.get(i).getWidth();
