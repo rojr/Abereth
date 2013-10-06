@@ -1,4 +1,4 @@
-#Game Engine
+#Abereth
 An open source game engine, free for everyone.
 
 ##Contents
@@ -14,7 +14,7 @@ A series of tutorials are on their way to explain the flow of the game engine. T
 <a name="install">
 ##Install
 
-Usually starting to use the game engine would take quite some time to set up, but we've made an easy launcher that should simplify the whole process, it is suitable for multiple IDE's and different desktop environments. Download it here: (currently in progress)
+Usually starting to use the Abereth game engine would take quite some time to set up, but we've made an easy launcher that should simplify the whole process, it is suitable for multiple IDE's and different desktop environments. Download it here: (currently in progress)
 
 <a name="todo">
 ##Todo
