@@ -2,12 +2,12 @@ package com.gmail.robmadeyou.Object;
 
 import org.lwjgl.util.vector.Vector2f;
 
-import com.gmail.robmadeyou.Draw.Drawable;
-import com.gmail.robmadeyou.Entity.Entity;
-import com.gmail.robmadeyou.Input.Mouse;
-import com.gmail.robmadeyou.World.World;
+import com.gmail.robmadeyou.Draw.ABDrawable;
+import com.gmail.robmadeyou.Entity.ABEntity;
+import com.gmail.robmadeyou.Input.ABMouse;
+import com.gmail.robmadeyou.World.ABWorld;
 
-public abstract class ABObject extends Drawable{
+public abstract class ABObject extends ABDrawable{
 
 	
 	private Vector2f coord = new Vector2f(), dimension = new Vector2f(); 
@@ -16,8 +16,8 @@ public abstract class ABObject extends Drawable{
 		super(new Vector2f(), new Vector2f());
 		this.coord.x = x;
 		this.coord.y = y;
-		this.dimension.x = World.BLOCK_SIZE();
-		this.dimension.y = World.BLOCK_SIZE();
+		this.dimension.x = ABWorld.BLOCK_SIZE();
+		this.dimension.y = ABWorld.BLOCK_SIZE();
 	}
 
 
@@ -72,15 +72,15 @@ public abstract class ABObject extends Drawable{
 	 * Casuals 
 	 */
 	
-	public boolean isNear(Entity other) {
+	public boolean isNear(ABEntity other) {
         float oX = other.getX() + getWidth() / 2;
         float oY = other.getY() + getHeight() / 2;
         return oX >= getX() && oX <= getX() + getWidth() && oY >= getY() && oY <= getY() + getHeight();
     }
 
     public boolean isMouseOver() {
-        int mX = (int)Mouse.getTranslatedX();
-        int mY = (int)Mouse.getTranslatedY();
+        int mX = (int)ABMouse.getTranslatedX();
+        int mY = (int)ABMouse.getTranslatedY();
         return mX >= getX() && mX <= getX() + getWidth() && mY >= getY() && mY <= getY() + getHeight();
     }
 	

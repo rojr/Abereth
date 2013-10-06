@@ -1,6 +1,6 @@
 package com.gmail.robmadeyou.State;
 
-public class StateDefault implements State {
+public class StateDefault implements ABState {
 
     private String name;
 

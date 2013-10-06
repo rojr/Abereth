@@ -1,7 +1,7 @@
 package com.gmail.robmadeyou.tests;
 
-import com.gmail.robmadeyou.Entity.Npc;
-import com.gmail.robmadeyou.Entity.Player;
+import com.gmail.robmadeyou.Entity.ABNpc;
+import com.gmail.robmadeyou.Entity.ABPlayer;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -17,8 +17,8 @@ import static org.junit.Assert.assertTrue;
  // right click test class and click run as test
 @RunWith(JUnit4.class)
 public class PlayerTest {
-    Player player = new Player(10, 20, 30, 40);
-    Npc enemy = new Npc(30, 40, 50, 60);
+    ABPlayer player = new ABPlayer(10, 20, 30, 40);
+    ABNpc enemy = new ABNpc(30, 40, 50, 60);
 
     /**
      * Need to get the @Before setup annotation working

@@ -1,11 +1,11 @@
 package com.gmail.robmadeyou.Object;
 
-import com.gmail.robmadeyou.Draw.Collector;
-import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
-import com.gmail.robmadeyou.Effects.Color;
-import com.gmail.robmadeyou.Input.Mouse;
-import com.gmail.robmadeyou.Screen;
-import com.gmail.robmadeyou.World.World;
+import com.gmail.robmadeyou.Draw.ABCollector;
+import com.gmail.robmadeyou.Draw.ABCollector.DrawParameters;
+import com.gmail.robmadeyou.Effects.ABColor;
+import com.gmail.robmadeyou.Input.ABMouse;
+import com.gmail.robmadeyou.ABScreen;
+import com.gmail.robmadeyou.World.ABWorld;
 
 public class ABItem extends ABObject{
     private int id;
@@ -46,7 +46,7 @@ public class ABItem extends ABObject{
     }
 
     public boolean isPressed() {
-        return isMouseOver() && Mouse.isLeftMouseButtonPressed();
+        return isMouseOver() && ABMouse.isLeftMouseButtonPressed();
     }
 
     /**
@@ -56,7 +56,7 @@ public class ABItem extends ABObject{
      * use isDragged better;
      */
     public boolean isHeld() {
-        if (Mouse.leftMouseButtonDown && isMouseOver()) {
+        if (ABMouse.leftMouseButtonDown && isMouseOver()) {
             wasPressed = true;
             return true;
         }
@@ -65,7 +65,7 @@ public class ABItem extends ABObject{
 
     public boolean isDragged() {
         isHeld();
-        if (!Mouse.leftMouseButtonDown && wasPressed) {
+        if (!ABMouse.leftMouseButtonDown && wasPressed) {
             wasPressed = false;
             return false;
         }
@@ -86,23 +86,23 @@ public class ABItem extends ABObject{
     
     public void gravityEffect(){
     	if (isDragged()) {
-            setX(getX() + Mouse.getDX());
-            setY(getY() + Mouse.getDY());
+            setX(getX() + ABMouse.getDX());
+            setY(getY() + ABMouse.getDY());
         } else {
-            if (!World.isSolidAtLocation((int) Math.round(getX() / World.BLOCK_SIZE()), (int) Math.round(getY() / World.BLOCK_SIZE()))) {
-                setY(getY() + (float)World.gravity(Screen.delta) * 10);
+            if (!ABWorld.isSolidAtLocation((int) Math.round(getX() / ABWorld.BLOCK_SIZE()), (int) Math.round(getY() / ABWorld.BLOCK_SIZE()))) {
+                setY(getY() + (float)ABWorld.gravity(ABScreen.delta) * 10);
             }
         }
     }
     public void draw() {
     	DrawParameters p = new DrawParameters("box", getX(), getY(), getWidth(), getHeight());
     	p.setTextureID(getTexture());
-    	p.setColor(Color.White);
+    	p.setColor(ABColor.White);
     	p.setOpacity(1);
     	p.setLayer(getLayer());
     	p.setUseTranslate(true);
     
-    	if(Collector.add(p)){
+    	if(ABCollector.add(p)){
     		isVisible = true;
     	}else{
     		isVisible = false;

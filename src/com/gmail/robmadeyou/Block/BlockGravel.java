@@ -1,32 +1,32 @@
 package com.gmail.robmadeyou.Block;
 
-import com.gmail.robmadeyou.Draw.Collector;
-import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
-import com.gmail.robmadeyou.Effects.Color;
-import com.gmail.robmadeyou.Effects.Textures;
-import com.gmail.robmadeyou.Entity.Entity;
-import com.gmail.robmadeyou.World.World;
+import com.gmail.robmadeyou.Draw.ABCollector;
+import com.gmail.robmadeyou.Draw.ABCollector.DrawParameters;
+import com.gmail.robmadeyou.Effects.ABColor;
+import com.gmail.robmadeyou.Effects.ABTextures;
+import com.gmail.robmadeyou.Entity.ABEntity;
+import com.gmail.robmadeyou.World.ABWorld;
 
-public class BlockGravel implements Block, Comparable<Block> {
+public class BlockGravel implements ABBlock, Comparable<ABBlock> {
 
     private int x, y;
     private int id = 0;
     private boolean isSolid = false;
     private boolean isWalkable = true;
     private int texture;
-    private Color color;
+    private ABColor color;
 
     public double g_score = Double.MAX_VALUE;
     public double h_score = Double.MAX_VALUE;
-    private Block parent = null;
+    private ABBlock parent = null;
     private boolean isConsidered;
     private boolean isVisited = false;
 
     public BlockGravel(int x, int y) {
         this.x = x;
         this.y = y;
-        this.texture = Textures.Block_Gravel;
-        this.color = Color.White;
+        this.texture = ABTextures.Block_Gravel;
+        this.color = ABColor.White;
     }
 
     public int getID() {
@@ -59,19 +59,19 @@ public class BlockGravel implements Block, Comparable<Block> {
     }
 
     public void draw() {
-    	DrawParameters p = new DrawParameters("box", x * World.BLOCK_SIZE(), y * World.BLOCK_SIZE(), World.BLOCK_SIZE(), World.BLOCK_SIZE());
+    	DrawParameters p = new DrawParameters("box", x * ABWorld.BLOCK_SIZE(), y * ABWorld.BLOCK_SIZE(), ABWorld.BLOCK_SIZE(), ABWorld.BLOCK_SIZE());
 			p.setTextureID(texture);
 			p.setColor(color);
 			p.setLayer(0);
 			p.setUseTranslate(true);
-		Collector.add(p);
+		ABCollector.add(p);
     }
 
-    public void doEffect(Entity e) {
+    public void doEffect(ABEntity e) {
         //Air gives no effect. How sad :(
     }
 
-    public void removeEffect(Entity e) {
+    public void removeEffect(ABEntity e) {
         //Air gives no effect!
     }
 
@@ -96,12 +96,12 @@ public class BlockGravel implements Block, Comparable<Block> {
     }
 
     @Override
-    public Block getParent() {
+    public ABBlock getParent() {
         return parent;
     }
 
     @Override
-    public void setParent(Block block) {
+    public void setParent(ABBlock block) {
         this.parent = block;
     }
 
@@ -140,7 +140,7 @@ public class BlockGravel implements Block, Comparable<Block> {
         this.texture = tex;
     }
 
-    public Block getType() {
+    public ABBlock getType() {
         return this;
     }
 
@@ -150,7 +150,7 @@ public class BlockGravel implements Block, Comparable<Block> {
     }
 
     @Override
-    public int compareTo(Block o) {
+    public int compareTo(ABBlock o) {
         if (g_score + h_score < o.getG_Score() + o.get_hscore()) {
             return -1;
         }

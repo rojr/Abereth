@@ -1,23 +1,23 @@
 package com.gmail.robmadeyou.Block;
 
-import com.gmail.robmadeyou.Draw.Collector;
-import com.gmail.robmadeyou.Draw.Collector.DrawParameters;
-import com.gmail.robmadeyou.Effects.Color;
-import com.gmail.robmadeyou.Effects.Textures;
-import com.gmail.robmadeyou.Entity.Entity;
-import com.gmail.robmadeyou.World.World;
+import com.gmail.robmadeyou.Draw.ABCollector;
+import com.gmail.robmadeyou.Draw.ABCollector.DrawParameters;
+import com.gmail.robmadeyou.Effects.ABColor;
+import com.gmail.robmadeyou.Effects.ABTextures;
+import com.gmail.robmadeyou.Entity.ABEntity;
+import com.gmail.robmadeyou.World.ABWorld;
 
-public class BlockStone implements Block, Comparable<Block> {
+public class BlockStone implements ABBlock, Comparable<ABBlock> {
 
     private double g_score = Double.MAX_VALUE;
     private double h_score = Double.MAX_VALUE;
-    public Block parent;
+    public ABBlock parent;
     private int x, y;
     private int id = 1;
     private boolean isSolid = true;
     private boolean isWalkable = false;
-    private int texture = Textures.Block_Stone;
-    private Color color;
+    private int texture = ABTextures.Block_Stone;
+    private ABColor color;
     protected boolean isConsidered = false;
     protected boolean isVisited = false;
 
@@ -25,7 +25,7 @@ public class BlockStone implements Block, Comparable<Block> {
     public BlockStone(int x, int y) {
         this.x = x;
         this.y = y;
-        this.color = Color.White;
+        this.color = ABColor.White;
     }
 
     public void consider() {
@@ -68,24 +68,24 @@ public class BlockStone implements Block, Comparable<Block> {
         draw();
     }
 
-    public Block getType() {
+    public ABBlock getType() {
         return this;
     }
 
     public void draw() {
-    	DrawParameters p = new DrawParameters("box", x * World.BLOCK_SIZE(), y * World.BLOCK_SIZE(), World.BLOCK_SIZE(), World.BLOCK_SIZE());
+    	DrawParameters p = new DrawParameters("box", x * ABWorld.BLOCK_SIZE(), y * ABWorld.BLOCK_SIZE(), ABWorld.BLOCK_SIZE(), ABWorld.BLOCK_SIZE());
 			p.setTextureID(texture);
 			p.setColor(color);
 			p.setLayer(0);
 			p.setUseTranslate(true);
-		Collector.add(p);
+		ABCollector.add(p);
     }
 
-    public void doEffect(Entity e) {
+    public void doEffect(ABEntity e) {
         //Stone does no effect
     }
 
-    public void removeEffect(Entity e) {
+    public void removeEffect(ABEntity e) {
         //Stone does no effect
     }
 
@@ -110,12 +110,12 @@ public class BlockStone implements Block, Comparable<Block> {
     }
 
     @Override
-    public Block getParent() {
+    public ABBlock getParent() {
         return this.parent;
     }
 
     @Override
-    public void setParent(Block block) {
+    public void setParent(ABBlock block) {
         this.parent = block;
     }
 
@@ -140,7 +140,7 @@ public class BlockStone implements Block, Comparable<Block> {
     }
 
     @Override
-    public int compareTo(Block o) {
+    public int compareTo(ABBlock o) {
         if (g_score + h_score < o.getG_Score() + o.get_hscore()) {
             return -1;
         }

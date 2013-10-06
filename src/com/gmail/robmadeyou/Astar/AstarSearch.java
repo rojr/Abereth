@@ -1,7 +1,7 @@
 package com.gmail.robmadeyou.Astar;
 
-import com.gmail.robmadeyou.Block.Block;
-import com.gmail.robmadeyou.World.BlockMap;
+import com.gmail.robmadeyou.Block.ABBlock;
+import com.gmail.robmadeyou.World.ABBlockMap;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,16 +14,16 @@ import java.util.PriorityQueue;
  */
 public class AstarSearch {
 
-    private BlockMap map;
+    private ABBlockMap map;
     private Heuristic heuristic;
 
-    public AstarSearch(BlockMap map, Heuristic heuristic) {
+    public AstarSearch(ABBlockMap map, Heuristic heuristic) {
 
         this.map = map;
         this.heuristic = heuristic;
     }
 
-    public ArrayList<Block> search(Block start, Block end) {
+    public ArrayList<ABBlock> search(ABBlock start, ABBlock end) {
         int MAP_WIDTH = map.getLength();
         int MAP_HEIGHT = map.getMapHeight();
 
@@ -37,19 +37,19 @@ public class AstarSearch {
             }
         }
 
-        PriorityQueue<Block> openSet = new PriorityQueue<Block>();
+        PriorityQueue<ABBlock> openSet = new PriorityQueue<ABBlock>();
 
         openSet.offer(start);
-        HashSet<Block> closedSet = new HashSet<Block>();
+        HashSet<ABBlock> closedSet = new HashSet<ABBlock>();
 
         while (openSet.size() > 0 && openSet.peek() != end) {
 
-            Block current = openSet.poll();
+            ABBlock current = openSet.poll();
 
             current.consider();
             closedSet.add(current);
 
-            ArrayList<Block> neighbors = new ArrayList<Block>();
+            ArrayList<ABBlock> neighbors = new ArrayList<ABBlock>();
 
             if (current.getY() - 1 >= 0 && !map.getBlock(current.getX(), current.getY() - 1).isSolid())
                 neighbors.add(map.getBlock(current.getX(), current.getY() - 1));
@@ -63,7 +63,7 @@ public class AstarSearch {
             if (current.getX() + 1 < MAP_WIDTH && !map.getBlock(current.getX() + 1, current.getY()).isSolid())
                 neighbors.add(map.getBlock(current.getX() + 1, current.getY()));
 
-            for (Block neighbor : neighbors) {
+            for (ABBlock neighbor : neighbors) {
                 double cost = current.getG_Score() + movement_cost(current, neighbor);
 
                 if (openSet.contains(neighbor) && cost <= neighbor.getG_Score())
@@ -83,8 +83,8 @@ public class AstarSearch {
         return reconstruct_path(end, start);
     }
 
-    private ArrayList<Block> reconstruct_path(Block current, Block start) {
-        ArrayList<Block> path = new ArrayList<Block>();
+    private ArrayList<ABBlock> reconstruct_path(ABBlock current, ABBlock start) {
+        ArrayList<ABBlock> path = new ArrayList<ABBlock>();
         if (current == null)
             return path;
         if (current.getParent() != start) {
@@ -94,7 +94,7 @@ public class AstarSearch {
         return path;
     }
 
-    private int movement_cost(Block current, Block neighbor) {
+    private int movement_cost(ABBlock current, ABBlock neighbor) {
         return 1;
     }
 }

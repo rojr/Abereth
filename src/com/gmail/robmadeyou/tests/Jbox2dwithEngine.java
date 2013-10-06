@@ -17,12 +17,12 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 
-import com.gmail.robmadeyou.Screen;
-import com.gmail.robmadeyou.Draw.Box;
-import com.gmail.robmadeyou.Effects.Textures;
-import com.gmail.robmadeyou.Input.Mouse;
-import com.gmail.robmadeyou.World.Camera;
-import com.gmail.robmadeyou.Screen.GameType;
+import com.gmail.robmadeyou.ABScreen;
+import com.gmail.robmadeyou.Draw.ABBox;
+import com.gmail.robmadeyou.Effects.ABTextures;
+import com.gmail.robmadeyou.Input.ABMouse;
+import com.gmail.robmadeyou.World.ABCamera;
+import com.gmail.robmadeyou.ABScreen.GameType;
 
 public class Jbox2dwithEngine {
 	
@@ -30,7 +30,7 @@ public class Jbox2dwithEngine {
 	private static final Set<Body> bodies = new HashSet<Body>();
 	
 	public static void main(String args[]){
-		Screen.create(600, 480, "JBox2d", GameType.SIDE_SCROLLER, false);
+		ABScreen.create(600, 480, "JBox2d", GameType.SIDE_SCROLLER, false);
 		
 		
 		
@@ -94,10 +94,10 @@ public class Jbox2dwithEngine {
         topWallFixture.shape = topWallShape;
         topWall.createFixture(topWallFixture);
         
-        Camera camera = new Camera(0, 0, 0, 0, Screen.getWidth(), Screen.getHeight());
-		while(!Screen.isAskedToClose()){
+        ABCamera camera = new ABCamera(0, 0, 0, 0, ABScreen.getWidth(), ABScreen.getHeight());
+		while(!ABScreen.isAskedToClose()){
 			
-			Screen.update(60);
+			ABScreen.update(60);
 			for(Body body : bodies){
 			
 			
@@ -105,12 +105,12 @@ public class Jbox2dwithEngine {
 			 Vec2 bodyPosition = body.getPosition().mul(30);
              glTranslatef(bodyPosition.x, bodyPosition.y, 0);
              glRotated(Math.toDegrees(body.getAngle()), 0, 0, 1);
-             Box.drawBox(-0.75f * 30 * 2, -0.75f * 30 * 2, 0.75f * 30 * 2, 0.75f * 30 * 2);
+             ABBox.drawBox(-0.75f * 30 * 2, -0.75f * 30 * 2, 0.75f * 30 * 2, 0.75f * 30 * 2);
              glPopMatrix();
 			}
 			
-             if(Mouse.isLeftMouseButtonPressed()){
-            	 Vec2 bodyPosition = new Vec2(Mouse.getX(), Mouse.getY()).mul(0.5f).mul(1 / 30f);
+             if(ABMouse.isLeftMouseButtonPressed()){
+            	 Vec2 bodyPosition = new Vec2(ABMouse.getX(), ABMouse.getY()).mul(0.5f).mul(1 / 30f);
                  BodyDef boxDef = new BodyDef();
                  boxDef.position.set(bodyPosition);
                  boxDef.type = BodyType.DYNAMIC;
@@ -124,7 +124,7 @@ public class Jbox2dwithEngine {
                  bodies.add(box);
              }
 			world.step(1 / 60f, 8, 3);
-			Screen.refresh();
+			ABScreen.refresh();
 		}
 	}
 	

@@ -1,19 +1,19 @@
 package com.gmail.robmadeyou.Quest;
 
-import com.gmail.robmadeyou.Entity.Npc;
+import com.gmail.robmadeyou.Entity.ABNpc;
 
 public class Objective {
 
     private ObjectiveType type;
-    private Npc npc;
+    private ABNpc npc;
     private boolean complete = false;
 
-    public Objective(ObjectiveType type, Npc npc) {
+    public Objective(ObjectiveType type, ABNpc npc) {
         this.type = type;
         this.npc = npc;
     }
 
-    public Npc getNpc() {
+    public ABNpc getNpc() {
         return npc;
     }
 

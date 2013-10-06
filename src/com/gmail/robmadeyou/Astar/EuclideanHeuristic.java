@@ -1,6 +1,6 @@
 package com.gmail.robmadeyou.Astar;
 
-import com.gmail.robmadeyou.Block.Block;
+import com.gmail.robmadeyou.Block.ABBlock;
 
 /**
  * Created by Mrgadgetz
@@ -9,7 +9,7 @@ import com.gmail.robmadeyou.Block.Block;
  */
 public class EuclideanHeuristic implements Heuristic {
     @Override
-    public double calculate(Block start, Block end) {
+    public double calculate(ABBlock start, ABBlock end) {
         return Math.sqrt(Math.pow(end.getY() - start.getY(), 2) + Math.pow(end.getX() - start.getX(), 2));
 
     }
