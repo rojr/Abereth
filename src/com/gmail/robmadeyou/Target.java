@@ -3,18 +3,18 @@ package com.gmail.robmadeyou;
 import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Entity.Npc;
 import com.gmail.robmadeyou.Entity.Player;
-import com.gmail.robmadeyou.Object.Item;
+import com.gmail.robmadeyou.Object.ABItem;
 
 public class Target {
 
 	Entity player;
-	Item item;
+	ABItem item;
 	String from = "";
 	public Target(Entity player){
 		this.player = player;
 		from = "p";
 	}
-	public Target(Item item){
+	public Target(ABItem item){
 		this.item = item;
 		from = "i";
 	}

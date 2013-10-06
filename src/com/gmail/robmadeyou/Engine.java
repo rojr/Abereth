@@ -5,7 +5,7 @@ import com.gmail.robmadeyou.Effects.Emitter;
 import com.gmail.robmadeyou.Entity.Entity;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
-import com.gmail.robmadeyou.Object.Item;
+import com.gmail.robmadeyou.Object.ABItem;
 import com.gmail.robmadeyou.Quest.Quest;
 import com.gmail.robmadeyou.World.Camera;
 import com.gmail.robmadeyou.World.World;
@@ -29,10 +29,10 @@ public class Engine {
     	Emitters.remove(e);
     }
 
-    public static void updateAllEmitters(int delta, Camera cam) {
+    public static void updateAllEmitters() {
     	try{
     		for (Emitter emitter : Emitters) {
-        		emitter.onUpdate(delta, cam);
+        		emitter.onUpdate();
         	}
     	}catch(ConcurrentModificationException e){}
     }
@@ -40,13 +40,12 @@ public class Engine {
     public static void update(int delta) {
         for(int i = cameraList.size() - 1; i >= 0; i--){
         	Camera c = cameraList.get(i);
-        	updateAllEmitters(delta, c);
         	if(Screen.worldCreated) {
                 World.onUpdate(c);
             }
-        	updateAllItems(c);
         }
-        
+        updateAllEmitters();
+        updateAllItems();
         updateAllEntities(delta);
         
         if(Keyboard.isKeyPressed(DevModeKey)) {
@@ -125,18 +124,18 @@ public class Engine {
      *
      *
      */
-    public static ArrayList<Item> itemList = new ArrayList<Item>();
-    public static ArrayList<Item> VisibleItemList = new ArrayList<Item>();
+    public static ArrayList<ABItem> itemList = new ArrayList<ABItem>();
+    public static ArrayList<ABItem> VisibleItemList = new ArrayList<ABItem>();
 
-    public static Item addNewItem(Item i){
+    public static ABItem addNewItem(ABItem i){
         itemList.add(i);
         return i;
     }
-    public static void removeItem(Item i){
+    public static void removeItem(ABItem i){
     	itemList.remove(i);
     }
 
-    public static void updateAllItems(Camera cam){
+    public static void updateAllItems(){
         VisibleItemList.clear();
         for (int i = 0; i < itemList.size(); i++){
             itemList.get(i).onUpdate();

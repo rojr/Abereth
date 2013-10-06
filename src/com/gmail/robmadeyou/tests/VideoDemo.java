@@ -12,7 +12,7 @@ import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
 import com.gmail.robmadeyou.Layer;
 import com.gmail.robmadeyou.Screen;
-import com.gmail.robmadeyou.Object.Item;
+import com.gmail.robmadeyou.Object.ABItem;
 import com.gmail.robmadeyou.Screen.GameType;
 import com.gmail.robmadeyou.Target;
 import com.gmail.robmadeyou.World.Camera;
@@ -64,7 +64,7 @@ public class VideoDemo {
                 Text.drawString(Screen.actualFps + "", (float) Mouse.getTranslatedX() + 10, Mouse.getTranslatedY(), Layer.GUILayer(), 1, 1, Color.Black, true, false);
             }
             if(Mouse.leftMouseButtonPressed){
-            	Engine.addNewItem(new Item(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 16, 16));
+            	Engine.addNewItem(new ABItem(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 16, 16));
             }
             if(Keyboard.isKeyDown(Key.A)){
             	player2.setTextureInverts(true);

@@ -1,26 +1,23 @@
 package com.gmail.robmadeyou.tests;
 
-import com.gmail.robmadeyou.Effects.*;
-import com.gmail.robmadeyou.Engine;
-import com.gmail.robmadeyou.Entity.Npc;
-import com.gmail.robmadeyou.Entity.Player;
+import com.gmail.robmadeyou.*;
+import com.gmail.robmadeyou.Screen.GameType;
+import com.gmail.robmadeyou.Effects.Animate;
+import com.gmail.robmadeyou.Effects.Color;
+import com.gmail.robmadeyou.Effects.Emitter;
+import com.gmail.robmadeyou.Effects.TextureLoader;
+import com.gmail.robmadeyou.Effects.Textures;
+import com.gmail.robmadeyou.Entity.*;
 import com.gmail.robmadeyou.Entity.Player.MovementType;
-import com.gmail.robmadeyou.Gui.Button;
-import com.gmail.robmadeyou.Gui.Interface;
 import com.gmail.robmadeyou.Gui.Text;
 import com.gmail.robmadeyou.Input.Keyboard;
 import com.gmail.robmadeyou.Input.Keyboard.Key;
 import com.gmail.robmadeyou.Input.Mouse;
-import com.gmail.robmadeyou.Layer;
-import com.gmail.robmadeyou.Screen;
-import com.gmail.robmadeyou.Object.Item;
-import com.gmail.robmadeyou.Screen.GameType;
-import com.gmail.robmadeyou.Target;
+import com.gmail.robmadeyou.Object.ABItem;
 import com.gmail.robmadeyou.World.Camera;
 import com.gmail.robmadeyou.World.World;
 
 import java.util.ArrayList;
-
 
 public class Camera_1 {
     
@@ -44,13 +41,14 @@ public class Camera_1 {
 
         //Npc enemy2 = new Npc(20, 40, 32, 32);
         //Engine.addEntity(enemy2);
-        Item item = Engine.addNewItem(new Item(60, 40, 16, 16));
+        ABItem item = Engine.addNewItem(new ABItem(60, 40, 16, 16));
 
         //MessageArea.setUp(0, 400, 800, 200);
         //MessageArea.setUpTextStart(20, 420);
 
-        Emitter emit = new Emitter(0, 0, 50, 0.02f, 1, 0, Color.White);
-        emit.setLayer(2);
+        Emitter emit = new Emitter(0, 0, 50);
+        emit.setLayer(1);
+        emit.setUseTranslate(true);
         Engine.addNewEmitter(emit);
 
         ArrayList<Integer> listOfTextures = new ArrayList<Integer>();
@@ -63,7 +61,6 @@ public class Camera_1 {
         cam.setFollowingTarget(true);
         cam.setTarget(new Target(player2));
         
-        emit.setCustomTexture(TextureLoader.createTexture("/flame.png"));
         while (!Screen.isAskedToClose()) {
         	
             //Updating the screen. the maximum frame rate is 60.
@@ -84,7 +81,13 @@ public class Camera_1 {
                 Text.drawString(Screen.actualFps + "", (float) Mouse.getTranslatedX() + 10, Mouse.getTranslatedY(), Layer.GUILayer(), 1, 1, Color.Black, true, false);
             }
             if(Mouse.leftMouseButtonPressed){
-            	Engine.addNewItem(new Item(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 16, 16));
+            	Engine.addNewItem(new ABItem(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 16, 16));
+            }
+            if(Mouse.leftMouseButtonDown){
+            	emit = new Emitter(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 50);
+                emit.setLayer(1);
+                emit.setUseTranslate(true);
+                Engine.addNewEmitter(emit);
             }
             if(Keyboard.isKeyDown(Key.A)){
             	player2.setTextureInverts(true);

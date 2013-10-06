@@ -7,7 +7,7 @@ import com.gmail.robmadeyou.Input.Mouse;
 import com.gmail.robmadeyou.Screen;
 import com.gmail.robmadeyou.World.World;
 
-public class Item extends EObject{
+public class ABItem extends ABObject{
     private int id;
     private boolean wasPressed = false;
     //private Container inGui = null;
@@ -21,7 +21,7 @@ public class Item extends EObject{
     //private int lastDX = 0, lastDY = 0;
     //private double leftDX = 0, leftDY = 0;
 
-    public Item(float x, float y, float width, float height) {
+    public ABItem(float x, float y, float width, float height) {
     	super(x,y);
         this.setX(x);
         this.setY(y);
