@@ -158,6 +158,7 @@ public class Abereth {
     public static ABCamera addNewCamera(ABCamera c){
     	if(!hasAddedNewCamera){
     		hasAddedNewCamera = true;
+    		cameraList.clear();
     		cameraList.add(c);
     		return c;
     	}else{

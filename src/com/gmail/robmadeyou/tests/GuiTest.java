@@ -16,7 +16,6 @@ public class GuiTest {
 	public static void main(String args[]){
 		ABScreen.create(1024, 600, "Demo", GameType.CUSTOM, false);
 		
-		Abereth.addNewCamera(new ABCamera(0, 0, 0, 0, ABScreen.getWidth(), ABScreen.getHeight()));
 		ABColor color = ABColor.White;
 		while(!ABScreen.isAskedToClose()){
 			ABScreen.update(60);

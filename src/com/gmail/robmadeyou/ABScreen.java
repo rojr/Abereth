@@ -7,6 +7,7 @@ import com.gmail.robmadeyou.Gui.ABText;
 import com.gmail.robmadeyou.Input.ABKeyboard;
 import com.gmail.robmadeyou.Input.ABKeyboard.ABKey;
 import com.gmail.robmadeyou.Input.ABMouse;
+import com.gmail.robmadeyou.World.ABCamera;
 import com.gmail.robmadeyou.World.ABWorld;
 
 import org.lwjgl.LWJGLException;
@@ -168,6 +169,7 @@ public class ABScreen {
         long endTimer = getTime() - startTimer;
         double finishTime = endTimer / 1000;
         System.out.println(engineName + "v" + version + " Loaded in: " + finishTime + " seconds");
+        Abereth.cameraList.add(new ABCamera(0, 0, 0, 0, getWidth(), getHeight()));
     }
 
     public static void setWorldDimensionsInBlocks(int numOfBlocksOnXAxis, int numOfBlocksOnYAxis) {
