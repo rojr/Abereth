@@ -10,7 +10,7 @@ public abstract class ABEntity extends ABDrawable{
     protected Vector2f location, dimensions, direction, origLoc, origDim, origDir;
     private float speed;
     private float originalSpeed;
-    private int number, h, w, originalW, originalH;
+    private int number;
     private boolean wasUpdated = false;
     private boolean isOnScreen = false;
     private int health;
@@ -29,8 +29,8 @@ public abstract class ABEntity extends ABDrawable{
         origDim = dimensions;
         origDir = new Vector2f();
         health = 1;
-        speed = 1;
-        speedDecrease = speed *= 0.8;
+        setSpeed(1);
+        speedDecrease = 0.8f;
     }
 
     public int getNumber() {

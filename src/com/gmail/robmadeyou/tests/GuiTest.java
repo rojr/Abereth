@@ -6,6 +6,7 @@ import com.gmail.robmadeyou.ABScreen;
 import com.gmail.robmadeyou.Draw.ABCollector;
 import com.gmail.robmadeyou.Effects.ABColor;
 import com.gmail.robmadeyou.Effects.ABEmitter;
+import com.gmail.robmadeyou.Effects.ABEmitter.Particle;
 import com.gmail.robmadeyou.Input.ABKeyboard;
 import com.gmail.robmadeyou.Input.ABKeyboard.ABKey;
 import com.gmail.robmadeyou.Input.ABMouse;
@@ -20,7 +21,11 @@ public class GuiTest {
 		while(!ABScreen.isAskedToClose()){
 			ABScreen.update(60);
 			
-			ABEmitter emit = Abereth.addNewEmitter(new ABEmitter(ABMouse.getTranslatedX(), ABMouse.getTranslatedY(), 80));
+			ABEmitter emit = Abereth.addNewEmitter(new ABEmitter(ABMouse.getTranslatedX(), ABMouse.getTranslatedY(), 2));
+			emit.setDecayRate(0.005f);
+			emit.setVelocity(2);
+			
+			
 			
 			emit.setColor(color);
 			if(ABKeyboard.isKeyDown(ABKey.One)){
@@ -38,9 +43,6 @@ public class GuiTest {
 			}else if(ABKeyboard.isKeyDown(ABKey.Seven)){
 				color = ABColor.Purple;
 			}
-			
-			
-			
 			ABScreen.refresh();
 		}
 		ABScreen.destroy();

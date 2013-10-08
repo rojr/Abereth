@@ -60,6 +60,9 @@ public class ABEmitter extends ABDrawable{
 	public boolean getRepeats(){
 		return repeats;
 	}
+	public Particle[] getParticlesList(){
+		return part;
+	}
 	/*
 	 * Setters
 	 */
@@ -204,6 +207,12 @@ public class ABEmitter extends ABDrawable{
 
         public void setHeight(int height) {
             this.height = height;
+        }
+        public double getX(){
+        	return x;
+        }
+        public double getY(){
+        	return y;
         }
 
         public void draw() {

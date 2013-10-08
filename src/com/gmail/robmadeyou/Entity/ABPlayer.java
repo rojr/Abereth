@@ -89,12 +89,6 @@ public class ABPlayer extends ABEntity{
         vDirection.setY((float) dY);
     }
 
-    public void setTexture(int tex) {
-        this.texture = tex;
-    }
-
-    
-
     public void setFixedMovementType(MovementType type) {
         this.movementType = type;
     }
@@ -219,7 +213,8 @@ public class ABPlayer extends ABEntity{
 		 	*
 		 	*/
         if (ABKeyboard.isKeyDown(getLeftKey(movementType))) {//No need for lots and lots of lines of code! Yaay!
-            direction = 3;
+            System.out.println((getSpeedDecrease()));
+        	direction = 3;
             if (!ABPhysics.isSolidLeft(this)) {
                 setX((getX() - (delta * (getSpeed() - getSpeedDecrease()))));
             }

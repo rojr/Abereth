@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
 
 public class Camera_2 {
     public static void main(String[] args) {
-        ABScreen.create(300, 738, "Our Screen", GameType.SIDE_SCROLLER, false);
+        ABScreen.create(800, 738, "Our Screen", GameType.SIDE_SCROLLER, false);
         ABScreen.setWorldDimensionsInBlocks(0,0);
         
         ABScreen.setUpWorld();
@@ -37,7 +37,7 @@ public class Camera_2 {
         player2.setSpeed(3);
         ABPlayer player3 = (ABPlayer) Abereth.addEntity(new ABPlayer(100, 32, 32, 32));
         player3.setFixedMovementType(MovementType.ARROW_KEYS);
-        
+        player3.setSpeed(3);
         ABNpc enemy = new ABNpc(32, 40, 32, 32);
         enemy.setLogic(true);
         enemy.setTargetPlayer(player2);
@@ -70,7 +70,7 @@ public class Camera_2 {
         
         while (!ABScreen.isAskedToClose()) {
             //Updating the screen. the maximum frame rate is 60.
-        	System.out.println(Abereth.itemList.size());
+        	
             ABScreen.update(60);
             enemy.setColor(ABColor.White);
             enemy.setTexture(ABTextures.test);

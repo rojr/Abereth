@@ -1,6 +1,7 @@
 package com.gmail.robmadeyou.World;
 
 import com.gmail.robmadeyou.ABTarget;
+import com.gmail.robmadeyou.Abereth;
 import com.gmail.robmadeyou.Draw.ABRender;
 
 public class ABCamera{
@@ -84,6 +85,22 @@ public class ABCamera{
 	}
 	public float getFollowSpeed(){
 		return speed;
+	}
+	public ABCamera verticalSplit(){
+		ABCamera cam = new ABCamera(x + camWidth / 2, y, camX, camY, camWidth / 2, camHeight);
+		
+		camWidth /= 2;
+		x /= 2;
+		
+		
+		return Abereth.addNewCamera(cam);
+	}
+	public ABCamera horizontalSplit(){
+		ABCamera cam = new ABCamera(x, y + camHeight / 2, camX, camY, camWidth, camHeight / 2);
+		camHeight /= 2;
+		y /= 2;
+		
+		return Abereth.addNewCamera(cam);
 	}
 	
 	public void onUpdate(){

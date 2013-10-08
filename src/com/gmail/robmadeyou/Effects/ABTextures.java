@@ -23,7 +23,6 @@ public class ABTextures {
         try {
             none = org.newdawn.slick.opengl.TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/none.png"), true);
             texSetUp = true;
-            System.out.println("Yay");
         } catch (IOException e) {
             e.printStackTrace();
         }
