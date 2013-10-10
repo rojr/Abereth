@@ -10,16 +10,14 @@ import com.gmail.robmadeyou.World.ABCamera;
 public class CameraInCamera {
 	public static void main(String args[]){
 		ABScreen.create(700, 600, "CaminCam", GameType.SIDE_SCROLLER, false);
-		
-		
 		ABScreen.setUpWorld();
-		ABPlayer player = (ABPlayer) Abereth.addEntity(new ABPlayer(0, 0, 32, 64));
-		ABCamera cam = Abereth.addNewCamera(new ABCamera(0, 0, 0, 0, ABScreen.getWidth(), ABScreen.getWidth()));
-		cam.setCameraBounds(true);
+		ABPlayer player = (ABPlayer) Abereth.addEntity(new ABPlayer(0, 32, 32, 64));
+		ABCamera cam = Abereth.addNewCamera(new ABCamera(0, 0, 0, 0, ABScreen.getWidth(), ABScreen.getHeight()));
 		cam.setFollowingTarget(true);
 		cam.setTarget(new ABTarget(player));
-		ABCamera cam2 = Abereth.addNewCamera(new ABCamera(400, 0, 0, 0, 300, 200));
-		
+		ABCamera cam2 = Abereth.addNewCamera(new ABCamera(0, 0, 0, 0, 300, 200));
+		cam2.setFollowingTarget(true);
+		cam2.setTarget(new ABTarget(player));
 		
 		while(!ABScreen.isAskedToClose()){
 			ABScreen.update(60);

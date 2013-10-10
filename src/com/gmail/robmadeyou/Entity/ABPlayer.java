@@ -213,7 +213,6 @@ public class ABPlayer extends ABEntity{
 		 	*
 		 	*/
         if (ABKeyboard.isKeyDown(getLeftKey(movementType))) {//No need for lots and lots of lines of code! Yaay!
-            System.out.println((getSpeedDecrease()));
         	direction = 3;
             if (!ABPhysics.isSolidLeft(this)) {
                 setX((getX() - (delta * (getSpeed() - getSpeedDecrease()))));

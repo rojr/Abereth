@@ -64,7 +64,8 @@ public class Camera_1 {
         cam.setTarget(new ABTarget(player2));
         
         ABCamera cam2 = Abereth.addNewCamera(new ABCamera(0,0,0,0, 300, 300));
-        
+        cam.setFollowingTarget(true);
+        cam.setTarget(new ABTarget(enemy));
         while (!ABScreen.isAskedToClose()) {
         	
             //Updating the screen. the maximum frame rate is 60.

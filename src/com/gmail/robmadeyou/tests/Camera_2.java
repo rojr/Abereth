@@ -28,7 +28,7 @@ import javax.swing.JOptionPane;
 public class Camera_2 {
     public static void main(String[] args) {
         ABScreen.create(800, 738, "Our Screen", GameType.SIDE_SCROLLER, false);
-        ABScreen.setWorldDimensionsInBlocks(0,0);
+        ABScreen.setWorldDimensionsInBlocks(100,100);
         
         ABScreen.setUpWorld();
         
@@ -90,9 +90,6 @@ public class Camera_2 {
 
             if (Abereth.isDevMode) {
                 ABText.drawString(ABScreen.actualFps + "  Hel^4lo!awq^3awd^rawdaw^9da^5wda^ndwadwd",(float) ABMouse.getTranslatedX() + 10, ABMouse.getTranslatedY(), ABLayer.GUILayer(), 1, 1, ABColor.Banana, true, false);
-            }
-            if(ABMouse.leftMouseButtonDown){
-            	Abereth.addNewItem(new ABItem(ABMouse.getTranslatedX(),ABMouse.getTranslatedY(), 32, 32));
             }
 
             //Refreshing the screen
