@@ -24,6 +24,11 @@ public class GuiTest {
 			
 			ABEmitter emit = Abereth.addNewEmitter(new ABEmitter(ABMouse.getTranslatedX(), ABMouse.getTranslatedY(), 20));
 			
+			ABEmitter emit1 = Abereth.addNewEmitter(new ABEmitter(ABMouse.getTranslatedX() + 20, ABMouse.getTranslatedY(), 20));
+			ABEmitter emit2 = Abereth.addNewEmitter(new ABEmitter(ABMouse.getTranslatedX() - 20, ABMouse.getTranslatedY(), 20));
+			ABEmitter emit3 = Abereth.addNewEmitter(new ABEmitter(ABMouse.getTranslatedX(), ABMouse.getTranslatedY() + 20, 20));
+			ABEmitter emit4 = Abereth.addNewEmitter(new ABEmitter(ABMouse.getTranslatedX(), ABMouse.getTranslatedY() - 20, 20));
+			
 			
 			
 			emit.setDecayRate(0.005f);
