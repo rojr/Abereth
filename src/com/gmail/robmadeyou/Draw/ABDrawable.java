@@ -17,6 +17,7 @@ public abstract class ABDrawable {
 	private float opacity;
 	private boolean useTranslate;
 	private long id;
+	boolean inverts;
 	public ABDrawable(Vector2f coord, Vector2f dimension){
 		this.coord = coord;
 		this.dimension = dimension;
@@ -26,6 +27,7 @@ public abstract class ABDrawable {
 		this.texture = -1;
 		this.useTranslate = false;
 		this.id = Abereth.id;
+		this.inverts = false;
 		Abereth.id++;
 	}
 	
@@ -63,6 +65,9 @@ public abstract class ABDrawable {
 	public long getID(){
 		return id;
 	}
+	public boolean getInverts(){
+		return inverts;
+	}
 	
 	/*
 	 * Setters
@@ -94,6 +99,9 @@ public abstract class ABDrawable {
 	}
 	public void setUseTranslate(boolean args){
 		this.useTranslate = args;
+	}
+	public void setInverts(boolean args){
+		this.inverts = args;
 	}
 
 	

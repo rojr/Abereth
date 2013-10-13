@@ -100,6 +100,19 @@ public class ABCollector {
         /**
          * 
          */
+        public DrawParameters(ABDrawable d){
+        	this.type = type;
+            this.x = d.getDrawX();
+            this.y = d.getDrawY();
+            this.w = d.getDrawWidth();
+            this.h = d.getDrawHeight();
+            this.texID = d.getTexture();
+            this.color = d.getColor();
+            this.layerID = d.getLayer();
+            this.useTranslate = d.getUseTranslate();
+            this.opacity = d.getOpacity();
+            this.inverts = d.getInverts();
+        }
         public DrawParameters(String type, float x, float y, float width, float height) {
             this.type = type;
             this.x = x;
