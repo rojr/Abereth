@@ -65,6 +65,10 @@ public abstract class ABGui extends ABDrawable{
 		this.state = state;
 		return this;
 	}
+	public ABGui setLayer(int layer){
+		super.setDrawLayer(layer);
+		return this;
+	}
 	
 	/*
 	 * Casuals

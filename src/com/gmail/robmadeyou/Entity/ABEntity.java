@@ -119,6 +119,10 @@ public abstract class ABEntity extends ABDrawable{
     	this.health = health;
     }
     
+    public void setLayer(int layer){
+    	this.setDrawLayer(layer);
+    }
+    
     public void setOriginalWidth(int w) {
         origDim.x = w;
     }

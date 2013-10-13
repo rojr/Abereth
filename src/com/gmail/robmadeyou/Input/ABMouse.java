@@ -78,7 +78,6 @@ public class ABMouse {
     		float sH = Abereth.cameraList.get(i).getHeight();
     		
     		if(x >= sX && x <= sX + sW && y >= sY && y <= sY + sH){
-    			System.out.println("tea");
     			return x - Abereth.cameraList.get(i).getX() - sX;
     		}
     	}

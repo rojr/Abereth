@@ -1,5 +1,6 @@
 package com.gmail.robmadeyou;
 
+import com.gmail.robmadeyou.Draw.ABDrawable;
 import com.gmail.robmadeyou.Effects.ABAnimate;
 import com.gmail.robmadeyou.Effects.ABEmitter;
 import com.gmail.robmadeyou.Entity.ABEntity;
@@ -173,7 +174,18 @@ public class Abereth {
     	}
     }
     
-
+    
+    /*
+     * 
+     * Some engine tools here
+     */
+    
+    public static void get(Object ob){
+    	if(ob instanceof ABDrawable){
+    	}
+    }
+    
+    
     /*
      *
      * Various small handlers
@@ -186,5 +198,6 @@ public class Abereth {
     public static boolean isrmbpThisTick = false;
     
     public static ABKey DevModeKey = ABKeyboard.ABKey.L;
+    public static long id = 0;
 
 }

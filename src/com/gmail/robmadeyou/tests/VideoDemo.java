@@ -51,6 +51,7 @@ public class VideoDemo {
         
         while (!ABScreen.isAskedToClose()) {
             ABScreen.update(60);
+            Abereth.get(player2);
             if (ABKeyboard.isKeyPressed(ABKey.T)) {
                 enemy.setAStar(!enemy.isAStarActive());
             }

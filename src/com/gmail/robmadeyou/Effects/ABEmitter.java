@@ -84,6 +84,9 @@ public class ABEmitter extends ABDrawable{
 	public void setAmount(int amount){
 		this.amount = amount;
 	}
+	public void setLayer(int layer){
+		this.setDrawLayer(layer);
+	}
 	@Override
 	public void setTexture(int texture){
 		super.setTexture(texture);

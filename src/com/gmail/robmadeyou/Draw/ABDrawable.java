@@ -3,7 +3,9 @@ package com.gmail.robmadeyou.Draw;
 import org.lwjgl.util.vector.Vector2f;
 
 import com.gmail.robmadeyou.ABLayer;
+import com.gmail.robmadeyou.Abereth;
 import com.gmail.robmadeyou.Effects.ABColor;
+import com.gmail.robmadeyou.Gui.ABGui;
 
 public abstract class ABDrawable {
 	
@@ -14,6 +16,7 @@ public abstract class ABDrawable {
 	private ABColor color;
 	private float opacity;
 	private boolean useTranslate;
+	private long id;
 	public ABDrawable(Vector2f coord, Vector2f dimension){
 		this.coord = coord;
 		this.dimension = dimension;
@@ -22,6 +25,8 @@ public abstract class ABDrawable {
 		this.color = ABColor.White;
 		this.texture = -1;
 		this.useTranslate = false;
+		this.id = Abereth.id;
+		Abereth.id++;
 	}
 	
 	/*
@@ -55,6 +60,9 @@ public abstract class ABDrawable {
 	public boolean getUseTranslate(){
 		return useTranslate;
 	}
+	public long getID(){
+		return id;
+	}
 	
 	/*
 	 * Setters
@@ -72,7 +80,7 @@ public abstract class ABDrawable {
 	public void setDrawHeight(float height){
 		this.dimension.y = height;
 	}
-	public void setLayer(int layer){
+	public void setDrawLayer(int layer){
 		this.layer = layer;
 	}
 	public void setTexture(int texture){
