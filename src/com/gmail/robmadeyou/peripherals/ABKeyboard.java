@@ -1,4 +1,4 @@
-package com.gmail.robmadeyou.Input;
+package com.gmail.robmadeyou.peripherals;
 
 public class ABKeyboard {
 

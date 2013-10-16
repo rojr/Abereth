@@ -1,11 +1,11 @@
-package com.gmail.robmadeyou.Block;
+package com.gmail.robmadeyou.block;
 
-import com.gmail.robmadeyou.Draw.ABCollector;
-import com.gmail.robmadeyou.Draw.ABCollector.DrawParameters;
-import com.gmail.robmadeyou.Effects.ABColor;
-import com.gmail.robmadeyou.Effects.ABTextures;
-import com.gmail.robmadeyou.Entity.ABEntity;
-import com.gmail.robmadeyou.World.ABWorld;
+import com.gmail.robmadeyou.draw.ABCollector;
+import com.gmail.robmadeyou.draw.ABCollector.DrawParameters;
+import com.gmail.robmadeyou.effects.ABColor;
+import com.gmail.robmadeyou.effects.ABTextures;
+import com.gmail.robmadeyou.entity.ABEntity;
+import com.gmail.robmadeyou.world.ABWorld;
 
 public class BlockAir implements ABBlock, Comparable<ABBlock> {
 

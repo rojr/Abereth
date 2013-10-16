@@ -1,4 +1,4 @@
-package com.gmail.robmadeyou.Effects;
+package com.gmail.robmadeyou.effects;
 
 import java.util.ArrayList;
 

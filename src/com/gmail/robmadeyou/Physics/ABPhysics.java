@@ -1,7 +1,7 @@
-package com.gmail.robmadeyou.Physics;
+package com.gmail.robmadeyou.physics;
 
-import com.gmail.robmadeyou.Entity.ABEntity;
-import com.gmail.robmadeyou.World.ABWorld;
+import com.gmail.robmadeyou.entity.ABEntity;
+import com.gmail.robmadeyou.world.ABWorld;
 
 /**
  * Created by Mrgadgetz

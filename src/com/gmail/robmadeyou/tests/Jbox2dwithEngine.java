@@ -18,10 +18,10 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 
 import com.gmail.robmadeyou.ABScreen;
-import com.gmail.robmadeyou.Draw.ABBox;
-import com.gmail.robmadeyou.Effects.ABTextures;
-import com.gmail.robmadeyou.Input.ABMouse;
-import com.gmail.robmadeyou.World.ABCamera;
+import com.gmail.robmadeyou.draw.ABBox;
+import com.gmail.robmadeyou.effects.ABTextures;
+import com.gmail.robmadeyou.peripherals.ABMouse;
+import com.gmail.robmadeyou.world.ABCamera;
 import com.gmail.robmadeyou.ABScreen.GameType;
 
 public class Jbox2dwithEngine {

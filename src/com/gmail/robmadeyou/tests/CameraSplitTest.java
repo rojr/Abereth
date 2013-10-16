@@ -4,12 +4,12 @@ import com.gmail.robmadeyou.ABScreen;
 import com.gmail.robmadeyou.ABTarget;
 import com.gmail.robmadeyou.Abereth;
 import com.gmail.robmadeyou.ABScreen.GameType;
-import com.gmail.robmadeyou.Effects.ABColor;
-import com.gmail.robmadeyou.Entity.ABPlayer;
-import com.gmail.robmadeyou.Entity.ABPlayer.MovementType;
-import com.gmail.robmadeyou.Input.ABKeyboard;
-import com.gmail.robmadeyou.Input.ABKeyboard.ABKey;
-import com.gmail.robmadeyou.World.ABCamera;
+import com.gmail.robmadeyou.effects.ABColor;
+import com.gmail.robmadeyou.entity.ABPlayer;
+import com.gmail.robmadeyou.entity.ABPlayer.MovementType;
+import com.gmail.robmadeyou.peripherals.ABKeyboard;
+import com.gmail.robmadeyou.peripherals.ABKeyboard.ABKey;
+import com.gmail.robmadeyou.world.ABCamera;
 
 public class CameraSplitTest {
 	public static void main(String args[]){

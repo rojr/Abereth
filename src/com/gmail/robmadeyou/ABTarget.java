@@ -1,9 +1,9 @@
 package com.gmail.robmadeyou;
 
-import com.gmail.robmadeyou.Entity.ABEntity;
-import com.gmail.robmadeyou.Entity.ABNpc;
-import com.gmail.robmadeyou.Entity.ABPlayer;
-import com.gmail.robmadeyou.Object.ABItem;
+import com.gmail.robmadeyou.entity.ABEntity;
+import com.gmail.robmadeyou.entity.ABNpc;
+import com.gmail.robmadeyou.entity.ABPlayer;
+import com.gmail.robmadeyou.object.ABItem;
 
 public class ABTarget {
 

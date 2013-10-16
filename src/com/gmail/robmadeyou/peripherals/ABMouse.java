@@ -1,7 +1,7 @@
-package com.gmail.robmadeyou.Input;
+package com.gmail.robmadeyou.peripherals;
 
 import com.gmail.robmadeyou.Abereth;
-import com.gmail.robmadeyou.Gui.ABUI;
+import com.gmail.robmadeyou.gui.ABUI;
 import com.gmail.robmadeyou.ABScreen;
 
 public class ABMouse {

@@ -1,9 +1,10 @@
-package com.gmail.robmadeyou.World;
+package com.gmail.robmadeyou.world;
 
-import com.gmail.robmadeyou.Block.ABBlock;
-import com.gmail.robmadeyou.Block.BlockAir;
-import com.gmail.robmadeyou.Block.BlockGravel;
-import com.gmail.robmadeyou.Block.BlockStone;
+import com.gmail.robmadeyou.block.ABBlock;
+import com.gmail.robmadeyou.block.BlockAir;
+import com.gmail.robmadeyou.block.BlockGravel;
+import com.gmail.robmadeyou.block.BlockStone;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;

@@ -1,11 +1,11 @@
-package com.gmail.robmadeyou.World;
+package com.gmail.robmadeyou.world;
 
-import com.gmail.robmadeyou.Block.ABBlock;
-import com.gmail.robmadeyou.Block.BlockAir;
-import com.gmail.robmadeyou.Block.BlockStone;
 import com.gmail.robmadeyou.Abereth;
-import com.gmail.robmadeyou.Entity.ABEntity;
-import com.gmail.robmadeyou.Input.ABMouse;
+import com.gmail.robmadeyou.block.ABBlock;
+import com.gmail.robmadeyou.block.BlockAir;
+import com.gmail.robmadeyou.block.BlockStone;
+import com.gmail.robmadeyou.entity.ABEntity;
+import com.gmail.robmadeyou.peripherals.ABMouse;
 import com.gmail.robmadeyou.ABScreen;
 
 import org.newdawn.slick.SlickException;

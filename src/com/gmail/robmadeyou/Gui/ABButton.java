@@ -1,8 +1,8 @@
-package com.gmail.robmadeyou.Gui;
+package com.gmail.robmadeyou.gui;
 
-import com.gmail.robmadeyou.Draw.ABCollector;
-import com.gmail.robmadeyou.Draw.ABCollector.DrawParameters;
-import com.gmail.robmadeyou.Input.ABMouse;
+import com.gmail.robmadeyou.draw.ABCollector;
+import com.gmail.robmadeyou.draw.ABCollector.DrawParameters;
+import com.gmail.robmadeyou.peripherals.ABMouse;
 
 
 public class ABButton extends ABGui {

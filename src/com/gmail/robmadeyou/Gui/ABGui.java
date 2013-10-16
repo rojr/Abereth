@@ -1,9 +1,9 @@
-package com.gmail.robmadeyou.Gui;
+package com.gmail.robmadeyou.gui;
 
 import org.lwjgl.util.vector.Vector2f;
 
-import com.gmail.robmadeyou.Draw.ABDrawable;
-import com.gmail.robmadeyou.Input.ABMouse;
+import com.gmail.robmadeyou.draw.ABDrawable;
+import com.gmail.robmadeyou.peripherals.ABMouse;
 
 public abstract class ABGui extends ABDrawable{
 

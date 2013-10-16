@@ -1,4 +1,4 @@
-package com.gmail.robmadeyou.Draw;
+package com.gmail.robmadeyou.draw;
 
 import static org.lwjgl.opengl.GL11.*;
 

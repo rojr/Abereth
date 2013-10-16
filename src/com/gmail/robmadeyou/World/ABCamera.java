@@ -1,8 +1,8 @@
-package com.gmail.robmadeyou.World;
+package com.gmail.robmadeyou.world;
 
 import com.gmail.robmadeyou.ABTarget;
 import com.gmail.robmadeyou.Abereth;
-import com.gmail.robmadeyou.Draw.ABRender;
+import com.gmail.robmadeyou.draw.ABRender;
 
 public class ABCamera{
 	private float camX, camY, x, y;

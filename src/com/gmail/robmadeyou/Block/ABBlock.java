@@ -1,6 +1,6 @@
-package com.gmail.robmadeyou.Block;
+package com.gmail.robmadeyou.block;
 
-import com.gmail.robmadeyou.Entity.ABEntity;
+import com.gmail.robmadeyou.entity.ABEntity;
 
 public interface ABBlock {
     int getID();

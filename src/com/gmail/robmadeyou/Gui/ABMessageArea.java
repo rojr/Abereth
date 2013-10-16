@@ -1,11 +1,11 @@
-package com.gmail.robmadeyou.Gui;
+package com.gmail.robmadeyou.gui;
 
-import com.gmail.robmadeyou.Draw.ABCollector;
-import com.gmail.robmadeyou.Draw.ABCollector.DrawParameters;
-import com.gmail.robmadeyou.Effects.ABColor;
-import com.gmail.robmadeyou.Effects.ABTextDraw;
-import com.gmail.robmadeyou.Input.ABKeyboard;
-import com.gmail.robmadeyou.Input.ABKeyboard.ABKey;
+import com.gmail.robmadeyou.draw.ABCollector;
+import com.gmail.robmadeyou.draw.ABCollector.DrawParameters;
+import com.gmail.robmadeyou.effects.ABColor;
+import com.gmail.robmadeyou.effects.ABTextDraw;
+import com.gmail.robmadeyou.peripherals.ABKeyboard;
+import com.gmail.robmadeyou.peripherals.ABKeyboard.ABKey;
 import com.gmail.robmadeyou.ABLayer;
 
 public class ABMessageArea {

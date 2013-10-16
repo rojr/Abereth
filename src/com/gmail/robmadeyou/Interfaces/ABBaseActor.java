@@ -1,7 +1,7 @@
-package com.gmail.robmadeyou.Interfaces;
+package com.gmail.robmadeyou.interfaces;
 
-import com.gmail.robmadeyou.Block.ABBlock;
-import com.gmail.robmadeyou.Entity.ABEntity;
+import com.gmail.robmadeyou.block.ABBlock;
+import com.gmail.robmadeyou.entity.ABEntity;
 
 /**
  * Created by Mrgadgetz

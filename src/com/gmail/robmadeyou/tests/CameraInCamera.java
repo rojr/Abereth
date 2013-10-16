@@ -4,8 +4,8 @@ import com.gmail.robmadeyou.Abereth;
 import com.gmail.robmadeyou.ABScreen;
 import com.gmail.robmadeyou.ABScreen.GameType;
 import com.gmail.robmadeyou.ABTarget;
-import com.gmail.robmadeyou.Entity.ABPlayer;
-import com.gmail.robmadeyou.World.ABCamera;
+import com.gmail.robmadeyou.entity.ABPlayer;
+import com.gmail.robmadeyou.world.ABCamera;
 
 public class CameraInCamera {
 	public static void main(String args[]){

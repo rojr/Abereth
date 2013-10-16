@@ -1,7 +1,7 @@
-package com.gmail.robmadeyou.Astar;
+package com.gmail.robmadeyou.astar;
 
-import com.gmail.robmadeyou.Block.ABBlock;
-import com.gmail.robmadeyou.World.ABBlockMap;
+import com.gmail.robmadeyou.block.ABBlock;
+import com.gmail.robmadeyou.world.ABBlockMap;
 
 import java.util.ArrayList;
 import java.util.HashSet;

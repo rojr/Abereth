@@ -1,4 +1,4 @@
-package com.gmail.robmadeyou.Effects;
+package com.gmail.robmadeyou.effects;
 
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.ResourceLoader;

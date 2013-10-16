@@ -1,10 +1,16 @@
-package com.gmail.robmadeyou.Entity;
+package com.gmail.robmadeyou.entity;
 
-import com.gmail.robmadeyou.Block.ABBlock;
-import com.gmail.robmadeyou.Draw.ABDrawable;
+import com.gmail.robmadeyou.block.ABBlock;
+import com.gmail.robmadeyou.draw.ABDrawable;
 
 import org.lwjgl.util.vector.Vector2f;
-
+/**
+ * ABEntity class.
+ * </br>
+ * 
+ * @author Apex
+ *
+ */
 public abstract class ABEntity extends ABDrawable{
 
     protected Vector2f location, dimensions, direction, origLoc, origDim, origDir;
@@ -15,7 +21,14 @@ public abstract class ABEntity extends ABDrawable{
     private boolean isOnScreen = false;
     private int health;
     private float speedDecrease;
-
+    /**
+     * Declaring a new entity
+     * @see com.gmail.robmadeyou.Abereth
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     */
     public ABEntity(float x, float y, float width, float height) {
     	super(new Vector2f(), new Vector2f());
     	location = new Vector2f();

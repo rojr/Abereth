@@ -1,6 +1,6 @@
-package com.gmail.robmadeyou.Quest;
+package com.gmail.robmadeyou.quest;
 
-import com.gmail.robmadeyou.Entity.ABNpc;
+import com.gmail.robmadeyou.entity.ABNpc;
 
 public class Objective {
 

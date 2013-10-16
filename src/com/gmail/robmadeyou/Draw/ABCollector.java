@@ -1,27 +1,27 @@
-package com.gmail.robmadeyou.Draw;
+package com.gmail.robmadeyou.draw;
 
-import com.gmail.robmadeyou.Effects.ABColor;
-import com.gmail.robmadeyou.World.ABCamera;
-import com.gmail.robmadeyou.World.ABWorld;
+import com.gmail.robmadeyou.effects.ABColor;
+import com.gmail.robmadeyou.world.ABCamera;
+import com.gmail.robmadeyou.world.ABWorld;
 import com.gmail.robmadeyou.Abereth;
 import com.gmail.robmadeyou.ABLayer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
+/**
+ * Class housing all of the draw statements that have been called within the engine, then are rendered at the end of the frame.
+ * <br>
+ * Here all the sorting happens to make sure all the objects go into the right places and when rendered are in the right order
+ * hence the layering system
+ * @see <a href="http://google.com">Link to documentation </a>
+ * @author Apex
+ *
+ */
 public class ABCollector {
-
-    static ArrayList<DrawParameters> drawArraySorted = new ArrayList<DrawParameters>();
-    
+	/**
+	 *  ArrayList that houses all of the layer that the drawn objects are held in.
+	 */
     public static ArrayList<ABLayer> drawArray = new ArrayList<ABLayer>();
-    //TODO add arrays within arrays, where each array has a specified layer
-    /*
-     * This will save some performance as when rendering lots of objects at the same time the engine will not have
-     * to sort hundreds of draw methods, but instead it will check if anything more was added and then render.
-     * If nothing was added then leave the sorted array alone as it has been sorted properly already
-     */
-    static ArrayList<DrawParameters> drawArrayUnsorted = new ArrayList<DrawParameters>();
-
     /**
      * 
      * Adds a call to the array that is left for sorting at the end of the tick
@@ -34,7 +34,6 @@ public class ABCollector {
     	/*
     	 * This is to make sure the graphic is in bounds when added, otherwise if it's not it won't add it
     	 */
-    	
     	for(ABCamera cam : Abereth.cameraList){
     		float tX = cam.getX();
         	float tY = cam.getY();
@@ -98,9 +97,11 @@ public class ABCollector {
         private float opacity;
         private boolean inverts;
         /**
-         * 
+         * New draw object that gets the data from instances of ABDrawable class
+         * <br>
+         * <b>Example:</b>new DrawParameters("Box, this");
          */
-        public DrawParameters(ABDrawable d){
+        public DrawParameters(String type, ABDrawable d){
         	this.type = type;
             this.x = d.getDrawX();
             this.y = d.getDrawY();
@@ -113,6 +114,17 @@ public class ABCollector {
             this.opacity = d.getOpacity();
             this.inverts = d.getInverts();
         }
+        /**
+         * 
+         * New Draw object that has to be manually created
+         * <br>
+         * <b>Example:</b>new DrawParameters("box", 40, 40, 40, 40);
+         * @param type
+         * @param x
+         * @param y
+         * @param width
+         * @param height
+         */
         public DrawParameters(String type, float x, float y, float width, float height) {
             this.type = type;
             this.x = x;
@@ -199,47 +211,82 @@ public class ABCollector {
         public void setInverts(boolean args) {
         	this.inverts = args;
         }
-        
+        /**
+         * Gets the type of object (box, line etc)
+         * @return String
+         */
         public String getType() {
         	return type;
         }
-
+        /**
+         * Gets the layer that the object is currently drawn on. <br> Default is usually 1
+         * @return int
+         */
         public int getLayer() {
             return layerID;
         }
-
+        /**
+         * Gets the X location of the drawn object
+         * @return float
+         */
         public float getX() {
             return x;
         }
-
+        /**
+         * Gets the Y location of the drawn object
+         * @return float
+         */
         public float getY() {
             return y;
         }
-
+        /**
+         * Gets the width of the drawn object
+         * @return float
+         */
         public float getWidth() {
             return w;
         }
-
+        /**
+         * Gets the height of the drawn object
+         * @return float
+         */
         public float getHeight() {
             return h;
         }
-
+        /**
+         * Gets the ABColor of the object
+         * @return ABColor
+         */
         public ABColor getColor() {
             return color;
         }
-
+        /**
+         * Get the texture ID of the object
+         * @return int
+         */
         public int getTextureID() {
             return texID;
         }
-
+        /**
+         * Get if the object uses translate or not. Translate is used for camera manipulation. If this value is set to false then the coordinates will
+         * correspond with the screen, if set to true the coordinates will correspond to the map and in turn let the camera move out of the screen for the character
+         * @see Documentation on useTranslate for more information
+         * @return boolean
+         */
         public boolean useTranslate() {
             return useTranslate;
         }
-
+        /**
+         * Returns a value between 0 and 1 regarding the opacity of the drawn object
+         * @return float
+         */
         public float getOpacity() {
             return opacity;
         }
-
+        /**
+         * Returns a boolean value of whether the drawn object inverts or not (usually used for textures and movement to avoid having to make multiple textures 
+         * @return boolean
+         */
         public boolean getInverts() {
             return inverts;
         }

@@ -1,8 +1,8 @@
-package com.gmail.robmadeyou.Draw;
+package com.gmail.robmadeyou.draw;
 
 
-import com.gmail.robmadeyou.Effects.ABTextureLoader;
-import com.gmail.robmadeyou.Effects.ABTextures;
+import com.gmail.robmadeyou.effects.ABTextureLoader;
+import com.gmail.robmadeyou.effects.ABTextures;
 
 import static org.lwjgl.opengl.GL11.*;
 

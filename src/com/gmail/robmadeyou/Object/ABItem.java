@@ -1,11 +1,11 @@
-package com.gmail.robmadeyou.Object;
+package com.gmail.robmadeyou.object;
 
-import com.gmail.robmadeyou.Draw.ABCollector;
-import com.gmail.robmadeyou.Draw.ABCollector.DrawParameters;
-import com.gmail.robmadeyou.Effects.ABColor;
-import com.gmail.robmadeyou.Input.ABMouse;
 import com.gmail.robmadeyou.ABScreen;
-import com.gmail.robmadeyou.World.ABWorld;
+import com.gmail.robmadeyou.draw.ABCollector;
+import com.gmail.robmadeyou.draw.ABCollector.DrawParameters;
+import com.gmail.robmadeyou.effects.ABColor;
+import com.gmail.robmadeyou.peripherals.ABMouse;
+import com.gmail.robmadeyou.world.ABWorld;
 
 public class ABItem extends ABObject{
     private int id;

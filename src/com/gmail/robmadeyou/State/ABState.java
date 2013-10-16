@@ -1,4 +1,4 @@
-package com.gmail.robmadeyou.State;
+package com.gmail.robmadeyou.state;
 
 public interface ABState {
     /*

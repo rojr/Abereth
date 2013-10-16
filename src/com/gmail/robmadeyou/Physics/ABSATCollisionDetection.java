@@ -1,9 +1,10 @@
-package com.gmail.robmadeyou.Physics;
+package com.gmail.robmadeyou.physics;
 
-import com.gmail.robmadeyou.Block.ABBlock;
-import com.gmail.robmadeyou.Block.BlockAir;
-import com.gmail.robmadeyou.Entity.ABEntity;
-import com.gmail.robmadeyou.World.ABWorld;
+import com.gmail.robmadeyou.block.ABBlock;
+import com.gmail.robmadeyou.block.BlockAir;
+import com.gmail.robmadeyou.entity.ABEntity;
+import com.gmail.robmadeyou.world.ABWorld;
+
 import org.lwjgl.util.vector.Vector2f;
 
 import java.util.ArrayList;

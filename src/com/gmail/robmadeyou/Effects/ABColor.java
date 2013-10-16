@@ -1,4 +1,4 @@
-package com.gmail.robmadeyou.Effects;
+package com.gmail.robmadeyou.effects;
 
 import static org.lwjgl.opengl.GL11.glColor4f;
 

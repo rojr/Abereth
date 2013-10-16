@@ -1,11 +1,14 @@
-package com.gmail.robmadeyou.Draw;
+package com.gmail.robmadeyou.draw;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.opengl.TextureLoader;
 
 import com.gmail.robmadeyou.ABLayer;
 import com.gmail.robmadeyou.Abereth;
-import com.gmail.robmadeyou.Effects.ABColor;
-import com.gmail.robmadeyou.Gui.ABGui;
+import com.gmail.robmadeyou.effects.ABColor;
+import com.gmail.robmadeyou.effects.ABTextureLoader;
+import com.gmail.robmadeyou.gui.ABGui;
 
 public abstract class ABDrawable {
 	
@@ -52,6 +55,13 @@ public abstract class ABDrawable {
 	}
 	public int getTexture(){
 		return texture;
+	}
+	public Image getTextureAsImage(){
+		Image image = null;
+		try{
+			image = new Image(ABTextureLoader.TextureInfo.get(getTexture()).getLocation());
+		}catch(Exception e){}
+		return image;
 	}
 	public ABColor getColor(){
 		return color;

@@ -1,4 +1,4 @@
-package com.gmail.robmadeyou.Effects;
+package com.gmail.robmadeyou.effects;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -6,9 +6,9 @@ import java.util.Random;
 import org.lwjgl.util.vector.Vector2f;
 
 import com.gmail.robmadeyou.ABScreen;
-import com.gmail.robmadeyou.Draw.ABCollector;
-import com.gmail.robmadeyou.Draw.ABCollector.DrawParameters;
-import com.gmail.robmadeyou.Draw.ABDrawable;
+import com.gmail.robmadeyou.draw.ABCollector;
+import com.gmail.robmadeyou.draw.ABDrawable;
+import com.gmail.robmadeyou.draw.ABCollector.DrawParameters;
 
 public class ABEmitter extends ABDrawable{
 

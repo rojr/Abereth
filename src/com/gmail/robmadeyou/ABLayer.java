@@ -2,8 +2,8 @@ package com.gmail.robmadeyou;
 
 import java.util.ArrayList;
 
-import com.gmail.robmadeyou.Draw.ABCollector;
-import com.gmail.robmadeyou.Draw.ABCollector.DrawParameters;
+import com.gmail.robmadeyou.draw.ABCollector;
+import com.gmail.robmadeyou.draw.ABCollector.DrawParameters;
 
 public class ABLayer implements Comparable {
     public static int layers = 1;

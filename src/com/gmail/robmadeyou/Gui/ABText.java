@@ -1,9 +1,9 @@
-package com.gmail.robmadeyou.Gui;
+package com.gmail.robmadeyou.gui;
 
-import com.gmail.robmadeyou.Draw.ABCollector;
-import com.gmail.robmadeyou.Draw.ABCollector.DrawParameters;
-import com.gmail.robmadeyou.Effects.ABColor;
-import com.gmail.robmadeyou.Effects.ABTextureLoader;
+import com.gmail.robmadeyou.draw.ABCollector;
+import com.gmail.robmadeyou.draw.ABCollector.DrawParameters;
+import com.gmail.robmadeyou.effects.ABColor;
+import com.gmail.robmadeyou.effects.ABTextureLoader;
 
 import java.util.ArrayList;
 import java.util.Random;

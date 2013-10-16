@@ -2,20 +2,20 @@ package com.gmail.robmadeyou.tests;
 
 import com.gmail.robmadeyou.*;
 import com.gmail.robmadeyou.ABScreen.GameType;
-import com.gmail.robmadeyou.Effects.ABAnimate;
-import com.gmail.robmadeyou.Effects.ABColor;
-import com.gmail.robmadeyou.Effects.ABEmitter;
-import com.gmail.robmadeyou.Effects.ABTextureLoader;
-import com.gmail.robmadeyou.Effects.ABTextures;
-import com.gmail.robmadeyou.Entity.*;
-import com.gmail.robmadeyou.Entity.ABPlayer.MovementType;
-import com.gmail.robmadeyou.Gui.ABText;
-import com.gmail.robmadeyou.Input.ABKeyboard;
-import com.gmail.robmadeyou.Input.ABKeyboard.ABKey;
-import com.gmail.robmadeyou.Input.ABMouse;
-import com.gmail.robmadeyou.Object.ABItem;
-import com.gmail.robmadeyou.World.ABCamera;
-import com.gmail.robmadeyou.World.ABWorld;
+import com.gmail.robmadeyou.effects.ABAnimate;
+import com.gmail.robmadeyou.effects.ABColor;
+import com.gmail.robmadeyou.effects.ABEmitter;
+import com.gmail.robmadeyou.effects.ABTextureLoader;
+import com.gmail.robmadeyou.effects.ABTextures;
+import com.gmail.robmadeyou.entity.*;
+import com.gmail.robmadeyou.entity.ABPlayer.MovementType;
+import com.gmail.robmadeyou.gui.ABText;
+import com.gmail.robmadeyou.object.ABItem;
+import com.gmail.robmadeyou.peripherals.ABKeyboard;
+import com.gmail.robmadeyou.peripherals.ABMouse;
+import com.gmail.robmadeyou.peripherals.ABKeyboard.ABKey;
+import com.gmail.robmadeyou.world.ABCamera;
+import com.gmail.robmadeyou.world.ABWorld;
 
 import java.util.ArrayList;
 

@@ -1,16 +1,16 @@
-package com.gmail.robmadeyou.Entity;
+package com.gmail.robmadeyou.entity;
 
-import com.gmail.robmadeyou.Block.ABBlock;
-import com.gmail.robmadeyou.Draw.ABCollector;
-import com.gmail.robmadeyou.Draw.ABCollector.DrawParameters;
-import com.gmail.robmadeyou.Effects.ABColor;
 import com.gmail.robmadeyou.Abereth;
-import com.gmail.robmadeyou.Gui.ABMessageArea;
-import com.gmail.robmadeyou.Input.ABKeyboard;
-import com.gmail.robmadeyou.Input.ABKeyboard.ABKey;
-import com.gmail.robmadeyou.Input.ABMouse;
-import com.gmail.robmadeyou.Physics.ABPhysics;
-import com.gmail.robmadeyou.World.ABWorld;
+import com.gmail.robmadeyou.block.ABBlock;
+import com.gmail.robmadeyou.draw.ABCollector;
+import com.gmail.robmadeyou.draw.ABCollector.DrawParameters;
+import com.gmail.robmadeyou.effects.ABColor;
+import com.gmail.robmadeyou.gui.ABMessageArea;
+import com.gmail.robmadeyou.peripherals.ABKeyboard;
+import com.gmail.robmadeyou.peripherals.ABMouse;
+import com.gmail.robmadeyou.peripherals.ABKeyboard.ABKey;
+import com.gmail.robmadeyou.physics.ABPhysics;
+import com.gmail.robmadeyou.world.ABWorld;
 import com.gmail.robmadeyou.ABScreen;
 import com.gmail.robmadeyou.ABScreen.GameType;
 

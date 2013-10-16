@@ -1,4 +1,4 @@
-package com.gmail.robmadeyou.Gui;
+package com.gmail.robmadeyou.gui;
 
 import org.lwjgl.opengl.Drawable;
 

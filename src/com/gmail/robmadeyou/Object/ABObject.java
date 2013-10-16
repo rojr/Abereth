@@ -1,11 +1,11 @@
-package com.gmail.robmadeyou.Object;
+package com.gmail.robmadeyou.object;
 
 import org.lwjgl.util.vector.Vector2f;
 
-import com.gmail.robmadeyou.Draw.ABDrawable;
-import com.gmail.robmadeyou.Entity.ABEntity;
-import com.gmail.robmadeyou.Input.ABMouse;
-import com.gmail.robmadeyou.World.ABWorld;
+import com.gmail.robmadeyou.draw.ABDrawable;
+import com.gmail.robmadeyou.entity.ABEntity;
+import com.gmail.robmadeyou.peripherals.ABMouse;
+import com.gmail.robmadeyou.world.ABWorld;
 
 public abstract class ABObject extends ABDrawable{
 

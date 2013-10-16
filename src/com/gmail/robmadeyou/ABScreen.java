@@ -1,14 +1,14 @@
 package com.gmail.robmadeyou;
 
-import com.gmail.robmadeyou.Draw.ABCollector;
-import com.gmail.robmadeyou.Effects.ABTextures;
-import com.gmail.robmadeyou.Gui.ABUI;
-import com.gmail.robmadeyou.Gui.ABText;
-import com.gmail.robmadeyou.Input.ABKeyboard;
-import com.gmail.robmadeyou.Input.ABKeyboard.ABKey;
-import com.gmail.robmadeyou.Input.ABMouse;
-import com.gmail.robmadeyou.World.ABCamera;
-import com.gmail.robmadeyou.World.ABWorld;
+import com.gmail.robmadeyou.draw.ABCollector;
+import com.gmail.robmadeyou.effects.ABTextures;
+import com.gmail.robmadeyou.gui.ABText;
+import com.gmail.robmadeyou.gui.ABUI;
+import com.gmail.robmadeyou.peripherals.ABKeyboard;
+import com.gmail.robmadeyou.peripherals.ABMouse;
+import com.gmail.robmadeyou.peripherals.ABKeyboard.ABKey;
+import com.gmail.robmadeyou.world.ABCamera;
+import com.gmail.robmadeyou.world.ABWorld;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;

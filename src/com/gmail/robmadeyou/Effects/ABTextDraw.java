@@ -1,6 +1,6 @@
-package com.gmail.robmadeyou.Effects;
+package com.gmail.robmadeyou.effects;
 
-import com.gmail.robmadeyou.Gui.ABText;
+import com.gmail.robmadeyou.gui.ABText;
 import com.gmail.robmadeyou.ABLayer;
 
 public class ABTextDraw {

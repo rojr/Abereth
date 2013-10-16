@@ -1,6 +1,6 @@
-package com.gmail.robmadeyou.World;
+package com.gmail.robmadeyou.world;
 
-import com.gmail.robmadeyou.Block.ABBlock;
+import com.gmail.robmadeyou.block.ABBlock;
 
 /**
  * Created by Mrgadgetz

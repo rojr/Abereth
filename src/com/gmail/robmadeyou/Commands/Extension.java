@@ -1,4 +1,4 @@
-package com.gmail.robmadeyou.Commands;
+package com.gmail.robmadeyou.commands;
 
 public abstract class Extension {
 	

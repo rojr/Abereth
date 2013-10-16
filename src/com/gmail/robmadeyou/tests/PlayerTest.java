@@ -1,7 +1,8 @@
 package com.gmail.robmadeyou.tests;
 
-import com.gmail.robmadeyou.Entity.ABNpc;
-import com.gmail.robmadeyou.Entity.ABPlayer;
+import com.gmail.robmadeyou.entity.ABNpc;
+import com.gmail.robmadeyou.entity.ABPlayer;
+
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

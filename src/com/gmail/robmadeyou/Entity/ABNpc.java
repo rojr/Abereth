@@ -1,18 +1,18 @@
-package com.gmail.robmadeyou.Entity;
+package com.gmail.robmadeyou.entity;
 
-import com.gmail.robmadeyou.Astar.AstarSearch;
-import com.gmail.robmadeyou.Astar.DijkstraHeuristic;
-import com.gmail.robmadeyou.Astar.Heuristic;
-import com.gmail.robmadeyou.Astar.ManhattenHeuristic;
-import com.gmail.robmadeyou.Block.ABBlock;
-import com.gmail.robmadeyou.Draw.ABCollector;
-import com.gmail.robmadeyou.Draw.ABCollector.DrawParameters;
-import com.gmail.robmadeyou.Effects.ABColor;
 import com.gmail.robmadeyou.Abereth;
 import com.gmail.robmadeyou.ABLayer;
 import com.gmail.robmadeyou.ABScreen;
 import com.gmail.robmadeyou.ABScreen.GameType;
-import com.gmail.robmadeyou.World.ABWorld;
+import com.gmail.robmadeyou.astar.AstarSearch;
+import com.gmail.robmadeyou.astar.DijkstraHeuristic;
+import com.gmail.robmadeyou.astar.Heuristic;
+import com.gmail.robmadeyou.astar.ManhattenHeuristic;
+import com.gmail.robmadeyou.block.ABBlock;
+import com.gmail.robmadeyou.draw.ABCollector;
+import com.gmail.robmadeyou.draw.ABCollector.DrawParameters;
+import com.gmail.robmadeyou.effects.ABColor;
+import com.gmail.robmadeyou.world.ABWorld;
 
 import java.util.ArrayList;
 import java.util.List;

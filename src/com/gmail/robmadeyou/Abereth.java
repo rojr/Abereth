@@ -1,15 +1,15 @@
 package com.gmail.robmadeyou;
 
-import com.gmail.robmadeyou.Draw.ABDrawable;
-import com.gmail.robmadeyou.Effects.ABAnimate;
-import com.gmail.robmadeyou.Effects.ABEmitter;
-import com.gmail.robmadeyou.Entity.ABEntity;
-import com.gmail.robmadeyou.Input.ABKeyboard;
-import com.gmail.robmadeyou.Input.ABKeyboard.ABKey;
-import com.gmail.robmadeyou.Object.ABItem;
-import com.gmail.robmadeyou.Quest.Quest;
-import com.gmail.robmadeyou.World.ABCamera;
-import com.gmail.robmadeyou.World.ABWorld;
+import com.gmail.robmadeyou.draw.ABDrawable;
+import com.gmail.robmadeyou.effects.ABAnimate;
+import com.gmail.robmadeyou.effects.ABEmitter;
+import com.gmail.robmadeyou.entity.ABEntity;
+import com.gmail.robmadeyou.object.ABItem;
+import com.gmail.robmadeyou.peripherals.ABKeyboard;
+import com.gmail.robmadeyou.peripherals.ABKeyboard.ABKey;
+import com.gmail.robmadeyou.quest.Quest;
+import com.gmail.robmadeyou.world.ABCamera;
+import com.gmail.robmadeyou.world.ABWorld;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;

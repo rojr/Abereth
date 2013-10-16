@@ -1,4 +1,4 @@
-package com.gmail.robmadeyou.Quest;
+package com.gmail.robmadeyou.quest;
 
 public class Quest {
 

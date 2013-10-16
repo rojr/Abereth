@@ -1,4 +1,4 @@
-package com.gmail.robmadeyou.Gui;
+package com.gmail.robmadeyou.gui;
 
 import com.gmail.robmadeyou.ABScreen;
 
