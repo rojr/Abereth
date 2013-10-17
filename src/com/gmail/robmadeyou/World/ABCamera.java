@@ -4,7 +4,7 @@ import com.gmail.robmadeyou.ABTarget;
 import com.gmail.robmadeyou.Abereth;
 import com.gmail.robmadeyou.draw.ABRender;
 
-public class ABCamera{
+public class ABCamera implements Runnable{
 	private float camX, camY, x, y;
 	private float camWidth, camHeight;
 	private ABTarget target;
@@ -132,36 +132,45 @@ public class ABCamera{
 		camY = -target.getY() + camWidth / 2;
 	}
 	public void softMove(){
-		float toX = camX + (target.getX() - camWidth / 2);
-		float toY = camY + (target.getY() - camHeight / 2);
+		System.out.println("Hey");
+		if(target != null){
+			float toX = camX + (target.getX() - camWidth / 2);
+			float toY = camY + (target.getY() - camHeight / 2);
 		
-		double tan = Math.atan2(toX,toY);
+			double tan = Math.atan2(toX,toY);
 		
-		if(toX < 0){
-			toX = -toX;
+			if(toX < 0){
+				toX = -toX;
+			}
+			if(toY < 0){
+				toY = -toY;
+			}
+		
+			float biggest = 0;
+			if(toX >= toY){
+				biggest = toX;
+			}else{
+				biggest = toY;
+			}
+		
+			float s = biggest / speed;//target.getSpeed() * ();
+		
+			double dX = s*Math.sin(tan);
+			double dY = s*Math.cos(tan);
+			if(toX > 5){
+				camX -= dX;
+			}
+			if(toY > 5){
+				camY -= dY;
+			}
 		}
-		if(toY < 0){
-			toY = -toY;
-		}
 		
-		float biggest = 0;
-		if(toX >= toY){
-			biggest = toX;
-		}else{
-			biggest = toY;
+	}
+	@Override
+	public void run() {
+		while(true){
+			onUpdate();
 		}
-		
-		float s = biggest / speed;//target.getSpeed() * ();
-		
-		double dX = s*Math.sin(tan);
-		double dY = s*Math.cos(tan);
-		if(toX > 5){
-			camX -= dX;
-		}
-		if(toY > 5){
-			camY -= dY;
-		}
-		
 	}
 	
 }
