@@ -38,7 +38,7 @@ public class Camera_2 {
         ABPlayer player3 = (ABPlayer) Abereth.addEntity(new ABPlayer(100, 32, 32, 32));
         player3.setFixedMovementType(MovementType.ARROW_KEYS);
         player3.setSpeed(3);
-        ABNpc enemy = new ABNpc(32, 40, 32, 32);
+        ABNpc enemy = new ABNpc(32, 40, 320, 32);
         enemy.setLogic(true);
         enemy.setTargetPlayer(player2);
         Abereth.addEntity(enemy);

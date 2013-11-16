@@ -352,4 +352,10 @@ public class ABNpc extends ABEntity {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -161,19 +161,17 @@ public class Abereth {
     		hasAddedNewCamera = true;
     		cameraList.clear();
     		cameraList.add(c);
-    		new Thread(c).start();
     		return c;
     	}else{
-    		new Thread(c).start();
     		cameraList.add(c);
     		return c;
     	}
     }
     
     public static void updateAllCameras(){
-    	//for(int i = 0; i < cameraList.size(); i++){
-    	//	cameraList.get(i).onUpdate();
-    	//}
+    	for(int i = 0; i < cameraList.size(); i++){
+    		cameraList.get(i).onUpdate();
+    	}
     }
     
     

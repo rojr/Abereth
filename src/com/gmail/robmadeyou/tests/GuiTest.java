@@ -1,6 +1,8 @@
 package com.gmail.robmadeyou.tests;
 
 
+import java.util.Random;
+
 import com.gmail.robmadeyou.Abereth;
 import com.gmail.robmadeyou.ABScreen;
 import com.gmail.robmadeyou.ABScreen.GameType;
@@ -16,43 +18,43 @@ import com.gmail.robmadeyou.world.ABCamera;
 
 public class GuiTest {
 	public static void main(String args[]){
-		ABScreen.create(1920, 1080, "Demo", GameType.CUSTOM, false);
+		ABScreen.create(1080, 1080, "Demo", GameType.SIDE_SCROLLER, false);
 		
 		ABColor color = ABColor.White;
+		Random ran = new Random();
+		ABEmitter emit = null;
 		while(!ABScreen.isAskedToClose()){
 			ABScreen.update(60);
 			
-			ABEmitter emit = Abereth.addNewEmitter(new ABEmitter(ABMouse.getTranslatedX(), ABMouse.getTranslatedY(), 20));
+				emit = new ABEmitter(20, 20, ran.nextInt(200));
+				emit.setX(ABMouse.getX());
+				emit.setY(ABMouse.getY());
+				emit.setDecayRate(0.005f);
+				emit.setVelocity(ran.nextFloat() + 0.5f);
+				int dim = ran.nextInt(10);
+				emit.setDrawHeight(dim);
+				emit.setDrawWidth(dim);
+				emit.setOpacity(ran.nextFloat());
+				
+				Abereth.addNewEmitter(emit);
 			
-			ABEmitter emit1 = Abereth.addNewEmitter(new ABEmitter(ABMouse.getTranslatedX() + 20, ABMouse.getTranslatedY(), 20));
-			ABEmitter emit2 = Abereth.addNewEmitter(new ABEmitter(ABMouse.getTranslatedX() - 20, ABMouse.getTranslatedY(), 20));
-			ABEmitter emit3 = Abereth.addNewEmitter(new ABEmitter(ABMouse.getTranslatedX(), ABMouse.getTranslatedY() + 20, 20));
-			ABEmitter emit4 = Abereth.addNewEmitter(new ABEmitter(ABMouse.getTranslatedX(), ABMouse.getTranslatedY() - 20, 20));
-			
-			
-			
-			emit.setDecayRate(0.005f);
-			emit.setVelocity(2);
-			emit.setDrawHeight(20);
-			emit.setDrawWidth(20);
-			
-			
-			emit.setColor(color);
-			if(ABKeyboard.isKeyDown(ABKey.One)){
+			int col = 1+ran.nextInt(7);
+			if(col == 1){
 				color = ABColor.White;
-			}else if(ABKeyboard.isKeyDown(ABKey.Two)){
+			}else if(col == 2){
 				color = ABColor.Red;
-			}else if(ABKeyboard.isKeyDown(ABKey.Three)){
+			}else if(col == 3){
 				color = ABColor.Blue;
-			}else if(ABKeyboard.isKeyDown(ABKey.Four)){
+			}else if(col == 4){
 				color = ABColor.Yellow;
-			}else if(ABKeyboard.isKeyDown(ABKey.Five)){
+			}else if(col == 5){
 				color = ABColor.Turquoise_5;
-			}else if(ABKeyboard.isKeyDown(ABKey.Six)){
+			}else if(col == 6){
 				color = ABColor.Green;
-			}else if(ABKeyboard.isKeyDown(ABKey.Seven)){
+			}else if(col == 7){
 				color = ABColor.Purple;
 			}
+
 			ABScreen.refresh();
 		}
 		ABScreen.destroy();

@@ -11,7 +11,7 @@ import org.lwjgl.util.vector.Vector2f;
  * @author Apex
  *
  */
-public abstract class ABEntity extends ABDrawable{
+public abstract class ABEntity extends ABDrawable implements Runnable{
 
     protected Vector2f location, dimensions, direction, origLoc, origDim, origDir;
     private float speed;

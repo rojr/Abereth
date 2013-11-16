@@ -4,7 +4,7 @@ import com.gmail.robmadeyou.ABTarget;
 import com.gmail.robmadeyou.Abereth;
 import com.gmail.robmadeyou.draw.ABRender;
 
-public class ABCamera implements Runnable{
+public class ABCamera{
 	private float camX, camY, x, y;
 	private float camWidth, camHeight;
 	private ABTarget target;
@@ -166,11 +166,4 @@ public class ABCamera implements Runnable{
 		}
 		
 	}
-	@Override
-	public void run() {
-		while(true){
-			onUpdate();
-		}
-	}
-	
 }
