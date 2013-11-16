@@ -17,6 +17,9 @@ public class Screen {
 	public static int actualFps = 0;
 	public static int delta = getDelta();
 	public static boolean applet = false;
+	
+	public static float originalDimensionX = 0;
+	public static float originalDimensionY = 0;
 
 	public static int getWidth(){
 		return Display.getWidth();
@@ -48,6 +51,8 @@ public class Screen {
 	}
 	
 	public static void create(int dimensionX, int dimensionY, String title){
+		originalDimensionX = dimensionX;
+		originalDimensionY = dimensionY;
 		try {
 			Display.setDisplayMode(new DisplayMode(dimensionX, dimensionY));
 			Display.setTitle(title);
@@ -72,12 +77,13 @@ public class Screen {
 	}
 	
 	public static void update(){
-		glClear(GL_COLOR_BUFFER_BIT);
-		glClearColor(0.0F, 0.0F, 0.0F, 1f);
+		
+		//glClearColor(0.0F, 0.0F, 0.0F, 1f);
 		Display.update();
 		updateFPS();
 		delta = getDelta();
 		if(Display.wasResized()) fixDimensions();
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
 	
 	public static void refresh(int rate){
