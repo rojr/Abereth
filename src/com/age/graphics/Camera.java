@@ -37,6 +37,27 @@ public class Camera {
 		return height;
 	}
 	
+	public float getTranslateX(){
+		return x;
+	}
+	public float getTranslateY(){
+		return y;
+	}
+	
+	public void setTranslateX(float x){
+		this.x = x;
+	}
+	public void setTranslateY(float y){
+		this.y = y;
+	}
+	
+	public void addTranslateX(float x){
+		this.x += x;
+	}
+	public void addTranslateY(float y){
+		this.y += y;
+	}
+	
 	public void onUpdate(){
 		if(followingTarget){
 			if(target != null){
@@ -87,7 +108,6 @@ public class Camera {
 		if(target != null){
 			
 		}
-		
 	}
 	
 	private enum FollowStyle{

@@ -1,6 +1,7 @@
 package com.age.graphics;
 
 import com.age.graphics.effects.Color;
+import com.age.graphics.render.Collector;
 
 public abstract class Drawable {
 
@@ -10,8 +11,7 @@ public abstract class Drawable {
 	private Color color;
 	private boolean inverts, useTranslate;
 
-	public Drawable(double drawX, double drawY, double drawWidth,
-			double drawHeight) {
+	public Drawable(double drawX, double drawY, double drawWidth, double drawHeight) {
 		this.drawX = drawX;
 		this.drawY = drawY;
 		this.drawWidth = drawWidth;
@@ -130,7 +130,15 @@ public abstract class Drawable {
 	public void setUseTranslate(boolean useTranlate) {
 		this.useTranslate = useTranlate;
 	}
-
+	
+	public void setLocationByCenter(int x, int y){
+		this.drawX = x + drawWidth / 2;
+		this.drawY = y + drawHeight / 2;
+	}
+	
+	public void render(){
+		Collector.add(this);
+	}
 	public abstract void draw();
 
 }

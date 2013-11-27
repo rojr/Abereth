@@ -55,11 +55,18 @@ public class Box extends Shape{
 				glEnd();
 			}
 		}else{
-			glBegin(GL_QUADS);
+			/*glBegin(GL_QUADS);
 				glVertex2d(x, y);
 				glVertex2d(x + width, y);
 				glVertex2d(x + width, y + height);
 				glVertex2d(x, y + height);
+			glEnd();*/
+			
+			glBegin(GL_QUADS);
+				glVertex2d(-(width / 2), -(height / 2));
+				glVertex2d(width / 2, -(height / 2));
+				glVertex2d(width / 2 , height / 2);
+				glVertex2d(-(width / 2), height / 2);
 			glEnd();
 		}
 	}
