@@ -100,16 +100,6 @@ public class Camera {
 		Render.all(this);
 	}
 	
-	public void hardMove(){
-		
-	}
-	public void softMove(){
-		System.out.println("Hey");
-		if(target != null){
-			
-		}
-	}
-	
 	private enum FollowStyle{
 		HARD, SOFT;
 	}

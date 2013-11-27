@@ -5,6 +5,9 @@ import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import com.age.graphics.Camera;
+import com.age.graphics.render.Collector;
+
 import static org.lwjgl.opengl.GL11.*;
 
 public class Screen {
@@ -72,8 +75,10 @@ public class Screen {
 		glLoadIdentity();
 		glOrtho(0, dimensionX, dimensionY, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
+		Age.init();
 		
 		Display.setResizable(true);
+		Display.setVSyncEnabled(true);
 	}
 	
 	public static void update(){
@@ -84,10 +89,18 @@ public class Screen {
 		delta = getDelta();
 		if(Display.wasResized()) fixDimensions();
 		glClear(GL_COLOR_BUFFER_BIT);
+		Age.onUpdate();
 	}
 	
 	public static void refresh(int rate){
+		//Update all cameras
+		for(Camera c : Age.cameraList){
+			c.onUpdate();
+		}
 		Display.sync(rate);
+		for(int i = 0; i < Collector.drawArray.size(); i++){
+			Collector.drawArray.get(i).clear();
+		}
 	}
 	
 	static void fixDimensions(){

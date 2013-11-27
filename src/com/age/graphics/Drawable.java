@@ -7,7 +7,7 @@ public abstract class Drawable {
 
 	private double drawX, drawY, drawWidth, drawHeight;
 	private int layer, rotation, texture;
-	private double scale, scaleX, scaleY;
+	private float scaleX, scaleY;
 	private Color color;
 	private boolean inverts, useTranslate;
 
@@ -18,9 +18,8 @@ public abstract class Drawable {
 		this.drawHeight = drawHeight;
 		this.layer = 1;
 		this.rotation = 0;
-		this.scale = 1;
-		this.scaleX = 0;
-		this.scaleY = 0;
+		this.scaleX = 1;
+		this.scaleY = 1;
 		this.texture = -1;
 		this.inverts = false;
 		this.color = Color.White;
@@ -51,15 +50,11 @@ public abstract class Drawable {
 		return rotation;
 	}
 
-	public double getScale() {
-		return scale;
-	}
-
-	public double getScaleX() {
+	public float getScaleX() {
 		return scaleX;
 	}
 
-	public double getScaleY() {
+	public float getScaleY() {
 		return scaleY;
 	}
 
@@ -99,15 +94,11 @@ public abstract class Drawable {
 		this.rotation = rotation;
 	}
 
-	public void setScale(double scale) {
-		this.scale = scale;
-	}
-
-	public void setScaleX(double scaleX) {
+	public void setScaleX(float scaleX) {
 		this.scaleX = scaleX;
 	}
 
-	public void setScaleY(double scaleY) {
+	public void setScaleY(float scaleY) {
 		this.scaleY = scaleY;
 	}
 
@@ -130,10 +121,14 @@ public abstract class Drawable {
 	public void setUseTranslate(boolean useTranlate) {
 		this.useTranslate = useTranlate;
 	}
+	public void setScale(float x, float y){
+		this.scaleX = x;
+		this.scaleY = y;
+	}
 	
 	public void setLocationByCenter(int x, int y){
-		this.drawX = x + drawWidth / 2;
-		this.drawY = y + drawHeight / 2;
+		this.drawX = x - drawWidth / 2;
+		this.drawY = y - drawHeight / 2;
 	}
 	
 	public void render(){
