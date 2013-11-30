@@ -1,5 +1,6 @@
 package com.age.logic.input;
 
+import com.age.Age;
 import com.age.Screen;
 
 public class Mouse {
@@ -17,13 +18,10 @@ public class Mouse {
 	}
 	
 	public static int getX(){
-		float ratioX = Screen.getWidth() / Screen.originalDimensionX;
-		
-		return (int) (org.lwjgl.input.Mouse.getX() / ratioX);
+		return (int) (org.lwjgl.input.Mouse.getX() / Age.ratioX());
 	}
 	public static int getY(){
-		float ratioY = Screen.getHeight() / Screen.originalDimensionY;
-		return (int) ((Screen.getHeight() - org.lwjgl.input.Mouse.getY()) / ratioY);
+		return (int) ((Screen.getHeight() - org.lwjgl.input.Mouse.getY()) / Age.ratioY());
 	}
 	
 	

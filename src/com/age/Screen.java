@@ -113,5 +113,9 @@ public class Screen {
 		glLoadIdentity();
 		glOrtho(0, getWidth(), getHeight(), 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
+		//Age.cameraMain.setWidth((int)(originalDimensionY * Age.ratioX()));
+		//Age.cameraMain.setHeight((int)(originalDimensionY * Age.ratioY()));
+		//Age.cameraMain.setTranslateX(Age.cameraMain.getTranslateX() * Age.ratioX());
+		//Age.cameraMain.setTranslateY(Age.cameraMain.getTranslateY() * Age.ratioY());
 	}
 }

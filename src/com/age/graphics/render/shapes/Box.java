@@ -34,24 +34,24 @@ public class Box extends Shape{
 			if (inverts) {
 				glBegin(GL_QUADS);
 					glTexCoord2d(xPercent + widthPercent, yPercent);
-					glVertex2d(x, y);
+					glVertex2d(-(width / 2), -(height / 2));
 					glTexCoord2d(xPercent, yPercent);
-					glVertex2d(x + width, y);
+					glVertex2d(width / 2, -(height / 2));
 					glTexCoord2d(xPercent, yPercent - heightPercent);
-					glVertex2d(x + width, y + height);
+					glVertex2d(width / 2, height / 2);
 					glTexCoord2d(xPercent + widthPercent, yPercent - heightPercent);
-					glVertex2d(x, y + height);
+					glVertex2d(-(width / 2), height / 2);
 				glEnd();
 			} else {
 				glBegin(GL_QUADS);
 					glTexCoord2f(xPercent, yPercent);
-					glVertex2d(x, y);
+					glVertex2d(-(width / 2), -(height / 2));
 					glTexCoord2f(xPercent + widthPercent, yPercent);
-					glVertex2d(x + width, y);
+					glVertex2d(width / 2, -(height / 2));
 					glTexCoord2f(xPercent + widthPercent, yPercent - heightPercent);
-					glVertex2d(x + width, y + height);
+					glVertex2d(width / 2, height / 2);
 					glTexCoord2f(xPercent, yPercent - heightPercent);
-					glVertex2d(x, y + height);
+					glVertex2d(-(width / 2), height / 2);
 				glEnd();
 			}
 		}else{

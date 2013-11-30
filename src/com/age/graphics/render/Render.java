@@ -6,21 +6,24 @@ import static org.lwjgl.opengl.GL11.glScalef;
 import static org.lwjgl.opengl.GL11.glRotatef;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 
+import com.age.Age;
 import com.age.Screen;
 import com.age.graphics.Camera;
 import com.age.graphics.Drawable;
+import com.age.graphics.effects.TextureLoader;
 import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
 public class Render {
 	public static void all(Camera cam){
 		for(int i = 0; i < Collector.drawArray.size(); i++){
 			for(Drawable d : Collector.drawArray.get(i).getList()){
-				float ratioX = Screen.getWidth() / Screen.originalDimensionX;
-				float ratioY = Screen.getHeight() / Screen.originalDimensionY;
+				TextureLoader.TextureInfo.get(Age.EmptyTexture).getTexture().bind();
+				if(d.isUseTranslate()){
 				glPushMatrix();
 					glTranslatef(cam.getTranslateX(), cam.getTranslateY(), 0);
+				}
 					glPushMatrix();
-						glScalef(ratioX, ratioY, 0);
+						glScalef(Age.ratioX(), Age.ratioY(), 0);
 						//glRotatef((float)d.getRotation(),(float) (d.getDrawY() ), (float) (d.getDrawX()), 0f);
 						glPushMatrix();
 							glTranslatef((float) (d.getDrawX() + d.getDrawWidth() / 2),(float) (d.getDrawY() + d.getDrawHeight() / 2), 0);
@@ -32,8 +35,9 @@ public class Render {
 							glPopMatrix();
 						glPopMatrix();
 					glPopMatrix();
+				if(d.isUseTranslate()){
 				glPopMatrix();
-			
+				}
 			}
 		}
 	}

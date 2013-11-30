@@ -1,5 +1,7 @@
 package com.age.graphics;
 
+import com.age.Age;
+import com.age.Screen;
 import com.age.graphics.render.Render;
 
 public class Camera {
@@ -15,8 +17,11 @@ public class Camera {
 		this.screenY = screenY;
 		this.width = width;
 		this.height = height;
-		this.followStyle = FollowStyle.HARD;
-		this.speed = 1;
+		this.followStyle = FollowStyle.SOFT;
+		this.speed = 5f;
+		this.followingTarget = true;
+		this.x = 0;
+		this.y = 0;
 	}
 	
 	public Camera setFollowStyle(FollowStyle f){
@@ -43,6 +48,9 @@ public class Camera {
 	public float getTranslateY(){
 		return y;
 	}
+	public Drawable getTarget(){
+		return target;
+	}
 	
 	public void setTranslateX(float x){
 		this.x = x;
@@ -50,6 +58,18 @@ public class Camera {
 	public void setTranslateY(float y){
 		this.y = y;
 	}
+	
+	public void setTarget(Drawable t){
+		this.target = t;
+	}
+	public void setWidth(int width){
+		this.width = width;
+	}
+	public void setHeight(int height){
+		this.height = height;
+	}
+	
+	
 	
 	public void addTranslateX(float x){
 		this.x += x;
@@ -62,14 +82,14 @@ public class Camera {
 		if(followingTarget){
 			if(target != null){
 				if(followStyle == FollowStyle.HARD){
-					x = (float) (-target.getDrawX() + width / 2);
-					x = (float) (-target.getDrawY() + height / 2);
+					x = (float) (-target.getDrawX() + width / 2) * Age.ratioX();
+					y = (float) (-target.getDrawY() + height / 2) * Age.ratioY();
 				}else if(followStyle == FollowStyle.SOFT){
-					float toX = (float) (x + (target.getDrawX() - width / 2));
-					float toY = (float) (y + (target.getDrawY() - height / 2));
+					float toX = (float) (x + (target.getDrawX() - width / 2) * Age.ratioX());
+					float toY = (float) (y + (target.getDrawY() - height / 2) * Age.ratioY());
 				
 					double tan = Math.atan2(toX,toY);
-				
+					
 					if(toX < 0){
 						toX = -toX;
 					}
@@ -92,7 +112,7 @@ public class Camera {
 						x -= dX;
 					}
 					if(toY > 5){
-						x -= dY;
+						y -= dY;
 					}
 				}
 			}

@@ -1,6 +1,8 @@
 package com.age.graphics;
 
+import com.age.Age;
 import com.age.graphics.effects.Color;
+import com.age.graphics.effects.TextureLoader;
 import com.age.graphics.render.Collector;
 
 public abstract class Drawable {
@@ -132,6 +134,9 @@ public abstract class Drawable {
 	}
 	
 	public void render(){
+		if(Age.EmptyTexture != -1){
+			TextureLoader.TextureInfo.get(Age.EmptyTexture).getTexture().bind();
+		}
 		Collector.add(this);
 	}
 	public abstract void draw();

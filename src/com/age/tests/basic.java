@@ -1,28 +1,46 @@
 package com.age.tests;
 
 
+import com.age.Age;
 import com.age.Screen;
 import com.age.graphics.effects.Color;
 import com.age.graphics.render.Collector;
 import com.age.graphics.render.shapes.Box;
+import com.age.graphics.ui.Text;
 import com.age.logic.input.Keyboard;
-import com.age.logic.input.Mouse;
 import com.age.logic.input.Keyboard.Key;
 
 
 public class basic {
 
 	public static void main(String[] args) {
-		Screen.create(200, 200, "noname");
+		Screen.create(600, 200, "noname");
 		
 		Box box = new Box(20, 20, 50, 50);
+		Box box2 = new Box(40, 50, 50, 50);
+		Box box3 = new Box(0, 0, 50,50);
+		
+		box3.setColor(Color.Red);
 		box.setColor(Color.Yellow);
+		box.setUseTranslate(true);
+		box2.setUseTranslate(true);
+		
+		Text t = new Text("HELLO!!!!", 300, 20);
 		while(!Screen.isCloseRequested()){
 			Screen.update();
-			box.setRotation(box.getRotation() + 35);
-			box.setLocationByCenter(Mouse.getX(), Mouse.getY());
+			t.render();
+			box.setRotation(box.getRotation() - 1);
+			if(Keyboard.isKeyPressed(Key.A)){
+				Age.cameraMain.setTarget(box);
+			}else if(Keyboard.isKeyPressed(Key.S)){
+				Age.cameraMain.setTarget(box2);
+			}else if(Keyboard.isKeyDown(Key.D)){
+				box2.setDrawX(box2.getDrawX() - 2);
+			}
 			Collector.add(box);
-			
+			box2.render();
+			box.setLayer(2);
+			box3.render();
 			Screen.refresh(60);
 		}
 	}
