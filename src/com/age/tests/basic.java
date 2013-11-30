@@ -1,6 +1,5 @@
 package com.age.tests;
 
-
 import com.age.Age;
 import com.age.Screen;
 import com.age.graphics.effects.Color;
@@ -9,6 +8,7 @@ import com.age.graphics.render.shapes.Box;
 import com.age.graphics.ui.Text;
 import com.age.logic.input.Keyboard;
 import com.age.logic.input.Keyboard.Key;
+import com.age.logic.input.Mouse;
 
 
 public class basic {
@@ -25,10 +25,12 @@ public class basic {
 		box.setUseTranslate(true);
 		box2.setUseTranslate(true);
 		
-		Text t = new Text("HELLO!!!!", 300, 20);
+		Text t = new Text("ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "", 300, 20);
+		Text t2 = new Text("abcdefghijklmnopqrstuvwxyz" + "", 300, 50);
 		while(!Screen.isCloseRequested()){
 			Screen.update();
 			t.render();
+			t2.render();
 			box.setRotation(box.getRotation() - 1);
 			if(Keyboard.isKeyPressed(Key.A)){
 				Age.cameraMain.setTarget(box);

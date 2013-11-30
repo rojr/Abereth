@@ -10,13 +10,62 @@ public class Text{
 
 	private String text;
 	private ArrayList<Letter> list = new ArrayList<Letter>();
+	private double textWidth, textHeight;
+	private double x, y;
 	public Text(String text, double x, double y) {
 		this.text = text;
+		this.x = x;
+		this.y = y;
 		int i = 0;
-		for(char c :  text.toCharArray()){
-			list.add(new Letter(c, x + 8 * i, y));
-			i++;
+		int xPlus = 8;
+		int yPlus = 0;
+		addLetters();
+	}
+	
+	private void addLetters(){
+		list.clear();
+		
+		int plusX = 0;
+		int line = 0;
+		for(char c : text.toCharArray()){
+			int plusY = 0;
+			if(c == 'g' || c == 'q' || c == 'p' || c == 'j' || c == 'y') {
+				plusY += 1;
+			}else if(c == '\n'){
+				line++;
+			}
+			list.add(new Letter(c, x + plusX, y + plusY + (line * 8)));
+			if(c == 'f' || c == 'l' || c == 't'){
+				plusX += 7;
+			}else if(c == 'i'){
+				plusX += 5;
+			}else{
+				plusX += 8;
+			}
 		}
+	}
+	
+	
+	
+	public void setText(String text){
+		addLetters();
+	}
+	
+	
+	public void setTextWidth(double width){
+		this.textWidth = width;
+	}
+	public void setTexTHeight(double height){
+		this.textHeight = height;
+	}
+	
+	
+	
+	public double getTextWidth(){
+		return textWidth;
+	}
+	public double getTextHeight(){
+		return textHeight;
 	}
 	
 	
@@ -32,6 +81,7 @@ public class Text{
 			}
 		}
 	}
+	
 	private class Letter extends Box{
 		
 		private char c;
