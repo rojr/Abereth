@@ -31,6 +31,7 @@ public class basic {
 			Screen.update();
 			t.render();
 			t2.render();
+			t.setRotatation(20);
 			box.setRotation(box.getRotation() - 1);
 			if(Keyboard.isKeyPressed(Key.A)){
 				Age.cameraMain.setTarget(box);

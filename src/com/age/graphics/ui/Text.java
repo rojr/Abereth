@@ -82,6 +82,12 @@ public class Text{
 		}
 	}
 	
+	public void setRotatation(int rotation){
+		for(Letter l : list){
+			l.setRotation(rotation);
+		}
+	}
+	
 	private class Letter extends Box{
 		
 		private char c;
