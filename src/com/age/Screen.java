@@ -66,10 +66,9 @@ public class Screen {
 		}
 		lastFPS = getTime();
 		glEnable(GL_TEXTURE_2D);
-		glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
 		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+	    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
 		glViewport(0, 0, dimensionX, dimensionY);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -83,7 +82,7 @@ public class Screen {
 	
 	public static void update(){
 		
-		//glClearColor(0.0F, 0.0F, 0.0F, 1f);
+		glClearColor(0.0F, 0.0F, 0.0F, 1f);
 		Display.update();
 		updateFPS();
 		delta = getDelta();
@@ -105,9 +104,10 @@ public class Screen {
 	
 	static void fixDimensions(){
 		glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+		//glEnable(GL_BLEND);
+		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glViewport(0, 0, getWidth(), getHeight());
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();

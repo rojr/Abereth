@@ -6,6 +6,8 @@ import org.newdawn.slick.util.ResourceLoader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static org.lwjgl.opengl.GL11.*;
+
 public class TextureLoader{
 	public static ArrayList<TexInfo> TextureInfo = new ArrayList<TexInfo>();
 	
@@ -39,6 +41,10 @@ public class TextureLoader{
 			try{
 				this.tex = org.newdawn.slick.opengl.TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(location), true);
 			} catch (IOException e) {e.printStackTrace();}
+			//TODO Even thought this works... I should re-write how textures are loaded and implement
+			//png decoders, jpg decoders and so on, to be able to load many different file formats, but that later.
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			this.texWidth = tex.getImageWidth();
 			this.texHeight = tex.getImageHeight();
 			this.x = x;

@@ -23,6 +23,8 @@ public class Text{
 	}
 	
 	private void addLetters(){
+		//TODO Add fancy parameters for letters so that you can change the color from just the string
+		//rather than having to change it constantly
 		list.clear();
 		
 		int plusX = 0;
@@ -84,7 +86,7 @@ public class Text{
 	
 	public void setRotatation(int rotation){
 		for(Letter l : list){
-			l.setRotation(rotation);
+			l.setRotation(l.getRotation() + 1);
 		}
 	}
 	
