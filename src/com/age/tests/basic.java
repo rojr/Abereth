@@ -3,6 +3,7 @@ package com.age.tests;
 import com.age.Age;
 import com.age.Screen;
 import com.age.graphics.effects.Color;
+import com.age.graphics.effects.TextureLoader;
 import com.age.graphics.render.Collector;
 import com.age.graphics.render.shapes.Box;
 import com.age.graphics.ui.Text;
@@ -27,11 +28,17 @@ public class basic {
 		
 		Text t = new Text("ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "", 300, 20);
 		Text t2 = new Text("abcdefghijklmnopqrstuvwxyz" + "", 300, 50);
+		box2.setTexture(TextureLoader.createTexture("flame.png"));
+		Text fps = new Text("31241683"+"edqwdqwd", 100, 100);
 		while(!Screen.isCloseRequested()){
 			Screen.update();
+			fps.setText(Screen.actualFps+"");
+			fps.setLocation(Mouse.getX() + 20, Mouse.getY());
+			
+			fps.render();
 			t.render();
 			t2.render();
-			t.setRotatation(20);
+			t.setRotation(90, 4);
 			box.setRotation(box.getRotation() - 1);
 			if(Keyboard.isKeyPressed(Key.A)){
 				Age.cameraMain.setTarget(box);

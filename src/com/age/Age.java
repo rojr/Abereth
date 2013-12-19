@@ -60,15 +60,15 @@ public class Age {
 								i * 8, 0, 8, 8));
 					}
 					for (int i = 0; i < letters.length / 2; i++) {
-							letterTexID.add(TextureLoader.createTexture("res/font/sprite1.png",
-									i * 8, 8, 8, 8));
+						letterTexID.add(TextureLoader.createTexture("res/font/sprite1.png",
+								i * 8, 8, 8, 8));
 					}
 					for (int i = 0; i < numbers.length; i++) {
 						numberTexID.add(TextureLoader.createTexture("res/font/sprite1.png",
 								i * 8, 16, 8, 8));
 					}
 				}
-	
+				
 	public static void init(){//booiiiiii
 		EmptyTexture = TextureLoader.createTexture("res/none.png");
 		cameraList.add(cameraMain);

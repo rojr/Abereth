@@ -22,6 +22,13 @@ public class Text{
 		addLetters();
 	}
 	
+	public void setLocation(double x, double y){
+		for(Letter l : list){
+			l.setX(x);
+			l.setY(y);
+		}
+	}
+	
 	private void addLetters(){
 		//TODO Add fancy parameters for letters so that you can change the color from just the string
 		//rather than having to change it constantly
@@ -36,7 +43,7 @@ public class Text{
 			}else if(c == '\n'){
 				line++;
 			}
-			list.add(new Letter(c, x + plusX, y + plusY + (line * 8)));
+			list.add(new Letter(c, x, y, plusX,plusY + (line * 8)));
 			if(c == 'f' || c == 'l' || c == 't'){
 				plusX += 7;
 			}else if(c == 'i'){
@@ -50,6 +57,7 @@ public class Text{
 	
 	
 	public void setText(String text){
+		this.text = text;
 		addLetters();
 	}
 	
@@ -81,12 +89,25 @@ public class Text{
 					list.get(j).render();
 				}
 			}
+			for(int i = 0; i < Age.numbers.length; i++){
+				if(c == Age.numbers[i]){
+					list.get(j).setTexture(Age.numberTexID.get(i));
+					list.get(j).render();
+				}
+			}
 		}
 	}
-	
-	public void setRotatation(int rotation){
+	//Holy crap, I named this setRotatation
+	public void setRotation(int rotation){
 		for(Letter l : list){
-			l.setRotation(l.getRotation() + 1);
+			l.setRotation(rotation);
+		}
+	}
+	public void setRotation(int rotation, int index) throws IndexOutOfBoundsException{
+		if(index >= list.size()){
+			throw new IndexOutOfBoundsException("Not enough letters for such big numbers! (Meaning the index you inputted does not exist)");
+		}else{
+			list.get(index).setRotation(rotation);
 		}
 	}
 	
@@ -94,11 +115,21 @@ public class Text{
 		
 		private char c;
 		private double x, y;
-		public Letter(char c, double x, double y){
-			super(x, y, 8, 8);
+		private double plusX, plusY;
+		public Letter(char c, double x, double y, double plusX, double plusY){
+			super(x + plusX, y + plusY, 8, 8);
 			this.c = c;
-			this.x = x;
-			this.y = y;
+			this.x = x + plusX;
+			this.y = y + plusY;
+			this.plusX = plusX;
+			this.plusY = plusY;
+		}
+		
+		public void setX(double x){
+			setDrawX(x + plusX);
+		}
+		public void setY(double y){
+			setDrawY(y + plusY);
 		}
 		
 		public char getChar(){
