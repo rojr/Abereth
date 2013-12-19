@@ -17,28 +17,25 @@ public class basic {
 	public static void main(String[] args) {
 		Screen.create(600, 200, "noname");
 		
-		Box box = new Box(20, 20, 50, 50);
-		Box box2 = new Box(40, 50, 50, 50);
-		Box box3 = new Box(0, 0, 50,50);
+		Box box = (Box) Age.add(new Box(20, 20, 50, 50));
+		Box box2 = (Box) Age.add(new Box(40, 50, 50, 50));
+		Box box3 = (Box) Age.add(new Box(0, 0, 50,50));
 		
 		box3.setColor(Color.Red);
 		box.setColor(Color.Yellow);
 		box.setUseTranslate(true);
 		box2.setUseTranslate(true);
 		
-		Text t = new Text("ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "", 300, 20);
-		Text t2 = new Text("abcdefghijklmnopqrstuvwxyz" + "", 300, 50);
+		Text t = (Text) Age.add(new Text("ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "", 300, 20));
+		Text t2 = (Text)Age.add(new Text("abcdefghijklmnopqrstuvwxyz" + "", 300, 50));
 		box2.setTexture(TextureLoader.createTexture("flame.png"));
-		Text fps = new Text("31241683"+"edqwdqwd", 100, 100);
+		Text fps = (Text) Age.add(new Text("31241683"+"edqwdqwd", 100, 100));
+		int rot = 0, rot2 = 0, rot3 = 0, rot4 = 0;
 		while(!Screen.isCloseRequested()){
 			Screen.update();
 			fps.setText(Screen.actualFps+"");
 			fps.setLocation(Mouse.getX() + 20, Mouse.getY());
-			
-			fps.render();
-			t.render();
-			t2.render();
-			t.setRotation(90, 4);
+			t.setRotation((int)( 360 * Math.random()));
 			box.setRotation(box.getRotation() - 1);
 			if(Keyboard.isKeyPressed(Key.A)){
 				Age.cameraMain.setTarget(box);
@@ -47,10 +44,7 @@ public class basic {
 			}else if(Keyboard.isKeyDown(Key.D)){
 				box2.setDrawX(box2.getDrawX() - 2);
 			}
-			Collector.add(box);
-			box2.render();
 			box.setLayer(2);
-			box3.render();
 			Screen.refresh(60);
 		}
 	}

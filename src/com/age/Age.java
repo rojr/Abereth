@@ -3,6 +3,8 @@ package com.age;
 import java.util.ArrayList;
 
 import com.age.graphics.Camera;
+import com.age.graphics.Drawable;
+import com.age.graphics.DrawableGroup;
 import com.age.graphics.effects.TextureLoader;
 
 public class Age {
@@ -16,6 +18,7 @@ public class Age {
 	 * Would be best advised best to <b>NOT</b> to touch this
 	 */
 	public static ArrayList<Camera> cameraList = new ArrayList<Camera>();
+	
 	public static Camera cameraMain = new Camera(0, 0, Screen.getWidth(), Screen.getHeight());
 	
 	static ArrayList<View> viewList = new ArrayList<View>();
@@ -26,6 +29,37 @@ public class Age {
 			}
 		}
 	}
+	public static ArrayList<Drawable> drawList = new ArrayList<Drawable>();
+	public static ArrayList<DrawableGroup> drawGroupList = new ArrayList<DrawableGroup>();
+	public static Drawable add(Drawable d){
+		drawList.add(d);
+		return d;
+	}
+	public static DrawableGroup add(DrawableGroup d){
+		drawGroupList.add(d);
+		return d;
+	}
+	
+	public static boolean remove(Drawable d){
+		for(int i = 0; i < drawList.size(); i++){
+			if(d == drawList.get(i)){
+				drawList.remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
+	public static boolean remove(DrawableGroup d){
+		for(int i = 0; i < drawGroupList.size(); i++){
+			if(d == drawGroupList.get(i)){
+				drawGroupList.remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
 	
 	public static float ratioX(){
 		return Screen.getWidth() / Screen.originalDimensionX;
@@ -77,9 +111,12 @@ public class Age {
 	
 	
 	public static void onUpdate(){
-	
-		
-		
+		for(Drawable d : drawList){
+			d.render();
+		}
+		for(DrawableGroup d : drawGroupList){
+			d.render();
+		}
 	}
 	
 	

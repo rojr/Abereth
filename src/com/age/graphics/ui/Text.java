@@ -3,16 +3,18 @@ package com.age.graphics.ui;
 import java.util.ArrayList;
 
 import com.age.Age;
+import com.age.graphics.Drawable;
+import com.age.graphics.DrawableGroup;
 import com.age.graphics.render.Collector;
 import com.age.graphics.render.shapes.Box;
 
-public class Text{
+public class Text extends DrawableGroup{
 
 	private String text;
 	private ArrayList<Letter> list = new ArrayList<Letter>();
 	private double textWidth, textHeight;
 	private double x, y;
-	public Text(String text, double x, double y) {
+	public Text(String text, double x, double y){
 		this.text = text;
 		this.x = x;
 		this.y = y;
@@ -52,6 +54,7 @@ public class Text{
 				plusX += 8;
 			}
 		}
+		setList(list);
 	}
 	
 	
