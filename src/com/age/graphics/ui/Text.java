@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.age.Age;
 import com.age.graphics.Drawable;
 import com.age.graphics.DrawableGroup;
+import com.age.graphics.effects.Color;
 import com.age.graphics.render.Collector;
 import com.age.graphics.render.shapes.Box;
 
@@ -139,7 +140,7 @@ public class Text extends DrawableGroup{
 			return c;
 		}
 		public void render(){
-			Collector.add(this);
+			super.render();
 		}
 	}
 }

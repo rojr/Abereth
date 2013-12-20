@@ -13,6 +13,10 @@ public abstract class Drawable {
 	private float scaleX, scaleY;
 	private Color color;
 	private boolean inverts, useTranslate, wasPressed;
+	/**
+	 * Boolean to check if this class has been added to the clicked array (Age)
+	 */
+	private boolean isAdded = false;
 
 	public Drawable(double drawX, double drawY, double drawWidth, double drawHeight) {
 		this.drawX = drawX;
@@ -88,9 +92,12 @@ public abstract class Drawable {
 			wasPressed = true;
 		}else{
 			if(wasPressed){
-				if(!Mouse.isLeftMouseButtonDown()){
+				if(!Mouse.isLeftMouseButtonDown() || mX >= x && mX <= x + w && mY >= y && mY <= y + h){
 					wasPressed = false;
-					Age.clickedList.add(this);
+					if(!isAdded){
+						isAdded = true;
+						Age.clickedList.add(this);
+					}
 					return true;
 				}else{
 					wasPressed = false;
@@ -162,6 +169,8 @@ public abstract class Drawable {
 	}
 	
 	public void render(){
+		isClicked();
+		isAdded = false;
 		if(Age.EmptyTexture != -1){
 			TextureLoader.TextureInfo.get(Age.EmptyTexture).getTexture().bind();
 		}
@@ -169,7 +178,9 @@ public abstract class Drawable {
 	}
 	public abstract void draw();
 	
-	public void onClick(){}
+	public void onClick(){
+		setColor(Color.Blue);
+	}
 	public void onHover(){}
 	
 }

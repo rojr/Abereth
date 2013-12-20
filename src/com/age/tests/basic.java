@@ -20,6 +20,7 @@ public class basic {
 		Box box = (Box) Age.add(new Box(20, 20, 50, 50));
 		Box box2 = (Box) Age.add(new Box(40, 50, 50, 50));
 		Box box3 = (Box) Age.add(new Box(0, 0, 50,50));
+		box3.setLayer(4);
 		
 		box3.setColor(Color.Red);
 		box.setColor(Color.Yellow);

@@ -24,6 +24,7 @@ public class Box extends Shape{
 		double y = getDrawY();
 		double width = getDrawWidth();
 		double height = getDrawHeight();
+		//TODO stop constantly binding textures, that's performance hungry
 		getColor().bind();
 		if (TextureID != -1) {
 			TextureLoader.TextureInfo.get(TextureID).getTexture().bind();

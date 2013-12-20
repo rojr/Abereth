@@ -118,7 +118,10 @@ public class Age {
 		for(DrawableGroup d : drawGroupList){
 			d.render();
 		}
-		clickedList.clear();
+		if(clickedList.size() != 0){
+			clickedList.get(clickedList.size() - 1).onClick();
+			clickedList.clear();
+		}
 	}
 	
 	
