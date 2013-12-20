@@ -31,10 +31,11 @@ public class basic {
 		box2.setTexture(TextureLoader.createTexture("flame.png"));
 		Text fps = (Text) Age.add(new Text("31241683"+"edqwdqwd", 100, 100));
 		int rot = 0, rot2 = 0, rot3 = 0, rot4 = 0;
+		fps.setUseTranslate(true);
 		while(!Screen.isCloseRequested()){
 			Screen.update();
 			fps.setText(Screen.actualFps+"");
-			fps.setLocation(Mouse.getX() + 20, Mouse.getY());
+			fps.setLocation(Mouse.getTranslatedX() + 20, Mouse.getTranslatedY());
 			t.setRotation((int)( 360 * Math.random()));
 			box.setRotation(box.getRotation() - 1);
 			if(Keyboard.isKeyPressed(Key.A)){
@@ -44,6 +45,10 @@ public class basic {
 			}else if(Keyboard.isKeyDown(Key.D)){
 				box2.setDrawX(box2.getDrawX() - 2);
 			}
+			if(box.isClicked()){
+				System.out.println("awdawd");
+			}
+			
 			box.setLayer(2);
 			Screen.refresh(60);
 		}

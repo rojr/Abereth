@@ -23,6 +23,17 @@ public class Mouse {
 	public static int getY(){
 		return (int) ((Screen.getHeight() - org.lwjgl.input.Mouse.getY()) / Age.ratioY());
 	}
+	/**
+	 * Returns the actual mouse location on the world, rather than relative to the screen.
+	 * @return
+	 */
+	public static int getTranslatedX(){
+		return (int) (org.lwjgl.input.Mouse.getX() / Age.ratioX() - Age.cameraMain.getTranslateX());
+	}
+	
+	public static int getTranslatedY(){
+		return (int) ((Screen.getHeight() - org.lwjgl.input.Mouse.getY()) / Age.ratioY() - Age.cameraMain.getTranslateY());
+	}
 	
 	
 	public static void onUpdate() {

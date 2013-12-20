@@ -4,6 +4,7 @@ import com.age.Age;
 import com.age.graphics.effects.Color;
 import com.age.graphics.effects.TextureLoader;
 import com.age.graphics.render.Collector;
+import com.age.logic.input.Mouse;
 
 public abstract class Drawable {
 
@@ -11,7 +12,7 @@ public abstract class Drawable {
 	private int layer, rotation, texture;
 	private float scaleX, scaleY;
 	private Color color;
-	private boolean inverts, useTranslate;
+	private boolean inverts, useTranslate, wasPressed;
 
 	public Drawable(double drawX, double drawY, double drawWidth, double drawHeight) {
 		this.drawX = drawX;
@@ -26,6 +27,7 @@ public abstract class Drawable {
 		this.inverts = false;
 		this.color = Color.White;
 		this.setUseTranslate(false);
+		wasPressed = false;
 	}
 
 	public double getDrawX() {
@@ -72,6 +74,32 @@ public abstract class Drawable {
 		return useTranslate;
 	}
 
+	public boolean isClicked(){
+		double x = drawX, y = drawY, w = drawWidth, h = drawHeight;
+		int mX = 0, mY = 0;
+		if(useTranslate){
+			mX = Mouse.getTranslatedX();
+			mY = Mouse.getTranslatedY();
+		}else{
+			mX = Mouse.getX();
+			mY = Mouse.getY();
+		}
+		if(mX >= x && mX <= x + w && mY >= y && mY <= y + h && Mouse.isLeftMouseButtonDown()){
+			wasPressed = true;
+		}else{
+			if(wasPressed){
+				if(!Mouse.isLeftMouseButtonDown()){
+					wasPressed = false;
+					Age.clickedList.add(this);
+					return true;
+				}else{
+					wasPressed = false;
+				}
+			}
+		}
+		return false;
+	}
+	
 	public void setDrawX(double x) {
 		this.drawX = x;
 	}
@@ -120,8 +148,8 @@ public abstract class Drawable {
 		this.inverts = inverts;
 	}
 
-	public void setUseTranslate(boolean useTranlate) {
-		this.useTranslate = useTranlate;
+	public void setUseTranslate(boolean useTranslate) {
+		this.useTranslate = useTranslate;
 	}
 	public void setScale(float x, float y){
 		this.scaleX = x;
@@ -140,5 +168,8 @@ public abstract class Drawable {
 		Collector.add(this);
 	}
 	public abstract void draw();
-
+	
+	public void onClick(){}
+	public void onHover(){}
+	
 }
