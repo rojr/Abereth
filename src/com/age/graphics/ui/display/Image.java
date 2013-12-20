@@ -8,4 +8,12 @@ public class Image extends Gui{
 		super(drawX, drawY, drawWidth, drawHeight);
 	}
 	
+	public void addText(String text){
+		
+	}
+	@Override
+	public void render(){
+		super.render();
+		
+	}
 }

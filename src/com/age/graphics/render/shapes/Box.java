@@ -20,10 +20,10 @@ public class Box extends Shape{
 
 		int TextureID = getTexture();
 		boolean inverts = isInverts();
-		double x = getDrawX();
-		double y = getDrawY();
-		double width = getDrawWidth();
-		double height = getDrawHeight();
+		double x = getFinalDrawX();
+		double y = getFinalDrawY();
+		double width = getFinalDrawWidth();
+		double height = getFinalDrawHeight();
 		//TODO stop constantly binding textures, that's performance hungry
 		getColor().bind();
 		if (TextureID != -1) {

@@ -38,10 +38,5 @@ public class Mouse {
 	
 	public static void onUpdate() {
 		
-		
-		
-		
-		
-		
 	}
 }

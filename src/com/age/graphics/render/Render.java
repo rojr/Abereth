@@ -26,7 +26,7 @@ public class Render {
 						glScalef(Age.ratioX(), Age.ratioY(), 0);
 						//glRotatef((float)d.getRotation(),(float) (d.getDrawY() ), (float) (d.getDrawX()), 0f);
 						glPushMatrix();
-							glTranslatef((float) (d.getDrawX() + d.getDrawWidth() / 2),(float) (d.getDrawY() + d.getDrawHeight() / 2), 0);
+							glTranslatef((float) (d.getFinalDrawX() + d.getFinalDrawWidth() / 2),(float) (d.getFinalDrawY() + d.getFinalDrawHeight() / 2), 0);
 							//glTranslatef((float) d.getDrawX(),(float) d.getDrawY(), 0);
 							glRotatef((float)d.getRotation(),0f, 0, 1f);
 							glPushMatrix();

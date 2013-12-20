@@ -13,15 +13,16 @@ public class Text extends DrawableGroup{
 
 	private String text;
 	private ArrayList<Letter> list = new ArrayList<Letter>();
-	private double textWidth, textHeight;
+	private double LetterWidth, LetterHeight, textWidth, textHeight;
 	private double x, y;
 	public Text(String text, double x, double y){
 		this.text = text;
 		this.x = x;
 		this.y = y;
-		int i = 0;
-		int xPlus = 8;
-		int yPlus = 0;
+		this.textWidth = 0;
+		this.textHeight = 0;
+		
+		
 		addLetters();
 	}
 	
@@ -55,6 +56,8 @@ public class Text extends DrawableGroup{
 				plusX += 8;
 			}
 		}
+		this.textWidth = plusX;
+		this.textHeight = line * 8;
 		setList(list);
 	}
 	
@@ -66,13 +69,20 @@ public class Text extends DrawableGroup{
 	}
 	
 	
-	public void setTextWidth(double width){
-		this.textWidth = width;
+	public void setLetterWidth(double width){
+		this.LetterWidth = width;
 	}
-	public void setTexTHeight(double height){
-		this.textHeight = height;
+	public void setLetterHeight(double height){
+		this.LetterHeight = height;
 	}
 	
+	
+	public double getLetterWidth(){
+		return LetterWidth;
+	}
+	public double getLetterHeight(){
+		return LetterHeight;
+	}
 	
 	
 	public double getTextWidth(){
@@ -81,8 +91,6 @@ public class Text extends DrawableGroup{
 	public double getTextHeight(){
 		return textHeight;
 	}
-	
-	
 	
 	public void render(){
 		for(int j = 0; j < list.size(); j++){

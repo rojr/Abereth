@@ -7,12 +7,16 @@ import com.age.graphics.render.Collector;
 import com.age.logic.input.Mouse;
 
 public abstract class Drawable {
-
 	private double drawX, drawY, drawWidth, drawHeight;
+	private double finalX, finalY, finalW, finalH;
+	/**
+	 * Used if object is even slightly outside of the region it is supposed to be in
+	 */
+	private double bX, bY, bW, bH;
 	private int layer, rotation, texture;
 	private float scaleX, scaleY;
 	private Color color;
-	private boolean inverts, useTranslate, wasPressed;
+	private boolean inverts, useTranslate, wasPressed,boundsSet, boundUseTranslate;
 	/**
 	 * Boolean to check if this class has been added to the clicked array (Age)
 	 */
@@ -31,6 +35,15 @@ public abstract class Drawable {
 		this.inverts = false;
 		this.color = Color.White;
 		this.setUseTranslate(false);
+		this.boundsSet = false;
+		this.bX = -1;
+		this.bY = -1;
+		this.bW = -1;
+		this.bH = -1;
+		this.finalX = drawX;
+		this.finalY = drawY;
+		this.finalW = drawWidth;
+		this.finalH = drawHeight;
 		wasPressed = false;
 	}
 
@@ -40,6 +53,18 @@ public abstract class Drawable {
 
 	public double getDrawY() {
 		return drawY;
+	}
+	public double getFinalDrawX(){
+		return finalX;
+	}
+	public double getFinalDrawY(){
+		return finalY;
+	}
+	public double getFinalDrawWidth(){
+		return finalW;
+	}
+	public double getFinalDrawHeight(){
+		return finalH;
 	}
 
 	public double getDrawWidth() {
@@ -76,6 +101,19 @@ public abstract class Drawable {
 
 	public boolean isUseTranslate() {
 		return useTranslate;
+	}
+	
+	public double getBoundX(){
+		return bX;
+	}
+	public double getBoundY(){
+		return bY;
+	}
+	public double getBoundWidth(){
+		return bW;
+	}
+	public double getBoundHeight(){
+		return bH;
 	}
 
 	public boolean isClicked(){
@@ -123,6 +161,33 @@ public abstract class Drawable {
 		this.drawHeight = height;
 	}
 
+	public void setBoundsX(double x){
+		this.boundsSet = true;
+		this.bX = x;
+	}
+	
+	public void setBoundsY(double y){
+		this.boundsSet = true;
+		this.bY = y;
+	}
+	
+	public void setBoundsWidth(double w){
+		this.boundsSet = true;
+		this.bW = w;
+	}
+	public void setBoundsHeight(double h){
+		this.boundsSet = true;
+		this.bH = h;
+	}
+	
+	public void setUseBounds(boolean args){
+		this.boundsSet = args;
+	}
+	
+	public void setUseBoundsTranslate(boolean args){
+		this.boundUseTranslate = args;
+	}
+
 	public void setLayer(int layer) {
 		this.layer = layer;
 	}
@@ -168,8 +233,45 @@ public abstract class Drawable {
 		this.drawY = y - drawHeight / 2;
 	}
 	
+	private void fixToFitBounds(boolean topLeft, boolean topRight, boolean botLeft, boolean botRight){
+		System.out.println(topLeft + "   " + topRight + "   " + botLeft + "   " + botRight);
+		if(!topLeft && !botLeft){
+			
+		}
+	}
+	
 	public void render(){
 		isClicked();
+		this.finalX = drawX;
+		this.finalY = drawY;
+		this.finalW = drawWidth;
+		this.finalH = drawHeight;
+		if(boundsSet){
+			
+			boolean topLeft = false,
+					topRight = false,
+					bottomLeft = false,
+					bottomRight = false;
+			if(boundUseTranslate){
+				//"Prettify"!!!
+				float tX = Age.cameraMain.getTranslateX();
+				float tY = Age.cameraMain.getTranslateY();
+				topLeft =     drawX - tX             >= bX && drawX - tX             <= bX + bW && drawY - tY              >= bY && drawY - tY              <= bY + bH;
+				topRight =    drawX - tX + drawWidth >= bX && drawX - tX + drawWidth <= bX + bW && drawY - tY              >= bY && drawY - tY              <= bY + bH;
+				bottomLeft =  drawX - tX             >= bX && drawX - tX             <= bX + bW && drawY - tY + drawHeight >= bY && drawY - tY + drawHeight <= bY + bH;
+				bottomRight = drawX - tX + drawWidth >= bX && drawX - tX + drawWidth <= bX + bW && drawY - tY + drawHeight >= bY && drawY - tY + drawHeight <= bY + bH;
+			}else{
+				topLeft =     drawX             >= bX && drawX             <= bX + bW && drawY              >= bY && drawY              <= bY + bH;
+				topRight =    drawX + drawWidth >= bX && drawX + drawWidth <= bX + bW && drawY              >= bY && drawY              <= bY + bH;
+				bottomLeft =  drawX             >= bX && drawX             <= bX + bW && drawY + drawHeight >= bY && drawY + drawHeight <= bY + bH;
+				bottomRight = drawX + drawWidth >= bX && drawX + drawWidth <= bX + bW && drawY + drawHeight >= bY && drawY + drawHeight <= bY + bH;
+			}
+			if(topLeft && topRight && bottomLeft && bottomRight){
+				
+			}else{
+				fixToFitBounds(topLeft, topRight, bottomLeft, bottomRight);
+			}
+		}
 		isAdded = false;
 		if(Age.EmptyTexture != -1){
 			TextureLoader.TextureInfo.get(Age.EmptyTexture).getTexture().bind();

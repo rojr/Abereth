@@ -27,6 +27,11 @@ public class basic {
 		box.setUseTranslate(true);
 		box2.setUseTranslate(true);
 		
+		box.setUseBounds(true);
+		box.setBoundsX(0);
+		box.setBoundsY(0);
+		box.setBoundsWidth(80);
+		box.setBoundsHeight(50);
 		Text t = (Text) Age.add(new Text("ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "", 300, 20));
 		Text t2 = (Text)Age.add(new Text("abcdefghijklmnopqrstuvwxyz" + "", 300, 50));
 		box2.setTexture(TextureLoader.createTexture("flame.png"));
