@@ -178,9 +178,7 @@ public abstract class Drawable {
 	}
 	public abstract void draw();
 	
-	public void onClick(){
-		setColor(Color.Blue);
-	}
+	public void onClick(){}
 	public void onHover(){}
 	
 }

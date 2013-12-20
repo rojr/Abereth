@@ -104,18 +104,10 @@ public class Screen {
 	
 	static void fixDimensions(){
 		glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
-		//glEnable(GL_BLEND);
-		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glViewport(0, 0, getWidth(), getHeight());
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(0, getWidth(), getHeight(), 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
-		//Age.cameraMain.setWidth((int)(originalDimensionY * Age.ratioX()));
-		//Age.cameraMain.setHeight((int)(originalDimensionY * Age.ratioY()));
-		//Age.cameraMain.setTranslateX(Age.cameraMain.getTranslateX() * Age.ratioX());
-		//Age.cameraMain.setTranslateY(Age.cameraMain.getTranslateY() * Age.ratioY());
 	}
 }

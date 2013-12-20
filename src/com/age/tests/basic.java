@@ -18,7 +18,7 @@ public class basic {
 		Screen.create(600, 200, "noname");
 		
 		Box box = (Box) Age.add(new Box(20, 20, 50, 50));
-		Box box2 = (Box) Age.add(new Box(40, 50, 50, 50));
+		Box box2 = (Box) Age.add(new Box(40, 50, 20, 50));
 		Box box3 = (Box) Age.add(new Box(0, 0, 50,50));
 		box3.setLayer(4);
 		

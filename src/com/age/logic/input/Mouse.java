@@ -28,11 +28,11 @@ public class Mouse {
 	 * @return
 	 */
 	public static int getTranslatedX(){
-		return (int) (org.lwjgl.input.Mouse.getX() / Age.ratioX() - Age.cameraMain.getTranslateX());
+		return (int) ((org.lwjgl.input.Mouse.getX() - Age.cameraMain.getTranslateX()) / Age.ratioX());
 	}
 	
 	public static int getTranslatedY(){
-		return (int) ((Screen.getHeight() - org.lwjgl.input.Mouse.getY()) / Age.ratioY() - Age.cameraMain.getTranslateY());
+		return (int) (((Screen.getHeight() - org.lwjgl.input.Mouse.getY()) - Age.cameraMain.getTranslateY()) / Age.ratioY());
 	}
 	
 	
