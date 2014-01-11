@@ -7,6 +7,7 @@ import com.age.graphics.effects.TextureLoader;
 import com.age.graphics.render.Collector;
 import com.age.graphics.render.shapes.Box;
 import com.age.graphics.ui.Text;
+import com.age.graphics.ui.display.Image;
 import com.age.logic.input.Keyboard;
 import com.age.logic.input.Keyboard.Key;
 import com.age.logic.input.Mouse;
@@ -32,6 +33,10 @@ public class basic {
 		box.setBoundsY(0);
 		box.setBoundsWidth(80);
 		box.setBoundsHeight(50);
+		
+		Image img = (Image) Age.add(new Image(100, 40, 60, 70));
+		img.text("Homeless man was here once");
+		img.setColor(Color.Green);
 		Text t = (Text) Age.add(new Text("ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "", 300, 20));
 		Text t2 = (Text)Age.add(new Text("abcdefghijklmnopqrstuvwxyz" + "", 300, 50));
 		box2.setTexture(TextureLoader.createTexture("flame.png"));
@@ -50,14 +55,11 @@ public class basic {
 				Age.cameraMain.setTarget(box2);
 			}else if(Keyboard.isKeyDown(Key.D)){
 				box2.setDrawX(box2.getDrawX() - 2);
-			}
-			if(box.isClicked()){
-				System.out.println("awdawd");
-			}
-			
+			}	
+			img.setDrawX(Mouse.getTranslatedX());
+			i
 			box.setLayer(2);
 			Screen.refresh(60);
 		}
 	}
-
 }

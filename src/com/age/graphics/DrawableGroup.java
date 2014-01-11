@@ -12,6 +12,7 @@ public abstract class DrawableGroup{
 		list = d;
 		setUseTranslate(useTranslate);
 	}
+	//TODO do everything that drawable class does except for all the objects in the array
 	public ArrayList<Drawable> getList(){
 		return list;
 	}

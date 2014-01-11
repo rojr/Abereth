@@ -2,6 +2,8 @@ package com.age.graphics.ui;
 
 import java.util.ArrayList;
 
+import javax.sql.rowset.Joinable;
+
 import com.age.Age;
 import com.age.graphics.Drawable;
 import com.age.graphics.DrawableGroup;
@@ -109,6 +111,10 @@ public class Text extends DrawableGroup{
 			}
 		}
 	}
+	public String getText(){
+		return this.text;
+	}
+	
 	//Holy crap, I named this setRotatation
 	public void setRotation(int rotation){
 		for(Letter l : list){
