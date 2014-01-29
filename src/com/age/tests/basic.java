@@ -57,7 +57,6 @@ public class basic {
 				box2.setDrawX(box2.getDrawX() - 2);
 			}	
 			img.setDrawX(Mouse.getTranslatedX());
-			i
 			box.setLayer(2);
 			Screen.refresh(60);
 		}

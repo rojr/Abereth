@@ -123,14 +123,4 @@ public class Age {
 			clickedList.clear();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
