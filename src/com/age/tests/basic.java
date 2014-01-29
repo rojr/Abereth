@@ -3,14 +3,9 @@ package com.age.tests;
 import com.age.Age;
 import com.age.Screen;
 import com.age.graphics.effects.Color;
-import com.age.graphics.effects.TextureLoader;
-import com.age.graphics.render.Collector;
 import com.age.graphics.render.shapes.Box;
-import com.age.graphics.ui.Text;
-import com.age.graphics.ui.display.Image;
 import com.age.logic.input.Keyboard;
 import com.age.logic.input.Keyboard.Key;
-import com.age.logic.input.Mouse;
 
 
 public class basic {
@@ -33,19 +28,8 @@ public class basic {
 		box.setBoundsY(0);
 		box.setBoundsWidth(80);
 		box.setBoundsHeight(50);
-		
-		Image img = (Image) Age.add(new Image(100, 40, 60, 70));
-		img.text("Homeless man was here once");
-		img.setColor(Color.Green);
-		Text t = (Text) Age.add(new Text("ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "", 300, 20));
-		box2.setTexture(TextureLoader.createTexture("flame.png"));
-		Text fps = (Text) Age.add(new Text("31241683"+"edqwdqwd", 100, 100));
-		fps.setUseTranslate(true);
 		while(!Screen.isCloseRequested()){
 			Screen.update();
-			fps.setText(Screen.actualFps+"");
-			fps.setLocation(Mouse.getTranslatedX() + 20, Mouse.getTranslatedY());
-			t.setRotation((int)( 360 * Math.random()));
 			box.setRotation(box.getRotation() - 1);
 			if(Keyboard.isKeyPressed(Key.A)){
 				Age.cameraMain.setTarget(box);
@@ -53,8 +37,7 @@ public class basic {
 				Age.cameraMain.setTarget(box2);
 			}else if(Keyboard.isKeyDown(Key.D)){
 				box2.setDrawX(box2.getDrawX() - 2);
-			}	
-			img.setDrawX(Mouse.getTranslatedX());
+			}
 			box.setLayer(2);
 			Screen.refresh(60);
 		}
