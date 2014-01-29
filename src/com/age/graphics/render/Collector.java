@@ -6,8 +6,6 @@ import java.util.Arrays;
 import com.age.Age;
 import com.age.graphics.Camera;
 import com.age.graphics.Drawable;
-import com.gmail.robmadeyou.ABLayer;
-import com.gmail.robmadeyou.Abereth;
 
 public class Collector{
 

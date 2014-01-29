@@ -38,10 +38,8 @@ public class basic {
 		img.text("Homeless man was here once");
 		img.setColor(Color.Green);
 		Text t = (Text) Age.add(new Text("ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "", 300, 20));
-		Text t2 = (Text)Age.add(new Text("abcdefghijklmnopqrstuvwxyz" + "", 300, 50));
 		box2.setTexture(TextureLoader.createTexture("flame.png"));
 		Text fps = (Text) Age.add(new Text("31241683"+"edqwdqwd", 100, 100));
-		int rot = 0, rot2 = 0, rot3 = 0, rot4 = 0;
 		fps.setUseTranslate(true);
 		while(!Screen.isCloseRequested()){
 			Screen.update();
