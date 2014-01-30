@@ -2,6 +2,7 @@ package com.age.tests;
 
 import com.age.Age;
 import com.age.Screen;
+import com.age.graphics.Drawable;
 import com.age.graphics.effects.Color;
 import com.age.graphics.render.shapes.Box;
 import com.age.logic.input.Keyboard;
@@ -10,7 +11,9 @@ import com.age.logic.input.Keyboard.Key;
 
 public class basic {
 
-	public static void main(String[] args) {
+	public static void main(String... args) {
+
+
 		Screen.create(600, 200, "noname");
 		
 		Box box = (Box) Age.add(new Box(20, 20, 50, 50));

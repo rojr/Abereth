@@ -7,7 +7,7 @@ import com.age.graphics.render.Collector;
 import com.age.logic.input.Mouse;
 
 public abstract class Drawable {
-	private double drawX, drawY, drawWidth, drawHeight;
+	private double drawX, drawY, drawWidth, drawHeight, xOffset, yOffset;
 	private double finalX, finalY, finalW, finalH;
 	/**
 	 * Used if object is even slightly outside of the region it is supposed to be in
@@ -22,11 +22,24 @@ public abstract class Drawable {
 	 */
 	private boolean isAdded = false;
 
+    /**
+     * Default constructor
+     */
+    public Drawable(){
+        this(0,0);
+    }
+
+    public Drawable(double x, double y){
+        this(x,y,20,20);
+    }
+
 	public Drawable(double drawX, double drawY, double drawWidth, double drawHeight) {
 		this.drawX = drawX;
 		this.drawY = drawY;
 		this.drawWidth = drawWidth;
 		this.drawHeight = drawHeight;
+        this.xOffset = 0;
+        this.yOffset =0;
 		this.layer = 1;
 		this.rotation = 0;
 		this.scaleX = 1;
@@ -75,7 +88,13 @@ public abstract class Drawable {
 	public double getDrawHeight() {
 		return drawHeight;
 	}
+    public double getXOffset(){
+        return xOffset;
+    }
 
+    public double getYOffset(){
+        return yOffset;
+    }
 	public int getLayer() {
 		return layer;
 	}
@@ -164,6 +183,12 @@ public abstract class Drawable {
 	public void setDrawHeight(double height) {
 		this.drawHeight = height;
 	}
+    public void setXOffset(double x){
+        this.xOffset = x;
+    }
+    public void setYOffset(double y){
+        this.yOffset = y;
+    }
 
 	public void setBoundsX(double x){
 		this.boundsSet = true;
@@ -247,6 +272,7 @@ public abstract class Drawable {
 	public void render(){
 		if(isVisible){
 			isClicked();
+            //TODO This is for resizing the quad and textures to create the illusion of the texture being cut
 			this.finalX = drawX;
 			this.finalY = drawY;
 			this.finalW = drawWidth;
@@ -284,6 +310,11 @@ public abstract class Drawable {
 			Collector.add(this);
 		}
 	}
+
+    public Drawable toEngine(){
+        return Age.add(this);
+    }
+
 	public abstract void draw();
 	
 	public void onClick(){}

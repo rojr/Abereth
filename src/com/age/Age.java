@@ -30,7 +30,17 @@ public class Age {
 		}
 	}
 	public static ArrayList<Drawable> drawList = new ArrayList<Drawable>();
-	public static Drawable add(Drawable d){
+
+    /**
+     * Do not call this method to add an object after
+     * calling toEngine as it is already called and will only duplicate
+     * the object.
+     *
+     * @see Age#remove(com.age.graphics.Drawable)
+     * @param d
+     * @return
+     */
+    public static Drawable add(Drawable d){
 		drawList.add(d);
 		return d;
 	}
