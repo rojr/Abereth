@@ -1,14 +1,8 @@
 package com.age.graphics.render.shapes;
 
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glTexCoord2d;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glVertex2d;
-
-import com.age.graphics.Drawable;
 import com.age.graphics.effects.TextureLoader;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class Box extends Shape{
 
@@ -23,7 +17,7 @@ public class Box extends Shape{
 		double width = getFinalDrawWidth();
 		double height = getFinalDrawHeight();
 		//TODO stop constantly binding textures, that's performance hungry
-		getColor().bind();
+        glColor4f(getColor().getR(),getColor().getG(), getColor().getB(), getOpacity());
 		if (TextureID != -1) {
 			TextureLoader.TextureInfo.get(TextureID).getTexture().bind();
 			float xPercent = (float) TextureLoader.TextureInfo.get(TextureID).getXPercent();

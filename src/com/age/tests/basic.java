@@ -2,8 +2,8 @@ package com.age.tests;
 
 import com.age.Age;
 import com.age.Screen;
-import com.age.graphics.Drawable;
 import com.age.graphics.effects.Color;
+import com.age.graphics.effects.TextureLoader;
 import com.age.graphics.render.shapes.Box;
 import com.age.logic.input.Keyboard;
 import com.age.logic.input.Keyboard.Key;
@@ -31,6 +31,8 @@ public class basic {
 		box.setBoundsY(0);
 		box.setBoundsWidth(80);
 		box.setBoundsHeight(50);
+        box2.setOpacity(0.2f);
+        box3.setTexture(TextureLoader.createTexture("res/player/player1.png"));
 		while(!Screen.isCloseRequested()){
 			Screen.update();
 			box.setRotation(box.getRotation() - 1);

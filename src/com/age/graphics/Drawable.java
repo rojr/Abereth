@@ -14,7 +14,7 @@ public abstract class Drawable {
 	 */
 	private double bX, bY, bW, bH;
 	private int layer, rotation, texture;
-	private float scaleX, scaleY;
+	private float scaleX, scaleY, opacity;
 	private Color color;
 	private boolean inverts, useTranslate, wasPressed,boundsSet, boundUseTranslate, isVisible;
 	/**
@@ -59,6 +59,7 @@ public abstract class Drawable {
 		this.finalH = drawHeight;
 		wasPressed = false;
 		this.isVisible = true;
+        this.opacity = 1f;
 	}
 
 	public double getDrawX() {
@@ -119,6 +120,8 @@ public abstract class Drawable {
 		return color;
 	}
 
+    public float getOpacity(){return opacity;}
+
 	public boolean isUseTranslate() {
 		return useTranslate;
 	}
@@ -141,7 +144,7 @@ public abstract class Drawable {
 
 	public boolean isClicked(){
 		double x = drawX, y = drawY, w = drawWidth, h = drawHeight;
-		int mX = 0, mY = 0;
+		int mX, mY;
 		if(useTranslate){
 			mX = Mouse.getTranslatedX();
 			mY = Mouse.getTranslatedY();
@@ -177,7 +180,7 @@ public abstract class Drawable {
 	}
 
 	public void setDrawWidth(double width) {
-		this.drawHeight = width;
+		this.drawWidth = width;
 	}
 
 	public void setDrawHeight(double height) {
@@ -189,6 +192,12 @@ public abstract class Drawable {
     public void setYOffset(double y){
         this.yOffset = y;
     }
+
+    /**
+     * Sets the opacity of the drawable object.
+     * @param f Can be anything from 0 to 1
+     */
+    public void setOpacity(Float f) {this.opacity = f;}
 
 	public void setBoundsX(double x){
 		this.boundsSet = true;
@@ -278,11 +287,7 @@ public abstract class Drawable {
 			this.finalW = drawWidth;
 			this.finalH = drawHeight;
 			if(boundsSet){
-			
-				boolean topLeft = false,
-						topRight = false,
-						bottomLeft = false,
-						bottomRight = false;
+				boolean topLeft,topRight,bottomLeft,bottomRight;
 				if(boundUseTranslate){
 					//"Prettify"!!!
 					float tX = Age.cameraMain.getTranslateX();
