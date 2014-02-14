@@ -17,7 +17,7 @@ public class Collector{
 		 * if it's not it won't add it
 		 */
 		for (Camera cam : Age.cameraList) {
-			float tX = -cam.getTranslateX();
+			float tX = cam.getTranslateX();
 			float tY = cam.getTranslateY();
 			float cW = cam.getWidth();
 			float cH = cam.getHeight();
@@ -34,8 +34,8 @@ public class Collector{
 					&& eY + eH >= -tY && eY + eH <= -tY + cH;
 			boolean four = eX >= -tX && eX <= -tX + cW && eY + eH >= -tY
 					&& eY + eH <= -tY + cH;
-			//if (one || two || three || four || !p.isUseTranslate()) {
-			if(true){
+			if (one || two || three || four || !p.isUseTranslate()) {
+			//if(true){
 				int layer = p.getLayer();
 				for (Layer l : drawArray) {
 					if (l.getNumber() == layer) {
