@@ -331,6 +331,10 @@ public abstract class Drawable {
         return Age.add(this);
     }
 
+    public boolean remove(){
+        return Age.remove(this);
+    }
+
 	public abstract void draw();
 	
 	public void onClick(){}

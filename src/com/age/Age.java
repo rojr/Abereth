@@ -49,20 +49,24 @@ public class Age {
 	}
 
     /**
-     * DO NOT USE CURRENTLY
-     * ID'S DO NOT CORRELATE TO THE ARRAY
-     * SO EVERYTHING IS OFF
+     *
+     * REMOVES DRAWABLE OBJECTS FROM ID'S
+     * HOW EVER THIS IS A LONG WAY TO DELETE THEM AND
+     * CAN BE INCREDIBLY SLOW IF REMOVING
+     * SIGNIFICANT AMOUNTS OF OBJECTS!
+     *
+     * I FIXED IT.
      *
      * ALSO I HAVE NO IDEA WHY I'M YELLING.
      * @param id
-     * @return
+     * @return if removed, returns true, else, false
      */
-    @Deprecated
 	public static boolean remove(int id){
-		if(id > drawList.size()){
-            throw new IndexOutOfBoundsException();
-        }else{
-            drawList.remove(id);
+		for(int i = 0; i < drawList.size(); i++){
+            if(id == drawList.get(i).getID()){
+                drawList.remove(i);
+                return true;
+            }
         }
         return false;
 	}
@@ -71,8 +75,8 @@ public class Age {
         for(int i = 0; i < drawList.size(); i++){
             if(d == drawList.get(i)){
                 drawList.remove(i);
+                return true;
             }
-            return true;
         }
         return false;
     }
