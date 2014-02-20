@@ -48,6 +48,16 @@ public class Age {
 		return d;
 	}
 
+    /**
+     * DO NOT USE CURRENTLY
+     * ID'S DO NOT CORRELATE TO THE ARRAY
+     * SO EVERYTHING IS OFF
+     *
+     * ALSO I HAVE NO IDEA WHY I'M YELLING.
+     * @param id
+     * @return
+     */
+    @Deprecated
 	public static boolean remove(int id){
 		if(id > drawList.size()){
             throw new IndexOutOfBoundsException();
@@ -56,6 +66,16 @@ public class Age {
         }
         return false;
 	}
+
+    public static boolean remove(Drawable d){
+        for(int i = 0; i < drawList.size(); i++){
+            if(d == drawList.get(i)){
+                drawList.remove(i);
+            }
+            return true;
+        }
+        return false;
+    }
 
 	public static float ratioX(){
 		return Screen.getWidth() / Screen.originalDimensionX;
