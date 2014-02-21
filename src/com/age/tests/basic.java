@@ -8,6 +8,8 @@ import com.age.graphics.render.shapes.Box;
 import com.age.logic.input.Keyboard;
 import com.age.logic.input.Keyboard.Key;
 
+import javax.xml.soap.Text;
+
 
 public class basic {
 
@@ -33,16 +35,18 @@ public class basic {
 		box.setBoundsHeight(50);
         box2.setOpacity(0.2f);
         box3.setTexture(TextureLoader.createTexture("res/player/player1.png"));
+        box.setTexture(TextureLoader.createTexture("res/player/player1.png", 20, 20, 5, 5));
+        box2.setTexture(TextureLoader.createTexture("res/player/player1.png", 20,20,5,5));
 		while(!Screen.isCloseRequested()){
-			Screen.update();
-			box.setRotation(box.getRotation() - 1);
-			if(Keyboard.isKeyPressed(Key.A)){
-				Age.cameraMain.setTarget(box);
-			}else if(Keyboard.isKeyPressed(Key.S)){
-				Age.cameraMain.setTarget(box2);
-			}else if(Keyboard.isKeyDown(Key.D)){
-				box2.setDrawX(box2.getDrawX() - 2);
-			}
+            Screen.update();
+            box.setRotation(box.getRotation() - 1);
+            if(Keyboard.isKeyPressed(Key.A)){
+                Age.cameraMain.setTarget(box);
+            }else if(Keyboard.isKeyPressed(Key.S)){
+                Age.cameraMain.setTarget(box2);
+            }else if(Keyboard.isKeyDown(Key.D)){
+                box2.setDrawX(box2.getDrawX() - 2);
+            }
             if(Keyboard.isKeyPressed(Key.Space)){
                 Age.remove(box);
             }

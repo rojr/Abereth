@@ -14,7 +14,7 @@ public class TextureLoader{
 	public static int createTexture(String location, int startX, int startY, int width, int height){
         for(int j = 0; j < TextureInfo.size(); j++){
             TexInfo i = TextureInfo.get(j);
-            if(location.equalsIgnoreCase(i.getLocation()) && startX == i.getX() && startY == i.getY() && width == i.getWidth() && height == i.getHeight() && false){
+            if(location.equalsIgnoreCase(i.getLocation()) && startX == i.getX() && startY == i.getY() && width == i.getWidth() && height == i.getHeight()){
                 return j;
             }
         }
@@ -25,8 +25,7 @@ public class TextureLoader{
 
 	public static int createTexture(String location){
 		//TextureInfo.add(new TexInfo(location, 0, 0, 0, 0));
-        createTexture(location,0,0,0,0);
-		return TextureInfo.size() - 1;
+		return createTexture(location,0,0,0,0);
 	}
 	
 	public static int getTextureWidth(int texID){

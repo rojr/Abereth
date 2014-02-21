@@ -22,7 +22,7 @@ public abstract class Drawable {
 	 */
 	private boolean isAdded = false;
 
-    private int id;
+    private long id;
 
     /**
      * Default constructor
@@ -62,7 +62,8 @@ public abstract class Drawable {
 		wasPressed = false;
 		this.isVisible = true;
         this.opacity = 1f;
-	}
+        this.id = System.nanoTime();
+    }
 
 	public double getDrawX() {
 		return drawX;
@@ -121,7 +122,7 @@ public abstract class Drawable {
 	public Color getColor() {
 		return color;
 	}
-    public int getID(){return id;}
+    public long getID(){return id;}
     public float getOpacity(){return opacity;}
 
 	public boolean isUseTranslate() {

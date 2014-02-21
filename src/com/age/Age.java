@@ -1,6 +1,7 @@
 package com.age;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.age.graphics.Camera;
 import com.age.graphics.Drawable;
@@ -33,17 +34,18 @@ public class Age {
 	}
 	public static ArrayList<Drawable> drawList = new ArrayList<Drawable>();
 
+    public static Random randomID = new Random();
+
     /**
      * Do not call this method to add an object after
      * calling toEngine as it is already called and will only duplicate
      * the object.
      *
-     * @see Age#remove(int)
+     * @see Age#remove(long)
      * @param d Drawable object
      * @return Drawable object added to the Engine
      */
     public static Drawable add(Drawable d){
-		d.setID(drawList.size() - 1);
         drawList.add(d);
 		return d;
 	}
@@ -61,7 +63,7 @@ public class Age {
      * @param id
      * @return if removed, returns true, else, false
      */
-	public static boolean remove(int id){
+	public static boolean remove(long id){
 		for(int i = 0; i < drawList.size(); i++){
             if(id == drawList.get(i).getID()){
                 drawList.remove(i);
