@@ -1,25 +1,30 @@
 package com.age.helper;
 
 public class Node {
-	
-	private Object oject;
-	private Node target;
-	
-	public Node(){
+
+
+	//data data that should be stored in each node data
+	private Object data;
+    // node to point to next node in the linked list
+    private Node nextNode;
+
+	// constructor to initialize data
+	public Node(Object data){
+        this.data = data;
 	}
-	
-	public Node node(){
-		return this.target;
+    // empty contructor
+    public Node() {
+    }
+	public Node getNextNode(){
+		return this.nextNode;
 	}
-	public void node(Node node){
-		this.target = node;
+    public Object getData(){
+        return this.data;
+    }
+	public void setNextNode(Node node){
+		this.nextNode = node;
 	}
-	
-	public Object object(){
-		return this.object();
-	}
-	
-	public void object(Object obj){
-		this.oject = obj;
+	public void setData(Object data){
+		this.data = data;
 	}
 }

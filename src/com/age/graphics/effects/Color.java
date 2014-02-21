@@ -102,7 +102,6 @@ public enum Color {
         this.g = g;
         this.b = b;
     }
-    
 
     public void bind() {
         glColor4f(r, g, b, 1);
