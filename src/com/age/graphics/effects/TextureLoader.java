@@ -12,12 +12,20 @@ public class TextureLoader{
 	public static ArrayList<TexInfo> TextureInfo = new ArrayList<TexInfo>();
 	
 	public static int createTexture(String location, int startX, int startY, int width, int height){
-		TextureInfo.add(new TexInfo(location, startX, startY, width, height));
+        for(int j = 0; j < TextureInfo.size(); j++){
+            TexInfo i = TextureInfo.get(j);
+            if(location.equalsIgnoreCase(i.getLocation()) && startX == i.getX() && startY == i.getY() && width == i.getWidth() && height == i.getHeight() && false){
+                return j;
+            }
+        }
+        //Because if the loop returned something, nothing under it would be run.
+        TextureInfo.add(new TexInfo(location, startX, startY, width, height));
 		return TextureInfo.size() - 1;
-	}
-	
+    }
+
 	public static int createTexture(String location){
-		TextureInfo.add(new TexInfo(location, 0, 0, 0, 0));
+		//TextureInfo.add(new TexInfo(location, 0, 0, 0, 0));
+        createTexture(location,0,0,0,0);
 		return TextureInfo.size() - 1;
 	}
 	

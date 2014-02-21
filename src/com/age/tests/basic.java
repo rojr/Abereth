@@ -43,6 +43,9 @@ public class basic {
 			}else if(Keyboard.isKeyDown(Key.D)){
 				box2.setDrawX(box2.getDrawX() - 2);
 			}
+            if(Keyboard.isKeyPressed(Key.Space)){
+                Age.remove(box);
+            }
 			box.setLayer(2);
 			Screen.refresh(60);
 		}

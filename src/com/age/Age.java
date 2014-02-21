@@ -12,14 +12,16 @@ public class Age {
 	
 	public static int EmptyTexture = -1;
 	
-	public static boolean rendering = true;
-	
 	public static ArrayList<Drawable> clickedList =  new ArrayList<Drawable>();
 	
 	/**
-	 * Would be best advised best to <b>NOT</b> to touch this
+	 * Would be best advised best to <b>NOT</b> to touch this array </br>
+     * @see Age#cameraMain instead
 	 */
 	public static ArrayList<Camera> cameraList = new ArrayList<Camera>();
+    /**
+     * Main camera that is responsible for rendering, fluid camera movement, player targeting.
+     */
 	public static Camera cameraMain = new Camera(0, 0, Screen.getWidth(), Screen.getHeight());
 	static ArrayList<View> viewList = new ArrayList<View>();
 	public static void addView(View v){
@@ -36,24 +38,48 @@ public class Age {
      * calling toEngine as it is already called and will only duplicate
      * the object.
      *
-     * @see Age#remove(com.age.graphics.Drawable)
-     * @param d
-     * @return
+     * @see Age#remove(int)
+     * @param d Drawable object
+     * @return Drawable object added to the Engine
      */
     public static Drawable add(Drawable d){
-		drawList.add(d);
+		d.setID(drawList.size() - 1);
+        drawList.add(d);
 		return d;
 	}
 
-	public static boolean remove(Drawable d){
+    /**
+     *
+     * REMOVES DRAWABLE OBJECTS FROM ID'S
+     * HOW EVER THIS IS A LONG WAY TO DELETE THEM AND
+     * CAN BE INCREDIBLY SLOW IF REMOVING
+     * SIGNIFICANT AMOUNTS OF OBJECTS!
+     *
+     * I FIXED IT.
+     *
+     * ALSO I HAVE NO IDEA WHY I'M YELLING.
+     * @param id
+     * @return if removed, returns true, else, false
+     */
+	public static boolean remove(int id){
 		for(int i = 0; i < drawList.size(); i++){
-			if(d == drawList.get(i)){
-				drawList.remove(i);
-				return true;
-			}
-		}
-		return false;
+            if(id == drawList.get(i).getID()){
+                drawList.remove(i);
+                return true;
+            }
+        }
+        return false;
 	}
+
+    public static boolean remove(Drawable d){
+        for(int i = 0; i < drawList.size(); i++){
+            if(d == drawList.get(i)){
+                drawList.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
 
 	public static float ratioX(){
 		return Screen.getWidth() / Screen.originalDimensionX;

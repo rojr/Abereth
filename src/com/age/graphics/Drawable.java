@@ -22,6 +22,8 @@ public abstract class Drawable {
 	 */
 	private boolean isAdded = false;
 
+    private int id;
+
     /**
      * Default constructor
      */
@@ -119,7 +121,7 @@ public abstract class Drawable {
 	public Color getColor() {
 		return color;
 	}
-
+    public int getID(){return id;}
     public float getOpacity(){return opacity;}
 
 	public boolean isUseTranslate() {
@@ -199,6 +201,15 @@ public abstract class Drawable {
      */
     public void setOpacity(Float f) {this.opacity = f;}
 
+    /**
+     * Strongly advise <b>DO NOT CALL THIS</b>, it's to set
+     * the ID so the Engine knows what each object is. Avoids massive
+     * brute force loops.
+     * @param id
+     */
+    public void setID(int id){
+        this.id = id;
+    }
 	public void setBoundsX(double x){
 		this.boundsSet = true;
 		this.bX = x;
@@ -318,6 +329,10 @@ public abstract class Drawable {
 
     public Drawable toEngine(){
         return Age.add(this);
+    }
+
+    public boolean remove(){
+        return Age.remove(this);
     }
 
 	public abstract void draw();
