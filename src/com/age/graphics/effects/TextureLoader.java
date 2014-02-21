@@ -9,8 +9,18 @@ import java.util.ArrayList;
 import static org.lwjgl.opengl.GL11.*;
 
 public class TextureLoader{
+
 	public static ArrayList<TexInfo> TextureInfo = new ArrayList<TexInfo>();
-	
+
+    /**
+     *
+     * @param location
+     * @param startX
+     * @param startY
+     * @param width
+     * @param height
+     * @return
+     */
 	public static int createTexture(String location, int startX, int startY, int width, int height){
         for(int j = 0; j < TextureInfo.size(); j++){
             TexInfo i = TextureInfo.get(j);
@@ -23,18 +33,44 @@ public class TextureLoader{
 		return TextureInfo.size() - 1;
     }
 
+    /**
+     * Textures are identified by there index in the ArrayList.
+     * Newly created textures are given an integer id of
+     * the arraylist.size - 1
+     *
+     * @param location
+     * @return
+     *          integer value representing the created texture
+     */
 	public static int createTexture(String location){
 		//TextureInfo.add(new TexInfo(location, 0, 0, 0, 0));
 		return createTexture(location,0,0,0,0);
 	}
-	
+
+    /**
+     *
+     * @param texID
+     * @return
+     *          the width of the texture with id texID
+     */
 	public static int getTextureWidth(int texID){
 		return TextureInfo.get(texID).getWidth();
 	}
+
+    /**
+     *
+     * @param texID
+     * @return
+     *          the height of the texture with id texID
+     */
 	public static int getTextureHeight(int texID){
 		return TextureInfo.get(texID).getHeight();
 	}
-	
+
+    /**
+     * Attributes for texture objects
+     * width, heigth, location, x and y coordinates
+     */
 	public static class TexInfo{
 		private int x, y,width,height;
 		private double xPercent, yPercent, widthPercent, heightPercent;
