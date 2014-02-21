@@ -26,21 +26,21 @@ public class Keyboard {
 
 	public static enum Key {
 
-		Up(org.lwjgl.input.Keyboard.KEY_UP, false, false), Down(
-				org.lwjgl.input.Keyboard.KEY_DOWN, false, false), Left(
-				org.lwjgl.input.Keyboard.KEY_LEFT, false, false), Right(
-				org.lwjgl.input.Keyboard.KEY_RIGHT, false, false),
+		Up(org.lwjgl.input.Keyboard.KEY_UP, false, false),
+        Down(org.lwjgl.input.Keyboard.KEY_DOWN, false, false),
+        Left(org.lwjgl.input.Keyboard.KEY_LEFT, false, false),
+        Right(org.lwjgl.input.Keyboard.KEY_RIGHT, false, false),
 
-		Zero(org.lwjgl.input.Keyboard.KEY_0, false, false), One(
-				org.lwjgl.input.Keyboard.KEY_1, false, false), Two(
-				org.lwjgl.input.Keyboard.KEY_2, false, false), Three(
-				org.lwjgl.input.Keyboard.KEY_3, false, false), Four(
-				org.lwjgl.input.Keyboard.KEY_4, false, false), Five(
-				org.lwjgl.input.Keyboard.KEY_5, false, false), Six(
-				org.lwjgl.input.Keyboard.KEY_6, false, false), Seven(
-				org.lwjgl.input.Keyboard.KEY_7, false, false), Eight(
-				org.lwjgl.input.Keyboard.KEY_8, false, false), Nine(
-				org.lwjgl.input.Keyboard.KEY_9, false, false),
+		Zero(org.lwjgl.input.Keyboard.KEY_0, false, false),
+        One(org.lwjgl.input.Keyboard.KEY_1, false, false),
+        Two(org.lwjgl.input.Keyboard.KEY_2, false, false),
+        Three(org.lwjgl.input.Keyboard.KEY_3, false, false),
+        Four(org.lwjgl.input.Keyboard.KEY_4, false, false),
+        Five(org.lwjgl.input.Keyboard.KEY_5, false, false),
+        Six(org.lwjgl.input.Keyboard.KEY_6, false, false),
+        Seven(org.lwjgl.input.Keyboard.KEY_7, false, false),
+        Eight(org.lwjgl.input.Keyboard.KEY_8, false, false),
+        Nine(org.lwjgl.input.Keyboard.KEY_9, false, false),
 
 		Numpad_Comma(org.lwjgl.input.Keyboard.KEY_NUMPADCOMMA, false, false), Numpad_Enter(
 				org.lwjgl.input.Keyboard.KEY_NUMPADENTER, false, false), Numpad_Equals(
