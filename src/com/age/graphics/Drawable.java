@@ -16,7 +16,7 @@ public abstract class Drawable {
 	private int layer, rotation, texture;
 	private float scaleX, scaleY, opacity;
 	private Color color;
-	private boolean inverts, useTranslate, wasPressed,boundsSet, boundUseTranslate, isVisible;
+	private boolean invertsX, invertsY, useTranslate, wasPressed,boundsSet, boundUseTranslate, isVisible;
 	/**
 	 * Boolean to check if this class has been added to the clicked array (Age)
 	 */
@@ -47,7 +47,8 @@ public abstract class Drawable {
 		this.scaleX = 1;
 		this.scaleY = 1;
 		this.texture = -1;
-		this.inverts = false;
+		this.invertsX = false;
+        this.invertsY = false;
 		this.color = Color.White;
 		this.setUseTranslate(false);
 		this.boundsSet = false;
@@ -254,9 +255,12 @@ public abstract class Drawable {
 		this.scaleY = scaleY;
 	}
 
-	public boolean isInverts() {
-		return inverts;
+	public boolean isInvertsX() {
+		return invertsX;
 	}
+    public boolean isinvertsY() {
+        return invertsY;
+    }
 
 	public void setTexture(int texture) {
 		this.texture = texture;
@@ -266,9 +270,17 @@ public abstract class Drawable {
 		this.color = color;
 	}
 
-	public void setInverts(boolean inverts) {
-		this.inverts = inverts;
+	public void setInvertsX(boolean inverts) {
+		this.invertsX = inverts;
 	}
+    public void setInvertsY(boolean inverts) {
+        this.invertsY = inverts;
+    }
+
+    public void setInverts(boolean x, boolean y){
+        this.invertsX = x;
+        this.invertsY = y;
+    }
 
 	public void setUseTranslate(boolean useTranslate) {
 		this.useTranslate = useTranslate;
@@ -276,6 +288,7 @@ public abstract class Drawable {
 	public void setScale(float x, float y){
 		this.scaleX = x;
 		this.scaleY = y;
+
 	}
 	
 	public void setLocationByCenter(int x, int y){

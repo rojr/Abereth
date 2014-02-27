@@ -13,7 +13,8 @@ public class Box extends Shape{
 	public void draw() {
 
 		int TextureID = getTexture();
-		boolean inverts = isInverts();
+		boolean invertsX = isInvertsX();
+        boolean invertsY = isinvertsY();
 		double width = getFinalDrawWidth();
 		double height = getFinalDrawHeight();
 		//TODO stop constantly binding textures, that's performance hungry
@@ -24,17 +25,41 @@ public class Box extends Shape{
 			float yPercent = (float) TextureLoader.TextureInfo.get(TextureID).getYPercent();
 			float widthPercent = (float) TextureLoader.TextureInfo.get(TextureID).getWidthPercent();
 			float heightPercent = (float) TextureLoader.TextureInfo.get(TextureID).getHeightPercent();
-			if (inverts) {
-				glBegin(GL_QUADS);
-					glTexCoord2d(xPercent + widthPercent, yPercent);
-					glVertex2d(-(width / 2), -(height / 2));
-					glTexCoord2d(xPercent, yPercent);
-					glVertex2d(width / 2, -(height / 2));
-					glTexCoord2d(xPercent, yPercent - heightPercent);
-					glVertex2d(width / 2, height / 2);
-					glTexCoord2d(xPercent + widthPercent, yPercent - heightPercent);
-					glVertex2d(-(width / 2), height / 2);
-				glEnd();
+			if (invertsX || invertsY) {
+                if(invertsX && invertsY){
+				    glBegin(GL_QUADS);
+					    glTexCoord2d(xPercent - widthPercent, yPercent);
+					    glVertex2d(-(width / 2), -(height / 2));
+					    glTexCoord2d(xPercent, yPercent);
+					    glVertex2d(width / 2, -(height / 2));
+					    glTexCoord2d(xPercent, yPercent + heightPercent);
+					    glVertex2d(width / 2, height / 2);
+					    glTexCoord2d(xPercent - widthPercent, yPercent + heightPercent);
+					    glVertex2d(-(width / 2), height / 2);
+				    glEnd();
+                }else if(invertsX){
+                    glBegin(GL_QUADS);
+                        glTexCoord2d(xPercent + widthPercent, yPercent - heightPercent);
+                        glVertex2d(-(width / 2), -(height / 2));
+                        glTexCoord2d(xPercent, yPercent - heightPercent);
+                        glVertex2d(width / 2, -(height / 2));
+                        glTexCoord2d(xPercent, yPercent);
+                        glVertex2d(width / 2, height / 2);
+                        glTexCoord2d(xPercent + widthPercent, yPercent);
+                        glVertex2d(-(width / 2), height / 2);
+                    glEnd();
+                }else if(invertsY){
+                    glBegin(GL_QUADS);
+                        glTexCoord2f(xPercent, yPercent);
+                        glVertex2d(-(width / 2), -(height / 2));
+                        glTexCoord2f(xPercent - widthPercent, yPercent);
+                        glVertex2d(width / 2, -(height / 2));
+                        glTexCoord2f(xPercent - widthPercent, yPercent + heightPercent);
+                        glVertex2d(width / 2, height / 2);
+                        glTexCoord2f(xPercent, yPercent + heightPercent);
+                        glVertex2d(-(width / 2), height / 2);
+                    glEnd();
+                }
 			} else {
 				glBegin(GL_QUADS);
 					glTexCoord2f(xPercent, yPercent);

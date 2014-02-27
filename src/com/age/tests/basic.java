@@ -7,6 +7,7 @@ import com.age.graphics.effects.TextureLoader;
 import com.age.graphics.render.shapes.Box;
 import com.age.logic.input.Keyboard;
 import com.age.logic.input.Keyboard.Key;
+import org.lwjgl.opengl.Display;
 
 import javax.xml.soap.Text;
 
@@ -17,8 +18,8 @@ public class basic {
 
 
 		Screen.create(600, 200, "noname");
-		
-		Box box = (Box) Age.add(new Box(20, 20, 50, 50));
+        Display.setVSyncEnabled(true);
+        Box box = (Box) Age.add(new Box(20, 20, 50, 50));
 		Box box2 = (Box) Age.add(new Box(40, 50, 20, 50));
 		Box box3 = (Box) Age.add(new Box(0, 0, 50,50));
 		box3.setLayer(4);
@@ -35,14 +36,16 @@ public class basic {
 		box.setBoundsHeight(50);
         box2.setOpacity(0.2f);
         box3.setTexture(TextureLoader.createTexture("res/player/player1.png"));
-        box.setTexture(TextureLoader.createTexture("res/player/player1.png", 20, 20, 5, 5));
-        box2.setTexture(TextureLoader.createTexture("res/player/player1.png", 20,20,5,5));
-		while(!Screen.isCloseRequested()){
+        box.setTexture(TextureLoader.createTexture("res/World/Stone.png"));
+        box2.setTexture(TextureLoader.createTexture("res/player/player1.png", 20, 20, 5, 5));
+        while(!Screen.isCloseRequested()){
             Screen.update();
             box.setRotation(box.getRotation() - 1);
             if(Keyboard.isKeyPressed(Key.A)){
+                box.setInvertsY(true);
                 Age.cameraMain.setTarget(box);
             }else if(Keyboard.isKeyPressed(Key.S)){
+                box.setInvertsY(false);
                 Age.cameraMain.setTarget(box2);
             }else if(Keyboard.isKeyDown(Key.D)){
                 box2.setDrawX(box2.getDrawX() - 2);
