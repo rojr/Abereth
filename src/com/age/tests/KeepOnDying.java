@@ -2,6 +2,7 @@ package com.age.tests;
 
 import com.age.Age;
 import com.age.Screen;
+import com.age.graphics.render.shapes.Line;
 import com.age.world.TileType;
 import com.age.world.World;
 import com.age.graphics.effects.Color;
@@ -28,8 +29,8 @@ public class KeepOnDying {
 
 
         Screen.create(1200, 600, "KeepOnDying");
-        Box box = (Box) new Box(0,0,Screen.getWidth(),Screen.getHeight()).toEngine();
-        box.setTexture(TextureLoader.createTexture("res/tiles/Stone.png"));
+        //Box box = (Box) new Box(0,0,Screen.getWidth(),Screen.getHeight()).toEngine();
+        //box.setTexture(TextureLoader.createTexture("res/tiles/Stone.png"));
 
         Player en = (Player) new Player(200,200).toEngine();
         //Enemy enemy = (Enemy) new Enemy(300,200,40,60).toEngine();
@@ -41,9 +42,11 @@ public class KeepOnDying {
         en.setUseTranslate(true);
         Age.cameraMain.setTarget(en);
         World.activeWorld.load();
+        Line l = new Line(2,0,5090,50000).toEngine();
+        l.setLayer(5);
+        l.setUseTranslate(true);
         while(!Screen.isCloseRequested()){
             Screen.update();
-            en.search(World.activeWorld.get((int) (Mouse.getTranslatedX() / World.TILE_DIMENSIONS()), (int) (Mouse.getTranslatedY() / World.TILE_DIMENSIONS())));
             for(Entity e : entities){
                 e.update(Screen.delta);
             }
@@ -65,7 +68,7 @@ public class KeepOnDying {
         if(Keyboard.isKeyDown(Keyboard.Key.W)){
             en.setVelocityY(en.getSpeed());
         }
-            Screen.refresh(60);
+            Screen.refresh(120);
         }
     }
 }

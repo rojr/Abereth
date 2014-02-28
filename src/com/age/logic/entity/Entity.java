@@ -301,16 +301,14 @@ public class Entity extends Box implements Physics, Living {
             Entity e = this;
             if(this instanceof Player) e = (Player) this;
             else if(this instanceof Enemy) e = (Enemy) this;
+
             if(x > cX){
                 e.moveRight();
-            }else{
+            }else if(x < cX){
                 e.moveLeft();
             }
             //TODO logic for jumping!
-            if(y > cY){
-            }else{
-                jump(-4);
-            }
+
         }
     }
 

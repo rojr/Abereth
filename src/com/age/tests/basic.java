@@ -5,6 +5,7 @@ import com.age.Screen;
 import com.age.graphics.effects.Color;
 import com.age.graphics.effects.TextureLoader;
 import com.age.graphics.render.shapes.Box;
+import com.age.graphics.render.shapes.Line;
 import com.age.logic.input.Keyboard;
 import com.age.logic.input.Keyboard.Key;
 import org.lwjgl.opengl.Display;
@@ -38,6 +39,8 @@ public class basic {
         box3.setTexture(TextureLoader.createTexture("res/player/player1.png"));
         box.setTexture(TextureLoader.createTexture("res/World/Stone.png"));
         box2.setTexture(TextureLoader.createTexture("res/player/player1.png", 20, 20, 5, 5));
+        Line l = new Line(0,0,200,200).toEngine();
+        l.setUseTranslate(true);
         while(!Screen.isCloseRequested()){
             Screen.update();
             box.setRotation(box.getRotation() - 1);
