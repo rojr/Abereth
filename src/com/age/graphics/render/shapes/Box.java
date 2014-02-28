@@ -11,7 +11,6 @@ public class Box extends Shape{
 	}
 
 	public void draw() {
-
 		int TextureID = getTexture();
 		boolean invertsX = isInvertsX();
         boolean invertsY = isinvertsY();
