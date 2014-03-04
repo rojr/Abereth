@@ -5,6 +5,7 @@ import com.age.Screen;
 import com.age.graphics.effects.Color;
 import com.age.graphics.effects.TextureLoader;
 import com.age.graphics.render.shapes.Box;
+import com.age.graphics.render.shapes.Dot;
 import com.age.graphics.render.shapes.Line;
 import com.age.logic.input.Keyboard;
 import com.age.logic.input.Keyboard.Key;
@@ -25,8 +26,8 @@ public class basic {
 		Box box3 = (Box) Age.add(new Box(0, 0, 50,50));
 		box3.setLayer(4);
 		
-		box3.setColor(Color.Red);
-		box.setColor(Color.Yellow);
+		box3.setColor(Color.RED);
+		box.setColor(Color.BLUE);
 		box.setUseTranslate(true);
 		box2.setUseTranslate(true);
 		
@@ -41,6 +42,10 @@ public class basic {
         box2.setTexture(TextureLoader.createTexture("res/player/player1.png", 20, 20, 5, 5));
         Line l = new Line(0,0,200,200).toEngine();
         l.setUseTranslate(true);
+        l.setColor(Color.RED);
+        for(int i = 0; i < 20; i++){
+            new Dot(20 * i, 20 * i, 4).toEngine();
+        }
         while(!Screen.isCloseRequested()){
             Screen.update();
             box.setRotation(box.getRotation() - 1);

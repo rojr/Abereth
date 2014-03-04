@@ -49,7 +49,7 @@ public abstract class Drawable {
 		this.texture = -1;
 		this.invertsX = false;
         this.invertsY = false;
-		this.color = Color.White;
+		this.color = Color.WHITE;
 		this.setUseTranslate(false);
 		this.boundsSet = false;
 		this.bX = -1;

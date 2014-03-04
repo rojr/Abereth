@@ -1,6 +1,7 @@
 package com.age.logic.entity;
 
 import com.age.Age;
+import com.age.Screen;
 import com.age.tests.KeepOnDying;
 import com.age.world.Physics;
 import com.age.graphics.render.shapes.Box;
@@ -208,6 +209,12 @@ public class Entity extends Box implements Physics, Living {
         this.gravity = gravity;
     }
 
+    @Override
+    public void draw(){
+        super.draw();
+        update(Screen.delta);
+    }
+
     public void update(double delta){
         isAirborne = !isSolidUnder() ? true : false;
 
@@ -315,7 +322,6 @@ public class Entity extends Box implements Physics, Living {
     @Override
     public Entity toEngine(){
         super.toEngine();
-        KeepOnDying.entities.add(this);
         return this;
     }
 }

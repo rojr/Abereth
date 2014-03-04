@@ -2,16 +2,16 @@ package com.age.graphics.effects;
 
 import static org.lwjgl.opengl.GL11.glColor4f;
 
-public enum Color {
+public class Color {
 
     /*
      * A massive thanks to cloford.com for hosting a list of colours and their RGB values
      *	http://www.cloford.com/resources/colours/500col.htm
     */
-    White(1F, 1F, 1F), Black(0F, 0F, 0F), Red(1F, 0F, 0F), Green(0, 128, 0), Blue(0F, 0F, 1F),
-    Red_Indian(176, 23, 31), Crimson(220, 20, 60), Pink_Light(255, 182, 193), Pink_Light_2(255, 174, 185),
-    Pink_Light_3(238, 162, 173), Pink_Light_4(205, 140, 149), Pink_Light_5(139, 95, 101), Pink(255, 192, 203),
-    Pink_2(255, 181, 197), Pink_3(238, 169, 184), Pink_4(205, 145, 158), Pink_5(139, 99, 108), Violet_Red_Pale(219, 112, 147),
+    public static final Color WHITE = new Color(1F, 1F, 1F), BLACK = new Color(0F, 0F, 0F), RED = new Color(1F, 0F, 0F), GREEN = new Color(0, 128, 0), BLUE = new Color(0F, 0F, 1F);
+    public static final Color RED_INDIAN = new Color(176, 23, 31), CRIMSON = new Color(220, 20, 60), PINK_LIGHT = new Color(255, 182, 193), PINK_LIGHT_2 = new Color(255, 174, 185);
+    public static final Color PINK_LIGHT_3 = new Color(238, 162, 173), PINK_LIGHT_4 = new Color(205, 140, 149), PINK_LIGHT_5 = new Color(139, 95, 101), PINK = new Color(255, 192, 203);
+    /*Pink_2(255, 181, 197), Pink_3(238, 169, 184), Pink_4(205, 145, 158), Pink_5(139, 99, 108), Violet_Red_Pale(219, 112, 147),
     Violet_Red_Pale_2(255, 130, 171), Violet_Red_Pale_3(238, 121, 159), Violet_Red_Pale_4(205, 104, 137), Violet_Red_Pale_5(139, 71, 93),
     Lavender_Blush(255, 240, 245), Lavender_Blush_2(238, 224, 229), Lavender_Blush_3(205, 193, 197), Lavender_Blush_4(139, 131, 134),
     Violet_Red_2(255, 62, 150), Violet_Red_3(238, 58, 140), Violet_Red_4(205, 50, 120), Violet_Red_5(139, 34, 82), Pink_Hot(255, 105, 180),
@@ -94,10 +94,10 @@ public enum Color {
     Sea_Shell_4(139, 134, 130), Brown_Sandy(244, 164, 96), Sienna_Raw(199, 97, 20), Chocolate(210, 105, 30),
     Chocolate_2(255, 127, 36), Chocolate_3(238, 118, 33), Chocolate_4(205, 102, 29), Chocolate_5(139, 69, 19),
     Black_Ivory(41, 36, 33);
-
+*/
     private float r, g, b;
 
-    Color(float r, float g, float b) {
+    public Color(float r, float g, float b) {
         this.r = r;
         this.g = g;
         this.b = b;

@@ -1,5 +1,8 @@
 package com.age.graphics.render.shapes;
 
+import com.age.Age;
+import com.age.graphics.effects.TextureLoader;
+
 import static org.lwjgl.opengl.GL11.*;
 
 /**
@@ -11,13 +14,14 @@ public class Line extends Shape {
         super(x1,y1,x2,y2);
     }
 
+    @Override
     public void draw(){
         glColor4f(getColor().getR(), getColor().getG(), getColor().getB(), getOpacity());
+        TextureLoader.TextureInfo.get(Age.EmptyTexture).getTexture().bind();
         glBegin(GL_LINES);
             glVertex2d(getDrawX(), getDrawY());
             glVertex2d(getDrawWidth(), getDrawHeight());
         glEnd();
-        System.out.println("a");
     }
 
     @Override
