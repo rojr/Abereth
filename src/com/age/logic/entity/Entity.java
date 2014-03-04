@@ -44,6 +44,8 @@ public class Entity extends Box implements Physics, Living {
     private float originalSpeed = speed;
     private boolean isJumping = false, isAirborne = false;
     private int direction = 0;
+
+    private boolean wasUpdated = false;
     public Entity(double x, double y, double width, double height){
         super(x,y,width, height);
         setTexture(Age.EmptyTexture);
@@ -79,7 +81,9 @@ public class Entity extends Box implements Physics, Living {
     public void setVelocity(float x, float y){ setVelocity(new Vector2f(x,y));};
     public void setVelocityX(float x){this.velocity.setX(x);};
     public void setVelocityY(float y){this.velocity.setY(y);};
+    public void setWasUpdated(boolean updated){this.wasUpdated = updated;}
 
+    public boolean isWasUpdated(){return wasUpdated;}
 
     @Override
     public float getGravity() {
@@ -213,6 +217,7 @@ public class Entity extends Box implements Physics, Living {
     public void draw(){
         super.draw();
         update(Screen.delta);
+        wasUpdated = true;
     }
 
     public void update(double delta){
@@ -268,9 +273,13 @@ public class Entity extends Box implements Physics, Living {
         }
         //If entity hits anything above it, it is automatically transferred to the top of the block, rather than falling down.
         //TODO fix it now, or as soon as possible.
-        while(World.activeWorld.isSolidAt((int)(getBottom().getX() + getDrawWidth() / 2) / World.TILE_DIMENSIONS(),(int)getBottom().getY() / World.TILE_DIMENSIONS() - 1)){
-            setDrawY(getDrawY() - World.TILE_DIMENSIONS());
-            //setDrawY(getDrawY() - 2);
+        try{
+            while(World.activeWorld.isSolidAt((int)(getBottom().getX() + getDrawWidth() / 2) / World.TILE_DIMENSIONS(),(int)getBottom().getY() / World.TILE_DIMENSIONS() - 1)){
+                setDrawY(getDrawY() - World.TILE_DIMENSIONS());
+                //setDrawY(getDrawY() - 2);
+            }
+        }catch(ArrayIndexOutOfBoundsException e){
+
         }
     }
 

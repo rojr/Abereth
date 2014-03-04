@@ -27,7 +27,6 @@ public class KeepOnDying {
 
         Screen.create(1200, 600, "KeepOnDying");
         Box box = (Box) new Box(0,0,Screen.getWidth(),Screen.getHeight()).toEngine();
-        box.setTexture(TextureLoader.createTexture("res/tiles/Stone.png"));
 
         Player en = (Player) new Player(200,200).toEngine();
         Enemy enemy = (Enemy) new Enemy(300,200,40,60).toEngine();
@@ -35,17 +34,18 @@ public class KeepOnDying {
         en.setColor(Color.RED);
         en.setLayer(2);
         Display.setVSyncEnabled(true);
-        World.load(new World(32, 32, 32));
+        World.load(new World(32, 200, 40));
         en.setUseTranslate(true);
         Age.cameraMain.setTarget(en);
         World.activeWorld.load();
         Line l = new Line(2,0,5090,50000).toEngine();
         l.setLayer(5);
         l.setUseTranslate(true);
-
+        int a = 0;
+        en.setSpeed(20);
         while(!Screen.isCloseRequested()){
+            a++;
             Screen.update();
-            en.setRotation(en.getRotation() + 2);
             if(Mouse.isLeftMouseButtonDown()){
                 World.activeWorld.set(TileType.BRICK, Mouse.getTranslatedX() / World.TILE_DIMENSIONS(), Mouse.getTranslatedY() / World.TILE_DIMENSIONS());
             }else if(Mouse.isRightMouseButtonDown()){
@@ -54,9 +54,6 @@ public class KeepOnDying {
                     World.activeWorld.save("save.txt");
                 }
             e.setUseTranslate(true);
-        }
-            if(Keyboard.isKeyPressed(Keyboard.Key.R)){
-                en.setVelocity(new Vector2f((float) (10 - Math.random() * 20),(float) (-Math.random() * 20)));
         }
 
         if(Keyboard.isKeyDown(Keyboard.Key.W)){

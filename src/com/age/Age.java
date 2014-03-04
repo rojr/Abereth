@@ -6,6 +6,7 @@ import java.util.Random;
 import com.age.graphics.Camera;
 import com.age.graphics.Drawable;
 import com.age.graphics.effects.TextureLoader;
+import com.age.logic.entity.Entity;
 
 public class Age {
 	public final static String name = "Abereth game engine";
@@ -33,6 +34,7 @@ public class Age {
 		}
 	}
 	public static ArrayList<Drawable> drawList = new ArrayList<Drawable>();
+    public static ArrayList<Entity> entityList = new ArrayList<Entity>();
 
     public static Random randomID = new Random();
 
@@ -136,6 +138,10 @@ public class Age {
 		for(Drawable d : drawList){
 			d.render();
 		}
+        for(Entity e : entityList){
+
+
+        }
 		if(clickedList.size() != 0){
 			clickedList.get(clickedList.size() - 1).onClick();
 			clickedList.clear();

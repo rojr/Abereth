@@ -44,7 +44,7 @@ public class Enemy extends Entity {
             timeToRunFor = decision.nextInt(10000);
             hasExecutedDecision = false;
             actionStart = Sys.getTime();
-            System.out.println("decided" + currentAction + "    " + timeToRunFor);
+            //System.out.println("decided" + currentAction + "    " + timeToRunFor);
         }else{
             currentTime = Sys.getTime() - actionStart;
             if(currentTime <= timeToRunFor){
@@ -74,8 +74,6 @@ public class Enemy extends Entity {
                         setInvertsX(false);
                         break;
                     case 7:
-                        boolean temp = isinvertsY() ? false : true;
-                        setInvertsY(temp);
                         break;
                 }
             }else{

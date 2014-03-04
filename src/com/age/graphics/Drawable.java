@@ -5,6 +5,8 @@ import com.age.graphics.effects.Color;
 import com.age.graphics.effects.TextureLoader;
 import com.age.graphics.render.Collector;
 import com.age.logic.input.Mouse;
+import com.age.world.Tile;
+import com.age.world.World;
 
 public abstract class Drawable {
 	private double drawX, drawY, drawWidth, drawHeight, xOffset, yOffset;
@@ -69,6 +71,8 @@ public abstract class Drawable {
         this.id = System.nanoTime();
         this.rotationX = drawX + drawWidth / 2;
         this.rotationY = drawY + drawHeight / 2;
+        this.rotationX = 0;
+        this.rotationY = 0;
     }
 
 	public double getDrawX() {
