@@ -20,11 +20,13 @@ public class Render {
 					//glRotatef((float)d.getRotation(),(float) (d.getDrawY() ), (float) (d.getDrawX()), 0f);
 					glPushMatrix();
                         glPushMatrix();
+
                         glTranslated(d.getRotationX(), d.getRotationY(), 0);
                         glRotatef((float) d.getRotation(), 0f, 0f, 1f);
-                        if(!(d instanceof Line)) {
-                            glTranslatef((float) ((d.getFinalDrawX() + d.getFinalDrawWidth() / 2) + d.getXOffset()), (float) ((d.getFinalDrawY() + d.getFinalDrawHeight() / 2) + d.getYOffset()), 0);
-                        } 
+                        glTranslated(-d.getRotationX(), -d.getRotationY(), 0);
+                if(!(d instanceof Line)) {
+                    glTranslatef((float) ((d.getFinalDrawX() + d.getFinalDrawWidth() / 2) + d.getXOffset()), (float) ((d.getFinalDrawY() + d.getFinalDrawHeight() / 2) + d.getYOffset()), 0);
+                }
                         glScalef(d.getScaleX(), d.getScaleY(), 0);
                         d.draw();
                         glPopMatrix();

@@ -1,5 +1,7 @@
 package com.age.graphics.effects;
 
+import java.net.CookieHandler;
+
 import static org.lwjgl.opengl.GL11.glColor4f;
 
 public class Color {
@@ -120,5 +122,9 @@ public class Color {
 
     public float getB() {
         return b;
+    }
+
+    public static Color random(){
+        return new Color((float)Math.random() * 255, (float)Math.random() * 255, (float) Math.random());
     }
 }

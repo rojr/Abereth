@@ -35,15 +35,17 @@ public class KeepOnDying {
         en.setColor(Color.RED);
         en.setLayer(2);
         Display.setVSyncEnabled(true);
-        World.load(new World(32, 200, 40));
+        World.load(new World(32, 32, 32));
         en.setUseTranslate(true);
         Age.cameraMain.setTarget(en);
         World.activeWorld.load();
         Line l = new Line(2,0,5090,50000).toEngine();
         l.setLayer(5);
         l.setUseTranslate(true);
+
         while(!Screen.isCloseRequested()){
             Screen.update();
+            en.setRotation(en.getRotation() + 2);
             if(Mouse.isLeftMouseButtonDown()){
                 World.activeWorld.set(TileType.BRICK, Mouse.getTranslatedX() / World.TILE_DIMENSIONS(), Mouse.getTranslatedY() / World.TILE_DIMENSIONS());
             }else if(Mouse.isRightMouseButtonDown()){

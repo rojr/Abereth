@@ -50,10 +50,14 @@ public class basic {
         box.setRotationX(20);
         box.setRotationY(50);
         while(!Screen.isCloseRequested()){
-            box.setRotationX(Mouse.getX());
-            box.setRotationY(Mouse.getY());
+            if(Mouse.isLeftMouseButtonDown()){
+                //box.setDrawX(Mouse.getTranslatedX() - 50);
+                //box.setDrawY(Mouse.getTranslatedY() - 50);
+                box.setRotationX(Mouse.getTranslatedX());
+                box.setRotationY(Mouse.getTranslatedY());
+            }
             Screen.update();
-            box.setRotation(box.getRotation() - 1);
+            box.setRotation(box.getRotation() - 20);
             if(Keyboard.isKeyPressed(Key.A)){
                 box.setInvertsY(true);
                 Age.cameraMain.setTarget(box);
