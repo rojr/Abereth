@@ -14,6 +14,9 @@ public abstract class Drawable {
 	 */
 	private double bX, bY, bW, bH;
 	private int layer, rotation, texture;
+
+    private double rotationX, rotationY;
+
 	private float scaleX, scaleY, opacity;
 	private Color color;
 	private boolean invertsX, invertsY, useTranslate, wasPressed,boundsSet, boundUseTranslate, isVisible;
@@ -64,6 +67,8 @@ public abstract class Drawable {
 		this.isVisible = true;
         this.opacity = 1f;
         this.id = System.nanoTime();
+        this.rotationX = drawX + drawWidth / 2;
+        this.rotationY = drawY + drawHeight / 2;
     }
 
 	public double getDrawX() {
@@ -125,6 +130,14 @@ public abstract class Drawable {
 	}
     public long getID(){return id;}
     public float getOpacity(){return opacity;}
+
+    public double getRotationX(){
+        return rotationX;
+    }
+
+    public double getRotationY(){
+        return rotationY;
+    }
 
 	public boolean isUseTranslate() {
 		return useTranslate;
@@ -288,9 +301,24 @@ public abstract class Drawable {
 	public void setScale(float x, float y){
 		this.scaleX = x;
 		this.scaleY = y;
-
 	}
-	
+
+    /**
+     * The x coordinate that the object is going to be
+     * rotated at
+     */
+    public void setRotationX(double x){
+        this.rotationX = x;
+    }
+
+    /**
+     * @param y The Y coordinate that the object is going to be
+     *          rotated at.
+     */
+    public void setRotationY(double y){
+        this.rotationY = y;
+    }
+
 	public void setLocationByCenter(int x, int y){
 		this.drawX = x - drawWidth / 2;
 		this.drawY = y - drawHeight / 2;

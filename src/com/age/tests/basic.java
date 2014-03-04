@@ -9,6 +9,7 @@ import com.age.graphics.render.shapes.Dot;
 import com.age.graphics.render.shapes.Line;
 import com.age.logic.input.Keyboard;
 import com.age.logic.input.Keyboard.Key;
+import com.age.logic.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import javax.xml.soap.Text;
@@ -46,7 +47,11 @@ public class basic {
         for(int i = 0; i < 20; i++){
             new Dot(20 * i, 20 * i, 4).toEngine();
         }
+        box.setRotationX(20);
+        box.setRotationY(50);
         while(!Screen.isCloseRequested()){
+            box.setRotationX(Mouse.getX());
+            box.setRotationY(Mouse.getY());
             Screen.update();
             box.setRotation(box.getRotation() - 1);
             if(Keyboard.isKeyPressed(Key.A)){
