@@ -369,6 +369,7 @@ public abstract class Drawable {
 			if(Age.EmptyTexture != -1){
 				TextureLoader.TextureInfo.get(Age.EmptyTexture).getTexture().bind();
 			}
+            setColor(Color.random());
 			Collector.add(this);
 		}
 	}
