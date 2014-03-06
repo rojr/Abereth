@@ -77,6 +77,22 @@ public class Container extends Gui implements Parent{
     }
 
     @Override
+    public void setRotationX(double x){
+        super.setRotationX(x);
+        for(Child c : children){
+            c.getOrigin().setRotationX(x);
+        }
+    }
+
+    @Override
+    public void setRotationY(double y){
+        super.setRotationY(y);
+        for(Child c : children){
+            c.getOrigin().setRotationY(y);
+        }
+    }
+
+    @Override
     public Container toEngine(){
         return (Container) Age.add(this);
     }
