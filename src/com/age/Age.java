@@ -7,6 +7,7 @@ import com.age.graphics.Camera;
 import com.age.graphics.Drawable;
 import com.age.graphics.effects.TextureLoader;
 import com.age.logic.entity.Entity;
+import com.age.world.World;
 
 public class Age {
 	public final static String name = "Abereth game engine";
@@ -146,5 +147,8 @@ public class Age {
 			clickedList.get(clickedList.size() - 1).onClick();
 			clickedList.clear();
 		}
-	}
+        //Check if world is set up
+        if(World.activeWorld != null)
+            World.activeWorld.onUpdate();
+    }
 }

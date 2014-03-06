@@ -1,6 +1,7 @@
 package com.age.graphics;
 
 import com.age.Age;
+import com.age.Screen;
 import com.age.graphics.effects.Color;
 import com.age.graphics.effects.TextureLoader;
 import com.age.graphics.render.Collector;
@@ -69,10 +70,10 @@ public abstract class Drawable {
 		this.isVisible = true;
         this.opacity = 1f;
         this.id = System.nanoTime();
+        //By default, it's set to the centre of the un-transformed drawable object
+        //TODO make this change accordingly when the object moves.
         this.rotationX = drawX + drawWidth / 2;
         this.rotationY = drawY + drawHeight / 2;
-        this.rotationX = 0;
-        this.rotationY = 0;
     }
 
 	public double getDrawX() {
@@ -369,7 +370,6 @@ public abstract class Drawable {
 			if(Age.EmptyTexture != -1){
 				TextureLoader.TextureInfo.get(Age.EmptyTexture).getTexture().bind();
 			}
-            setColor(Color.random());
 			Collector.add(this);
 		}
 	}

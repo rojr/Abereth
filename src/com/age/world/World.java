@@ -1,5 +1,7 @@
 package com.age.world;
 
+import com.age.event.EventWorld;
+
 import java.io.*;
 
 /**
@@ -11,6 +13,9 @@ public class World {
      * be able to play on.
      */
     public static World activeWorld;
+
+    private EventWorld event;
+
     public static int TILE_DIMENSIONS(){
         return activeWorld.getDimensions();
     }
@@ -117,6 +122,10 @@ public class World {
         }
     }
 
+    public void addEvent(EventWorld event){
+        this.event = event;
+    }
+
     /**
      * Saves the map to a specific file
      * @param filename
@@ -140,5 +149,9 @@ public class World {
 
     public static void load(World world){
         activeWorld = world;
+    }
+
+    public void onUpdate(){
+        event.event(this);
     }
 }

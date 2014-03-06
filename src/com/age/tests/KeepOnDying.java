@@ -2,7 +2,9 @@ package com.age.tests;
 
 import com.age.Age;
 import com.age.Screen;
+import com.age.event.EventWorld;
 import com.age.graphics.render.shapes.Line;
+import com.age.graphics.ui.Container;
 import com.age.world.TileType;
 import com.age.world.World;
 import com.age.graphics.effects.Color;
@@ -43,7 +45,10 @@ public class KeepOnDying {
         l.setUseTranslate(true);
         int a = 0;
         en.setSpeed(20);
+
+
         while(!Screen.isCloseRequested()){
+
             a++;
             Screen.update();
             if(Mouse.isLeftMouseButtonDown()){
