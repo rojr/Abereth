@@ -18,7 +18,7 @@ public class Age {
 	public static ArrayList<Drawable> clickedList =  new ArrayList<Drawable>();
 	
 	/**
-	 * Would be best advised best to <b>NOT</b> to touch this array </br>
+	 * Would be best to <b>NOT</b> touch this array </br>
      * @see Age#cameraMain instead
 	 */
 	public static ArrayList<Camera> cameraList = new ArrayList<Camera>();
