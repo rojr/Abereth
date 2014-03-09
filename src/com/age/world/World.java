@@ -152,6 +152,6 @@ public class World {
     }
 
     public void onUpdate(){
-        event.event(this);
+        //event.event(this);
     }
 }

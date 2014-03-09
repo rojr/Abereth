@@ -20,17 +20,12 @@ import org.lwjgl.util.vector.Vector2f;
 
 public class KeepOnDying {
 
-
-
-
-
     public static void main(String... args){
-
 
         Screen.create(1200, 600, "KeepOnDying");
         Box box = (Box) new Box(0,0,Screen.getWidth(),Screen.getHeight()).toEngine();
 
-        Player en = (Player) new Player(200,200).toEngine();
+        Player en = (Player) new Player(200,200, 20, 50).toEngine();
         Enemy enemy = (Enemy) new Enemy(300,200,40,60).toEngine();
         enemy.setUseTranslate(true);
         en.setColor(Color.RED);
@@ -43,13 +38,10 @@ public class KeepOnDying {
         Line l = new Line(2,0,5090,50000).toEngine();
         l.setLayer(5);
         l.setUseTranslate(true);
-        int a = 0;
-        en.setSpeed(20);
 
 
         while(!Screen.isCloseRequested()){
 
-            a++;
             Screen.update();
             if(Mouse.isLeftMouseButtonDown()){
                 World.activeWorld.set(TileType.BRICK, Mouse.getTranslatedX() / World.TILE_DIMENSIONS(), Mouse.getTranslatedY() / World.TILE_DIMENSIONS());

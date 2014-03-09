@@ -98,35 +98,35 @@ public class Age {
 	 * Resources
 	 */
 	
-			/*
-			 * Items
-			 */
-				public static char letters[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-					'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-					'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-					'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
-					'v', 'w', 'x', 'y', 'z' };
+	/*
+	 * Items
+	 */
+	public static char letters[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+		'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+        'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+		'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+		'v', 'w', 'x', 'y', 'z' };
 
-				public static char numbers[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-				
-				public static ArrayList<Integer> letterTexID = new ArrayList<Integer>();
+	public static char numbers[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
-				public static ArrayList<Integer> numberTexID = new ArrayList<Integer>();
+	public static ArrayList<Integer> letterTexID = new ArrayList<Integer>();
 
-				public static void loadTextures() {
-					for (int i = 0; i < letters.length / 2; i++) {
-						letterTexID.add(TextureLoader.createTexture("res/font/sprite1.png",
-								i * 8, 0, 8, 8));
-					}
-					for (int i = 0; i < letters.length / 2; i++) {
-						letterTexID.add(TextureLoader.createTexture("res/font/sprite1.png",
-								i * 8, 8, 8, 8));
-					}
-					for (int i = 0; i < numbers.length; i++) {
-						numberTexID.add(TextureLoader.createTexture("res/font/sprite1.png",
-								i * 8, 16, 8, 8));
-					}
-				}
+	public static ArrayList<Integer> numberTexID = new ArrayList<Integer>();
+
+	public static void loadTextures() {
+		for (int i = 0; i < letters.length / 2; i++) {
+			letterTexID.add(TextureLoader.createTexture("res/font/sprite1.png",
+					i * 8, 0, 8, 8));
+		}
+	    for (int i = 0; i < letters.length / 2; i++) {
+			letterTexID.add(TextureLoader.createTexture("res/font/sprite1.png",
+					i * 8, 8, 8, 8));
+		}
+    	for (int i = 0; i < numbers.length; i++) {
+			numberTexID.add(TextureLoader.createTexture("res/font/sprite1.png",
+					i * 8, 16, 8, 8));
+		}
+	}
 				
 	public static void init(){//booiiiiii
 		EmptyTexture = TextureLoader.createTexture("res/none.png");
@@ -139,10 +139,6 @@ public class Age {
 		for(Drawable d : drawList){
 			d.render();
 		}
-        for(Entity e : entityList){
-
-
-        }
 		if(clickedList.size() != 0){
 			clickedList.get(clickedList.size() - 1).onClick();
 			clickedList.clear();

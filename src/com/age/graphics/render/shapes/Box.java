@@ -27,25 +27,26 @@ public class Box extends Shape{
 			if (invertsX || invertsY) {
                 if(invertsX && invertsY){
 				    glBegin(GL_QUADS);
-					    glTexCoord2d(xPercent - widthPercent, yPercent);
-					    glVertex2d(-(width / 2), -(height / 2));
-					    glTexCoord2d(xPercent, yPercent);
-					    glVertex2d(width / 2, -(height / 2));
-					    glTexCoord2d(xPercent, yPercent + heightPercent);
-					    glVertex2d(width / 2, height / 2);
-					    glTexCoord2d(xPercent - widthPercent, yPercent + heightPercent);
-					    glVertex2d(-(width / 2), height / 2);
-				    glEnd();
+                    System.out.println("aaa");
+                        glTexCoord2d(xPercent - widthPercent, yPercent);
+                        glVertex2d(-(width / 2), -(height / 2));
+                        glTexCoord2d(xPercent, yPercent);
+                        glVertex2d(width / 2, -(height / 2));
+                        glTexCoord2d(xPercent, yPercent + heightPercent);
+                        glVertex2d(width / 2, height / 2);
+                        glTexCoord2d(xPercent - widthPercent, yPercent + heightPercent);
+                        glVertex2d(-(width / 2), height / 2);
+                    glEnd();
                 }else if(invertsX){
                     glBegin(GL_QUADS);
-                        glTexCoord2d(xPercent + widthPercent, yPercent - heightPercent);
-                        glVertex2d(-(width / 2), -(height / 2));
-                        glTexCoord2d(xPercent, yPercent - heightPercent);
-                        glVertex2d(width / 2, -(height / 2));
-                        glTexCoord2d(xPercent, yPercent);
-                        glVertex2d(width / 2, height / 2);
-                        glTexCoord2d(xPercent + widthPercent, yPercent);
-                        glVertex2d(-(width / 2), height / 2);
+                    glTexCoord2d(xPercent + widthPercent, yPercent);
+                    glVertex2d(-(width / 2), -(height / 2));
+                    glTexCoord2d(xPercent, yPercent);
+                    glVertex2d(width / 2, -(height / 2));
+                    glTexCoord2d(xPercent, yPercent - heightPercent);
+                    glVertex2d(width / 2, height / 2);
+                    glTexCoord2d(xPercent + widthPercent, yPercent - heightPercent);
+                    glVertex2d(-(width / 2), height / 2);
                     glEnd();
                 }else if(invertsY){
                     glBegin(GL_QUADS);

@@ -24,16 +24,12 @@ public class Enemy extends Entity {
     private long timeToRunFor;
     private long currentTime;
     private long actionStart = Sys.getTime();
-        private Animation skeleton = new Animation(TextureLoader.createTexture("res/animations/skeleton/1.png"),1);
     public Enemy(double x, double y, double width, double height){
         super(x,y,width,height);
         decision = new Random();
         hasExecutedDecision = true;
         timeToRunFor = 0;
         currentTime = 0;
-        skeleton.add(TextureLoader.createTexture("res/animations/skeleton/2.png"))
-                .add(TextureLoader.createTexture("res/animations/skeleton/3.png"))
-                .add(TextureLoader.createTexture("res/animations/skeleton/4.png"));
     }
 
     @Override
@@ -50,15 +46,14 @@ public class Enemy extends Entity {
             if(currentTime <= timeToRunFor){
                 switch(currentAction){
                     case 0:
-                        hasExecutedDecision = moveRight() ? true : false;
+                        hasExecutedDecision = moveRight();
                         break;
                     case 1:
-                        hasExecutedDecision = moveLeft() ? true : false;
+                        hasExecutedDecision = moveLeft();
                         break;
                     case 2:
                         jump(-4);
                         break;
-
                     case 3:
                         moveLeft();
                         jump(-4);
@@ -85,7 +80,6 @@ public class Enemy extends Entity {
     public boolean moveLeft(){
         super.moveLeft();
         setInvertsX(true);
-        setTexture(skeleton.getCurrentTexture());
         return super.moveLeft();
     }
 
@@ -93,7 +87,6 @@ public class Enemy extends Entity {
     public boolean moveRight(){
         super.moveRight();
         setInvertsX(false);
-        setTexture(skeleton.getCurrentTexture());
         return super.moveRight();
     }
 }
