@@ -14,6 +14,11 @@ public class Container extends Gui implements Parent{
 
 
     private ArrayList<Child> children = new ArrayList<Child>();
+
+    public Container(double x, double y){
+        this(x,y,0,0);
+    }
+
     public Container(double x, double y, double width, double height){
         super(x,y,width,height);
     }
