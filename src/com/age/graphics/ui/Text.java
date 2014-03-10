@@ -10,7 +10,7 @@ import com.age.helper.Child;
 public class Text extends Container {
 
     private double lastX, lastY;
-    private int letterSize = 16;
+    private int letterSize = 8;
     public Text(double x, double y){
         this("", x, y);
     }
@@ -23,7 +23,6 @@ public class Text extends Container {
         lastX = getDrawX();
         lastY = getDrawY();
         if((text.length() > 0)){
-            //TODO set up the array
             for(char c : text.toCharArray()){
                 if(c == ' ')
                     lastX += letterSize;
@@ -36,7 +35,25 @@ public class Text extends Container {
             }
         }
     }
-      
+
+    public void set(String text){
+        getChildren().clear();
+        lastX = getDrawX();
+        lastY = getDrawY();
+        if((text.length() > 0)){
+            for(char c : text.toCharArray()){
+                if(c == ' ')
+                    lastX += letterSize;
+                else if(c != '\n')
+                    add(new Letter(c,0,0,letterSize,letterSize));
+                else{
+                    lastX = getDrawX();
+                    lastY += letterSize;
+                }
+            }
+        }
+    }
+
     @Override
     public void add(Child c){
         if(c.getOrigin() instanceof Letter){
