@@ -1,6 +1,7 @@
 package com.age.tests;
 
 import com.age.Screen;
+import com.age.graphics.effects.Color;
 import com.age.graphics.ui.Image;
 import com.age.graphics.ui.Text;
 
@@ -9,14 +10,14 @@ import com.age.graphics.ui.Text;
  */
 public class ExceptionTest {
     public static void main(String... args){
-        Screen.create(500,500,"");
+        Screen.create(500,500,"aaaa");
 
-        Text t = new Text(20,20);
-        t.add(new Image(20,20,20,20));
+        Text t = (Text) new Text("Hello",20,20,20,20).toEngine();
+        t.setColor(Color.RED);
 
         while(!Screen.isCloseRequested()){
             Screen.update();
-
+            t.setRotation(t.getRotation()+3);
 
 
             Screen.refresh(60);

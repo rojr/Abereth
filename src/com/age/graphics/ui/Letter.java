@@ -1,5 +1,6 @@
 package com.age.graphics.ui;
 
+import com.age.Age;
 import com.age.graphics.Drawable;
 import com.age.helper.Child;
 import com.age.helper.Parent;
@@ -10,8 +11,20 @@ import com.age.helper.Parent;
 public class Letter extends Gui implements Child{
 
     private Parent parent;
-    public Letter(double x, double y, double width, double height){
+    private char c;
+    public Letter(char c, double x, double y, double width, double height){
         super(x,y,width,height);
+        this.c = c;
+        setTexture(Age.getCharacterTexture(c));
+    }
+
+    public char getLetter(){
+        return c;
+    }
+
+    public void setLetter(char c){
+        this.c = c;
+        setTexture(Age.getCharacterTexture(c));
     }
 
     public Parent getParent(){

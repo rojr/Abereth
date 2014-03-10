@@ -101,37 +101,34 @@ public class Age {
 	/*
 	 * Items
 	 */
-	public static char letters[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+	public static char characters[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 		'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
         'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
 		'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
-		'v', 'w', 'x', 'y', 'z' };
-
-	public static char numbers[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+		'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 	public static ArrayList<Integer> letterTexID = new ArrayList<Integer>();
 
-	public static ArrayList<Integer> numberTexID = new ArrayList<Integer>();
-
-	public static void loadTextures() {
-		for (int i = 0; i < letters.length / 2; i++) {
-			letterTexID.add(TextureLoader.createTexture("res/font/sprite1.png",
-					i * 8, 0, 8, 8));
-		}
-	    for (int i = 0; i < letters.length / 2; i++) {
-			letterTexID.add(TextureLoader.createTexture("res/font/sprite1.png",
-					i * 8, 8, 8, 8));
-		}
-    	for (int i = 0; i < numbers.length; i++) {
-			numberTexID.add(TextureLoader.createTexture("res/font/sprite1.png",
-					i * 8, 16, 8, 8));
-		}
+	public static void loadCharacters() {
+		for(int i = 0; i < characters.length; i++) {
+            int tmp = i >= 26 ? i % 26 : i;
+            letterTexID.add(TextureLoader.createTexture("res/font/sprite1.png",
+                    tmp * 8, (int) (8 * Math.floor(i / 26)), 8, 8));
+        }
 	}
+    
+    public static int getCharacterTexture(char c){
+        for(int i = 0; i < characters.length; i++){
+            if(characters[i] == c) return letterTexID.get(i);
+        }
+        return 0;
+    }
 				
 	public static void init(){//booiiiiii
+        //Empty texture will always be 0 unless called by user before Screen.create
 		EmptyTexture = TextureLoader.createTexture("res/none.png");
 		cameraList.add(cameraMain);
-		loadTextures();
+		loadCharacters();
 	}
 	
 	
