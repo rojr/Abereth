@@ -1,5 +1,6 @@
 package com.age.world;
 
+import com.age.Screen;
 import com.age.event.EventWorld;
 
 import java.io.*;
@@ -23,6 +24,20 @@ public class World {
     private Tile[][] mapList;
     private int TILE_SIZE;
 
+    /**
+     * Creates a new world with enough tiles to cover the whole screen
+     * Sets the default tile size to 32.
+     */
+    public World(){
+        this(32, Screen.getWidth() / 32, Screen.getHeight() / 32);
+    }
+
+    /**
+     * Creates a new world
+     * @param tileSize Size of each tile
+     * @param x number of tiles horizontally
+     * @param y number of tiles vertically
+     */
     public World(int tileSize, int x, int y){
         this.TILE_SIZE = tileSize;
         mapList = new Tile[x][y];
