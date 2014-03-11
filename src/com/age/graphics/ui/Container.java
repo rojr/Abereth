@@ -33,6 +33,20 @@ public class Container extends Gui implements Parent{
         }
     }
 
+    /**
+     * Only changes the x location of the container itself and not the children.
+     * <b>Only is changed if single is set to false</b>.
+     * @param x
+     * @param single if true changes all child objects. If false only changes parent
+     */
+    public void setDrawX(double x, boolean single){
+        if(single){
+            setDrawX(x);
+        }else{
+            super.setDrawX(x);
+        }
+    }
+
     @Override
     public void setDrawY(double y){
         double prevY = getDrawY();
@@ -40,6 +54,20 @@ public class Container extends Gui implements Parent{
         super.setDrawY(y);
         for(Child c : children){
             c.getOrigin().setDrawY(c.getOrigin().getDrawY() + diff);
+        }
+    }
+
+    /**
+     * Only changes the y location of the container itself and not the children.
+     * <b>Only is changed if single is set to false</b>.
+     * @param y
+     * @param single if true changes all child objects. If false only changes parent
+     */
+    public void setDrawY(double y, boolean single){
+        if(single){
+            setDrawY(y);
+        }else{
+            super.setDrawY(y);
         }
     }
 
@@ -68,6 +96,10 @@ public class Container extends Gui implements Parent{
     @Override
     public void render(){
         super.render();
+        updateChildren();
+    }
+
+    public void updateChildren(){
         for(Child c : children){
             c.getOrigin().render();
         }

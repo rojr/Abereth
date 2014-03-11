@@ -16,10 +16,12 @@ public class LetterTest {
         Text t = (Text) new Text("",20,20,0,0).toEngine();
         t.setColor(Color.RED);
 
+        t.setRotationY(Screen.getWidth() / 2);
+        t.setRotationX(Screen.getHeight() / 2);
+
         while(!Screen.isCloseRequested()){
             Screen.update();
-            t.set(Sys.getTime()+"");
-            t.setRotation(t.getRotation()+32);
+            t.setRotation(t.getRotation() + 1);
             Screen.refresh(60);
         }
     }
