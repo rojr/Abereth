@@ -21,15 +21,22 @@ public class LetterTest {
         t.setRotationY(Screen.getWidth() / 2);
         t.setRotationX(Screen.getHeight() / 2);
 
-        Text text =(Text) new Text("Welcome\nthis is something to\n think about", 150,200).toEngine();
+        Text text =(Text) new Text("&!0We&!1lcome\nthis &!9is so&!4met&!6hing &!3to\n think ab&!0out", 150,200).toEngine();
         text.setSize(16);
 
+
+        /*
+
+        In this test press spacebar to see the text rotate at a random speed and then go back to the original location.
+        String manipulation similar to Regular Expressions is also implemented here and will be tested.
+
+         */
 
         while(!Screen.isCloseRequested()){
             Screen.update();
 
 
-            if(Keyboard.isKeyDown(Keyboard.Key.Space)){
+           if(Keyboard.isKeyDown(Keyboard.Key.Space)){
                 for(Child c : text.getChildren()){
                     c.getOrigin().setRotation(c.getOrigin().getRotation() + ( (int) (Math.random() * 10 )));
                 }
@@ -37,7 +44,7 @@ public class LetterTest {
                 for(Child c : text.getChildren()){
                     if(c.getOrigin().getRotation() <= 0 || true){
                         if(c.getOrigin().getRotation() == 0){
-                            c.getOrigin().getColor().fade(Color.GREEN);
+                            c.getOrigin().getColor().fade(Color.WHITE);
                         }else{
                             c.getOrigin().setColor((Color.random(new Color[]{Color.BLUE, Color.RED})));
                         }

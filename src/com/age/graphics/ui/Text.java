@@ -1,6 +1,7 @@
 package com.age.graphics.ui;
 
 import com.age.exceptions.InvalidObjectType;
+import com.age.graphics.effects.Color;
 import com.age.helper.Child;
 
 
@@ -12,6 +13,8 @@ public class Text extends Container {
     private double lastX, lastY;
     private int letterSize = 8;
     private String text;
+    private char identifier = '&';
+    Color currentColor = Color.WHITE;
     public Text(double x, double y){
         this("", x, y);
     }
@@ -24,18 +27,7 @@ public class Text extends Container {
         lastX = getDrawX();
         lastY = getDrawY();
         this.text = text;
-        if((text.length() > 0)){
-            for(char c : text.toCharArray()){
-                if(c == ' ')
-                    lastX += letterSize;
-                else if(c != '\n')
-                    add(new Letter(c,0,0,letterSize,letterSize));
-                else{
-                    lastX = getDrawX();
-                    lastY += letterSize;
-                }
-            }
-        }
+        set(text);
     }
 
     /**
@@ -61,12 +53,54 @@ public class Text extends Container {
         lastY = getDrawY();
         this.text = text;
         if((text.length() > 0)){
-            for(char c : text.toCharArray()){
+            for(int i = 0; i < text.toCharArray().length; i++){
+                char c = text.toCharArray()[i];
                 if(c == ' ')
                     lastX += letterSize;
-                else if(c != '\n')
-                    add(new Letter(c,0,0,letterSize,letterSize));
-                else{
+                else if(c != '\n'){
+                    if(c == identifier && i != text.toCharArray().length -1 && i != text.toCharArray().length - 2){
+                        if(text.toCharArray()[i+1] == '!'){
+                            char id = text.toCharArray()[i+2];
+                            switch(id){
+                                case '0':
+                                    currentColor = Color.WHITE;
+                                    break;
+                                case '1':
+                                    currentColor = Color.RED;
+                                    break;
+                                case '2':
+                                    currentColor = Color.BLUE;
+                                    break;
+                                case '3':
+                                    currentColor = Color.YELLOW;
+                                    break;
+                                case '4':
+                                    currentColor = Color.GREEN;
+                                    break;
+                                case '5':
+                                    currentColor = Color.CYAN;
+                                    break;
+                                case '6':
+                                    currentColor = Color.BLACK;
+                                    break;
+                                case '7':
+                                    currentColor = Color.ORANGE;
+                                    break;
+                                case '8':
+                                    currentColor = Color.PINK;
+                                    break;
+                                case '9':
+                                    currentColor = Color.VIOLET;
+                                    break;
+                            }
+                            i+=2;
+                            continue;
+                        }
+                    }
+                    Letter l = new Letter(c,0,0,letterSize,letterSize);
+                    l.setColor(currentColor);
+                    add(l);
+                }else{
                     lastX = getDrawX();
                     lastY += letterSize;
                 }
