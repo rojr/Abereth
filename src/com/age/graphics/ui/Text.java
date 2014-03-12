@@ -11,6 +11,7 @@ public class Text extends Container {
 
     private double lastX, lastY;
     private int letterSize = 8;
+    private String text;
     public Text(double x, double y){
         this("", x, y);
     }
@@ -22,6 +23,7 @@ public class Text extends Container {
         super(x,y,width,height);
         lastX = getDrawX();
         lastY = getDrawY();
+        this.text = text;
         if((text.length() > 0)){
             for(char c : text.toCharArray()){
                 if(c == ' ')
@@ -36,10 +38,28 @@ public class Text extends Container {
         }
     }
 
+    /**
+     * Sets size of the letters and spacing
+     * @param size size of each letter in pixels
+     */
+    public void setSize(int size){
+        this.letterSize = size;
+        set(text);
+    }
+
+    /**
+     * Default is 8
+     * @return letter size
+     */
+    public int getSize(){
+        return letterSize;
+    }
+
     public void set(String text){
         getChildren().clear();
         lastX = getDrawX();
         lastY = getDrawY();
+        this.text = text;
         if((text.length() > 0)){
             for(char c : text.toCharArray()){
                 if(c == ' ')

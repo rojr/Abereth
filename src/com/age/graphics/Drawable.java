@@ -285,7 +285,12 @@ public abstract class Drawable {
 	}
 
 	public void setColor(Color color) {
-		this.color = color;
+		Color c = new Color(color.getR(), color.getG(), color.getB());
+
+        //This creates a new color, instead of simply referencing Color.
+        //Allows for color manipulation effects to not be saved within the color
+        //as final objects can still be changed.
+        this.color = c;
 	}
 
 	public void setInvertsX(boolean inverts) {

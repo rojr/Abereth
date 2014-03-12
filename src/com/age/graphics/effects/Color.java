@@ -402,11 +402,92 @@ public class Color {
         return b;
     }
 
+    /**
+     * Fades to a certain pre-defined color
+     * @param to Color to fade to.
+     */
+    public void fade(Color to){
+        if(to.getR() > getR()){
+            r += 0.01;
+        }else if(to.getR() < getR()){
+            r -= 0.01;
+        }
+
+        if(to.getG() > getG()){
+            g += 0.01;
+        }else if(to.getG() < getG()){
+            g -= 0.01;
+        }
+
+        if(to.getB() > getB()){
+            b += 0.01;
+        }else if(to.getB() < getB()){
+            b -= 0.01;
+        }
+    }
+
+    /**
+     * Returns a new color that is in process of fading from a color to a color
+     * Will return the TO color if both colors are the same (meaning fading was done)
+     * @param from Color to fade from
+     * @param to Destination color
+     * @return new color
+     */
+    public static Color fade(Color from, Color to){
+        float r = from.getR(),g = from.getG(),b = from.getB();
+        if(to.getR() != r && to.getG() != g && to.getB() != b){
+            if(to.getR() > from.getR()){
+                r += 0.01;
+            }else if(to.getR() < from.getR()){
+                r -= 0.01;
+            }
+
+            if(to.getG() > from.getG()){
+                g += 0.01;
+            }else if(to.getG() < from.getG()){
+                g -= 0.01;
+            }
+
+            if(to.getB() > from.getB()){
+                b += 0.01;
+            }else if(to.getB() < from.getB()){
+                b -= 0.01;
+            }
+            return new Color(r,g,b);
+        }
+        return to;
+    }
+
     public String getName(){
         return name;
     }
 
+    /**
+     * @return a completely random color
+     */
     public static Color random(){
         return new Color((float)Math.random(), (float)Math.random(), (float) Math.random());
+    }
+
+    /**
+     * @param list List of colors to randomly select
+     * @return a random color from the list
+     */
+    public static Color random(Color[] list){
+        return list[(int)(Math.random() * list.length)];
+    }
+
+    /**
+     * Returns a random color with the specified parameters
+     * @param minR Minimum RED in the color (float 0 - 1)
+     * @param maxR Maximum  RED in the color (float 0 - 1) Should be bigger than minR
+     * @param minG Minimum GREEN in the color (float 0 - 1)
+     * @param maxG Maximum GREEN in the color (float 0 - 1) Should be bigger than minG
+     * @param minB Minimum BLUE in the color (float 0 - 1)
+     * @param maxB Maximum BLUE in the color (float 0 - 1) Should be bigger than minB
+     * @return
+     */
+    public static Color random(float minR, float maxR, float minG, float maxG, float minB, float maxB){
+        return new Color((float)(minR + (Math.random() - maxR)), (float) (minG + (Math.random() - maxG)),(float) (minB + (Math.random() - maxB)));
     }
 }
