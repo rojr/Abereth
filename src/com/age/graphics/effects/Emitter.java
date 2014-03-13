@@ -2,6 +2,7 @@ package com.age.graphics.effects;
 
 import com.age.Age;
 import com.age.Screen;
+import com.age.event.EventEmitterOnDotCreate;
 import com.age.graphics.Drawable;
 import com.age.graphics.ui.Container;
 import com.age.graphics.ui.Gui;
@@ -17,6 +18,7 @@ public class Emitter extends Container {
     private int maxDots;
     private double dotWidth, dotHeight;
     private double speed;
+    private EventEmitterOnDotCreate onCreate;
     public Emitter(double x, double y, double width, double height){
         super(x,y,width,height);
         continues = true;
@@ -52,15 +54,25 @@ public class Emitter extends Container {
         return maxDots;
     }
 
+    public void setOnDotCreate(EventEmitterOnDotCreate e){
+        this.onCreate = e;
+    }
+
     @Override
     public void updateChildren(){
         if(!continues){
             if(maxDots > 0){
-                add(new Dot(this,getDrawX(),getDrawY(),dotWidth, dotHeight, speed));
+                Dot d;
+                if(onCreate != null) d = new Dot(this,getDrawX(),getDrawY(), dotWidth, dotHeight, speed, onCreate);
+                else d = new Dot(this,getDrawX(),getDrawY(), dotWidth, dotHeight, speed);
+                add(d);
                 maxDots--;
             }
         }else{
-            add(new Dot(this,getDrawX(),getDrawY(), dotWidth, dotHeight, speed));
+            Dot d;
+            if(onCreate != null) d = new Dot(this,getDrawX(),getDrawY(), dotWidth, dotHeight, speed, onCreate);
+            else d = new Dot(this,getDrawX(),getDrawY(), dotWidth, dotHeight, speed);
+            add(d);
         }
 
         for(int i = 0; i < getChildren().size(); i++){
@@ -69,17 +81,24 @@ public class Emitter extends Container {
         }
     }
 
-    private class Dot extends Gui implements Child{
+    public class Dot extends Gui implements Child{
         private Parent parent;
         double dX, dY;
         float opacityRate;
+        private EventEmitterOnDotCreate onCreate;
         public Dot(Parent parent, double x, double y, double width, double height, double speed){
             super(x,y,width,height);
             this.parent = parent;
             this.dX = (0.5 - Math.random()) * speed;
             this.dY = (0.5 - Math.random()) * speed;
-            setOpacity(1f);
-            setTexture(Age.letterTexID.get((int) (Math.random() * Age.letterTexID.size() - 1)));
+        }
+
+        public Dot(Parent parent, double x, double y, double width, double height, double speed, EventEmitterOnDotCreate event){
+            super(x,y,width,height);
+            this.parent = parent;
+            this.dX = (0.5 - Math.random()) * speed;
+            this.dY = (0.5 - Math.random()) * speed;
+            event.event(this);
         }
 
         @Override
