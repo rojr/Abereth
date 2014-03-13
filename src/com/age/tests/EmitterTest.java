@@ -1,8 +1,9 @@
 package com.age.tests;
 
+import com.age.Age;
 import com.age.Screen;
 import com.age.graphics.effects.Emitter;
-import com.age.logic.input.Mouse;
+import com.age.logic.input.Keyboard;
 
 /**
  * Created by apex on 11/03/14.
@@ -15,7 +16,13 @@ public class EmitterTest {
         while(!Screen.isCloseRequested()){
             Screen.update();
 
-
+            //em.setRandomChildTexture(Age.letterTexID);
+            if(Keyboard.isKeyPressed(Keyboard.Key.Space)){
+                Age.remove(em);
+            }
+            if(Keyboard.isKeyPressed(Keyboard.Key.B)){
+                Age.add(em);
+            }
             Screen.refresh(60);
         }
     }

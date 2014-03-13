@@ -129,6 +129,24 @@ public class Container extends Gui implements Parent{
         }
     }
 
+    public void setChildTexture(int tex){
+        for(Child c : getChildren()){
+            c.getOrigin().setTexture(tex);
+        }
+    }
+
+    public void setRandomChildTexture(int[] tex){
+        for(Child c : getChildren()){
+            c.getOrigin().setTexture(tex[(int)(Math.random() * tex.length - 1)]);
+        }
+    }
+
+    public void setRandomChildTexture(ArrayList<Integer> tex){
+        for(Child c : getChildren()){
+            c.getOrigin().setTexture(tex.get((int) (Math.random() * tex.size() - 1)));
+        }
+    }
+
     @Override
     public Container toEngine(){
         return (Container) Age.add(this);

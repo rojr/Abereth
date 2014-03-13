@@ -33,30 +33,37 @@ public class LetterTest {
 
          */
 
+        long start = Sys.getTime();
         while(!Screen.isCloseRequested()){
             Screen.update();
 
 
            if(Keyboard.isKeyDown(Keyboard.Key.Space)){
                 for(Child c : text.getChildren()){
-                    c.getOrigin().setRotation(c.getOrigin().getRotation() + ( (int) (Math.random() * 10 )));
+                    c.getOrigin().setRotation(c.getOrigin().getRotation() + ( (int) (Math.random() * 100 )));
                 }
             }else{
                 for(Child c : text.getChildren()){
                     if(c.getOrigin().getRotation() <= 0 || true){
                         if(c.getOrigin().getRotation() == 0){
-                            c.getOrigin().getColor().fade(Color.WHITE);
+                            System.out.println(Sys.getTime() - start);
+                            if(Sys.getTime() - start > 10000){
+                                c.getOrigin().getColor().fade(Color.WHITE);
+                            }else{
+                            c.getOrigin().getColor().fade(Color.random(new Color[]{Color.BLACK, Color.BLACK, Color.GREEN, Color.GREEN}),0.01f);
+                            }
                         }else{
-                            c.getOrigin().setColor((Color.random(new Color[]{Color.BLUE, Color.RED})));
+                            //c.getOrigin().setColor((Color.random(new Color[]{Color.BLACK, Color.GREEN})));
+                            c.getOrigin().getColor().fade(Color.random(new Color[]{Color.RED, Color.BANANA}),0.005f);
                         }
-                        c.getOrigin().setRotation((int)(c.getOrigin().getRotation() * (0.99 - Math.random() / 10)));
+                        c.getOrigin().setRotation((int)(c.getOrigin().getRotation() * (0.99 - Math.random() / 100)));
                     }else{
                         c.getOrigin().setRotation(c.getOrigin().getRotation()- 1);
                     }
                 }
             }
 
-            text.set(Text.size(90)+"A"+Text.RED+"B"+Text.BLUE+"C"+Text.GREEN+"D");
+            text.set(Text.size(30)+"LOLOLLELELELE\nOLELELEOLEOLEOLE\nLOLOLOELOEOL");
 
             t.setRotation(t.getRotation() + 1);
             Screen.refresh(60);

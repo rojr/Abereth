@@ -403,26 +403,35 @@ public class Color {
     }
 
     /**
-     * Fades to a certain pre-defined color
+     * Fades to a certain pre-defined color at a fixed speed of 0.01f every tick
      * @param to Color to fade to.
      */
     public void fade(Color to){
+        fade(to, 0.01f);
+    }
+
+    /**
+     * Fades the color to the desired color at an optional speed
+     * @param to Desired color to fade to
+     * @param speed How fast the color changes (0 to 1)
+     */
+    public void fade(Color to, float speed){
         if(to.getR() > getR()){
-            r += 0.01;
+            r += speed;
         }else if(to.getR() < getR()){
-            r -= 0.01;
+            r -= speed;
         }
 
         if(to.getG() > getG()){
-            g += 0.01;
+            g += speed;
         }else if(to.getG() < getG()){
-            g -= 0.01;
+            g -= speed;
         }
 
         if(to.getB() > getB()){
-            b += 0.01;
+            b += speed;
         }else if(to.getB() < getB()){
-            b -= 0.01;
+            b -= speed;
         }
     }
 

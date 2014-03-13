@@ -1,5 +1,6 @@
 package com.age.graphics.effects;
 
+import com.age.Age;
 import com.age.Screen;
 import com.age.graphics.Drawable;
 import com.age.graphics.ui.Container;
@@ -32,7 +33,7 @@ public class Emitter extends Container {
         this.dotHeight = dotHeight;
         this.dotWidth = dotWidth;
         this.speed = speed;
-        setOpacity(0.2f);
+        setOpacity(1f);
     }
 
     public void setContinues(boolean args){
@@ -78,6 +79,7 @@ public class Emitter extends Container {
             this.dX = (0.5 - Math.random()) * speed;
             this.dY = (0.5 - Math.random()) * speed;
             setOpacity(1f);
+            setTexture(Age.letterTexID.get((int) (Math.random() * Age.letterTexID.size() - 1)));
         }
 
         @Override
