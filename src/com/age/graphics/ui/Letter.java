@@ -31,7 +31,7 @@ public class Letter extends Gui implements Child{
         return parent;
     }
 
-    public Drawable getOrigin(){
+    public Letter getOrigin(){
         return this;
     }
 
