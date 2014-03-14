@@ -80,6 +80,7 @@ public class Container extends Gui implements Parent{
         c.setParent(this);
         c.getOrigin().setRotationX(getRotationX());
         c.getOrigin().setRotationY(getRotationY());
+        c.getOrigin().setRotation(getRotation());
         if(c.getOrigin().getDrawX() < getDrawX()){
             c.getOrigin().setDrawX(getDrawX());
         }

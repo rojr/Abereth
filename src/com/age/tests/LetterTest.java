@@ -13,7 +13,8 @@ import org.lwjgl.Sys;
  * Created by apex on 10/03/14.
  */
 public class LetterTest {
-    public static void main(String... args){
+
+    public LetterTest(){
         Screen.create(1000,600,"aaaa");
 
         Text t = (Text) new Text("",20,20,0,0).toEngine();
@@ -22,9 +23,16 @@ public class LetterTest {
         t.setRotationY(Screen.getWidth() / 2);
         t.setRotationX(Screen.getHeight() / 2);
 
-        Text text =(Text) new Text("&!0We&!1lcome\nthis &!9is so&!4met&!6hing &!3to\n think ab&!0out", 150,200).toEngine();
-        text.setSize(16);
 
+        Text[] letters = new Text[40];
+
+        for(int i = 0; i < letters.length; i++){
+            Text te = (Text) new Text("", 0, 16 * i).toEngine();
+            te.setSize(16);
+            te.setRotationX(Screen.getWidth() / 2);
+            te.setRotationY(Screen.getHeight() / 2);
+            letters[i] =te;
+        }
 
         /*
 
@@ -34,39 +42,44 @@ public class LetterTest {
          */
 
         long start = Sys.getTime();
+        int speed = 0;
+
         while(!Screen.isCloseRequested()){
             Screen.update();
+            speed+= 200;
 
 
-           if(Keyboard.isKeyDown(Keyboard.Key.Space)){
-                for(Child c : text.getChildren()){
-                    c.getOrigin().setRotation(c.getOrigin().getRotation() + ( (int) (Math.random() * 100 )));
+            String a = Text.GREEN+"";
+            for(int j = 0; j < 100; j++){
+                if(Math.random() >= 0.5){
+                    a += "O";
+                }else{
+                    a += "|";
                 }
-            }else{
-                for(Child c : text.getChildren()){
-                    if(c.getOrigin().getRotation() <= 0 || true){
-                        if(c.getOrigin().getRotation() == 0){
-                            System.out.println(Sys.getTime() - start);
-                            if(Sys.getTime() - start > 10000){
-                                c.getOrigin().getColor().fade(Color.WHITE);
-                            }else{
-                            c.getOrigin().getColor().fade(Color.random(new Color[]{Color.BLACK, Color.BLACK, Color.GREEN, Color.GREEN}),0.01f);
-                            }
-                        }else{
-                            //c.getOrigin().setColor((Color.random(new Color[]{Color.BLACK, Color.GREEN})));
-                            c.getOrigin().getColor().fade(Color.random(new Color[]{Color.RED, Color.BANANA}),0.005f);
-                        }
-                        c.getOrigin().setRotation((int)(c.getOrigin().getRotation() * (0.99 - Math.random() / 100)));
-                    }else{
-                        c.getOrigin().setRotation(c.getOrigin().getRotation()- 1);
-                    }
+                double ran = 0.5;
+                if(ran < 0.1){
+                    a += Text.BLUE;
+                }else if(ran < 0.2){
+                    a += Text.GREEN;
+                }else if(ran < 0.3){
+                    a += Text.RED;
                 }
             }
+            a+= "\n";
+            letters[0].set(a);
 
-            text.set(Text.size(30)+"LOLOLLELELELE\nOLELELEOLEOLEOLE\nLOLOLOELOEOL");
+            for(int i = letters.length-2; i >= 0; i--){
+                letters[i + 1].set(letters[i].getText());
+                letters[i].setRotation(letters[i].getRotation()+(int)(Math.random() * 20));
+            }
+            System.out.println(Screen.actualFps);
 
             t.setRotation(t.getRotation() + 1);
             Screen.refresh(60);
         }
+    }
+
+    public static void main(String... args){
+        new LetterTest();
     }
 }

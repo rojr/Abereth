@@ -51,6 +51,10 @@ public class Text extends Container {
         set(text);
     }
 
+    public String getText(){
+        return text;
+    }
+
     /**
      * Default is 8
      * @return letter size

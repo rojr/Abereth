@@ -5,13 +5,13 @@ import com.age.graphics.render.shapes.Box;
 
 import java.util.Random;
 
-public class QuickSort {
+public class BubbleSort {
 
     static Box[] toSort = new Box[100];
     static int index = 0;
     static int times = 0;
-    public static void main(String... args){
-        Screen.create(600,600, "QuickSort");
+    public BubbleSort(){
+        Screen.create(600,600, "BubbleSort");
         Random ran = new Random();
         for(int i = 0; i < toSort.length; i++){
             int rando = ran.nextInt(Screen.getHeight());
@@ -27,6 +27,11 @@ public class QuickSort {
             Screen.refresh(60);
         }
     }
+
+    public static void main(String... args){
+        new BubbleSort();
+    }
+
     public static Box[] bubbleSort(Box[] toSort){
         if(index != toSort.length -1 - times){
             if(toSort[index].getDrawHeight() > toSort[1 + index].getDrawHeight()){

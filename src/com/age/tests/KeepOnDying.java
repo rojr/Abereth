@@ -17,10 +17,15 @@ import com.age.logic.entity.Player;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector2f;
 
-
+/**
+ * Reason for the name KeepOnDying is because when I
+ * initially started working on the entities, everything would just
+ * fall down and "die"
+ */
 public class KeepOnDying {
 
-    public static void main(String... args){
+
+    public KeepOnDying(){
 
         Screen.create(1200, 600, "KeepOnDying");
         Box box = (Box) new Box(0,0,Screen.getWidth(),Screen.getHeight()).toEngine();
@@ -50,13 +55,17 @@ public class KeepOnDying {
                 if(Keyboard.isKeyDown(Keyboard.Key.L)){
                     World.activeWorld.save("save.txt");
                 }
-            e.setUseTranslate(true);
-        }
+                e.setUseTranslate(true);
+            }
 
-        if(Keyboard.isKeyDown(Keyboard.Key.W)){
-            en.setVelocityY(en.getSpeed());
-        }
+            if(Keyboard.isKeyDown(Keyboard.Key.W)){
+                en.setVelocityY(en.getSpeed());
+            }
             Screen.refresh(60);
         }
+    }
+
+    public static void main(String... args){
+        new KeepOnDying();
     }
 }

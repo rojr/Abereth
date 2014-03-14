@@ -13,7 +13,8 @@ import com.age.logic.input.Mouse;
  * Created by apex on 06/03/14.
  */
 public class ContainerTest {
-    public static void main(String... args){
+
+    public ContainerTest(){
         Screen.create(500,500,"");
 
 
@@ -30,5 +31,9 @@ public class ContainerTest {
 
             Screen.refresh(60);
         }
+    }
+
+    public static void main(String... args){
+        new ContainerTest();
     }
 }
