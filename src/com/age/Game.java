@@ -12,7 +12,8 @@ public class Game {
         view.setGame(this);
         while(!Screen.isCloseRequested()){
             Screen.update();
-            currentView.update();
+            if(currentView != null)
+                currentView.update();
             Screen.refresh(30);
         }
     }
