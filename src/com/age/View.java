@@ -50,11 +50,19 @@ public abstract class View {
     /**
      * Do not call this command, it will render every object again and cause an fps drop
      */
-    private void render(){
+    public void render(){
         for(Drawable d : drawList){
             d.render();
         }
     }
+
+    /**
+     * The reason for an initializer class is that some
+     * objects rely on others to be created first. So if
+     * they are created first and then the init() method is
+     * called everyone is(more or less) happy
+     */
+    public abstract void init();
 	public abstract void update();
 	public abstract void dispose();
 

@@ -2,6 +2,7 @@ package com.age.tests;
 
 import com.age.Game;
 import com.age.View;
+import com.age.world.World;
 
 /**
  * Created by apex on 14/03/14.
@@ -9,7 +10,8 @@ import com.age.View;
 public class ViewTest extends View{
     public static void main(String...args){
         Game g = new Game("ViewTest", 600,400);
-        g.start(new ViewTest());
+        ViewTest v = new ViewTest();
+        g.start(v);
     }
 
     public ViewTest(){
@@ -17,9 +19,13 @@ public class ViewTest extends View{
     }
 
     @Override
+    public void init(){
+        World.load(new World());
+    }
+
+    @Override
     public void update() {
-        System.out.println("Nope");
-        getGame().changeView(new SecondView());
+
     }
 
     @Override
@@ -30,6 +36,11 @@ public class ViewTest extends View{
     public class SecondView extends View{
         public SecondView(){
             super("SecondView");
+        }
+
+        @Override
+        public void init(){
+
         }
 
         @Override

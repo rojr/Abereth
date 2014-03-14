@@ -121,9 +121,6 @@ public class Age {
 	
 	
 	public static void onUpdate(){
-		for(Drawable d : drawList){
-			d.render();
-		}
 		if(clickedList.size() != 0){
 			clickedList.get(clickedList.size() - 1).onClick();
 			clickedList.clear();

@@ -1,5 +1,7 @@
 package com.age;
 
+import com.age.graphics.Drawable;
+
 /**
  * Created by apex on 14/03/14.
  */
@@ -22,8 +24,10 @@ public class Game {
     public void update(){
         while(!Screen.isCloseRequested()){
             Screen.update();
-            if(currentView != null)
+            if(currentView != null){
                 currentView.update();
+                currentView.render();
+            }
             //TODO create fluctuating fps for less of a power usage
             Screen.refresh(60);
         }
@@ -33,7 +37,8 @@ public class Game {
         if(currentView != null)
             currentView.dispose();
         view.setGame(this);
-        this.currentView = view;
+        currentView = view;
+        currentView.init();
         return true;
     }
 }
