@@ -8,7 +8,8 @@ import com.age.View;
  */
 public class ViewTest extends View{
     public static void main(String...args){
-        new Game("ViewTest", new ViewTest(), 600,400);
+        Game g = new Game("ViewTest", 600,400);
+        g.start(new ViewTest());
     }
 
     public ViewTest(){
@@ -23,7 +24,7 @@ public class ViewTest extends View{
 
     @Override
     public void dispose(){
-
+        System.out.println("I got switched!");
     }
 
     public class SecondView extends View{

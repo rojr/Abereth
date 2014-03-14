@@ -6,20 +6,32 @@ package com.age;
 public class Game {
     public static View currentView;
     private View overLay;
-    public Game(String title, View view, int width, int height){
-        Screen.create(width,height,title);
-        currentView = view;
-        view.setGame(this);
+    public Game(String title, int width, int height){
+        Screen.create(width, height,title);
+    }
+
+    /**
+     * This method should only be ever called once
+     * @param view View you would like the game to start with
+     */
+    public void start(View view){
+        changeView(view);
+        update();
+    }
+
+    public void update(){
         while(!Screen.isCloseRequested()){
             Screen.update();
             if(currentView != null)
                 currentView.update();
-            Screen.refresh(30);
+            //TODO create fluctuating fps for less of a power usage
+            Screen.refresh(60);
         }
     }
 
     public boolean changeView(View view){
-        currentView.dispose();
+        if(currentView != null)
+            currentView.dispose();
         view.setGame(this);
         this.currentView = view;
         return true;
