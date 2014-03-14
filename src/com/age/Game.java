@@ -4,7 +4,7 @@ package com.age;
  * Created by apex on 14/03/14.
  */
 public class Game {
-    private View currentView;
+    public static View currentView;
     private View overLay;
     public Game(String title, View view, int width, int height){
         Screen.create(width,height,title);

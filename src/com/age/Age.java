@@ -49,7 +49,7 @@ public class Age {
      * @return Drawable object added to the Engine
      */
     public static Drawable add(Drawable d){
-        drawList.add(d);
+        Game.currentView.add(d);
 		return d;
 	}
 
@@ -66,24 +66,12 @@ public class Age {
      * @param id
      * @return if removed, returns true, else, false
      */
-	public static boolean remove(long id){
-		for(int i = 0; i < drawList.size(); i++){
-            if(id == drawList.get(i).getID()){
-                drawList.remove(i);
-                return true;
-            }
-        }
-        return false;
-	}
+    public static boolean remove(long id){
+        return Game.currentView.remove(id);
+    }
 
     public static boolean remove(Drawable d){
-        for(int i = 0; i < drawList.size(); i++){
-            if(d == drawList.get(i)){
-                drawList.remove(i);
-                return true;
-            }
-        }
-        return false;
+        return Game.currentView.remove(d);
     }
 
 	public static float ratioX(){

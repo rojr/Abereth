@@ -27,6 +27,26 @@ public abstract class View {
         drawList.add(d);
     }
 
+    public boolean remove(long id){
+        for(int i = 0; i < drawList.size(); i++){
+            if(id == drawList.get(i).getID()){
+                drawList.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean remove(Drawable d){
+        for(int i = 0; i < drawList.size(); i++){
+            if(d == drawList.get(i)){
+                drawList.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Do not call this command, it will render every object again and cause an fps drop
      */
