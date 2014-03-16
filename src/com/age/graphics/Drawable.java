@@ -164,6 +164,8 @@ public abstract class Drawable {
 		return isVisible;
 	}
 
+    public void setIsVisible(boolean visible) {this.isVisible = visible;}
+
 	public boolean isClicked(){
 		double x = drawX, y = drawY, w = drawWidth, h = drawHeight;
 		int mX, mY;
