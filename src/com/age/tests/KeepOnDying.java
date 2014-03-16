@@ -1,7 +1,9 @@
 package com.age.tests;
 
 import com.age.Age;
+import com.age.Game;
 import com.age.Screen;
+import com.age.View;
 import com.age.event.EventWorld;
 import com.age.graphics.render.shapes.Line;
 import com.age.graphics.ui.Container;
@@ -22,15 +24,40 @@ import org.lwjgl.util.vector.Vector2f;
  * initially started working on the entities, everything would just
  * fall down and "die"
  */
-public class KeepOnDying {
+public class KeepOnDying extends View{
 
-
+    Player en;
     public KeepOnDying(){
+        super("KeepOnDying");
+    }
 
-        Screen.create(1200, 600, "KeepOnDying");
+    @Override
+    public void update() {
+        if(Mouse.isLeftMouseButtonDown()){
+            World.activeWorld.set(TileType.BRICK, Mouse.getTranslatedX() / World.TILE_DIMENSIONS(), Mouse.getTranslatedY() / World.TILE_DIMENSIONS());
+        }else if(Mouse.isRightMouseButtonDown()){
+            Enemy e =(Enemy) new Enemy(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 40, 80).toEngine();
+            if(Keyboard.isKeyDown(Keyboard.Key.L)){
+                World.activeWorld.save("save.txt");
+            }
+            e.setUseTranslate(true);
+        }
+
+        if(Keyboard.isKeyDown(Keyboard.Key.W)){
+            en.setVelocityY(en.getSpeed());
+        }
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+
+    @Override
+    public void init() {
         Box box = (Box) new Box(0,0,Screen.getWidth(),Screen.getHeight()).toEngine();
 
-        Player en = (Player) new Player(200,200, 20, 50).toEngine();
+        en = (Player) new Player(200,200, 20, 50).toEngine();
         Enemy enemy = (Enemy) new Enemy(300,200,40,60).toEngine();
         enemy.setUseTranslate(true);
         en.setColor(Color.RED);
@@ -43,29 +70,10 @@ public class KeepOnDying {
         Line l = new Line(2,0,5090,50000).toEngine();
         l.setLayer(5);
         l.setUseTranslate(true);
-
-
-        while(!Screen.isCloseRequested()){
-
-            Screen.update();
-            if(Mouse.isLeftMouseButtonDown()){
-                World.activeWorld.set(TileType.BRICK, Mouse.getTranslatedX() / World.TILE_DIMENSIONS(), Mouse.getTranslatedY() / World.TILE_DIMENSIONS());
-            }else if(Mouse.isRightMouseButtonDown()){
-                Enemy e =(Enemy) new Enemy(Mouse.getTranslatedX(), Mouse.getTranslatedY(), 40, 80).toEngine();
-                if(Keyboard.isKeyDown(Keyboard.Key.L)){
-                    World.activeWorld.save("save.txt");
-                }
-                e.setUseTranslate(true);
-            }
-
-            if(Keyboard.isKeyDown(Keyboard.Key.W)){
-                en.setVelocityY(en.getSpeed());
-            }
-            Screen.refresh(60);
-        }
     }
 
     public static void main(String... args){
-        new KeepOnDying();
+        Game g = new Game("KeepOnDying", 500, 500);
+        g.start(new KeepOnDying());
     }
 }
