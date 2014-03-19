@@ -3,6 +3,7 @@ package com.age.graphics;
 import com.age.Age;
 import com.age.Screen;
 import com.age.graphics.render.Render;
+import com.age.world.World;
 
 public class Camera {
 
@@ -12,6 +13,7 @@ public class Camera {
 	private boolean followingTarget;
 	private Drawable target;
 	private float speed;
+    private boolean fixed;
 	public Camera(int screenX, int screenY, int width, int height){
 		this.screenX = screenX;
 		this.screenY = screenY;
@@ -22,6 +24,7 @@ public class Camera {
 		this.followingTarget = true;
 		this.x = 0;
 		this.y = 0;
+        this.fixed = true;
 	}
 	
 	public Camera setFollowStyle(FollowStyle f){
@@ -48,6 +51,9 @@ public class Camera {
 	public float getTranslateY(){
 		return y;
 	}
+    public boolean isFixed(){
+        return fixed;
+    }
 	public Drawable getTarget(){
 		return target;
 	}
@@ -58,7 +64,16 @@ public class Camera {
 	public void setTranslateY(float y){
 		this.y = y;
 	}
-	
+
+    /**
+     * Make the camera lock onto the world meaning it will never show outside the bounds of the world
+     * but instead, will stay within the world
+     * Default is true
+     * @param isFixed
+     */
+    public void setIsFixed(boolean isFixed){
+        this.fixed = fixed;
+    }
 	public void setTarget(Drawable t){
 		this.target = t;
 	}
@@ -117,6 +132,21 @@ public class Camera {
 				}
 			}
 		}
+        if(fixed){
+           if(World.activeWorld != null ){
+               if(getTranslateX() > 0){
+                   setTranslateX(0);
+               }else if(-(getTranslateX() - getWidth()) >= World.activeWorld.get().length * World.activeWorld.getDimensions()){
+                   setTranslateX(-(World.activeWorld.get().length * World.activeWorld.getDimensions()) + getWidth());
+               }
+
+               if(getTranslateY() > 0){
+                   setTranslateY(0);
+               }else if(-(getTranslateY() - getHeight()) >= World.activeWorld.get()[0].length * World.activeWorld.getDimensions()){
+                   setTranslateY(-(World.activeWorld.get()[0].length * World.activeWorld.getDimensions()) + getHeight());
+               }
+           }
+        }
 		Render.all(this);
 	}
 	

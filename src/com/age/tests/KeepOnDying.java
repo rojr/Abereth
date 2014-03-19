@@ -33,6 +33,8 @@ public class KeepOnDying extends View{
 
     @Override
     public void update() {
+        System.out.println(-Age.cameraMain.getTranslateX() + "        " + (World.activeWorld.get().length * World.activeWorld.getDimensions()));
+        en.setSpeed(10);
         if(Mouse.isLeftMouseButtonDown()){
             World.activeWorld.set(TileType.BRICK, Mouse.getTranslatedX() / World.TILE_DIMENSIONS(), Mouse.getTranslatedY() / World.TILE_DIMENSIONS());
         }else if(Mouse.isRightMouseButtonDown()){
@@ -43,8 +45,10 @@ public class KeepOnDying extends View{
             e.setUseTranslate(true);
         }
 
-        if(Keyboard.isKeyDown(Keyboard.Key.W)){
-            en.setVelocityY(en.getSpeed());
+        if(Keyboard.isKeyDown(Keyboard.Key.D)){
+            en.moveRight();
+        }else if(Keyboard.isKeyDown(Keyboard.Key.A)){
+            en.moveLeft();
         }
     }
 
