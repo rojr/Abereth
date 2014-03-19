@@ -22,7 +22,7 @@ public abstract class Drawable {
 
 	private float scaleX, scaleY, opacity;
 	private Color color;
-	private boolean invertsX, invertsY, useTranslate, wasPressed,boundsSet, boundUseTranslate, isVisible;
+	private boolean invertsX, invertsY, useTranslate, wasPressed,boundsSet, boundUseTranslate, isVisible, hasChangedRotationAxis;
 	/**
 	 * Boolean to check if this class has been added to the clicked array (Age)
 	 */
@@ -74,6 +74,7 @@ public abstract class Drawable {
         //TODO make this change accordingly when the object moves.
         this.rotationX = drawX + drawWidth / 2;
         this.rotationY = drawY + drawHeight / 2;
+        hasChangedRotationAxis = false;
     }
 
 	public double getDrawX() {
@@ -197,10 +198,12 @@ public abstract class Drawable {
 	
 	public void setDrawX(double x) {
 		this.drawX = x;
+        if(!hasChangedRotationAxis) this.rotationX = drawX + drawWidth / 2;
 	}
 
 	public void setDrawY(double y) {
 		this.drawY = y;
+        if(!hasChangedRotationAxis) this.rotationY = drawY + drawHeight / 2;
 	}
 
 	public void setDrawWidth(double width) {
@@ -321,6 +324,7 @@ public abstract class Drawable {
      */
     public void setRotationX(double x){
         this.rotationX = x;
+        hasChangedRotationAxis = true;
     }
 
     /**
@@ -329,6 +333,7 @@ public abstract class Drawable {
      */
     public void setRotationY(double y){
         this.rotationY = y;
+        hasChangedRotationAxis = true;
     }
 
 	public void setLocationByCenter(int x, int y){
