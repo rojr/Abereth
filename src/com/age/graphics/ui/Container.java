@@ -130,6 +130,14 @@ public class Container extends Gui implements Parent{
         }
     }
 
+    @Override
+    public void setOpacity(float f){
+        super.setOpacity(f);
+        for(Child c : getChildren()){
+            c.getOrigin().setOpacity(f);
+        }
+    }
+
     public void setChildTexture(int tex){
         for(Child c : getChildren()){
             c.getOrigin().setTexture(tex);
