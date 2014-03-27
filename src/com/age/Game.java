@@ -29,7 +29,6 @@ public class Game {
                 currentView.update();
                 currentView.render();
             }
-            System.out.println(Binary.fromBinaryToInt(Binary.toBinary(Integer.parseInt(Ascii.asciiToNumber("Hey").replace(" ", "")))));
             //TODO create fluctuating fps for less of a power usage
             Screen.refresh(60);
         }

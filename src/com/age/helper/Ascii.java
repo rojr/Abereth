@@ -118,6 +118,7 @@ public class Ascii {
     }
 
     public static String numberToAscii(String text){
+        //TODO Number to ascii backwards conversion
         String tmp = "";
         return tmp;
     }
