@@ -102,4 +102,12 @@ public class StringHelp {
 		}
 		return end;
 	}
+
+    public static String backWards(String in){
+        String builder = "";
+        for(int i = in.toCharArray().length - 1; i >= 0; i--){
+            builder += in.toCharArray()[i];
+        }
+        return builder;
+    }
 }
