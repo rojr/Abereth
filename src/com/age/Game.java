@@ -38,7 +38,10 @@ public class Game {
             currentView.dispose();
         view.setGame(this);
         currentView = view;
-        currentView.init();
+        if(!currentView.isHasInitialized()){
+            currentView.init();
+            currentView.setHasInitialized(true);
+        }
         return true;
     }
 }

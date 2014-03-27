@@ -8,6 +8,7 @@ public abstract class View {
 	String name;
     private Game game;
     ArrayList<Drawable> drawList = new ArrayList<Drawable>();
+    private boolean hasInitialized = false;
 	public View(String name){
 		this.name = name;
 	}
@@ -54,6 +55,14 @@ public abstract class View {
         for(Drawable d : drawList){
             d.render();
         }
+    }
+
+    public void setHasInitialized(boolean initialized){
+        this.hasInitialized = initialized;
+    }
+
+    public boolean isHasInitialized(){
+        return hasInitialized;
     }
 
     /**
