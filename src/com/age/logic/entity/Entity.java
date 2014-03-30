@@ -101,7 +101,6 @@ public class Entity extends Box implements Physics, Living {
             double times = timesTileGoesInEntity(getDrawWidth());
             if(velocity.getY() >= 0){
                 for(int i = 0; i < times + 1; i++){
-                    //This is done because i can be 0, and you don't want to divide by zero; kids ;)
                     double plus = i == 0 ? 0 : (getDrawWidth() - 2) / i;
                     if(World.activeWorld.getList()[Math.round((int)(getBottom().getX() + plus) / World.TILE_DIMENSIONS())][Math.round((getBottom().getY() - World.TILE_DIMENSIONS() / 2) / World.TILE_DIMENSIONS())].isSolid()){
                         return true;
@@ -116,7 +115,6 @@ public class Entity extends Box implements Physics, Living {
         try{
             double times = timesTileGoesInEntity(getDrawWidth());
             for(int i = 0; i < times + 1; i++){
-                //This is done because i can be 0, and you don't want to divide by zero; kids ;)
                 double plus = i == 0 ? 0 : (getDrawWidth() - 2) / i;
                 if(World.activeWorld.getList()[Math.round((int)(getTop().getX() + plus) / World.TILE_DIMENSIONS())][Math.round((getTop().getY()) / World.TILE_DIMENSIONS())].isSolid()){
                     return true;
@@ -129,17 +127,20 @@ public class Entity extends Box implements Physics, Living {
 
     public boolean isSolidLeft(){
         try{
-            double times = timesTileGoesInEntity(getDrawHeight());
-            for(int i = 0; i < times; i++){
-                //This is done because i can be 0, and you don't want to divide by zero; kids ;)
-                /*
-                 * UPDATE
-                 * This line below was changed so many times, and now, it's finally purrfect (for now)
-                 */
-                double plus = i == 0 ? 2 : ((getDrawHeight() - 2) / times) * i;
-                Tile tile = World.activeWorld.getList()[Math.round((getLeft().getX() + World.TILE_DIMENSIONS() / 2 - 2) / World.TILE_DIMENSIONS()) - 1][Math.round((int)(getLeft().getY() + plus) / World.TILE_DIMENSIONS())];
-                if(tile.isSolid()){
-                    return true;
+
+            int repeat = 1;
+            if(velocity.getX() * 0.2 * Screen.delta <= -World.activeWorld.getDimensions()){
+                repeat = (int) Math.floor(velocity.getX() * 0.2 * Screen.delta / -World.activeWorld.getDimensions() + 1);
+                System.out.println("Repeats x" + repeat);
+            }
+            for(int j = 0; j < repeat; j++){
+                double times = timesTileGoesInEntity(getDrawHeight());
+                for(int i = 0; i < times; i++){
+                    double plus = i == 0 ? 2 : ((getDrawHeight() - 2) / times) * i;
+                    Tile tile = World.activeWorld.getList()[Math.round((getLeft().getX() + World.TILE_DIMENSIONS() / 2 - 2 - j) / World.TILE_DIMENSIONS()) - 1][Math.round((int)(getLeft().getY() + plus) / World.TILE_DIMENSIONS())];
+                    if(tile.isSolid()){
+                        return true;
+                    }
                 }
             }
         }catch(Exception e){e.printStackTrace();}
@@ -148,16 +149,19 @@ public class Entity extends Box implements Physics, Living {
 
     public boolean isSolidRight(){
         try{
-            double times = timesTileGoesInEntity(getDrawHeight());
-            for(int i = 0; i < times ; i++){
-                //This is done because i can be 0, and you don't want to divide by zero; kids ;)
-                /*
-                 * UPDATE
-                 * This line below was changed so many times, and now, it's finally purrfect (for now)
-                 */
-                double plus = i == 0 ? 2 : ((getDrawHeight() - 2) / times) * i;
-                if(World.activeWorld.getList()[Math.round((int)(getRight().getX()) / World.TILE_DIMENSIONS())][Math.round(((int)(getRight().getY() + plus) / World.TILE_DIMENSIONS()))].isSolid()){
-                    return true;
+
+            int repeat = 1;
+            if(velocity.getX() * 0.2 * Screen.delta >= World.activeWorld.getDimensions()){
+                repeat = (int) Math.floor(velocity.getX() * 0.2 * Screen.delta / World.activeWorld.getDimensions() + 1);
+                System.out.println("Repeats x" + repeat);
+            }
+            for(int j = 0; j < repeat; j++){
+                double times = timesTileGoesInEntity(getDrawHeight());
+                for(int i = 0; i < times ; i++){
+                    double plus = i == 0 ? 2 : ((getDrawHeight() - 2) / times) * i;
+                    if(World.activeWorld.getList()[Math.round((int)(getRight().getX()) / World.TILE_DIMENSIONS() + j)][Math.round(((int)(getRight().getY() + plus) / World.TILE_DIMENSIONS()))].isSolid()){
+                        return true;
+                    }
                 }
             }
         }catch(Exception e){e.printStackTrace();}

@@ -4,20 +4,18 @@ import com.age.Age;
 import com.age.Game;
 import com.age.Screen;
 import com.age.View;
-import com.age.event.EventWorld;
 import com.age.graphics.render.shapes.Line;
-import com.age.graphics.ui.Container;
+import com.age.helper.Ascii;
+import com.age.helper.Binary;
 import com.age.world.TileType;
 import com.age.world.World;
 import com.age.graphics.effects.Color;
-import com.age.graphics.effects.TextureLoader;
 import com.age.graphics.render.shapes.Box;
 import com.age.logic.input.Keyboard;
 import com.age.logic.input.Mouse;
 import com.age.logic.entity.Enemy;
 import com.age.logic.entity.Player;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.util.vector.Vector2f;
 
 /**
  * Reason for the name KeepOnDying is because when I
@@ -33,7 +31,6 @@ public class KeepOnDying extends View{
 
     @Override
     public void update() {
-        System.out.println(-Age.cameraMain.getTranslateX() + "        " + (World.activeWorld.get().length * World.activeWorld.getDimensions()));
         en.setSpeed(10);
         if(Mouse.isLeftMouseButtonDown()){
             World.activeWorld.set(TileType.BRICK, Mouse.getTranslatedX() / World.TILE_DIMENSIONS(), Mouse.getTranslatedY() / World.TILE_DIMENSIONS());
@@ -50,6 +47,7 @@ public class KeepOnDying extends View{
         }else if(Keyboard.isKeyDown(Keyboard.Key.A)){
             en.moveLeft();
         }
+        System.out.println(Ascii.numberToString(Binary.fromBinaryToInt(Binary.toBinary(Ascii.stringToNumber("HO")))));
     }
 
     @Override
@@ -60,7 +58,6 @@ public class KeepOnDying extends View{
     @Override
     public void init() {
         Box box = (Box) new Box(0,0,Screen.getWidth(),Screen.getHeight()).toEngine();
-
         en = (Player) new Player(200,200, 20, 50).toEngine();
         Enemy enemy = (Enemy) new Enemy(300,200,40,60).toEngine();
         enemy.setUseTranslate(true);

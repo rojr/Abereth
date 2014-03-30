@@ -4,22 +4,21 @@ import com.age.Game;
 import com.age.Screen;
 import com.age.View;
 import com.age.graphics.effects.Color;
-import com.age.graphics.ui.Image;
-import com.age.graphics.ui.Letter;
 import com.age.graphics.ui.Text;
-import com.age.helper.Child;
-import com.age.logic.input.Keyboard;
+import com.age.helper.Binary;
 import org.lwjgl.Sys;
+
+import java.util.ArrayList;
 
 /**
  * Created by apex on 10/03/14.
  */
-public class LetterTest extends View{
+public class TheMatrixTest extends View{
 
     Text[] letters;
     Text t;
-    public LetterTest(){
-        super("LetterTest");
+    public TheMatrixTest(){
+        super("TheMatrixTest");
     }
 
     @Override
@@ -29,20 +28,12 @@ public class LetterTest extends View{
 
     @Override
     public void update() {
-        String a = Text.GREEN+"";
+        String a =Text.GREEN + "";
         for(int j = 0; j < 100; j++){
             if(Math.random() >= 0.5){
-                a += "O";
+                a += "0";
             }else{
                 a += "1";
-            }
-            double ran = 0.5;
-            if(ran < 0.1){
-                a += Text.BLUE;
-            }else if(ran < 0.2){
-                a += Text.GREEN;
-            }else if(ran < 0.3){
-                a += Text.RED;
             }
         }
         a+= "\n";
@@ -50,10 +41,8 @@ public class LetterTest extends View{
 
         for(int i = letters.length-2; i >= 0; i--){
             letters[i + 1].set(letters[i].getText());
-            //letters[i].setRotation(letters[i].getRotation()+(int)(Math.random() * 20));
         }
-        System.out.println(Screen.actualFps);
-
+        System.out.println(Binary.fromBinaryToInt(a));
         t.setRotation(t.getRotation() + 1);
     }
 
@@ -75,20 +64,12 @@ public class LetterTest extends View{
             te.setRotationY(Screen.getHeight() / 2);
             letters[i] =te;
         }
-
-        /*
-
-        In this test press spacebar to see the text rotate at a random speed and then go back to the original location.
-        String manipulation similar to Regular Expressions is also implemented here and will be tested.
-
-         */
-
         long start = Sys.getTime();
         int speed = 0;
     }
 
     public static void main(String... args){
-        Game g = new Game("LetterTest - Matrix", 500,500);
-        g.start(new LetterTest());
+        Game g = new Game("TheMatrixTest - Matrix", 500,500);
+        g.start(new TheMatrixTest());
     }
 }
