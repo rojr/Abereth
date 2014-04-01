@@ -1,7 +1,7 @@
 package com.age.world;
 
 import com.age.Screen;
-import com.age.event.EventWorld;
+import com.age.event.Event;
 
 import java.io.*;
 
@@ -15,7 +15,7 @@ public class World {
      */
     public static World activeWorld;
 
-    private EventWorld event;
+    private Event event;
 
     public static int TILE_DIMENSIONS(){
         return activeWorld.getDimensions();
@@ -137,7 +137,7 @@ public class World {
         }
     }
 
-    public void addEvent(EventWorld event){
+    public void addEvent(Event event){
         this.event = event;
     }
 

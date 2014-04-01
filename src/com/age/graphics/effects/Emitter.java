@@ -1,8 +1,7 @@
 package com.age.graphics.effects;
 
-import com.age.Age;
 import com.age.Screen;
-import com.age.event.EventEmitterOnDotCreate;
+import com.age.event.Event;
 import com.age.graphics.Drawable;
 import com.age.graphics.ui.Container;
 import com.age.graphics.ui.Gui;
@@ -18,7 +17,7 @@ public class Emitter extends Container {
     private int maxDots;
     private double dotWidth, dotHeight;
     private double speed;
-    private EventEmitterOnDotCreate onCreate;
+    private Event onCreate;
     public Emitter(double x, double y, double width, double height){
         super(x,y,width,height);
         continues = true;
@@ -54,7 +53,7 @@ public class Emitter extends Container {
         return maxDots;
     }
 
-    public void setOnDotCreate(EventEmitterOnDotCreate e){
+    public void setOnDotCreate(Event e){
         this.onCreate = e;
     }
 
@@ -85,7 +84,7 @@ public class Emitter extends Container {
         private Parent parent;
         double dX, dY;
         float opacityRate;
-        private EventEmitterOnDotCreate onCreate;
+        private Event onCreate;
         public Dot(Parent parent, double x, double y, double width, double height, double speed){
             super(x,y,width,height);
             this.parent = parent;
@@ -93,7 +92,7 @@ public class Emitter extends Container {
             this.dY = (0.5 - Math.random()) * speed;
         }
 
-        public Dot(Parent parent, double x, double y, double width, double height, double speed, EventEmitterOnDotCreate event){
+        public Dot(Parent parent, double x, double y, double width, double height, double speed, Event event){
             super(x,y,width,height);
             this.parent = parent;
             this.dX = (0.5 - Math.random()) * speed;

@@ -2,12 +2,10 @@ package com.age.tests;
 
 import com.age.Age;
 import com.age.Game;
-import com.age.Screen;
 import com.age.View;
-import com.age.event.EventEmitterOnDotCreate;
+import com.age.event.Event;
 import com.age.graphics.effects.Color;
 import com.age.graphics.effects.Emitter;
-import com.age.graphics.effects.TextureLoader;
 import com.age.helper.Random;
 import com.age.logic.input.Keyboard;
 
@@ -28,7 +26,7 @@ public class EmitterTest extends View{
     @Override
     public void init() {
         em =(Emitter) new Emitter(40,40,40,40,0.5).toEngine();
-        em.setOnDotCreate(new EventEmitterOnDotCreate() {
+        em.setOnDotCreate(new Event() {
             @Override
             public void event(Object e) {
                 Emitter.Dot dot =(Emitter.Dot) e;

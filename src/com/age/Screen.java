@@ -7,6 +7,9 @@ import org.lwjgl.opengl.DisplayMode;
 
 import com.age.graphics.Camera;
 import com.age.graphics.render.Collector;
+import org.newdawn.slick.tests.CanvasContainerTest;
+
+import java.awt.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -59,9 +62,10 @@ public class Screen {
 		try {
 			Display.setDisplayMode(new DisplayMode(dimensionX, dimensionY));
 			Display.setTitle(title);
-			Display.create();
-			Display.setResizable(false);
-		} catch (LWJGLException e) {
+            Display.create();
+            Display.setResizable(false);
+            Canvas c = new Canvas();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		lastFPS = getTime();
@@ -76,7 +80,6 @@ public class Screen {
 		glMatrixMode(GL_MODELVIEW);
 		Age.init();
 		
-		Display.setResizable(true);
 		Display.setVSyncEnabled(true);
 	}
 	
@@ -103,12 +106,20 @@ public class Screen {
 	}
 	
 	static void fixDimensions(){
-		glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
-		glViewport(0, 0, getWidth(), getHeight());
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(0, getWidth(), getHeight(), 0, 1, -1);
-		glMatrixMode(GL_MODELVIEW);
+        try{
+            Display.setDisplayConfiguration((float)Math.random(),(float)Math.random(),(float) Math.random());
+
+        }catch(Exception e){
+
+        }
+        glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
+		glViewport(200, 0, getWidth(), getHeight());
+		//glMatrixMode(GL_PROJECTION);
+		//glLoadIdentity();
+		//glOrtho(0, getWidth(), getHeight(), 0, 1, -1);
+		//glMatrixMode(GL_MODELVIEW);
+        //Age.cameraMain.setTranslateX(Age.cameraMain.getTranslateX() / Age.ratioX());
+        //Age.cameraMain.setTranslateY(Age.cameraMain.getTranslateY() / Age.ratioY());
         Age.cameraMain.setWidth(getWidth());
         Age.cameraMain.setHeight(getHeight());
 	}

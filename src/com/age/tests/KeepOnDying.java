@@ -5,6 +5,7 @@ import com.age.Game;
 import com.age.Screen;
 import com.age.View;
 import com.age.graphics.render.shapes.Line;
+import com.age.graphics.ui.Text;
 import com.age.helper.Ascii;
 import com.age.helper.Binary;
 import com.age.world.TileType;
@@ -25,12 +26,16 @@ import org.lwjgl.opengl.Display;
 public class KeepOnDying extends View{
 
     Player en;
+    Text t;
     public KeepOnDying(){
         super("KeepOnDying");
     }
 
     @Override
     public void update() {
+        t.setDrawX(Mouse.getX()+20);
+        t.setDrawY(Mouse.getY());
+        t.set(Text.BLACK+""+Mouse.getTranslatedX() +"\n"+Mouse.getTranslatedY());
         en.setSpeed(10);
         if(Mouse.isLeftMouseButtonDown()){
             World.activeWorld.set(TileType.BRICK, Mouse.getTranslatedX() / World.TILE_DIMENSIONS(), Mouse.getTranslatedY() / World.TILE_DIMENSIONS());
@@ -47,7 +52,6 @@ public class KeepOnDying extends View{
         }else if(Keyboard.isKeyDown(Keyboard.Key.A)){
             en.moveLeft();
         }
-        System.out.println(Ascii.numberToString(Binary.fromBinaryToInt(Binary.toBinary(Ascii.stringToNumber("HO")))));
     }
 
     @Override
@@ -71,6 +75,7 @@ public class KeepOnDying extends View{
         Line l = new Line(2,0,5090,50000).toEngine();
         l.setLayer(5);
         l.setUseTranslate(true);
+        t = (Text) new Text(Mouse.getTranslatedX(), Mouse.getTranslatedY()).toEngine();
     }
 
     public static void main(String... args){

@@ -97,12 +97,12 @@ public class Camera {
 		if(followingTarget){
 			if(target != null){
 				if(followStyle == FollowStyle.HARD){
-					x = (float) (-target.getDrawX() + width / 2) * Age.ratioX();
-					y = (float) (-target.getDrawY() + height / 2) * Age.ratioY();
+					x = (float) (-target.getDrawX() + width / 2);
+					y = (float) (-target.getDrawY() + height / 2);
 				}else if(followStyle == FollowStyle.SOFT){
-					float toX = (float) (x + (target.getDrawX() - width / 2) * Age.ratioX());
-					float toY = (float) (y + (target.getDrawY() - height / 2) * Age.ratioY());
-				
+					float toX = (float) (x + (target.getDrawX() - width / 2));
+					float toY = (float) (y + (target.getDrawY() - height / 2));
+
 					double tan = Math.atan2(toX,toY);
 					
 					if(toX < 0){
@@ -119,7 +119,7 @@ public class Camera {
 						biggest = toY;
 					}
 				
-					float s = biggest / speed;//target.getSpeed() * ();
+					float s = biggest / speed;
 				
 					double dX = s*Math.sin(tan);
 					double dY = s*Math.cos(tan);

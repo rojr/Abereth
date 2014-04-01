@@ -2,8 +2,6 @@ package com.age.logic.entity;
 
 import com.age.Age;
 import com.age.Screen;
-import com.age.tests.KeepOnDying;
-import com.age.world.Physics;
 import com.age.graphics.render.shapes.Box;
 import com.age.logic.Living;
 import com.age.astar.*;
@@ -19,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by apex on 03/02/14.
  */
-public class Entity extends Box implements Physics, Living {
+public class Entity extends Box implements Living {
 
     private final int DIRECTION_LEFT = 0;
     private final int DIRECTION_RIGHT = 1;
@@ -51,22 +49,22 @@ public class Entity extends Box implements Physics, Living {
         setTexture(Age.EmptyTexture);
     }
 
-    @Override
+  //  @Override
     public Vector3f getBottom() {
         return new Vector3f((float)getDrawX(), (float)(getDrawY() + getDrawHeight()),(float)getDrawWidth());
     }
 
-    @Override
+  //  @Override
     public Vector3f getTop() {
         return new Vector3f((float)getDrawX(), (float)(getDrawY()),(float)getDrawWidth());
     }
 
-    @Override
+   // @Override
     public Vector3f getLeft() {
         return new Vector3f((float)getDrawX(), (float)(getDrawY()),(float)getDrawHeight());
     }
 
-    @Override
+    //@Override
     public Vector3f getRight() {
         return new Vector3f((float)(getDrawX() + getDrawWidth()), (float)(getDrawY()),(float)getDrawHeight());
     }
@@ -85,7 +83,7 @@ public class Entity extends Box implements Physics, Living {
 
     public boolean isWasUpdated(){return wasUpdated;}
 
-    @Override
+  //  @Override
     public float getGravity() {
         return gravity;
     }
@@ -212,7 +210,7 @@ public class Entity extends Box implements Physics, Living {
         this.speed = speed;
     }
 
-    @Override
+    //@Override
     public void setGravity(float gravity) {
         this.gravity = gravity;
     }
