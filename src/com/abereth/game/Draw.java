@@ -1,4 +1,6 @@
-package com.abereth.draw;
+package com.abereth.game;
+
+import com.abereth.draw.Color;
 
 import static org.lwjgl.opengl.GL11.*;
 
