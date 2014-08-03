@@ -1,12 +1,11 @@
 package com.abereth.objects.dead;
 
 import com.abereth.draw.Drawable;
-import com.abereth.objects.Objects;
 
 /**
  * Created by apex on 27/07/14.
  */
-public abstract class Dead extends Drawable implements Objects
+public abstract class Dead extends Drawable
 {
 
 	private double x,y;
@@ -14,29 +13,5 @@ public abstract class Dead extends Drawable implements Objects
 	{
 		this.x = x;
 		this.y = y;
-	}
-
-	@Override
-	public void setX(double x)
-	{
-		this.x = x;
-	}
-
-	@Override
-	public void setY(double y)
-	{
-		this.y = y;
-	}
-
-	@Override
-	public double getX()
-	{
-		return x;
-	}
-
-	@Override
-	public double getY()
-	{
-		return y;
 	}
 }

@@ -15,27 +15,7 @@ public class Test {
 	{
 		Game g = new Game();
 
-		View v = new View(g) {
-			@Override
-			public void update(int delta) {
-
-				getGame().getDraw().square(Mouse.getX(), Display.getHeight() - Mouse.getY(), 20, 20);
-				if(Mouse.isButtonDown(0))
-				{
-					View v2 = new View(getGame())
-					{
-						@Override
-						public void update(int delta) {
-							getGame().getDraw().setColor(Color.random());
-							getGame().getDraw().square(Mouse.getX(), Display.getHeight() - Mouse.getY() - 60, 20, 20);
-						}
-					};
-					getGame().changeView(v2);
-				}
-			}
-		};
-
-		g.addView(v);
+		g.addView(new TestView(g));
 		g.start();
 	}
 }

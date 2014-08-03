@@ -117,7 +117,7 @@ public class Game {
 
 	public int getFPS()
 	{
-		return fps;
+		return actualFps;
 	}
 
 	private void create(int dimensionX, int dimensionY, String title){
@@ -140,7 +140,7 @@ public class Game {
 		glMatrixMode(GL_MODELVIEW);
 		lastFPS = getTime();
 
-		Display.setVSyncEnabled(true);
+		//Display.setVSyncEnabled(true);
 	}
 
 	/**
@@ -206,7 +206,8 @@ public class Game {
 					v.render();
 				}
 			}
-			refresh(refreshRate);
+			System.out.println(getFPS());
+			//refresh(refreshRate);
 		}
 	}
 

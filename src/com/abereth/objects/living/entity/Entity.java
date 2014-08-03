@@ -1,5 +1,7 @@
 package com.abereth.objects.living.entity;
 
+import com.abereth.draw.Color;
+import com.abereth.game.Draw;
 import com.abereth.objects.living.Living;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -40,11 +42,12 @@ public class Entity extends Living {
 
 	@Override
 	public void onUpdate() {
-
+		setRotation(getRotation()+2);
 	}
 
 	@Override
-	public void draw() {
-
+	public void draw( Draw draw )
+	{
+		draw.square(getDrawX(), getDrawY(), getDrawWidth(), getDrawHeight());
 	}
 }

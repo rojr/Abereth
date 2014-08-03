@@ -1,8 +1,10 @@
 package com.abereth.game;
 
 import com.abereth.draw.Drawable;
+import com.abereth.objects.living.Living;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by apex on 02/08/14.
@@ -113,10 +115,7 @@ public abstract class View implements Comparable{
 	 */
 	public void add( Drawable... objects )
 	{
-		for ( Drawable d : objects )
-		{
-			drawList.add( d );
-		}
+		Collections.addAll(drawList, objects);
 	}
 
 	/**
@@ -151,7 +150,11 @@ public abstract class View implements Comparable{
 	{
 		for( Drawable d : drawList )
 		{
-			d.render();
+			if(d instanceof Living)
+			{
+				((Living)d).onUpdate();
+			}
+			getGame().getDraw().render( d );
 			//TODO possibly statistics. render() will return boolean  and see how many items were drawn compared to total items?
 		}
 	}

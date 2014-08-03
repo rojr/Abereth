@@ -1,5 +1,7 @@
 package com.abereth.draw;
 
+import com.abereth.game.Draw;
+
 public abstract class Drawable {
 
 	private double drawX, drawY, drawWidth, drawHeight, xOffset, yOffset;
@@ -66,7 +68,6 @@ public abstract class Drawable {
 	public double getDrawX() {
 		return drawX;
 	}
-
 	public double getDrawY() {
 		return drawY;
 	}
@@ -82,56 +83,45 @@ public abstract class Drawable {
 	public double getFinalDrawHeight(){
 		return finalH;
 	}
-
 	public double getDrawWidth() {
 		return drawWidth;
 	}
-
 	public double getDrawHeight() {
 		return drawHeight;
 	}
 	public double getXOffset(){
 		return xOffset;
 	}
-
 	public double getYOffset(){
 		return yOffset;
 	}
 	public int getLayer() {
 		return layer;
 	}
-
 	public int getRotation() {
 		return rotation;
 	}
-
 	public float getScaleX() {
 		return scaleX;
 	}
-
 	public float getScaleY() {
 		return scaleY;
 	}
-
 	public int getTexture() {
 		return texture;
 	}
-
 	public Color getColor() {
 		return color;
 	}
 	public long getID(){
 		return id;
 	}
-
 	public float getOpacity(){
 		return opacity;
 	}
-
 	public boolean isUseTranslate() {
 		return useTranslate;
 	}
-
 	public double getBoundX(){
 		return bX;
 	}
@@ -147,21 +137,24 @@ public abstract class Drawable {
 	public boolean isVisible(){
 		return isVisible;
 	}
+	public boolean isInvertsX() {
+		return invertsX;
+	}
+	public boolean isinvertsY() {
+		return invertsY;
+	}
+
 
 	public void setIsVisible(boolean visible) {this.isVisible = visible;}
-
 	public void setDrawX(double x) {
 		this.drawX = x;
 	}
-
 	public void setDrawY(double y) {
 		this.drawY = y;
 	}
-
 	public void setDrawWidth(double width) {
 		this.drawWidth = width;
 	}
-
 	public void setDrawHeight(double height) {
 		this.drawHeight = height;
 	}
@@ -171,13 +164,11 @@ public abstract class Drawable {
 	public void setYOffset(double y){
 		this.yOffset = y;
 	}
-
 	/**
 	 * Sets the opacity of the drawable object.
 	 * @param f Can be anything from 0 to 1
 	 */
 	public void setOpacity(float f) {this.opacity = f;}
-
 	/**
 	 * Strongly advise <b>DO NOT CALL THIS</b>, it's to set
 	 * the ID so the Engine knows what each object is. Avoids massive
@@ -187,34 +178,21 @@ public abstract class Drawable {
 	public void setID(int id){
 		this.id = id;
 	}
-
 	public void setLayer(int layer) {
 		this.layer = layer;
 	}
-
 	public void setRotation(int rotation) {
 		this.rotation = rotation;
 	}
-
 	public void setScaleX(float scaleX) {
 		this.scaleX = scaleX;
 	}
-
 	public void setScaleY(float scaleY) {
 		this.scaleY = scaleY;
 	}
-
-	public boolean isInvertsX() {
-		return invertsX;
-	}
-	public boolean isinvertsY() {
-		return invertsY;
-	}
-
 	public void setTexture(int texture) {
 		this.texture = texture;
 	}
-
 	public void setColor(Color color) {
 		Color c = new Color(color.getR(), color.getG(), color.getB());
 
@@ -223,28 +201,23 @@ public abstract class Drawable {
 		//as final objects can still be changed.
 		this.color = c;
 	}
-
 	public void setInvertsX(boolean inverts) {
 		this.invertsX = inverts;
 	}
 	public void setInvertsY(boolean inverts) {
 		this.invertsY = inverts;
 	}
-
 	public void setInverts(boolean x, boolean y){
 		this.invertsX = x;
 		this.invertsY = y;
 	}
-
 	public void setUseTranslate(boolean useTranslate) {
 		this.useTranslate = useTranslate;
 	}
-
 	public void setScale(float x, float y){
 		this.scaleX = x;
 		this.scaleY = y;
 	}
-
 	public void setLocationByCenter(int x, int y){
 		this.drawX = x - drawWidth / 2;
 		this.drawY = y - drawHeight / 2;
@@ -255,14 +228,14 @@ public abstract class Drawable {
 	 * Render decides if the object is worthy of being drawn and only then calls Draw.
 	 * If render returns true then the item was drawn.
 	 */
-	public boolean render(){
+	public boolean render( Draw d ){
 		if(isVisible){
-			draw();
+			draw( d );
 			return true;
 		}
 		return false;
 	}
 
-	public abstract void draw();
+	public abstract void draw( Draw d );
 
 }
