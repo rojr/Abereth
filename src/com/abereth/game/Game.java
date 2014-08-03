@@ -140,7 +140,7 @@ public class Game {
 		glMatrixMode(GL_MODELVIEW);
 		lastFPS = getTime();
 
-		//Display.setVSyncEnabled(true);
+		Display.setVSyncEnabled(true);
 	}
 
 	/**
@@ -206,15 +206,14 @@ public class Game {
 					v.render();
 				}
 			}
-			System.out.println(getFPS());
-			//refresh(refreshRate);
+			refresh(refreshRate);
 		}
 	}
 
 	public void update(){
 		delta = getDelta();
 		updateFPS();
-		glClearColor(0.0F, 0.0F, 0.0F, 1f);
+		glClearColor(clearColor.getR(), clearColor.getG(), clearColor.getB(), clearColor.getA());
 		Display.update();
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
