@@ -26,6 +26,19 @@ public class Draw {
 		glColor4f(r,g,b,a);
 	}
 
+    public void dot(double x, double y)
+    {
+        glBegin(GL_POINTS);
+            glVertex2d(x,y);
+        glEnd();
+    }
+
+    public void dot(double x, double y, int size)
+    {
+        glPointSize(size);
+        dot(x, y);
+    }
+
 	public void line(double x, double y, double x2, double y2)
 	{
 		glBegin(GL_LINES);
