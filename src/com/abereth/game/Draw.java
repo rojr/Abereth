@@ -2,6 +2,8 @@ package com.abereth.game;
 
 import com.abereth.draw.Color;
 import com.abereth.draw.Drawable;
+import com.abereth.helpers.Vector2d;
+import org.lwjgl.util.vector.Vector2f;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -87,6 +89,52 @@ public class Draw {
 		glEnd();
 	}
 
+    /**
+     *
+     * Triangles are great. Always have 3 points
+     *
+     * Points can be all in random order; how ever you want, of course though;
+     * they have to be in specific order if you want to make custom shapes or
+     * different kinds of triangles
+     *
+     * @param a Location 1
+     * @param b Location 2
+     * @param c Location 3
+     */
+    public void triangle( Vector2f a, Vector2f b, Vector2f c )
+    {
+        glBegin( GL_TRIANGLES );
+            glVertex2f( a.getX(), a.getY() );
+            glVertex2f( b.getX(), b.getY() );
+            glVertex2f( c.getX(), c.getY() );
+        glEnd();
+    }
+
+    /**
+     *
+     * Triangles are great. Always have 3 points
+     *
+     * Points can be all in random order; how ever you want, of course though;
+     * they have to be in specific order if you want to make custom shapes or
+     * different kinds of triangles
+     *
+     * @param a Location 1
+     * @param b Location 2
+     * @param c Location 3
+     */
+    public void triangle( Vector2d a, Vector2d b, Vector2d c )
+    {
+        glBegin( GL_TRIANGLES );
+            glVertex2d( a.getX(), a.getY() );
+            glVertex2d( b.getX(), b.getY() );
+            glVertex2d( c.getX(), c.getY() );
+        glEnd();
+    }
+
+    /**
+     *
+     * @param d
+     */
 	public void render( Drawable d )
 	{
 		//If last color was the same as current one then there is no
