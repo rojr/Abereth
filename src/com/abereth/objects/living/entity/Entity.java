@@ -42,7 +42,6 @@ public class Entity extends Living {
 
 	@Override
 	public void onUpdate() {
-		setRotation(getRotation()+2);
 	}
 
 	@Override
