@@ -153,15 +153,16 @@ public abstract class View implements Comparable{
 
 	public abstract void update( int delta );
 
-	public void render()
+	public void render( int delta )
 	{
 		for( Drawable d : drawList )
 		{
 			if(d instanceof Living)
 			{
-				((Living)d).onUpdate();
+				((Living)d).onUpdate( delta );
 			}
 			getGame().getDraw().render( d );
+            //TODO Seperate rendering and drawing...
 			//TODO possibly statistics. render() will return boolean  and see how many items were drawn compared to total items?
 		}
 	}

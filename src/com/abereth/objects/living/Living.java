@@ -12,6 +12,6 @@ public abstract class Living extends Drawable
 		super(x,y,width,height);
 	}
 
-	public abstract void onUpdate();
+	public abstract void onUpdate( int delta );
 
 }

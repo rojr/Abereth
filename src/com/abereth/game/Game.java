@@ -1,5 +1,6 @@
 package com.abereth.game;
 
+import com.abereth.G;
 import com.abereth.draw.Color;
 import com.abereth.draw.Drawable;
 import org.lwjgl.Sys;
@@ -141,7 +142,10 @@ public class Game {
 		lastFPS = getTime();
 
 		Display.setVSyncEnabled(true);
-	}
+
+        G.WIDTH = dimensionX;
+        G.HEIGHT = dimensionY;
+    }
 
 	/**
 	 * Add views to the game, reason for multiple views is
@@ -193,17 +197,17 @@ public class Game {
 		viewList.add(view);
 	}
 
-	public void start()
+	public void start( )
 	{
-		while(!Display.isCloseRequested())
+		while( !Display.isCloseRequested( ) )
 		{
-			update();
-			for (View v : viewList)
+			update( );
+			for ( View v : viewList )
 			{
-				if (!v.isPaused())
+				if ( !v.isPaused() )
 				{
-					v.update(delta);
-					v.render();
+					v.update( delta );
+					v.render( delta );
 				}
 			}
 			refresh(refreshRate);
