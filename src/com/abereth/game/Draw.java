@@ -122,7 +122,7 @@ public class Draw {
      * @param b Location 2
      * @param c Location 3
      */
-    public void triangle( Vector2d a, Vector2d b, Vector2d c )
+    public void triangle( Vector2d a, Vector2d b, Vector2d c, boolean e )
     {
         glBegin( GL_TRIANGLES );
             glVertex2d( a.getX(), a.getY() );

@@ -47,9 +47,6 @@ public class Entity extends Living {
 	@Override
 	public void draw( Draw draw )
 	{
-        draw.setColor(Color.RED);
-        draw.line(getDrawX(), getDrawY(), getDrawX() + getDrawWidth(), getDrawY());
-        draw.setColor(Color.WHEAT);
-		draw.square(getDrawX(), getDrawY(), getDrawWidth(), getDrawHeight());
+
 	}
 }

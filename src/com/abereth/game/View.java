@@ -113,10 +113,17 @@ public abstract class View implements Comparable{
 	 * every single item to render a screen with maybe only two or three.
 	 * @param objects
 	 */
-	public void add( Drawable... objects )
+	public Drawable add( Drawable objects )
 	{
-		Collections.addAll(drawList, objects);
+        drawList.add( objects );
+        return objects;
 	}
+
+    public Drawable[] add( Drawable... objects )
+    {
+        Collections.addAll( drawList, objects );
+        return objects;
+    }
 
 	/**
 	 * O(n)2
