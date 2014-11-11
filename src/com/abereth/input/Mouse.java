@@ -7,23 +7,81 @@ import org.lwjgl.opengl.Display;
  */
 public class Mouse {
 
-    public static boolean isLeftMouseDown()
-    {
-        return org.lwjgl.input.Mouse.isButtonDown( 0 );
-    }
+	protected static boolean wasLeftMouseReleased = true;
+	protected static boolean wasRightMouseReleased = true;
 
-    public static boolean isRightMouseDown()
-    {
-        return org.lwjgl.input.Mouse.isButtonDown( 1 );
-    }
+	/**
+	 * Only triggers once per click, so that means event will only activate once,
+	 * and will reset after mouse has been released and then only clicked again
+	 *
+	 * @return
+	 */
+	public static boolean isLeftMouseClicked()
+	{
+		if( wasLeftMouseReleased && isLeftMouseDown() )
+		{
+			wasLeftMouseReleased = false;
+			return true;
+		}
+		return false;
+	}
 
-    public static int getX()
-    {
-        return org.lwjgl.input.Mouse.getX();
-    }
+	/**
+	 * Only triggers once per click, so that means event will only activate once,
+	 * and will reset after mouse has been released and then only clicked again
+	 * @return
+	 */
+	public static boolean isRightMouseClicked()
+	{
+		if( wasRightMouseReleased && isRightMouseDown() )
+		{
+			wasRightMouseReleased = false;
+			return true;
+		}
+		return false;
+	}
 
-    public static int getY()
-    {
-        return Display.getHeight() - org.lwjgl.input.Mouse.getY();
-    }
+	public static boolean isLeftMouseDown()
+	{
+		boolean isMouseDown = org.lwjgl.input.Mouse.isButtonDown( 0 );
+		if( isMouseDown )
+		{
+			wasLeftMouseReleased = false;
+		}
+		else
+		{
+			if( !wasLeftMouseReleased )
+			{
+				wasLeftMouseReleased = true;
+			}
+		}
+		return isMouseDown;
+	}
+
+	public static boolean isRightMouseDown()
+	{
+		boolean isMouseDown = org.lwjgl.input.Mouse.isButtonDown( 1 );
+		if( isMouseDown )
+		{
+			wasRightMouseReleased = false;
+		}
+		else
+		{
+			if( !wasRightMouseReleased )
+			{
+				wasRightMouseReleased = true;
+			}
+		}
+		return isMouseDown;
+	}
+
+	public static int getX()
+	{
+		return org.lwjgl.input.Mouse.getX();
+	}
+
+	public static int getY()
+	{
+		return Display.getHeight() - org.lwjgl.input.Mouse.getY();
+	}
 }

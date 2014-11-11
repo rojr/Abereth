@@ -12,7 +12,4 @@ public class Square extends Shape
         this.x = x;
         this.y = y;
     }
-
-
-
 }

@@ -2,13 +2,12 @@ package com.abereth.game;
 
 import com.abereth.G;
 import com.abereth.draw.Color;
-import com.abereth.draw.Drawable;
+import com.abereth.input.Mouse;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -143,9 +142,9 @@ public class Game {
 
 		Display.setVSyncEnabled(true);
 
-        G.WIDTH = dimensionX;
-        G.HEIGHT = dimensionY;
-    }
+		G.WIDTH = dimensionX;
+		G.HEIGHT = dimensionY;
+	}
 
 	/**
 	 * Add views to the game, reason for multiple views is
@@ -211,6 +210,9 @@ public class Game {
 				}
 			}
 			refresh(refreshRate);
+			//TODO add after tick and before tick methods so that they can be added to and removed from later
+			Mouse.isLeftMouseDown();
+			Mouse.isRightMouseDown();
 		}
 	}
 

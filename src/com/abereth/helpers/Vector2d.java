@@ -1,6 +1,5 @@
 package com.abereth.helpers;
 
-import org.lwjgl.util.vector.Vector2f;
 
 /**
  * Created by Bobby on 18/09/2014.

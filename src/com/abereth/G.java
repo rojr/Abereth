@@ -2,7 +2,7 @@ package com.abereth;
 
 /**
  *
- * Global variables; settings that apply to everything and everyone
+ * Global variables; settings that apply to everything and everyone. Even you!
  *
  */
 public class G
