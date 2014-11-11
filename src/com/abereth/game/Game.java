@@ -7,6 +7,11 @@ import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -198,6 +203,7 @@ public class Game {
 
 	public void start( )
 	{
+		System.out.println( "Running from: " + System.getProperty( "user.dir" ) );
 		while( !Display.isCloseRequested( ) )
 		{
 			update( );
@@ -215,6 +221,49 @@ public class Game {
 			Mouse.isRightMouseDown();
 		}
 	}
+
+	/**
+	 * First image must be 16x16 and second image must be 32 x 32
+	 *
+	 * @param icon1 Left hand corner image
+	 * @param icon2 Bottom taskbar image
+	 */
+	public void setTaskBarIcon( String icon1, String icon2 )
+	{
+		try
+		{
+			ByteBuffer[] list = new ByteBuffer[ 2 ];
+			list[ 0 ] = loadIcon( icon1, 16, 16 );
+			list[ 1 ] = loadIcon( icon2, 32, 32 );
+			Display.setIcon( list );
+
+		}catch ( IOException ex )
+		{
+			System.out.println( "Loading image failed..." );
+		}
+	}
+
+	public ByteBuffer loadIcon(String filename, int width, int height) throws IOException
+	{
+		BufferedImage image = ImageIO.read(new File(filename)); // load image
+
+		// convert image to byte array
+		byte[] imageBytes = new byte[ width * height * 4 ];
+		for ( int i = 0; i < height; i++ )
+		{
+			for ( int j = 0; j < width; j++ )
+			{
+				int pixel = image.getRGB( j, i );
+				for ( int k = 0; k < 3; k++ ) // red, green, blue
+				{
+					imageBytes[ ( i * 16 + j ) * 4 + k ] = ( byte ) ( ( ( pixel >> ( 2 - k ) * 8 ) ) & 255 );
+				}
+				imageBytes[ ( i * 16 + j ) * 4 + 3 ] = ( byte ) ( ( ( pixel >> ( 3 ) * 8 ) ) & 255 ); // alpha
+			}
+		}
+		return ByteBuffer.wrap(imageBytes);
+	}
+
 
 	public void update(){
 		delta = getDelta();

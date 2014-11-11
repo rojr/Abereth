@@ -145,7 +145,6 @@ public class Draw {
 			lastColor = d.getColor();
 		}
 		glPushMatrix();
-			//glRotatef((float)d.getRotation(),(float) (d.getDrawY() ), (float) (d.getDrawX()), 0f);
 			glPushMatrix();
 				glPushMatrix();
 				glTranslated(d.getDrawX() + d.getDrawWidth() / 2, d.getDrawY() + d.getDrawHeight() / 2, 0);
