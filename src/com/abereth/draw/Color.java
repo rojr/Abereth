@@ -404,6 +404,63 @@ public class Color {
 		return a;
 	}
 
+	/**
+	 * Careful when editing this as you might
+	 * change the FINAL colors and that could mess up
+	 * your whole game :(
+	 * @param r Red
+	 * @return
+	 */
+	public Color setR( float r )
+	{
+		this.r = r;
+		return this;
+	}
+
+	/**
+	 * Careful when editing this as you might
+	 * change the FINAL colors and that could mess up
+	 * your whole game :(
+	 * @param g Green
+	 * @return
+	 */
+	public Color setG( float g )
+	{
+		this.g = g;
+		return this;
+	}
+
+	/**
+	 * Careful when editing this as you might
+	 * change the FINAL colors and that could mess up
+	 * your whole game :(
+	 * @param b Blue
+	 * @return
+	 */
+	public Color setB( float b )
+	{
+		this.b = b;
+		return this;
+	}
+
+	/**
+	 * Careful when editing this as you might
+	 * change the FINAL colors and that could mess up
+	 * your whole game :(
+	 * @param a Alpha
+	 * @return
+	 */
+	public Color setA( float a )
+	{
+		this.a = a;
+		return this;
+	}
+
+	public Color clone()
+	{
+		return new Color( r, g, b, a );
+	}
+
 	public static Color random()
 	{
 		return new Color((float)Math.random(), (float)Math.random(), (float)Math.random(), 1);

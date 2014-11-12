@@ -2,6 +2,7 @@ package com.abereth.game;
 
 import com.abereth.draw.Color;
 import com.abereth.draw.Drawable;
+import com.abereth.event.ViewEvent;
 import com.abereth.objects.living.Living;
 
 import java.util.ArrayList;
@@ -165,8 +166,54 @@ public abstract class View implements Comparable{
 
 	public abstract void update( int delta );
 
+	public View fadeOut( float speed )
+	{
+		return fade( speed, false );
+	}
+
+	public View fadeIn( float speed )
+	{
+		return fade( speed, true );
+	}
+
+	/**
+	 * Fades the view in a specific direction
+	 * @param speed
+	 * @param direction
+	 */
+	private View fade( final float speed, final boolean direction )
+	{
+		//Make sure we aren't referencing a new view
+		this.VIEW_COLOR = this.VIEW_COLOR.clone();
+		event = new ViewEvent()
+		{
+			@Override
+			public void OnUpdate( View view )
+			{
+				view.VIEW_COLOR = Color.random();
+				//TODO
+				if( direction )
+				{
+					view.VIEW_COLOR.setA( view.VIEW_COLOR.getA() - speed );
+				}
+				else
+				{
+					view.VIEW_COLOR.setA( view.VIEW_COLOR.getA() + speed );
+				}
+			}
+		};
+		return this;
+	}
+
+	public ViewEvent event;
+
 	public void render( int delta )
 	{
+		if( event != null )
+		{
+			event.OnUpdate( this );
+		}
+
 		for( Drawable d : drawList )
 		{
 			if(d instanceof Living)
