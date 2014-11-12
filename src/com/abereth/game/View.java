@@ -17,6 +17,7 @@ public abstract class View implements Comparable{
 	private boolean isPaused;
 	private ArrayList<Drawable> drawList;
 	private int layer;
+	private ViewEventManager eventManager;
 
 	/*
 		View specific graphical option settings
@@ -34,6 +35,7 @@ public abstract class View implements Comparable{
 		this.game = game;
 		this.drawList = new ArrayList<Drawable>();
 		this.layer = 1;
+		this.eventManager = new ViewEventManager( this );
 	}
 
 	public Game getGame()
@@ -185,35 +187,45 @@ public abstract class View implements Comparable{
 	{
 		//Make sure we aren't referencing a new view
 		this.VIEW_COLOR = this.VIEW_COLOR.clone();
-		event = new ViewEvent()
+		this.eventManager.add( new ViewEvent( )
 		{
 			@Override
-			public void OnUpdate( View view )
+			public boolean isDone ( View view )
 			{
-				view.VIEW_COLOR = Color.random();
-				//TODO
+				if( direction && view.VIEW_COLOR.getA() >= 1 )
+				{
+					view.VIEW_COLOR.setA( 1f );
+					return true;
+				}
+				else if( !direction && view.VIEW_COLOR.getA() <= 0 )
+				{
+					view.VIEW_COLOR.setA( 0f );
+					return true;
+				}
+				return false;
+			}
+
+			@Override
+			public void OnUpdate ( int delta, View view )
+			{
+				//Just in case
+				view.VIEW_COLOR = view.VIEW_COLOR.clone();
 				if( direction )
 				{
-					view.VIEW_COLOR.setA( view.VIEW_COLOR.getA() - speed );
+					view.VIEW_COLOR.setA( view.VIEW_COLOR.getA( ) + speed );
 				}
 				else
 				{
-					view.VIEW_COLOR.setA( view.VIEW_COLOR.getA() + speed );
+					view.VIEW_COLOR.setA( view.VIEW_COLOR.getA() - speed );
 				}
 			}
-		};
+		}, true );
 		return this;
 	}
 
-	public ViewEvent event;
-
 	public void render( int delta )
 	{
-		if( event != null )
-		{
-			event.OnUpdate( this );
-		}
-
+		eventManager.onUpdate( delta );
 		for( Drawable d : drawList )
 		{
 			if(d instanceof Living)

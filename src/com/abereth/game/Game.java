@@ -145,7 +145,7 @@ public class Game {
 		glMatrixMode(GL_MODELVIEW);
 		lastFPS = getTime();
 
-		Display.setVSyncEnabled(true);
+		//Display.setVSyncEnabled(true);
 
 		G.WIDTH = dimensionX;
 		G.HEIGHT = dimensionY;
@@ -274,7 +274,7 @@ public class Game {
 	}
 
 	public void refresh(int rate){
-		Display.sync(rate);
+		//Display.sync(rate);
 	}
 
 }

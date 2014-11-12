@@ -5,7 +5,20 @@ import com.abereth.game.View;
 /**
  * Created by sanic on 12/11/2014.
  */
-public interface ViewEvent extends Event
+public abstract class ViewEvent extends Event
 {
-	void OnUpdate( View view );
+	@Deprecated
+	public void OnUpdate ( int delta )
+	{
+	}
+
+	@Deprecated
+	public boolean isDone ( )
+	{
+		return false;
+	}
+
+	public abstract boolean isDone ( View view );
+
+	public abstract void OnUpdate ( int delta, View view );
 }
