@@ -1,5 +1,6 @@
 package com.abereth.game;
 
+import com.abereth.G;
 import com.abereth.draw.Color;
 import com.abereth.draw.Drawable;
 import com.abereth.helpers.Vector2d;
@@ -145,23 +146,36 @@ public class Draw {
 			lastColor = d.getColor();
 		}
 		glPushMatrix();
-			glPushMatrix();
-				glPushMatrix();
-					glTranslated(d.getDrawX() + d.getDrawWidth() / 2, d.getDrawY() + d.getDrawHeight() / 2, 0);
-					glRotatef((float) d.getRotation(), 0f, 0f, 1f);
-					glTranslated(-d.getDrawX() - d.getDrawWidth() / 2, -d.getDrawY() - d.getDrawHeight() / 2, 0);
-					glScalef(d.getScaleX(), d.getScaleY(), 0);
-					glPushMatrix();
-						if( view.VIEW_COLOR != Color.NONE )
+		{
+			glPushMatrix( );
+			{
+				glPushMatrix( );
+				{
+					glTranslated( d.getDrawX( ) + d.getDrawWidth( ) / 2, d.getDrawY( ) + d.getDrawHeight( ) / 2, 0 );
+					glRotatef( ( float ) d.getRotation( ), 0f, 0f, 1f );
+					glTranslated( -d.getDrawX( ) - d.getDrawWidth( ) / 2, -d.getDrawY( ) - d.getDrawHeight( ) / 2, 0 );
+					glScalef( d.getScaleX( ), d.getScaleY( ), 0 );
+					glPushMatrix( );
+					{
+						if ( view.VIEW_COLOR != Color.NONE )
 						{
 							setColor( view.VIEW_COLOR );
 						}
-						d.render( this );
-						glPopMatrix();
-				glPopMatrix();
-			glPopMatrix();
-		glPopMatrix();
-
+						glPushMatrix( );
+						{
+							glTranslated( view.VIEW_ROTATION_ORIGIN_X + G.WIDTH / 2, view.VIEW_ROTATION_ORIGIN_Y + G.HEIGHT / 2, 0 );
+							glRotatef( ( float ) view.VIEW_ROTATION_AMOUNT, 0f, 0f, 1f );
+							glTranslated( -view.VIEW_ROTATION_ORIGIN_X - G.WIDTH / 2, -view.VIEW_ROTATION_ORIGIN_Y - G.HEIGHT / 2, 0 );
+							glPushMatrix();
+							{
+								glTranslatef( view.VIEW_X_OFFSET, view.VIEW_Y_OFFSET, 0 );
+								d.render( this );
+							}glPopMatrix();
+						}glPopMatrix();
+					}glPopMatrix( );
+				}glPopMatrix( );
+			}glPopMatrix( );
+		}glPopMatrix();
 	}
 
 }

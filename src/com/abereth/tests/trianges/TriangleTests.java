@@ -28,16 +28,8 @@ public class TriangleTests extends View {
 	@Override
 	public void update( int delta )
 	{
-		System.out.println( getGame().actualFps );
-
-		if( Mouse.isRightMouseClicked() )
-		{
-			fadeIn( 0.001f );
-		}
-
 		if( Mouse.isLeftMouseClicked() )
 		{
-			fadeOut( 0.001f );
 			if( currentlyClicked != 3 )
 			{
 				System.out.println( currentlyClicked );

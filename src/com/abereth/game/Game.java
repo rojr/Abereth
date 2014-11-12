@@ -219,6 +219,8 @@ public class Game {
 			//TODO add after tick and before tick methods so that they can be added to and removed from later
 			Mouse.isLeftMouseDown();
 			Mouse.isRightMouseDown();
+			Mouse.wasLeftMouseClickedThisTick = false;
+			Mouse.wasRightMouseClickedThisTick = false;
 		}
 	}
 
@@ -274,7 +276,7 @@ public class Game {
 	}
 
 	public void refresh(int rate){
-		//Display.sync(rate);
+		Display.sync(rate);
 	}
 
 }

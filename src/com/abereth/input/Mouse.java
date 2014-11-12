@@ -10,6 +10,9 @@ public class Mouse {
 	protected static boolean wasLeftMouseReleased = true;
 	protected static boolean wasRightMouseReleased = true;
 
+	public static boolean wasLeftMouseClickedThisTick = false;
+	public static boolean wasRightMouseClickedThisTick = false;
+
 	/**
 	 * Only triggers once per click, so that means event will only activate once,
 	 * and will reset after mouse has been released and then only clicked again
@@ -18,9 +21,13 @@ public class Mouse {
 	 */
 	public static boolean isLeftMouseClicked()
 	{
-		if( wasLeftMouseReleased && isLeftMouseDown() )
+		//WasLeftMouseClickedThisTick is so that if this method is called more than once this tick
+		//that means it doesn't just auto lock to false :)
+		//Same process with the right mouse button
+		if( wasLeftMouseReleased && isLeftMouseDown() || wasLeftMouseClickedThisTick )
 		{
 			wasLeftMouseReleased = false;
+			wasLeftMouseClickedThisTick = true;
 			return true;
 		}
 		return false;
@@ -33,9 +40,10 @@ public class Mouse {
 	 */
 	public static boolean isRightMouseClicked()
 	{
-		if( wasRightMouseReleased && isRightMouseDown() )
+		if( wasRightMouseReleased && isRightMouseDown() || wasRightMouseClickedThisTick )
 		{
 			wasRightMouseReleased = false;
+			wasRightMouseClickedThisTick = true;
 			return true;
 		}
 		return false;

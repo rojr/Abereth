@@ -29,6 +29,8 @@ public abstract class View implements Comparable{
 	public float VIEW_ROTATION_AMOUNT = 0;
 	public int   VIEW_ROTATION_ORIGIN_X = 0;
 	public int   VIEW_ROTATION_ORIGIN_Y = 0;
+	public int   VIEW_X_OFFSET = 0;
+	public int   VIEW_Y_OFFSET = 0;
 
 	public View( Game game )
 	{
@@ -139,6 +141,11 @@ public abstract class View implements Comparable{
         Collections.addAll( drawList, objects );
         return objects;
     }
+
+	public ViewEventManager getEventManager()
+	{
+		return this.eventManager;
+	}
 
 	/**
 	 * O(n)2
