@@ -135,11 +135,11 @@ public class Draw {
      *
      * @param d
      */
-	public void render( Drawable d )
+	public void render( Drawable d, View view )
 	{
 		//If last color was the same as current one then there is no
 		//need to re-bind it. Same will happen for textures.
-		if(lastColor != d.getColor())
+		if( lastColor != d.getColor() )
 		{
 			setColor( d.getColor() );
 			lastColor = d.getColor();
@@ -147,14 +147,21 @@ public class Draw {
 		glPushMatrix();
 			glPushMatrix();
 				glPushMatrix();
-				glTranslated(d.getDrawX() + d.getDrawWidth() / 2, d.getDrawY() + d.getDrawHeight() / 2, 0);
-				glRotatef((float) d.getRotation(), 0f, 0f, 1f);
-				glTranslated(-d.getDrawX() - d.getDrawWidth() / 2, -d.getDrawY() - d.getDrawHeight() / 2, 0);
-				glScalef(d.getScaleX(), d.getScaleY(), 0);
-				d.render( this );
+					glTranslated(d.getDrawX() + d.getDrawWidth() / 2, d.getDrawY() + d.getDrawHeight() / 2, 0);
+					glRotatef((float) d.getRotation(), 0f, 0f, 1f);
+					glTranslated(-d.getDrawX() - d.getDrawWidth() / 2, -d.getDrawY() - d.getDrawHeight() / 2, 0);
+					glScalef(d.getScaleX(), d.getScaleY(), 0);
+					glPushMatrix();
+						if( view.VIEW_COLOR != Color.NONE )
+						{
+							setColor( view.VIEW_COLOR );
+						}
+						d.render( this );
+						glPopMatrix();
 				glPopMatrix();
 			glPopMatrix();
 		glPopMatrix();
+
 	}
 
 }

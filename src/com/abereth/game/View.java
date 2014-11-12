@@ -1,5 +1,6 @@
 package com.abereth.game;
 
+import com.abereth.draw.Color;
 import com.abereth.draw.Drawable;
 import com.abereth.objects.living.Living;
 
@@ -15,6 +16,17 @@ public abstract class View implements Comparable{
 	private boolean isPaused;
 	private ArrayList<Drawable> drawList;
 	private int layer;
+
+	/*
+		View specific graphical option settings
+
+		These will change every object that is currently being drawn within the view
+		This means we can add some fancy transitions, like make all objects go up, or rotate?
+	 */
+	public Color VIEW_COLOR = Color.WHITE;
+	public float VIEW_ROTATION_AMOUNT = 0;
+	public int   VIEW_ROTATION_ORIGIN_X = 0;
+	public int   VIEW_ROTATION_ORIGIN_Y = 0;
 
 	public View( Game game )
 	{
@@ -161,7 +173,7 @@ public abstract class View implements Comparable{
 			{
 				((Living)d).onUpdate( delta );
 			}
-			getGame().getDraw().render( d );
+			getGame().getDraw().render( d, this );
             //TODO Seperate rendering and drawing...
 			//TODO possibly statistics. render() will return boolean  and see how many items were drawn compared to total items?
 		}

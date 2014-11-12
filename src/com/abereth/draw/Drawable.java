@@ -193,13 +193,19 @@ public abstract class Drawable {
 	public void setTexture(int texture) {
 		this.texture = texture;
 	}
-	public void setColor(Color color) {
-		Color c = new Color(color.getR(), color.getG(), color.getB());
+	public void setColor( Color color ) {
+		//If we are setting a lot of colors at once
+		//this might break some stuff as creating new objects
+		//can be heavy
+		if( color != getColor() )
+		{
+			Color c = new Color(color.getR(), color.getG(), color.getB());
 
-		//This creates a new color, instead of simply referencing Color.
-		//Allows for color manipulation effects to not be saved within the color
-		//as final objects can still be changed.
-		this.color = c;
+			//This creates a new color, instead of simply referencing Color.
+			//Allows for color manipulation effects to not be saved within the color
+			//as final objects can still be changed.
+			this.color = c;
+		}
 	}
 	public void setInvertsX(boolean inverts) {
 		this.invertsX = inverts;
