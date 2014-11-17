@@ -1,7 +1,7 @@
 package com.abereth.tests.events;
 
 import com.abereth.G;
-import com.abereth.event.ViewEvent;
+import com.abereth.event.view.ViewEvent;
 import com.abereth.game.Game;
 import com.abereth.game.View;
 import com.abereth.input.Mouse;
@@ -22,7 +22,7 @@ public class EventTest extends View
 	public EventTest ( Game game )
 	{
 		super( game );
-		getEventManager().add( new ViewEvent( )
+		getEventManager().add( new ViewEvent()
 		{
 			@Override
 			public boolean isDone ( View view )
@@ -44,9 +44,26 @@ public class EventTest extends View
 	@Override
 	public void update ( int delta )
 	{
-		if( Mouse.isLeftMouseClicked() )
+		System.out.println( getGame().actualFps );
+		if( Mouse.isRightMouseClicked() )
 		{
-			System.out.println( "Happy chimney!" );
+			getEventManager().add(  new ViewEvent( )
+			{
+				@Override
+				public boolean isDone ( View view )
+				{
+					return Mouse.isLeftMouseClicked( );
+				}
+
+				@Override
+				public void OnUpdate ( int delta, View view )
+				{
+					if( Math.random() >= 0.9 )
+					{
+						view.add( new Point( (int) (Math.random() * G.WIDTH), (int)(Math.random() * G.HEIGHT ) ) );
+					}
+				}
+			}, false );
 		}
 	}
 }

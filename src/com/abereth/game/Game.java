@@ -2,6 +2,8 @@ package com.abereth.game;
 
 import com.abereth.G;
 import com.abereth.draw.Color;
+import com.abereth.event.Event;
+import com.abereth.event.EventManager;
 import com.abereth.input.Mouse;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -245,7 +247,7 @@ public class Game {
 		}
 	}
 
-	public ByteBuffer loadIcon(String filename, int width, int height) throws IOException
+	public ByteBuffer loadIcon( String filename, int width, int height ) throws IOException
 	{
 		BufferedImage image = ImageIO.read(new File(filename)); // load image
 

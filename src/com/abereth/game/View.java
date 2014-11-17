@@ -2,7 +2,8 @@ package com.abereth.game;
 
 import com.abereth.draw.Color;
 import com.abereth.draw.Drawable;
-import com.abereth.event.ViewEvent;
+import com.abereth.event.view.ViewEvent;
+import com.abereth.event.view.ViewEventManager;
 import com.abereth.objects.living.Living;
 
 import java.util.ArrayList;

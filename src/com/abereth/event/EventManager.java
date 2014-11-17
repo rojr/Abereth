@@ -6,14 +6,16 @@ import java.util.ArrayList;
  *
  * @param <EventType>
  */
-public class EventManager<EventType extends Event>
+public class EventManager<EventType extends Event, ParentObject>
 {
 
 	private ArrayList<EventType> groupEventList = new ArrayList<>( );
 	private ArrayList<EventType> sequentialEventList = new ArrayList<>( );
 
-	public EventManager()
+	private ParentObject object;
+	public EventManager( ParentObject object )
 	{
+		this.object = object;
 	}
 
 	public EventManager add( EventType event, boolean sequential )
@@ -48,12 +50,37 @@ public class EventManager<EventType extends Event>
 		return this.sequentialEventList;
 	}
 
+	public ParentObject getObject()
+	{
+		return this.object;
+	}
+
 	public void onUpdate( int delta )
 	{
-		sequentialEventList.get( 0 ).OnUpdate( delta );
-		for( EventType event : groupEventList )
+		if( getSequentialEventList().size() >= 1 )
 		{
-			event.OnUpdate( delta );
+			EventType current = getSequentialEventList().get( 0 );
+			if( current.isDone( this.object ) )
+			{
+				remove( current );
+				onUpdate( delta );
+				return;
+			}
+			else
+			{
+				current.OnUpdate( delta, this.object );
+			}
+		}
+
+		for( EventType event : getGroupEventList( ) )
+		{
+			if( event.isDone( this.object ) )
+			{
+				remove( event );
+				onUpdate( delta );
+				return;
+			}
+			event.OnUpdate( delta, this.object );
 		}
 	}
 
