@@ -25,20 +25,20 @@ public class EventTest extends View
 	public EventTest ( Game game )
 	{
 		super( game );
-		getEventManager().add( new ViewEvent()
+		GetEventManager().add( new ViewEvent()
 		{
 			@Override
-			public boolean isDone ( View view )
+			public boolean isDone( View view )
 			{
-				return Mouse.isLeftMouseClicked( );
+				return Mouse.isLeftMouseClicked();
 			}
 
 			@Override
-			public void OnUpdate ( int delta, View view )
+			public void OnUpdate( int delta, View view )
 			{
 				if( Math.random() >= 0.9 )
 				{
-					view.add( new Point( (int) (Math.random() * G.WIDTH), (int)(Math.random() * G.HEIGHT ) ) );
+					view.add( new Point( ( int ) ( Math.random() * G.WIDTH ), ( int ) ( Math.random() * G.HEIGHT ) ) );
 				}
 			}
 		}, false );
@@ -50,7 +50,7 @@ public class EventTest extends View
 		super.Initialize( );
 
 		getGame().GetEventManager().CreateNewLogger( "FPS: ", 1000 );
-		getEventManager().add( new TimedEvent<View>( )
+		GetEventManager().add( new TimedEvent<View>( )
 		{
 
 			@Override
@@ -86,19 +86,11 @@ public class EventTest extends View
 			fadeIn( 0.04f );
 		}
 
-		if( Keyboard.isKeyPressed( Keyboard.Key.R ) )
-		{
-			VIEW_X_OFFSET += 10;
-		}
-		else if( Keyboard.isKeyPressed( Keyboard.Key.F ) )
-		{
-			VIEW_X_OFFSET -= 10;
+		VIEW_X_OFFSET += Mouse.getDX();
+		VIEW_Y_OFFSET -= Mouse.getDY();
 
-		}
-
-		if( Mouse.isRightMouseClicked( ) )
-		{
-			getEventManager().add( new ViewEvent( )
+		if( Mouse.isRightMouseClicked( ) ){
+			GetEventManager().add( new ViewEvent( )
 			{
 				@Override
 				public boolean isDone ( View view )

@@ -157,11 +157,15 @@ public class Draw {
 					glScalef( d.getScaleX( ), d.getScaleY( ), 0 );
 					glPushMatrix( );
 					{
-						if ( view.VIEW_COLOR != Color.NONE )
+						if ( view.VIEW_COLOR.getR() != 2f && view.VIEW_COLOR.getG() != 2f && view.VIEW_COLOR.getB() != 2f )
 						{
 							setColor( view.VIEW_COLOR );
 						}
-						glPushMatrix( );
+						else
+						{
+							setColor( d.getColor().getR(), d.getColor().getG(), d.getColor().getB(), view.VIEW_COLOR.getA() );
+						}
+						glPushMatrix();
 						{
 							glTranslated( view.VIEW_ROTATION_ORIGIN_X + G.WIDTH / 2, view.VIEW_ROTATION_ORIGIN_Y + G.HEIGHT / 2, 0 );
 							glRotatef( ( float ) view.VIEW_ROTATION_AMOUNT, 0f, 0f, 1f );

@@ -26,7 +26,7 @@ public abstract class View implements Comparable{
 		These will change every object that is currently being drawn within the view
 		This means we can add some fancy transitions, like make all objects go up, or rotate?
 	 */
-	public Color VIEW_COLOR = Color.WHITE;
+	public Color VIEW_COLOR = Color.NONE;
 	public float VIEW_ROTATION_AMOUNT = 0;
 	public int   VIEW_ROTATION_ORIGIN_X = 0;
 	public int   VIEW_ROTATION_ORIGIN_Y = 0;
@@ -129,6 +129,7 @@ public abstract class View implements Comparable{
 	 */
 	public void kill()
 	{
+		System.out.println( "View Killed" );
 		getGame().detachView();
 	}
 
@@ -163,7 +164,7 @@ public abstract class View implements Comparable{
         return objects;
     }
 
-	public ViewEventManager getEventManager()
+	public ViewEventManager GetEventManager()
 	{
 		return this.eventManager;
 	}
@@ -213,7 +214,7 @@ public abstract class View implements Comparable{
 	 */
 	private View fade( final float speed, final boolean direction )
 	{
-		//Make sure we aren't referencing a new view
+		//Make sure we aren't referencing a new color
 		this.VIEW_COLOR = this.VIEW_COLOR.clone();
 		this.eventManager.add( new ViewEvent( )
 		{
@@ -240,11 +241,11 @@ public abstract class View implements Comparable{
 				view.VIEW_COLOR = view.VIEW_COLOR.clone();
 				if( direction )
 				{
-					view.VIEW_COLOR.setA( view.VIEW_COLOR.getA( ) + speed );
+					view.VIEW_COLOR.setA( view.VIEW_COLOR.getA( ) + ( speed * delta ) );
 				}
 				else
 				{
-					view.VIEW_COLOR.setA( view.VIEW_COLOR.getA() - speed );
+					view.VIEW_COLOR.setA( view.VIEW_COLOR.getA() - ( speed * delta ) );
 				}
 			}
 		}, true );

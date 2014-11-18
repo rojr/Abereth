@@ -83,6 +83,16 @@ public class Mouse {
 		return isMouseDown;
 	}
 
+	public static int getDX()
+	{
+		return org.lwjgl.input.Mouse.getDX();
+	}
+
+	public static int getDY()
+	{
+		return org.lwjgl.input.Mouse.getDY();
+	}
+
 	public static int getX()
 	{
 		return org.lwjgl.input.Mouse.getX();

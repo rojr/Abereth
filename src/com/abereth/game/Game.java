@@ -2,8 +2,8 @@ package com.abereth.game;
 
 import com.abereth.G;
 import com.abereth.draw.Color;
-import com.abereth.event.EventManager;
 import com.abereth.event.game.GameEventManager;
+import com.abereth.event.view.transitions.ViewTransition;
 import com.abereth.input.Mouse;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.ConcurrentModificationException;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -198,6 +199,11 @@ public class Game {
 		Collections.sort( viewList );
 	}
 
+	public ArrayList<View> GetViews()
+	{
+		return this.viewList;
+	}
+
 	public GameEventManager GetEventManager()
 	{
 		return this.eventManager;
@@ -216,6 +222,11 @@ public class Game {
 		addView( view );
 	}
 
+	public void ChangeView( View view, ViewTransition transition )
+	{
+		transition.init( viewList.get( 0 ), view );
+	}
+
 	public void Start( )
 	{
 		System.out.println( "Running from: " + System.getProperty( "user.dir" ) );
@@ -223,14 +234,19 @@ public class Game {
 		{
 			Update( );
 			eventManager.onUpdate( delta );
-			for ( View v : viewList )
+			int i = 0;
+			try
 			{
-				if ( !v.isPaused() )
+				for ( ; i < viewList.size(); i++ )
 				{
-					v.update( delta );
-					v.render( delta );
+					if ( !viewList.get( i ).isPaused() )
+					{
+						viewList.get( i ).update( delta );
+						viewList.get( i ).render( delta );
+					}
 				}
-			}
+			} catch ( ConcurrentModificationException ex )
+			{ ex.printStackTrace(); }
 			refresh(refreshRate);
 			//TODO add after tick and before tick methods so that they can be added to and removed from later
 			Mouse.isLeftMouseDown();
