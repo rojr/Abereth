@@ -2,8 +2,8 @@ package com.abereth.game;
 
 import com.abereth.G;
 import com.abereth.draw.Color;
-import com.abereth.event.Event;
 import com.abereth.event.EventManager;
+import com.abereth.event.game.GameEventManager;
 import com.abereth.input.Mouse;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -32,12 +32,14 @@ public class Game {
 
 	//Private
 	private Draw draw;
-	//Select the color you would like to clear from the game every update
+	//Select the color you would like to clear from the game every Update
 	//By default the color Black is cleared
 	private Color clearColor;
 
 	private int refreshRate;
 	private ArrayList<View> viewList;
+
+	private GameEventManager eventManager;
 
 	/**
 	 * Default constructor, creates a new game with 500 width and 500 height
@@ -59,6 +61,7 @@ public class Game {
 		this.clearColor = new Color( 0f, 0f, 0f, 0f );
 		this.refreshRate = 60;
 		this.viewList = new ArrayList<View>();
+		this.eventManager = new GameEventManager( this );
 	}
 
 	public Draw getDraw()
@@ -163,6 +166,10 @@ public class Game {
 	{
 		Collections.addAll(viewList, view);
 		Collections.sort(viewList);
+		for( View v : view )
+		{
+			v.Initialize();
+		}
 	}
 
 	/**
@@ -171,23 +178,29 @@ public class Game {
 	 */
 	public void detachView( View... view )
 	{
-		ArrayList<View> tmp = new ArrayList<View>();
+		ArrayList<View> tmp = new ArrayList<>();
 		Collections.addAll(tmp, view);
-		if(!Collections.disjoint(viewList, tmp))
+		if( !Collections.disjoint( viewList, tmp ) )
 		{
 			for (View v : view )
 			{
 				for ( int i = 0; i < viewList.size(); i++ )
 				{
-					if(v == viewList.get( i ) )
+					if( v == viewList.get( i ) )
 					{
+						v.onKill();
 						viewList.remove( i );
 						break;
 					}
 				}
 			}
 		}
-		Collections.sort(viewList);
+		Collections.sort( viewList );
+	}
+
+	public GameEventManager GetEventManager()
+	{
+		return this.eventManager;
 	}
 
 	/**
@@ -197,18 +210,19 @@ public class Game {
 	 * Be careful if you're working with multiple views not to delete
 	 * one
 	 */
-	public void changeView( View view )
+	public void ChangeView( View view )
 	{
-		viewList.clear();
-		viewList.add(view);
+		viewList.clear( );
+		addView( view );
 	}
 
-	public void start( )
+	public void Start( )
 	{
 		System.out.println( "Running from: " + System.getProperty( "user.dir" ) );
 		while( !Display.isCloseRequested( ) )
 		{
-			update( );
+			Update( );
+			eventManager.onUpdate( delta );
 			for ( View v : viewList )
 			{
 				if ( !v.isPaused() )
@@ -269,7 +283,7 @@ public class Game {
 	}
 
 
-	public void update(){
+	public void Update ( ){
 		delta = getDelta();
 		updateFPS();
 		glClearColor(clearColor.getR(), clearColor.getG(), clearColor.getB(), clearColor.getA());

@@ -63,6 +63,17 @@ public abstract class View implements Comparable{
 	}
 
 	/**
+	 * Use this method for anything other than setting the opacity of the view color
+	 * @param c
+	 */
+	public void setColor( Color c )
+	{
+		Color color = c.clone();
+		color.setA( VIEW_COLOR.getA() );
+		VIEW_COLOR = color;
+	}
+
+	/**
 	 * Manually pause the view
 	 */
 	public void pause()
@@ -75,6 +86,18 @@ public abstract class View implements Comparable{
 	 * Method called directly after view has been paused
 	 */
 	public void onPause(){}
+
+	/**
+	 * Extend this method to make sure they only get called upon creating the view
+	 *
+	 * The reason that we can't use the constructor is because the object hasn't yet been
+	 * linked to the game yet, or the game hasn't yet started so we can't do anything until
+	 * the game is started.
+	 *
+	 * Initialize will have the apropriate
+	 */
+	public void Initialize()
+	{}
 
 	/**
 	 * If view was paused, calling this method will resume its state.
@@ -106,22 +129,19 @@ public abstract class View implements Comparable{
 	 */
 	public void kill()
 	{
-		this.onKill();
-	}
-
-	/**
-	 * Kills the current View, deleting it from the game and detaching anything
-	 * necessary
-	 */
-	public void onKill()
-	{
 		getGame().detachView();
 	}
 
 	/**
+	 * Method is called when ever object is deleted from the game
+	 */
+	public void onKill()
+	{}
+
+	/**
 	 * Adding objects to the View rendering list.
 	 * This is where all the logic for items is going to happen.
-	 * The items will update behind the scenes, and the views will be in charge
+	 * The items will Update behind the scenes, and the views will be in charge
 	 * of making sure that they are getting rendered.
 	 *
 	 * The reason that objects are stored in views is that when we switch views, the objects

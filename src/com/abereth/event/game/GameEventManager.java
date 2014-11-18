@@ -1,15 +1,42 @@
 package com.abereth.event.game;
 
+import com.abereth.event.Event;
 import com.abereth.event.EventManager;
 import com.abereth.game.Game;
 
 /**
  * Created by sanic on 17/11/2014.
  */
-public class GameEventManager extends EventManager<GameEvent, Game>
+public class GameEventManager extends EventManager<Event, Game>
 {
 	public GameEventManager( Game game )
 	{
 		super( game );
 	}
+
+	public void CreateNewLogger( final String prefix, final long delay )
+	{
+		add( new LoggerEvent()
+		{
+			@Override
+			public void init ( Game game )
+			{
+				super.init( game );
+				SetInterval( delay );
+			}
+
+			@Override
+			public void EachInterval ( int delta, Game game )
+			{
+				System.out.println( prefix + game.actualFps );
+			}
+
+			@Override
+			public boolean isDone ( Game game )
+			{
+				return false;
+			}
+		}, false);
+	}
+
 }

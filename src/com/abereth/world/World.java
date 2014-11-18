@@ -34,7 +34,7 @@ public class World {
 
 	/**
 	 * Remove entity(es) from the world list. This will no longer
-	 * update the entities and allow them to interact with the world.
+	 * Update the entities and allow them to interact with the world.
 	 * @param entity
 	 */
 	public void removeEntity( Entity... entity )

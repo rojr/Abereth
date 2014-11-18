@@ -1,9 +1,12 @@
 package com.abereth.tests.events;
 
 import com.abereth.G;
+import com.abereth.draw.Color;
+import com.abereth.event.TimedEvent;
 import com.abereth.event.view.ViewEvent;
 import com.abereth.game.Game;
 import com.abereth.game.View;
+import com.abereth.input.Keyboard;
 import com.abereth.input.Mouse;
 import com.abereth.tests.trianges.Point;
 
@@ -16,7 +19,7 @@ public class EventTest extends View
 	{
 		Game g = new Game( 1024, 512 );
 		g.addView( new EventTest( g ) );
-		g.start();
+		g.Start( );
 	}
 
 	public EventTest ( Game game )
@@ -42,12 +45,60 @@ public class EventTest extends View
 	}
 
 	@Override
+	public void Initialize ( )
+	{
+		super.Initialize( );
+
+		getGame().GetEventManager().CreateNewLogger( "FPS: ", 1000 );
+		getEventManager().add( new TimedEvent<View>( )
+		{
+
+			@Override
+			public void init ( View view )
+			{
+				super.init( view );
+				SetInterval( 1000 );
+			}
+
+			@Override
+			public void EachInterval ( int delta, View view )
+			{
+				view.setColor( Color.random() );
+			}
+
+			@Override
+			public boolean isDone ( View view )
+			{
+				return false;
+			}
+		}, false );
+	}
+
+	@Override
 	public void update ( int delta )
 	{
-		System.out.println( getGame().actualFps );
-		if( Mouse.isRightMouseClicked() )
+		if( Keyboard.isKeyPressed( Keyboard.Key.A ) )
 		{
-			getEventManager().add(  new ViewEvent( )
+			fadeOut( 0.04f );
+		}
+		else if( Keyboard.isKeyPressed( Keyboard.Key.S ) )
+		{
+			fadeIn( 0.04f );
+		}
+
+		if( Keyboard.isKeyPressed( Keyboard.Key.R ) )
+		{
+			VIEW_X_OFFSET += 10;
+		}
+		else if( Keyboard.isKeyPressed( Keyboard.Key.F ) )
+		{
+			VIEW_X_OFFSET -= 10;
+
+		}
+
+		if( Mouse.isRightMouseClicked( ) )
+		{
+			getEventManager().add( new ViewEvent( )
 			{
 				@Override
 				public boolean isDone ( View view )
@@ -58,9 +109,9 @@ public class EventTest extends View
 				@Override
 				public void OnUpdate ( int delta, View view )
 				{
-					if( Math.random() >= 0.9 )
+					if ( Math.random( ) >= 0.9 )
 					{
-						view.add( new Point( (int) (Math.random() * G.WIDTH), (int)(Math.random() * G.HEIGHT ) ) );
+						view.add( new Point( ( int ) ( Math.random( ) * G.WIDTH ), ( int ) ( Math.random( ) * G.HEIGHT ) ) );
 					}
 				}
 			}, false );

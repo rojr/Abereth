@@ -14,7 +14,7 @@ public class TriangleTests extends View {
 	{
 		Game g = new Game( );
 		g.addView( new TriangleTests( g ) );
-		g.start();
+		g.Start( );
 	}
 
 	private Double[][] coords = new Double[ 4 ][2];

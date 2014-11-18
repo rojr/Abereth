@@ -23,10 +23,12 @@ public class EventManager<EventType extends Event, ParentObject>
 		if( sequential )
 		{
 			sequentialEventList.add( event );
+			event.init( object );
 		}
 		else
 		{
 			groupEventList.add( event );
+			event.init( object );
 		}
 		return this;
 	}
