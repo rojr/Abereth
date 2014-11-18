@@ -18,7 +18,7 @@ public class Point extends Drawable
 	}
 
 	@Override
-	public void draw( Draw d )
+	public void Draw( Draw d )
 	{
 		d.dot( x, y );
 	}

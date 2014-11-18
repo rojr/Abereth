@@ -236,12 +236,12 @@ public abstract class Drawable {
 	 */
 	public boolean render( Draw d ){
 		if(isVisible){
-			draw( d );
+			Draw( d );
 			return true;
 		}
 		return false;
 	}
 
-	public abstract void draw( Draw d );
+	public abstract void Draw( Draw d );
 
 }

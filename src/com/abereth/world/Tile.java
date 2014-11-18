@@ -20,7 +20,7 @@ public class Tile extends Drawable {
     }
 
     @Override
-    public void draw(Draw d) {
+    public void Draw( Draw d ) {
         
     }
 }

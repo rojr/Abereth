@@ -14,7 +14,7 @@ public class Square extends Drawable
 	}
 
 	@Override
-	public void draw( Draw d )
+	public void Draw( Draw d )
 	{
 		d.square( getDrawX(), getDrawY(), getDrawWidth(), getDrawHeight() );
 	}

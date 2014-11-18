@@ -19,7 +19,7 @@ public class Triangle extends Drawable
 	}
 
 	@Override
-	public void draw( Draw d )
+	public void Draw( Draw d )
 	{
 		d.triangle( a, b, c );
 	}

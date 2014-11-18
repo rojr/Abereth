@@ -20,7 +20,7 @@ public class Line extends Drawable
 	}
 
 	@Override
-	public void draw( Draw d )
+	public void Draw( Draw d )
 	{
 		d.line( x, y, x2, y2 );
 	}
