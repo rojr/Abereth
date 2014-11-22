@@ -3,6 +3,7 @@ package com.abereth.game;
 import com.abereth.G;
 import com.abereth.draw.Color;
 import com.abereth.draw.Drawable;
+import com.abereth.draw.TextureLoader;
 import com.abereth.helpers.Vector2d;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -62,30 +63,13 @@ public class Draw {
 	public void square(double x, double y, double width, double height)
 	{
 		glBegin(GL_QUADS);
+			glTexCoord2d( 0, 0 );
 			glVertex2d( x, y );
+			glTexCoord2d( 1, 0 );
 			glVertex2d( x + width, y );
+			glTexCoord2d( 1, 1 );
 			glVertex2d( x + width, y + height );
-			glVertex2d( x, y + height );
-		glEnd();
-	}
-
-	public void square(double x, double y, double width, double height, int layer)
-	{
-		glBegin(GL_QUADS);
-		glVertex3d( x, y, layer );
-		glVertex3d( x + width, y, layer );
-		glVertex3d( x + width, y + height, layer );
-		glVertex3d( x, y + height, layer );
-		glEnd();
-	}
-
-	public void texturedSquare(double x, double y, double width, double height)
-	{
-		//TODO add texture class;
-		glBegin(GL_QUADS);
-			glVertex2d( x, y );
-			glVertex2d( x + width, y );
-			glVertex2d( x + width, y + height );
+			glTexCoord2d( 0, 1 );
 			glVertex2d( x, y + height );
 		glEnd();
 	}
@@ -132,6 +116,12 @@ public class Draw {
         glEnd();
     }
 
+	public void BindTexture( int id )
+	{
+		TextureLoader.TexInfo info = TextureLoader.TextureInfo.get( id );
+		glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, info.getDecoder().getWidth(), info.getDecoder().getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, info.getBuffer() );
+	}
+
     /**
      *
      * @param d
@@ -145,6 +135,12 @@ public class Draw {
 			setColor( d.getColor() );
 			lastColor = d.getColor();
 		}
+
+		if( d.getTexture() != -1 )
+		{
+			BindTexture( d.getTexture() );
+		}
+
 		glPushMatrix();
 		{
 			glPushMatrix( );
@@ -168,7 +164,7 @@ public class Draw {
 						glPushMatrix();
 						{
 							glTranslated( view.VIEW_ROTATION_ORIGIN_X + G.WIDTH / 2, view.VIEW_ROTATION_ORIGIN_Y + G.HEIGHT / 2, 0 );
-							glRotatef( ( float ) view.VIEW_ROTATION_AMOUNT, 0f, 0f, 1f );
+							glRotatef( view.VIEW_ROTATION_AMOUNT, 0f, 0f, 1f );
 							glTranslated( -view.VIEW_ROTATION_ORIGIN_X - G.WIDTH / 2, -view.VIEW_ROTATION_ORIGIN_Y - G.HEIGHT / 2, 0 );
 							glPushMatrix();
 							{

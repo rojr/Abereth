@@ -2,6 +2,7 @@ package com.abereth.tests.transition;
 
 import com.abereth.G;
 import com.abereth.draw.Color;
+import com.abereth.draw.TextureLoader;
 import com.abereth.draw.shapes.Square;
 import com.abereth.event.TimedEvent;
 import com.abereth.event.view.transitions.FadeTransition;
