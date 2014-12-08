@@ -24,7 +24,8 @@ import static org.lwjgl.opengl.GL11.*;
  * Created by apex on 26/07/14.
  */
 
-public class Game {
+public class Game implements Runnable
+{
 	//Static
 	public int fps;
 	public int actualFps;
@@ -57,7 +58,9 @@ public class Game {
 
 	public Game( String name, int dimensionX, int dimensionY, Draw draw )
 	{
-		create( dimensionX, dimensionY, name);
+		G.NAME = name;
+		G.WIDTH = dimensionX;
+		G.HEIGHT = dimensionY;
 		this.draw = draw;
 		this.clearColor = new Color( 0f, 0f, 0f, 0f );
 		this.refreshRate = 60;
@@ -106,8 +109,10 @@ public class Game {
 	}
 
 
-	private void updateFPS() {
-		if (getTime() - lastFPS > 1000) {
+	private void updateFPS()
+	{
+		if ( getTime() - lastFPS > 1000 )
+		{
 			actualFps = fps;
 			fps = 0;
 			lastFPS += 1000;
@@ -115,13 +120,15 @@ public class Game {
 		fps++;
 	}
 
-	public long getTime() {
-		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+	public long getTime()
+	{
+		return ( Sys.getTime() * 1000 ) / Sys.getTimerResolution();
 	}
 
-	private int getDelta() {
+	private int getDelta()
+	{
 		long currentTime = getTime();
-		int delta = (int) (currentTime - lastFrame);
+		int delta = ( int ) ( currentTime - lastFrame );
 		lastFrame = getTime();
 		return delta;
 	}
@@ -131,7 +138,13 @@ public class Game {
 		return actualFps;
 	}
 
-	private void create(int dimensionX, int dimensionY, String title){
+	public void create()
+	{
+		create( G.WIDTH, G.HEIGHT, G.NAME );
+	}
+
+	private void create( int dimensionX, int dimensionY, String title )
+	{
 		try {
 			Display.setDisplayMode(new DisplayMode(dimensionX, dimensionY));
 			Display.setTitle(title);
@@ -180,7 +193,7 @@ public class Game {
 	public void detachView( View... view )
 	{
 		ArrayList<View> tmp = new ArrayList<>();
-		Collections.addAll(tmp, view);
+		Collections.addAll( tmp, view );
 		if( !Collections.disjoint( viewList, tmp ) )
 		{
 			for (View v : view )
@@ -227,33 +240,11 @@ public class Game {
 		transition.init( viewList.get( 0 ), view );
 	}
 
-	public void Start( )
+	public Thread Start( )
 	{
-		System.out.println( "Running from: " + System.getProperty( "user.dir" ) );
-		while( !Display.isCloseRequested( ) )
-		{
-			Update( );
-			eventManager.onUpdate( delta );
-			int i = 0;
-			try
-			{
-				for ( ; i < viewList.size(); i++ )
-				{
-					if ( !viewList.get( i ).isPaused() )
-					{
-						viewList.get( i ).update( delta );
-						viewList.get( i ).render( delta );
-					}
-				}
-			} catch ( ConcurrentModificationException ex )
-			{ ex.printStackTrace(); }
-			refresh(refreshRate);
-			//TODO add after tick and before tick methods so that they can be added to and removed from later
-			Mouse.isLeftMouseDown();
-			Mouse.isRightMouseDown();
-			Mouse.wasLeftMouseClickedThisTick = false;
-			Mouse.wasRightMouseClickedThisTick = false;
-		}
+		Thread running = new Thread( this );
+		running.start();
+		return running;
 	}
 
 	/**
@@ -311,4 +302,34 @@ public class Game {
 		Display.sync(rate);
 	}
 
+	@Override
+	public void run()
+	{
+		create();
+		System.out.println( "Running from: " + System.getProperty( "user.dir" ) );
+		while( !Display.isCloseRequested( ) )
+		{
+			Update( );
+			eventManager.onUpdate( delta );
+			int i = 0;
+			try
+			{
+				for ( ; i < viewList.size(); i++ )
+				{
+					if ( !viewList.get( i ).isPaused() )
+					{
+						viewList.get( i ).update( delta );
+						viewList.get( i ).render( delta );
+					}
+				}
+			} catch ( ConcurrentModificationException ex )
+			{ ex.printStackTrace(); }
+			//refresh(refreshRate);
+			//TODO add after tick and before tick methods so that they can be added to and removed from later
+			Mouse.isLeftMouseDown();
+			Mouse.isRightMouseDown();
+			Mouse.wasLeftMouseClickedThisTick = false;
+			Mouse.wasRightMouseClickedThisTick = false;
+		}
+	}
 }

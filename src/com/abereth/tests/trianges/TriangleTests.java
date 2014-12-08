@@ -1,5 +1,8 @@
 package com.abereth.tests.trianges;
 
+import com.abereth.G;
+import com.abereth.draw.Color;
+import com.abereth.event.TimedEvent;
 import com.abereth.game.Game;
 import com.abereth.game.View;
 import com.abereth.helpers.Vector2d;
@@ -23,53 +26,39 @@ public class TriangleTests extends View {
 	public TriangleTests( Game game )
 	{
 		super( game );
+		getGame().GetEventManager().CreateNewLogger( "FPS: ", 1000 );
+		GetEventManager().add( new TimedEvent<View>()
+		{
+			@Override
+			public void EachInterval( int delta, View view )
+			{
+				System.out.println( "Drawlist: " + getDrawList().size() );
+			}
+
+			@Override
+			public void init( View view )
+			{
+				super.init( view );
+				SetInterval( 1000 );
+			}
+
+			@Override
+			public boolean isDone( View view )
+			{
+				return false;
+			}
+		}, true );
 	}
 
 	@Override
 	public void update( int delta )
 	{
-		if( Mouse.isLeftMouseClicked() )
-		{
-			if( currentlyClicked != 4 )
-			{
-				System.out.println( currentlyClicked );
-				coords[ currentlyClicked ][0] = ( double ) Mouse.getX();
-				coords[ currentlyClicked ][1] = ( double ) Mouse.getY();
-
-				if( currentlyClicked != 3 )
-				{
-					add( new Point( Mouse.getX(), Mouse.getY() ) );
-				}
-
-				if( currentlyClicked >= 1 )
-				{
-					if( currentlyClicked == 3 )
-					{
-						add( new Line(
-								coords[ 2 ][0], coords[ 2 ][1],
-								coords[ 0 ][0], coords[ 0 ][1]
-						) );
-					}
-					else
-					{
-						add( new Line(
-								coords[ currentlyClicked ][0], coords[ currentlyClicked ][1],
-								coords[ currentlyClicked - 1 ][0], coords[ currentlyClicked - 1 ][1]
-						) );
-					}
-				}
-				currentlyClicked++;
-			}
-			else
-			{
-				System.out.println( "Done" );
-				currentlyClicked = 0;
-				add( new Triangle(
-						new Vector2d( coords[ 0 ][ 0 ], coords[ 0 ][ 1 ] ),
-						new Vector2d( coords[ 1 ][ 0 ], coords[ 1 ][ 1 ] ),
-						new Vector2d( coords[ 2 ][ 0 ], coords[ 2 ][ 1 ] )
-				) );
-			}
-		}
+		currentlyClicked = 0;
+		Triangle triangle = new Triangle(
+				new Vector2d( Math.random() * G.WIDTH, Math.random() * G.HEIGHT ),
+				new Vector2d( Math.random() * G.WIDTH, Math.random() * G.HEIGHT ),
+				new Vector2d( Math.random() * G.WIDTH, Math.random() * G.HEIGHT ));
+		triangle.setColor( Color.random() );
+		add( triangle );
 	}
 }

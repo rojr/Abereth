@@ -15,4 +15,6 @@ public class G
      * Height of the screen
      */
     public static int HEIGHT;
+
+	public static String NAME;
 }

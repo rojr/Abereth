@@ -6,6 +6,7 @@ import com.abereth.event.view.ViewEvent;
 import com.abereth.event.view.ViewEventManager;
 import com.abereth.objects.living.Living;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -167,6 +168,11 @@ public abstract class View implements Comparable{
 	public ViewEventManager GetEventManager()
 	{
 		return this.eventManager;
+	}
+
+	public ArrayList<Drawable> getDrawList()
+	{
+		return this.drawList;
 	}
 
 	/**
