@@ -324,7 +324,7 @@ public class Game implements Runnable
 				}
 			} catch ( ConcurrentModificationException ex )
 			{ ex.printStackTrace(); }
-			//refresh(refreshRate);
+			refresh(refreshRate);
 			//TODO add after tick and before tick methods so that they can be added to and removed from later
 			Mouse.isLeftMouseDown();
 			Mouse.isRightMouseDown();

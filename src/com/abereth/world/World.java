@@ -9,12 +9,12 @@ import java.util.Collections;
 /**
  * Created by apex on 02/08/14.
  */
-public class World {
-
-
+public class World
+{
 	private View view;
 	private int x, y;
 	private ArrayList<Entity> entityList;
+	private org.dyn4j.dynamics.World PhysicsWorld;
 	public World( View view, int x, int y )
 	{
 		this.view = view;
