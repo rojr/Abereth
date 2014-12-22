@@ -34,7 +34,7 @@ public abstract class Drawable {
 		this(x,y,20,20);
 	}
 
-	public Drawable(double drawX, double drawY, double drawWidth, double drawHeight) {
+	public Drawable( double drawX, double drawY, double drawWidth, double drawHeight ) {
 		this.drawX = drawX;
 		this.drawY = drawY;
 		this.drawWidth = drawWidth;
@@ -168,7 +168,10 @@ public abstract class Drawable {
 	 * Sets the opacity of the drawable object.
 	 * @param f Can be anything from 0 to 1
 	 */
-	public void setOpacity(float f) {this.opacity = f;}
+	public void setOpacity( float f )
+	{
+		this.getColor().setA( f );
+	}
 	/**
 	 * Strongly advise <b>DO NOT CALL THIS</b>, it's to set
 	 * the ID so the Engine knows what each object is. Avoids massive

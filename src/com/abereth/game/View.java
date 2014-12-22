@@ -5,6 +5,7 @@ import com.abereth.draw.Drawable;
 import com.abereth.event.view.ViewEvent;
 import com.abereth.event.view.ViewEventManager;
 import com.abereth.objects.living.Living;
+import com.abereth.world.World;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public abstract class View implements Comparable{
 	private ArrayList<Drawable> drawList;
 	private int layer;
 	private ViewEventManager eventManager;
+	private World world;
 
 	/*
 		View specific graphical option settings
@@ -256,6 +258,12 @@ public abstract class View implements Comparable{
 			}
 		}, true );
 		return this;
+	}
+
+	public void SetWorld( World world )
+	{
+		this.world = world;
+		world.setView( this );
 	}
 
 	public void render( int delta )

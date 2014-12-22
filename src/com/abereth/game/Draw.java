@@ -22,7 +22,19 @@ public class Draw {
 
 	public void setColor(Color c)
 	{
-		setColor(c.getR(), c.getG(), c.getB(), c.getA());
+		if( c.getA() == 1f )
+		{
+			setColor( c.getR(), c.getG(), c.getB() );
+		}
+		else
+		{
+			setColor(c.getR(), c.getG(), c.getB(), c.getA());
+		}
+	}
+
+	public void setColor( float r, float g, float b )
+	{
+		glColor3f( r, g, b );
 	}
 
 	public void setColor(float r, float g, float b, float a)
@@ -136,9 +148,9 @@ public class Draw {
 			lastColor = d.getColor();
 		}
 
-		if( d.getTexture() != -1 )
+		if( d.getTexture() == -1 )
 		{
-			BindTexture( d.getTexture() );
+			BindTexture( TextureLoader.createTexture( "res/towers/stone.png" ) );
 		}
 
 		glPushMatrix();
@@ -150,7 +162,7 @@ public class Draw {
 					glTranslated( d.getDrawX( ) + d.getDrawWidth( ) / 2, d.getDrawY( ) + d.getDrawHeight( ) / 2, 0 );
 					glRotatef( ( float ) d.getRotation( ), 0f, 0f, 1f );
 					glTranslated( -d.getDrawX( ) - d.getDrawWidth( ) / 2, -d.getDrawY( ) - d.getDrawHeight( ) / 2, 0 );
-					glScalef( d.getScaleX( ), d.getScaleY( ), 0 );
+					//glScalef( d.getScaleX( ), d.getScaleY( ), 0 );
 					glPushMatrix( );
 					{
 						if ( view.VIEW_COLOR.getR() != 2f && view.VIEW_COLOR.getG() != 2f && view.VIEW_COLOR.getB() != 2f )
