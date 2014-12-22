@@ -144,7 +144,7 @@ public class Draw {
 		//need to re-bind it. Same will happen for textures.
 		if( lastColor != d.getColor() )
 		{
-			setColor( d.getColor() );
+			//setColor( d.getColor() );
 			lastColor = d.getColor();
 		}
 

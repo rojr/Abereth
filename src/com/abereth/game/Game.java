@@ -331,5 +331,9 @@ public class Game implements Runnable
 			Mouse.wasLeftMouseClickedThisTick = false;
 			Mouse.wasRightMouseClickedThisTick = false;
 		}
+		for( View view : viewList )
+		{
+			view.kill();
+		}
 	}
 }

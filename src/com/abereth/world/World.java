@@ -8,12 +8,13 @@ import org.dyn4j.geometry.Vector2;
 /**
  * Created by apex on 02/08/14.
  */
-public class World
+public class World implements Runnable
 {
 	private org.dyn4j.dynamics.World physicalWorld;
 
 	private long last;
 	private View view;
+	private boolean alive = true;
 	public World( )
 	{
 		this.physicalWorld = new org.dyn4j.dynamics.World( );
@@ -54,13 +55,27 @@ public class World
 		return this;
 	}
 
-	public void Update()
+	public boolean isAlive()
 	{
-		long time = System.nanoTime();
-		long diff = time - this.last;
-		this.last = time;
-		double elapsedTime = ( double ) diff / G.NANO_TO_BASE;
+		return alive;
+	}
 
-		this.physicalWorld.update( elapsedTime );
+	public void stop()
+	{
+		this.alive = false;
+	}
+
+	@Override
+	public void run()
+	{
+		while( alive )
+		{
+			long time = System.nanoTime();
+			long diff = time - this.last;
+			this.last = time;
+			double elapsedTime = ( double ) diff / G.NANO_TO_BASE;
+
+			this.physicalWorld.update( elapsedTime );
+		}
 	}
 }
