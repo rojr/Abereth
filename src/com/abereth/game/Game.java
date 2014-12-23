@@ -164,7 +164,7 @@ public class Game implements Runnable
 		glMatrixMode(GL_MODELVIEW);
 		lastFPS = getTime();
 
-		//Display.setVSyncEnabled(true);
+		Display.setVSyncEnabled(true);
 
 		G.WIDTH = dimensionX;
 		G.HEIGHT = dimensionY;

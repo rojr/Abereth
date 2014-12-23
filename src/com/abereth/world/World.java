@@ -2,8 +2,10 @@ package com.abereth.world;
 
 import com.abereth.G;
 import com.abereth.game.View;
+import com.abereth.input.Keyboard;
 import com.abereth.objects.living.Physical;
 import org.dyn4j.geometry.Vector2;
+import org.lwjgl.Sys;
 
 /**
  * Created by apex on 02/08/14.
@@ -68,14 +70,34 @@ public class World implements Runnable
 	@Override
 	public void run()
 	{
+		System.out.println( "Physics thread starting" );
+		long lastUpdated = System.currentTimeMillis();
 		while( alive )
 		{
-			long time = System.nanoTime();
-			long diff = time - this.last;
-			this.last = time;
-			double elapsedTime = ( double ) diff / G.NANO_TO_BASE;
+			double rest = (double) 1/60;
 
-			this.physicalWorld.update( elapsedTime );
+
+			double spent = ( double ) ( System.currentTimeMillis() - lastUpdated ) / 1000;
+			if( rest < spent )
+			{
+				lastUpdated = System.currentTimeMillis();
+
+				long time = System.nanoTime();
+				long diff = time - this.last;
+				this.last = time;
+				double elapsedTime = (diff / G.NANO_TO_BASE);
+
+				this.physicalWorld.update( elapsedTime / rest );
+			}
+			else
+			{
+				try
+				{
+					Thread.sleep( 1 );
+				}
+				catch ( Exception ex )
+				{ex.printStackTrace();}
+			}
 		}
 	}
 }

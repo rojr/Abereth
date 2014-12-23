@@ -68,7 +68,7 @@ public class PhysicTest extends View
 		Physical right = new PhysicalBox( G.WIDTH - 20, 0, 20, G.HEIGHT * 2 );
 		right.getBody().setMassType( Mass.Type.INFINITE );
 		world.add( right );
-		mouse =  new MouseJoint( box.getBody(), new Vector2( 0 , 0 ), 1122, 1, 456345);
+		mouse =  new MouseJoint( box.getBody(), new Vector2( 0 , 0 ), 1122, 1, 999999999 );
 		mouse.setCollisionAllowed( true );
 		world.getPhysicalWorld().addJoint( mouse );
 		box.getBody().getFixtures().forEach( new Consumer<BodyFixture>()
@@ -82,40 +82,8 @@ public class PhysicTest extends View
 
 		world.setGravity( new Vector2( 0, 65 ) );
 
-		GetEventManager().add( new TimedEvent<View>()
-		{
-			@Override
-			public void init( View view )
-			{
-				super.init( view );
-				SetInterval( 2 );
-			}
-
-			@Override
-			public void EachInterval( int delta, View view )
-			{
-				PhysicalBox box = new PhysicalBox( Math.random() * G.WIDTH * 2, 0, 5, 5 );
-				box.getBody().getFixtures().forEach( new Consumer<BodyFixture>()
-				{
-					@Override
-					public void accept( BodyFixture bodyFixture )
-					{
-						bodyFixture.setDensity( 1 );
-					}
-				} );
-				box.setColor( Color.random() );
-				world.add( box );
-			}
-
-			@Override
-			public boolean isDone( View view )
-			{
-				return false;
-			}
-		}, true );
 	}
 
-	private int rotated = 0;
 	@Override
 	public void update( int delta )
 	{
@@ -124,8 +92,17 @@ public class PhysicTest extends View
 		mouse.setTarget( new Vector2( Mouse.getX() / G.DYN4J_PIXELS_TO_METERS, Mouse.getY() / G.DYN4J_PIXELS_TO_METERS ) );
 		if( Mouse.isLeftMouseClicked() )
 		{
-			box.getBody().getTransform().setRotation( rotated );
-			rotated += 7;
+			PhysicalBox box = new PhysicalBox( Mouse.getX(), Mouse.getY(), 50, 50 );
+			box.getBody().getFixtures().forEach( new Consumer<BodyFixture>()
+			{
+				@Override
+				public void accept( BodyFixture bodyFixture )
+				{
+					bodyFixture.setDensity( 1 );
+				}
+			} );
+			box.setColor( Color.random() );
+			world.add( box );
 		}
 		if( Keyboard.isKeyDown( Keyboard.Key.Space ) )
 		{
