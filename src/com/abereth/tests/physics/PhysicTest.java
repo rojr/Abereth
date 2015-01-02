@@ -2,6 +2,7 @@ package com.abereth.tests.physics;
 
 import com.abereth.G;
 import com.abereth.draw.Color;
+import com.abereth.draw.TextureLoader;
 import com.abereth.draw.shapes.Square;
 import com.abereth.event.TimedEvent;
 import com.abereth.game.Game;
@@ -56,7 +57,7 @@ public class PhysicTest extends View
 			@Override
 			public void accept( BodyFixture bodyFixture )
 			{
-				bodyFixture.setRestitution( 2 );
+				bodyFixture.setRestitution( 0 );
 			}
 		} );
 		world.add( solidGround );
@@ -82,17 +83,32 @@ public class PhysicTest extends View
 
 		world.setGravity( new Vector2( 0, 65 ) );
 
+		getGame().GetEventManager().add( new TimedEvent<Game>()
+		{
+			@Override
+			public void EachInterval( int delta, Game o )
+			{
+				System.out.println( box.getDrawX() );
+			}
+
+			@Override
+			public boolean isDone( Game o )
+			{
+				return false;
+			}
+		}, true );
+
 	}
 
 	@Override
 	public void update( int delta )
 	{
-		//box.setTexture( TextureLoader.createTexture( "res/icon16.png" ) );
+		box.setTexture( TextureLoader.createTexture( "res/icon16.png" ) );
 
 		mouse.setTarget( new Vector2( Mouse.getX() / G.DYN4J_PIXELS_TO_METERS, Mouse.getY() / G.DYN4J_PIXELS_TO_METERS ) );
-		if( Mouse.isLeftMouseClicked() )
+		if( Mouse.isLeftMouseDown() )
 		{
-			PhysicalBox box = new PhysicalBox( Mouse.getX(), Mouse.getY(), 50, 50 );
+			PhysicalBox box = new PhysicalBox( Mouse.getX(), Mouse.getY(), 5, 5 );
 			box.getBody().getFixtures().forEach( new Consumer<BodyFixture>()
 			{
 				@Override
@@ -101,7 +117,7 @@ public class PhysicTest extends View
 					bodyFixture.setDensity( 1 );
 				}
 			} );
-			box.setColor( Color.random() );
+			//box.setColor( Color.random() );
 			world.add( box );
 		}
 		if( Keyboard.isKeyDown( Keyboard.Key.Space ) )

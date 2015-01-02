@@ -99,5 +99,6 @@ public class World implements Runnable
 				{ex.printStackTrace();}
 			}
 		}
+		System.out.println( "Physics thread is dead :(" );
 	}
 }

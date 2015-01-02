@@ -2,6 +2,7 @@ package com.abereth.objects.living;
 
 import com.abereth.G;
 import com.abereth.draw.Drawable;
+import com.abereth.draw.TextureLoader;
 import com.abereth.game.Draw;
 import org.dyn4j.dynamics.Body;
 
@@ -30,6 +31,18 @@ public abstract class Physical extends Drawable
 	}
 
 	public abstract void DrawShape( Draw d );
+
+	@Override
+	public double getDrawX()
+	{
+		return getBody().getTransform().getTranslationX() * G.DYN4J_PIXELS_TO_METERS;
+	}
+
+	@Override
+	public double getDrawY()
+	{
+		return getBody().getTransform().getTranslationY() * G.DYN4J_PIXELS_TO_METERS;
+	}
 
 	@Override
 	public void Draw( Draw d )

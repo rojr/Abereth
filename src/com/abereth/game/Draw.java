@@ -5,6 +5,8 @@ import com.abereth.draw.Color;
 import com.abereth.draw.Drawable;
 import com.abereth.draw.TextureLoader;
 import com.abereth.helpers.Vector2d;
+import com.sun.prism.Texture;
+import org.dyn4j.geometry.Vector2;
 import org.lwjgl.util.vector.Vector2f;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -86,6 +88,25 @@ public class Draw {
 		glEnd();
 	}
 
+	public void square( Vector2... vectors )
+	{
+		if( vectors.length != 4 )
+		{
+			return;
+		}
+
+		glBegin(GL_QUADS);
+			glTexCoord2d( 0, 0 );
+			glVertex2d( vectors[0].x, vectors[0].y );
+			glTexCoord2d( 1, 0 );
+			glVertex2d( vectors[1].x, vectors[1].y );
+			glTexCoord2d( 1, 1 );
+			glVertex2d( vectors[2].x, vectors[2].y );
+			glTexCoord2d( 0, 1 );
+			glVertex2d( vectors[3].x, vectors[3].y );
+		glEnd();
+	}
+
     /**
      *
      * Triangles are great. Always have 3 points
@@ -148,9 +169,13 @@ public class Draw {
 			lastColor = d.getColor();
 		}
 
-		if( d.getTexture() == -1 )
+		if( d.getTexture() != -1 )
 		{
-			BindTexture( TextureLoader.createTexture( "res/towers/stone.png" ) );
+			BindTexture( d.getTexture() );
+		}
+		else
+		{
+			BindTexture( TextureLoader.createTexture( "Abereth/res/none.png" ) );
 		}
 
 		glPushMatrix();
@@ -162,7 +187,7 @@ public class Draw {
 					glTranslated( d.getDrawX( ) + d.getDrawWidth( ) / 2, d.getDrawY( ) + d.getDrawHeight( ) / 2, 0 );
 					glRotatef( ( float ) d.getRotation( ), 0f, 0f, 1f );
 					glTranslated( -d.getDrawX( ) - d.getDrawWidth( ) / 2, -d.getDrawY( ) - d.getDrawHeight( ) / 2, 0 );
-					//glScalef( d.getScaleX( ), d.getScaleY( ), 0 );
+					glScalef( d.getScaleX( ), d.getScaleY( ), 0 );
 					glPushMatrix( );
 					{
 						if ( view.VIEW_COLOR.getR() != 2f && view.VIEW_COLOR.getG() != 2f && view.VIEW_COLOR.getB() != 2f )
