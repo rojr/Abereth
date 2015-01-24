@@ -2,8 +2,11 @@ package com.abereth.game;
 
 import com.abereth.draw.Color;
 import com.abereth.draw.Drawable;
+import com.abereth.draw.LayerHandler;
 import com.abereth.event.view.ViewEvent;
 import com.abereth.event.view.ViewEventManager;
+import com.abereth.gui.Gui;
+import com.abereth.input.Mouse;
 import com.abereth.objects.living.Living;
 import com.abereth.world.World;
 
@@ -18,10 +21,11 @@ public abstract class View implements Comparable{
 
 	private Game game;
 	private boolean isPaused;
-	private ArrayList<Drawable> drawList;
+	private ArrayList<Gui> guiList;
 	private int layer;
 	private ViewEventManager eventManager;
 	private World world;
+	private LayerHandler drawList;
 	private Thread worldThread;
 
 	/*
@@ -40,9 +44,30 @@ public abstract class View implements Comparable{
 	public View( Game game )
 	{
 		this.game = game;
-		this.drawList = new ArrayList<Drawable>();
+		this.drawList = new LayerHandler();
 		this.layer = 1;
 		this.eventManager = new ViewEventManager( this );
+
+		//Click handler
+		//Specifically created to handle the clicked view when stuff is
+		//overlapping
+		GetEventManager().add( new ViewEvent()
+		{
+			@Override
+			public boolean isDone( View view )
+			{
+				return false;
+			}
+
+			@Override
+			public void OnUpdate( int delta, View view )
+			{
+				if( Mouse.isLeftMouseClicked() )
+				{
+
+				}
+			}
+		}, false );
 	}
 
 	public Game getGame()
@@ -98,7 +123,8 @@ public abstract class View implements Comparable{
 	 * linked to the game yet, or the game hasn't yet started so we can't do anything until
 	 * the game is started.
 	 *
-	 * Initialize will have the apropriate
+	 * Initialize will only be executed upon game start, or
+	 * the next available tick via an Event.
 	 */
 	public void Initialize()
 	{}
@@ -162,22 +188,30 @@ public abstract class View implements Comparable{
 	 */
 	public Drawable add( Drawable objects )
 	{
-        drawList.add( objects );
-        return objects;
+		objects.setView( this );
+		drawList.add( objects );
+		return objects;
 	}
 
-    public Drawable[] add( Drawable... objects )
-    {
-        Collections.addAll( drawList, objects );
-        return objects;
-    }
+	public Drawable[] add( Drawable... objects )
+	{
+		for( Drawable d : objects )
+		{
+			drawList.add( d );
+			if( d instanceof Gui )
+			{
+				guiList.add( ( Gui ) d );
+			}
+		}
+		return objects;
+	}
 
 	public ViewEventManager GetEventManager()
 	{
 		return this.eventManager;
 	}
 
-	public ArrayList<Drawable> getDrawList()
+	public LayerHandler getDrawList()
 	{
 		return this.drawList;
 	}
@@ -192,13 +226,10 @@ public abstract class View implements Comparable{
 	{
 		for (Drawable d : objects )
 		{
-			for ( int i = 0; i < drawList.size(); i++ )
+			drawList.remove( d );
+			if( d instanceof Gui )
 			{
-				if(d == drawList.get( i ) )
-				{
-					drawList.remove( i );
-					break;
-				}
+				guiList.remove( d );
 			}
 		}
 	}
@@ -283,15 +314,6 @@ public abstract class View implements Comparable{
 	public void render( int delta )
 	{
 		eventManager.onUpdate( delta );
-		for( Drawable d : drawList )
-		{
-			if(d instanceof Living)
-			{
-				((Living)d).onUpdate( delta );
-			}
-			getGame().getDraw().render( d, this );
-            //TODO Seperate rendering and drawing...
-			//TODO possibly statistics. render() will return boolean  and see how many items were drawn compared to total items?
-		}
+		drawList.render( this, delta );
 	}
 }

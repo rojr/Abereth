@@ -1,9 +1,12 @@
 package com.abereth.draw;
 
 import com.abereth.game.Draw;
+import com.abereth.game.View;
 
-public abstract class Drawable {
+public abstract class Drawable
+{
 
+	private View view;
 	private double drawX, drawY, drawWidth, drawHeight, xOffset, yOffset;
 	private double finalX, finalY, finalW, finalH;
 	/**
@@ -26,22 +29,25 @@ public abstract class Drawable {
 	/**
 	 * Default constructor
 	 */
-	public Drawable(){
-		this(0,0);
+	public Drawable()
+	{
+		this( 0, 0 );
 	}
 
-	public Drawable(double x, double y){
-		this(x,y,20,20);
+	public Drawable( double x, double y )
+	{
+		this( x, y, 20, 20 );
 	}
 
-	public Drawable( double drawX, double drawY, double drawWidth, double drawHeight ) {
+	public Drawable( double drawX, double drawY, double drawWidth, double drawHeight )
+	{
 		this.drawX = drawX;
 		this.drawY = drawY;
 		this.drawWidth = drawWidth;
 		this.drawHeight = drawHeight;
 		this.xOffset = 0;
-		this.yOffset =0;
-		this.layer = 1;
+		this.yOffset = 0;
+		this.layer = 0;
 		this.rotation = 0;
 		this.scaleX = 1;
 		this.scaleY = 1;
@@ -49,7 +55,7 @@ public abstract class Drawable {
 		this.invertsX = false;
 		this.invertsY = false;
 		this.color = Color.WHITE;
-		this.setUseTranslate(false);
+		this.setUseTranslate( false );
 		this.bX = -1;
 		this.bY = -1;
 		this.bW = -1;
@@ -65,144 +71,232 @@ public abstract class Drawable {
 		//TODO make this change accordingly when the object moves.
 	}
 
-	public double getDrawX() {
+	public double getDrawX()
+	{
 		return drawX;
 	}
-	public double getDrawY() {
+
+	public double getDrawY()
+	{
 		return drawY;
 	}
-	public double getFinalDrawX(){
+
+	public double getFinalDrawX()
+	{
 		return finalX;
 	}
-	public double getFinalDrawY(){
+
+	public double getFinalDrawY()
+	{
 		return finalY;
 	}
-	public double getFinalDrawWidth(){
+
+	public double getFinalDrawWidth()
+	{
 		return finalW;
 	}
-	public double getFinalDrawHeight(){
+
+	public double getFinalDrawHeight()
+	{
 		return finalH;
 	}
-	public double getDrawWidth() {
+
+	public double getDrawWidth()
+	{
 		return drawWidth;
 	}
-	public double getDrawHeight() {
+
+	public double getDrawHeight()
+	{
 		return drawHeight;
 	}
-	public double getXOffset(){
+
+	public double getXOffset()
+	{
 		return xOffset;
 	}
-	public double getYOffset(){
+
+	public double getYOffset()
+	{
 		return yOffset;
 	}
-	public int getLayer() {
+
+	public int getLayer()
+	{
 		return layer;
 	}
-	public int getRotation() {
+
+	public int getRotation()
+	{
 		return rotation;
 	}
-	public float getScaleX() {
+
+	public float getScaleX()
+	{
 		return scaleX;
 	}
-	public float getScaleY() {
+
+	public float getScaleY()
+	{
 		return scaleY;
 	}
-	public int getTexture() {
+
+	public int getTexture()
+	{
 		return texture;
 	}
-	public Color getColor() {
+
+	public Color getColor()
+	{
 		return color;
 	}
-	public long getID(){
+
+	public long getID()
+	{
 		return id;
 	}
-	public float getOpacity(){
+
+	public float getOpacity()
+	{
 		return opacity;
 	}
-	public boolean isUseTranslate() {
+
+	public boolean isUseTranslate()
+	{
 		return useTranslate;
 	}
-	public double getBoundX(){
+
+	public double getBoundX()
+	{
 		return bX;
 	}
-	public double getBoundY(){
+
+	public double getBoundY()
+	{
 		return bY;
 	}
-	public double getBoundWidth(){
+
+	public double getBoundWidth()
+	{
 		return bW;
 	}
-	public double getBoundHeight(){
+
+	public double getBoundHeight()
+	{
 		return bH;
 	}
-	public boolean isVisible(){
+
+	public boolean isVisible()
+	{
 		return isVisible;
 	}
-	public boolean isInvertsX() {
+
+	public boolean isInvertsX()
+	{
 		return invertsX;
 	}
-	public boolean isinvertsY() {
+
+	public boolean isinvertsY()
+	{
 		return invertsY;
 	}
 
 
-	public void setIsVisible(boolean visible) {this.isVisible = visible;}
-	public void setDrawX(double x) {
+	public void setIsVisible( boolean visible ) {this.isVisible = visible;}
+
+	public void setDrawX( double x )
+	{
 		this.drawX = x;
 	}
-	public void setDrawY(double y) {
+
+	public void setDrawY( double y )
+	{
 		this.drawY = y;
 	}
-	public void setDrawWidth(double width) {
+
+	public void setDrawWidth( double width )
+	{
 		this.drawWidth = width;
 	}
-	public void setDrawHeight(double height) {
+
+	public void setDrawHeight( double height )
+	{
 		this.drawHeight = height;
 	}
-	public void setXOffset(double x){
+
+	public void setXOffset( double x )
+	{
 		this.xOffset = x;
 	}
-	public void setYOffset(double y){
+
+	public void setYOffset( double y )
+	{
 		this.yOffset = y;
 	}
+
 	/**
 	 * Sets the opacity of the drawable object.
+	 *
 	 * @param f Can be anything from 0 to 1
 	 */
 	public void setOpacity( float f )
 	{
 		this.getColor().setA( f );
 	}
+
 	/**
 	 * Strongly advise <b>DO NOT CALL THIS</b>, it's to set
 	 * the ID so the Engine knows what each object is. Avoids massive
 	 * brute force loops.
+	 *
 	 * @param id
 	 */
-	public void setID(int id){
+	public void setID( int id )
+	{
 		this.id = id;
 	}
-	public void setLayer(int layer) {
+
+	public void setLayer( int layer )
+	{
+		if( getView() != null )
+		{
+			getView().getDrawList().moveObject( this, layer );
+		}
+		else
+		{
+			System.out.println( "Was not able to set the layer of an object. This is probably because you changed the layer before adding it to the view");
+		}
 		this.layer = layer;
 	}
-	public void setRotation(int rotation) {
+
+	public void setRotation( int rotation )
+	{
 		this.rotation = rotation;
 	}
-	public void setScaleX(float scaleX) {
+
+	public void setScaleX( float scaleX )
+	{
 		this.scaleX = scaleX;
 	}
-	public void setScaleY(float scaleY) {
+
+	public void setScaleY( float scaleY )
+	{
 		this.scaleY = scaleY;
 	}
-	public void setTexture(int texture) {
+
+	public void setTexture( int texture )
+	{
 		this.texture = texture;
 	}
-	public void setColor( Color color ) {
+
+	public void setColor( Color color )
+	{
 		//If we are setting a lot of colors at once
 		//this might break some stuff as creating new objects
 		//can be heavy
 		if( color != getColor() )
 		{
-			Color c = new Color(color.getR(), color.getG(), color.getB());
+			Color c = new Color( color.getR(), color.getG(), color.getB() );
 
 			//This creates a new color, instead of simply referencing Color.
 			//Allows for color manipulation effects to not be saved within the color
@@ -210,26 +304,48 @@ public abstract class Drawable {
 			this.color = c;
 		}
 	}
-	public void setInvertsX(boolean inverts) {
+
+	public void setInvertsX( boolean inverts )
+	{
 		this.invertsX = inverts;
 	}
-	public void setInvertsY(boolean inverts) {
+
+	public void setInvertsY( boolean inverts )
+	{
 		this.invertsY = inverts;
 	}
-	public void setInverts(boolean x, boolean y){
+
+	public void setInverts( boolean x, boolean y )
+	{
 		this.invertsX = x;
 		this.invertsY = y;
 	}
-	public void setUseTranslate(boolean useTranslate) {
+
+	public void setUseTranslate( boolean useTranslate )
+	{
 		this.useTranslate = useTranslate;
 	}
-	public void setScale(float x, float y){
+
+	public void setScale( float x, float y )
+	{
 		this.scaleX = x;
 		this.scaleY = y;
 	}
-	public void setLocationByCenter(int x, int y){
+
+	public void setLocationByCenter( int x, int y )
+	{
 		this.drawX = x - drawWidth / 2;
 		this.drawY = y - drawHeight / 2;
+	}
+
+	public void setView( View view )
+	{
+		this.view = view;
+	}
+
+	public View getView()
+	{
+		return this.view;
 	}
 
 	/**
@@ -237,8 +353,10 @@ public abstract class Drawable {
 	 * Render decides if the object is worthy of being drawn and only then calls Draw.
 	 * If render returns true then the item was drawn.
 	 */
-	public boolean render( Draw d ){
-		if(isVisible){
+	public boolean render( Draw d )
+	{
+		if( isVisible )
+		{
 			Draw( d );
 			return true;
 		}

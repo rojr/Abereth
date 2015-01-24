@@ -8,7 +8,7 @@ import com.abereth.game.Draw;
 /**
  * Created by apex on 10/03/14.
  */
-public class Text extends GuiContainer
+public class Text extends GuiContainer implements Parent, Child
 {
 
 	public static String WHITE = "&!0",
@@ -26,6 +26,8 @@ public class Text extends GuiContainer
 	private int letterSize = 8;
 	private String text;
 	private char identifier = '&';
+	private Parent parent;
+
 	Color currentColor = Color.WHITE;
 
 	public Text( double x, double y )
@@ -191,6 +193,18 @@ public class Text extends GuiContainer
 			}
 			super.add( c );
 		}
+	}
+
+	@Override
+	public Parent getParent()
+	{
+		return parent;
+	}
+
+	@Override
+	public void setParent( Parent p )
+	{
+		this.parent = p;
 	}
 
 	public static String size( int size )
