@@ -74,16 +74,21 @@ public class Draw {
 		glEnd();
 	}
 
-	public void square(double x, double y, double width, double height)
+	public void square( double x, double y, double width, double height )
 	{
-		glBegin(GL_QUADS);
-			glTexCoord2d( 0, 0 );
+		this.square( x, y, width, height, 0, 0, 1, 1 );
+	}
+
+	public void square( double x, double y, double width, double height, double xPercent, double yPercent, double wPercent, double hPercent )
+	{
+		glBegin( GL_QUADS );
+			glTexCoord2d( xPercent, yPercent );
 			glVertex2d( x, y );
-			glTexCoord2d( 1, 0 );
+			glTexCoord2d( xPercent + wPercent, yPercent );
 			glVertex2d( x + width, y );
-			glTexCoord2d( 1, 1 );
+			glTexCoord2d( xPercent + wPercent, yPercent + hPercent );
 			glVertex2d( x + width, y + height );
-			glTexCoord2d( 0, 1 );
+			glTexCoord2d( xPercent, yPercent + hPercent );
 			glVertex2d( x, y + height );
 		glEnd();
 	}
@@ -95,7 +100,7 @@ public class Draw {
 			return;
 		}
 
-		glBegin(GL_QUADS);
+		glBegin( GL_QUADS );
 			glTexCoord2d( 0, 0 );
 			glVertex2d( vectors[0].x, vectors[0].y );
 			glTexCoord2d( 1, 0 );

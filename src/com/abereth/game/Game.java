@@ -2,6 +2,7 @@ package com.abereth.game;
 
 import com.abereth.G;
 import com.abereth.draw.Color;
+import com.abereth.event.game.GameEvent;
 import com.abereth.event.game.GameEventManager;
 import com.abereth.event.view.transitions.ViewTransition;
 import com.abereth.input.Mouse;
@@ -42,6 +43,7 @@ public class Game implements Runnable
 	private ArrayList<View> viewList;
 
 	private GameEventManager eventManager;
+	private ArrayList<View> viewsToInitialize;
 
 	/**
 	 * Default constructor, creates a new game with 500 width and 500 height
@@ -64,7 +66,8 @@ public class Game implements Runnable
 		this.draw = draw;
 		this.clearColor = new Color( 0f, 0f, 0f, 0f );
 		this.refreshRate = 60;
-		this.viewList = new ArrayList<View>();
+		this.viewList = new ArrayList<>();
+		this.viewsToInitialize = new ArrayList<>();
 		this.eventManager = new GameEventManager( this );
 	}
 
@@ -182,7 +185,7 @@ public class Game implements Runnable
 		Collections.sort(viewList);
 		for( View v : view )
 		{
-			v.Initialize();
+			viewsToInitialize.add( v );
 		}
 	}
 
@@ -306,7 +309,28 @@ public class Game implements Runnable
 	public void run()
 	{
 		create();
-		System.out.println( "Running from: " + System.getProperty( "user.dir" ) );
+		GetEventManager().add( new GameEvent()
+		{
+			@Override
+			public boolean isDone( Game game )
+			{
+				return false;
+			}
+
+			@Override
+			public void OnUpdate( int delta, Game game )
+			{
+				for( int i = 0; i < viewsToInitialize.size(); i++ )
+				{
+					viewsToInitialize.get( i ).Initialize();
+					viewsToInitialize.remove( i );
+				}
+			}
+		},  true );
+		String userDir = System.getProperty( "user.dir" );
+		System.out.println( "Running from: " + userDir );
+		G.ARP = userDir.endsWith( "Abereth" ) ? userDir + "/res/" : userDir + "/Abereth/res/";
+		G.loadCharacters();
 		while( !Display.isCloseRequested( ) )
 		{
 			Update( );

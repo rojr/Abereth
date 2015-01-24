@@ -13,6 +13,11 @@ public class Gui extends Drawable
 		super( );
 	}
 
+	public Gui( double x, double y, double width, double height )
+	{
+		super(x, y, width, height );
+	}
+
 	@Override
 	public void Draw ( Draw d )
 	{

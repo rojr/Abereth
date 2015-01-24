@@ -124,7 +124,6 @@ public class TextureLoader
 			{
 				this.xPercent = ( double ) x / ( double ) texWidth;
 				this.yPercent = ( double ) y / ( double ) texHeight;
-				this.yPercent = ( double ) 1 - ( double ) yPercent;
 				this.widthPercent = ( double ) width / ( double )texWidth;
 				this.heightPercent = ( double ) height / ( double )texHeight;
 			}
