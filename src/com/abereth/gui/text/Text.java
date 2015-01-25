@@ -1,9 +1,13 @@
-package com.abereth.gui;
+package com.abereth.gui.text;
 
 import com.abereth.G;
 import com.abereth.draw.Color;
 import com.abereth.draw.TextureLoader;
 import com.abereth.game.Draw;
+import com.abereth.gui.Child;
+import com.abereth.gui.Gui;
+import com.abereth.gui.GuiContainer;
+import com.abereth.gui.Parent;
 
 /**
  * Created by apex on 10/03/14.
@@ -27,6 +31,8 @@ public class Text extends GuiContainer implements Parent, Child
 	private String text;
 	private char identifier = '&';
 	private Parent parent;
+	private boolean forcedColor;
+	private int characterLimit;
 
 	Color currentColor = Color.WHITE;
 
@@ -46,6 +52,8 @@ public class Text extends GuiContainer implements Parent, Child
 		lastX = getDrawX();
 		lastY = getDrawY();
 		set( text );
+		this.forcedColor = false;
+		characterLimit = 20;
 	}
 
 	/**
@@ -57,6 +65,27 @@ public class Text extends GuiContainer implements Parent, Child
 	{
 		this.letterSize = size;
 		set( text );
+	}
+
+	public void setCharacterLimit( int limit )
+	{
+		this.characterLimit = limit;
+	}
+
+	public int getCharacterLimit()
+	{
+		return this.characterLimit;
+	}
+
+	public void forceSetColor( Color c )
+	{
+		this.forcedColor = true;
+		setColor( c );
+	}
+
+	public void forceUnliftColor()
+	{
+		this.forcedColor = false;
 	}
 
 	public String getText()
@@ -76,26 +105,42 @@ public class Text extends GuiContainer implements Parent, Child
 
 	public void set( String text )
 	{
+		int charactersAdded = 0;
 		if( !( text.equalsIgnoreCase( this.text ) ) )
 		{
 			getChildren().clear();
 			lastX = getDrawX();
 			lastY = getDrawY();
 			this.text = text;
+			if( text.startsWith( "&!!" ) )
+			{
+				text.replace( "&!!", "" );
+				forcedColor = true;
+			}
 			if( ( text.length() > 0 ) )
 			{
-				for ( int i = 0; i < text.toCharArray().length; i++ )
+				char[] charArray = text.toCharArray();
+				int i = 0;
+				if( forcedColor )
 				{
-					char c = text.toCharArray()[ i ];
+					i = 3;
+				}
+				for ( ; i < charArray.length; i++ )
+				{
+					if( charactersAdded >= this.characterLimit )
+					{
+						return;
+					}
+					char c = charArray[ i ];
 					if( c == ' ' )
 						lastX += letterSize;
 					else if( c != '\n' )
 					{
-						if( c == identifier && i < text.toCharArray().length - 2 )
+						if( c == identifier && i < charArray.length - 2 )
 						{
-							if( text.toCharArray()[ i + 1 ] == '!' )
+							if( charArray[ i + 1 ] == '!' )
 							{
-								char id = text.toCharArray()[ i + 2 ];
+								char id = charArray[ i + 2 ];
 								switch ( id )
 								{
 									case '0':
@@ -131,21 +176,22 @@ public class Text extends GuiContainer implements Parent, Child
 								}
 								i += 2;
 								continue;
-							} else if( text.toCharArray()[ i + 1 ] == '?' )
+							}
+							else if( charArray[ i + 1 ] == '?' )
 							{
 								int toSkip = 0;
 								try
 								{
-									if( Integer.parseInt( text.toCharArray()[ i + 2 ] + "" ) <= 9 )
+									if( Integer.parseInt( charArray[ i + 2 ] + "" ) <= 9 )
 									{
-										if( Integer.parseInt( text.toCharArray()[ i + 3 ] + "" ) <= 9 )
+										if( Integer.parseInt( charArray[ i + 3 ] + "" ) <= 9 )
 										{
-											letterSize = Integer.parseInt( text.toCharArray()[ i + 2 ] + "" ) * 10
-													+ Integer.parseInt( text.toCharArray()[ i + 3 ] + "" );
+											letterSize = Integer.parseInt( charArray[ i + 2 ] + "" ) * 10
+													+ Integer.parseInt( charArray[ i + 3 ] + "" );
 											toSkip = 3;
 										} else
 										{
-											letterSize = Integer.parseInt( text.toCharArray()[ i + 2 ] + "" );
+											letterSize = Integer.parseInt( charArray[ i + 2 ] + "" );
 											toSkip = 2;
 										}
 									}
@@ -157,14 +203,26 @@ public class Text extends GuiContainer implements Parent, Child
 							}
 						}
 						Letter l = new Letter( c, 0, 0, letterSize, letterSize );
-						l.setColor( currentColor );
+						if( !forcedColor )
+						{
+							l.setColor( currentColor );
+						}
+						else
+						{
+							l.setColor( getColor() );
+						}
 						add( l );
+						charactersAdded++;
 					} else
 					{
 						lastX = getDrawX();
 						lastY += letterSize;
 					}
 				}
+			}
+			if( forcedColor )
+			{
+				forcedColor = false;
 			}
 		}
 	}
@@ -267,6 +325,7 @@ public class Text extends GuiContainer implements Parent, Child
 		public void draw( Draw d )
 		{
 			d.BindTexture( getTexture() );
+			d.setColor( getColor() );
 			TextureLoader.TexInfo info = TextureLoader.TextureInfo.get( getTexture() );
 			d.square( this.getDrawX(), this.getDrawY(), this.getDrawWidth(), this.getDrawHeight(), info.getXPercent(), info.getYPercent(), info.getWidthPercent(), info.getHeightPercent() );
 		}

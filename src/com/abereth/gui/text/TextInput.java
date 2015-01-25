@@ -1,7 +1,8 @@
-package com.abereth.gui;
+package com.abereth.gui.text;
 
 import com.abereth.draw.Color;
 import com.abereth.game.Draw;
+import com.abereth.gui.GuiContainer;
 import com.abereth.input.Keyboard;
 
 /**
@@ -14,6 +15,7 @@ public class TextInput extends GuiContainer
 	private String caret;
 	private String caretPlaceholder;
 	private int caretTimeout;
+	private boolean alwaysSelected;
 	public TextInput( double x, double y, double width, double height )
 	{
 		super( x, y, width, height );
@@ -21,6 +23,12 @@ public class TextInput extends GuiContainer
 		add( text );
 		this.caret = "I";
 		this.caretPlaceholder = "";
+		this.alwaysSelected = false;
+	}
+
+	public void setIsAlwaysSelected( boolean is )
+	{
+		this.alwaysSelected = is;
 	}
 
 	public Text getText()
@@ -32,25 +40,38 @@ public class TextInput extends GuiContainer
 	public void draw( Draw d )
 	{
 		d.square( getDrawX(), getDrawY(), getDrawWidth(), getDrawHeight() );
-		if( this.isSelected )
+		if( this.isSelected || this.alwaysSelected )
 		{
-			d.setColor( Color.RED );
-			d.line( getDrawX(), getDrawY(), getDrawX() + getDrawWidth(), getDrawY() );
+			drawLetters( d );
 
 			String entered = Keyboard.getPressedCharacter();
 			if( !entered.equals( "" ) )
 			{
-				if( !entered.equals( "bckspc" ) )
-				{
-					text.set( text.getText() + entered );
-				}
-				else
-				{
-					text.set( text.getText().substring( 0, text.getText().length() - 1 ) );
-				}
+				handleInput( entered );
+			}
+
+		}
+		super.draw( d );
+	}
+
+	public void handleInput( String input )
+	{
+		if( !input.equals( "bckspc" ) )
+		{
+			text.set( text.getText() + input );
+		}
+		else
+		{
+			if( text.getText().length() != 0 )
+			{
+				text.set( text.getText().substring( 0, text.getText().length() - 1 ) );
 			}
 		}
-		d.setColor( Color.GREEN );
-		super.draw( d );
+	}
+
+	public void drawLetters( Draw d )
+	{
+		d.setColor( Color.RED );
+		d.line( getDrawX(), getDrawY(), getDrawX() + getDrawWidth(), getDrawY() );
 	}
 }

@@ -103,7 +103,6 @@ public class PhysicTest extends View
 	@Override
 	public void update( int delta )
 	{
-		box.setTexture( TextureLoader.createTexture( "res/icon16.png" ) );
 
 		mouse.setTarget( new Vector2( Mouse.getX() / G.DYN4J_PIXELS_TO_METERS, Mouse.getY() / G.DYN4J_PIXELS_TO_METERS ) );
 		if( Mouse.isLeftMouseDown() )

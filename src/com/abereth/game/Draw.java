@@ -17,8 +17,13 @@ import static org.lwjgl.opengl.GL11.*;
 public class Draw {
 
 	private Color lastColor;
+	private TextureLoader textureLoader;
+	private com.abereth.draw.Texture t = null;
+
+
 	public Draw()
 	{
+		textureLoader = new TextureLoader();
 
 	}
 
@@ -121,7 +126,7 @@ public class Draw {
      * different kinds of triangles
      *
      * @param a Location 1
-     * @param b Location 2
+     * @param b Location 211:5
      * @param c Location 3
      */
     public void triangle( Vector2f a, Vector2f b, Vector2f c )
@@ -161,8 +166,21 @@ public class Draw {
 			id = TextureLoader.createTexture( "Abereth/res/none.png" );
 		}
 
-		TextureLoader.TexInfo info = TextureLoader.TextureInfo.get( id );
-		glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, info.getDecoder().getWidth(), info.getDecoder().getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, info.getBuffer() );
+		try
+		{
+			//TODO make this more dynamic so stuff gets saved in memory rahter than hanging about here
+			this.t = textureLoader.getTexture( TextureLoader.TextureInfo.get( id ).getLocation() );
+		}
+		catch ( Exception ex )
+		{
+			ex.printStackTrace();
+		}
+
+		if( t != null )
+		{
+			t.bind();
+		}
+
 	}
 
     /**
