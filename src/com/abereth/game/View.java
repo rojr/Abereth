@@ -7,10 +7,8 @@ import com.abereth.event.view.ViewEvent;
 import com.abereth.event.view.ViewEventManager;
 import com.abereth.gui.Gui;
 import com.abereth.input.Mouse;
-import com.abereth.objects.living.Living;
 import com.abereth.world.World;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -45,6 +43,7 @@ public abstract class View implements Comparable{
 	{
 		this.game = game;
 		this.drawList = new LayerHandler();
+		this.guiList = new ArrayList<>(  );
 		this.layer = 1;
 		this.eventManager = new ViewEventManager( this );
 
@@ -64,7 +63,30 @@ public abstract class View implements Comparable{
 			{
 				if( Mouse.isLeftMouseClicked() )
 				{
-
+					int mx = Mouse.getX();
+					int my = Mouse.getY();
+					ArrayList<Gui> guiElements = new ArrayList<>( );
+					for( Gui g : guiList )
+					{
+						if( g.getDrawX() <= mx && g.getDrawX() + g.getDrawWidth() >= mx && g.getDrawY() <= my && g.getDrawY() + g.getDrawHeight() >= my )
+						{
+							guiElements.add( g );
+						}
+					}
+					if( guiElements.size() != 0 )
+					{
+						if( guiElements.size() == 1 )
+						{
+							Gui.setSelected( guiElements.get( 0 ) );
+						}
+						else
+						{
+							Collections.sort( guiElements );
+							Gui.setSelected( guiElements.get( 0 ) );
+						}
+						return;
+					}
+					Gui.clearSelected();
 				}
 			}
 		}, false );
@@ -190,6 +212,10 @@ public abstract class View implements Comparable{
 	{
 		objects.setView( this );
 		drawList.add( objects );
+		if( objects instanceof Gui )
+		{
+			guiList.add( ( Gui ) objects );
+		}
 		return objects;
 	}
 
@@ -197,11 +223,7 @@ public abstract class View implements Comparable{
 	{
 		for( Drawable d : objects )
 		{
-			drawList.add( d );
-			if( d instanceof Gui )
-			{
-				guiList.add( ( Gui ) d );
-			}
+			add( d );
 		}
 		return objects;
 	}

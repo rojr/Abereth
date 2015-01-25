@@ -110,12 +110,12 @@ public class GuiContainer extends Gui implements Parent
 	}
 
 	@Override
-	public void Draw( Draw d )
+	public void draw( Draw d )
 	{
-		super.Draw( d );
+		super.draw( d );
 		for ( Child c : children )
 		{
-			c.getOrigin().Draw( d );
+			c.getOrigin().draw( d );
 		}
 	}
 

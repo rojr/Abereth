@@ -156,6 +156,11 @@ public class Draw {
 
 	public void BindTexture( int id )
 	{
+		if( id == -1 )
+		{
+			id = TextureLoader.createTexture( "Abereth/res/none.png" );
+		}
+
 		TextureLoader.TexInfo info = TextureLoader.TextureInfo.get( id );
 		glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, info.getDecoder().getWidth(), info.getDecoder().getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, info.getBuffer() );
 	}

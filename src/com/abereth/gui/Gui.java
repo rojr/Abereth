@@ -8,9 +8,10 @@ import java.util.ArrayList;
 /**
  * Created by jeremiah on 22/11/2014.
  */
-public class Gui extends Drawable
+public class Gui extends Drawable implements Comparable
 {
 	protected boolean isSelected;
+	public static Gui selectedElement = null;
 	public Gui ( )
 	{
 		super( );
@@ -23,8 +24,28 @@ public class Gui extends Drawable
 	}
 
 	@Override
-	public void Draw ( Draw d )
-	{
+	public void draw( Draw d )
+	{}
 
+	public static void setSelected( Gui gui )
+	{
+		gui.isSelected = true;
+		selectedElement = gui;
+	}
+
+	public static void clearSelected()
+	{
+		if( selectedElement != null )
+		{
+			selectedElement.isSelected = false;
+			selectedElement = null;
+		}
+	}
+
+	@Override
+	public int compareTo( Object o )
+	{
+		Gui obj = ( Gui ) o;
+		return obj.getLayer() - getLayer();
 	}
 }

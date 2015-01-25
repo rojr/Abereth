@@ -23,7 +23,7 @@ public class Entity extends Living
 	}
 
 	@Override
-	public void Draw( Draw d )
+	public void draw( Draw d )
 	{
 
 	}

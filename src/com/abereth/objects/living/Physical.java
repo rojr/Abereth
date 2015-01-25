@@ -45,7 +45,7 @@ public abstract class Physical extends Drawable
 	}
 
 	@Override
-	public void Draw( Draw d )
+	public void draw( Draw d )
 	{
 		glPushMatrix();
 		{

@@ -349,20 +349,20 @@ public abstract class Drawable
 	}
 
 	/**
-	 * Superior method to Draw.
-	 * Render decides if the object is worthy of being drawn and only then calls Draw.
+	 * Superior method to draw.
+	 * Render decides if the object is worthy of being drawn and only then calls draw.
 	 * If render returns true then the item was drawn.
 	 */
 	public boolean render( Draw d )
 	{
 		if( isVisible )
 		{
-			Draw( d );
+			draw( d );
 			return true;
 		}
 		return false;
 	}
 
-	public abstract void Draw( Draw d );
+	public abstract void draw( Draw d );
 
 }

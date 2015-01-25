@@ -43,9 +43,21 @@ public class Keyboard
 			{
 				if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.getEventKey() ) )
 				{
+					if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.KEY_RETURN ) )
+					{
+						return "\n";
+					}
+					else if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.KEY_SPACE ) )
+					{
+						return " ";
+					}
+					else if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.KEY_BACK ))
+					{
+						return "bckspc";
+					}
 					for ( int i = 0; i < G.characters.length; i++ )
 					{
-						if( org.lwjgl.input.Keyboard.getEventCharacter() == G.characters[ i ] || org.lwjgl.input.Keyboard.getEventCharacter() == '\n' )
+						if( org.lwjgl.input.Keyboard.getEventCharacter() == G.characters[ i ] )
 						{
 							return org.lwjgl.input.Keyboard.getEventCharacter() + "";
 						}

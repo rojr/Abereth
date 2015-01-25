@@ -169,6 +169,18 @@ public class Text extends GuiContainer implements Parent, Child
 		}
 	}
 
+	@Override
+	public double getDrawWidth()
+	{
+		return super.getDrawWidth();
+	}
+
+	@Override
+	public double getDrawHeight()
+	{
+		return super.getDrawHeight();
+	}
+
 	/**
 	 * Do not use this method directly, it will only make things worse
 	 *
@@ -252,7 +264,7 @@ public class Text extends GuiContainer implements Parent, Child
 		}
 
 		@Override
-		public void Draw( Draw d )
+		public void draw( Draw d )
 		{
 			d.BindTexture( getTexture() );
 			TextureLoader.TexInfo info = TextureLoader.TextureInfo.get( getTexture() );
