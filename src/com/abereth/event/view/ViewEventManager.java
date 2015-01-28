@@ -7,9 +7,9 @@ import com.abereth.game.View;
 /**
  * Created by jeremiah on 12/11/2014.
  */
-public class ViewEventManager extends EventManager<Event<View>, View>
+public class ViewEventManager<V extends View> extends EventManager<Event<V>, V>
 {
-	public ViewEventManager( View view )
+	public ViewEventManager( V view )
 	{
 		super( view );
 	}

@@ -18,7 +18,7 @@ public class EventManager<EventType extends Event, ParentObject>
 		this.object = object;
 	}
 
-	public EventManager add( EventType event, boolean sequential )
+	public Event<EventType> add( EventType event, boolean sequential )
 	{
 		if( sequential )
 		{
@@ -30,7 +30,7 @@ public class EventManager<EventType extends Event, ParentObject>
 			groupEventList.add( event );
 			event.init( object );
 		}
-		return this;
+		return event;
 	}
 
 	public EventManager remove( EventType event )
@@ -64,6 +64,7 @@ public class EventManager<EventType extends Event, ParentObject>
 			EventType current = getSequentialEventList().get( 0 );
 			if( current.isDone( this.object ) )
 			{
+				current.complete();
 				remove( current );
 				onUpdate( delta );
 				return;
@@ -78,6 +79,7 @@ public class EventManager<EventType extends Event, ParentObject>
 		{
 			if( event.isDone( this.object ) )
 			{
+				event.complete();
 				remove( event );
 				onUpdate( delta );
 				return;

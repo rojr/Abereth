@@ -45,7 +45,7 @@ public abstract class View implements Comparable{
 		this.drawList = new LayerHandler();
 		this.guiList = new ArrayList<>(  );
 		this.layer = 1;
-		this.eventManager = new ViewEventManager( this );
+		this.eventManager = new ViewEventManager<>( this );
 
 		//Click handler
 		//Specifically created to handle the clicked view when stuff is
