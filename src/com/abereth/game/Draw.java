@@ -5,7 +5,6 @@ import com.abereth.draw.Color;
 import com.abereth.draw.Drawable;
 import com.abereth.draw.TextureLoader;
 import com.abereth.helpers.Vector2d;
-import com.sun.prism.Texture;
 import org.dyn4j.geometry.Vector2;
 import org.lwjgl.util.vector.Vector2f;
 
