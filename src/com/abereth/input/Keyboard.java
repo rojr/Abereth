@@ -43,24 +43,28 @@ public class Keyboard
 			{
 				if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.getEventKey() ) )
 				{
-					if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.KEY_RETURN ) )
-					{
-						return "\n";
-					}
-					else if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.KEY_SPACE ) )
-					{
-						return " ";
-					}
-					else if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.KEY_BACK ))
-					{
-						return "bckspc";
-					}
 					for ( int i = 0; i < G.characters.length; i++ )
 					{
 						if( org.lwjgl.input.Keyboard.getEventCharacter() == G.characters[ i ] )
 						{
+							System.out.println( org.lwjgl.input.Keyboard.getEventCharacter() );
 							return org.lwjgl.input.Keyboard.getEventCharacter() + "";
 						}
+					}
+					if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.KEY_RETURN ) )
+					{
+						System.out.println( "enter" );
+						return "\n";
+					}
+					else if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.KEY_SPACE ) )
+					{
+						System.out.println( "space" );
+						return " ";
+					}
+					else if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.KEY_BACK ))
+					{
+						System.out.println( "backspace" );
+						return "bckspc";
 					}
 				}
 			}
