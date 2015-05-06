@@ -82,32 +82,16 @@ public class PhysicTest extends View
 		} );
 
 		world.setGravity( new Vector2( 0, 65 ) );
-
-		getGame().GetEventManager().add( new TimedEvent<Game>()
-		{
-			@Override
-			public void EachInterval( int delta, Game o )
-			{
-				System.out.println( box.getDrawX() );
-			}
-
-			@Override
-			public boolean isDone( Game o )
-			{
-				return false;
-			}
-		}, true );
-
 	}
 
 	@Override
 	public void update( int delta )
 	{
-
+		System.out.println( "Physics fps: " + this.world.getFPS() + "\nGame fps: " + getGame().getFPS() );
 		mouse.setTarget( new Vector2( Mouse.getX() / G.DYN4J_PIXELS_TO_METERS, Mouse.getY() / G.DYN4J_PIXELS_TO_METERS ) );
 		if( Mouse.isLeftMouseDown() )
 		{
-			PhysicalBox box = new PhysicalBox( Mouse.getX(), Mouse.getY(), 5, 5 );
+			PhysicalBox box = new PhysicalBox( Mouse.getX(), Mouse.getY(), Math.random() * 15 + 20, Math.random() * 15 + 20 );
 			box.getBody().getFixtures().forEach( new Consumer<BodyFixture>()
 			{
 				@Override
@@ -117,6 +101,7 @@ public class PhysicTest extends View
 				}
 			} );
 			//box.setColor( Color.random() );
+			box.setColor( Color.random() );
 			world.add( box );
 		}
 		if( Keyboard.isKeyDown( Keyboard.Key.Space ) )

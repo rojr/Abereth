@@ -17,6 +17,10 @@ public class World implements Runnable
 	private long last;
 	private View view;
 	private boolean alive = true;
+	public int fps;
+	public int actualFps;
+	static long lastFrame = 0, lastFPS = 0;
+	static int delta;
 	public World( )
 	{
 		this.physicalWorld = new org.dyn4j.dynamics.World( );
@@ -57,6 +61,11 @@ public class World implements Runnable
 		return this;
 	}
 
+	public long getTime()
+	{
+		return ( Sys.getTime() * 1000 ) / Sys.getTimerResolution();
+	}
+
 	public boolean isAlive()
 	{
 		return alive;
@@ -67,6 +76,30 @@ public class World implements Runnable
 		this.alive = false;
 	}
 
+	private void updateFPS()
+	{
+		if ( getTime() - lastFPS > 1000 )
+		{
+			actualFps = fps;
+			fps = 0;
+			lastFPS += 1000;
+		}
+		fps++;
+	}
+
+	public int getFPS( )
+	{
+		return this.actualFps;
+	}
+
+	private int getDelta()
+	{
+		long currentTime = getTime();
+		int delta = ( int ) ( currentTime - lastFrame );
+		lastFrame = getTime();
+		return delta;
+	}
+
 	@Override
 	public void run()
 	{
@@ -74,8 +107,9 @@ public class World implements Runnable
 		long lastUpdated = System.currentTimeMillis();
 		while( alive )
 		{
-			double rest = (double) 1/60;
-
+			delta = getDelta();
+			updateFPS();
+			double rest = (double) 1/(120 / ( delta == 0 ? 1 : delta ) );
 
 			double spent = ( double ) ( System.currentTimeMillis() - lastUpdated ) / 1000;
 			if( rest < spent )
@@ -95,8 +129,7 @@ public class World implements Runnable
 				{
 					Thread.sleep( 1 );
 				}
-				catch ( Exception ex )
-				{ex.printStackTrace();}
+				catch ( Exception ex ){}
 			}
 		}
 		System.out.println( "Physics thread is dead :(" );
