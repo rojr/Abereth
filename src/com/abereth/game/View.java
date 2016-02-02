@@ -50,7 +50,7 @@ public abstract class View implements Comparable{
 		//Click handler
 		//Specifically created to handle the clicked view when stuff is
 		//overlapping
-		GetEventManager().add( new ViewEvent()
+		getEventManager().add( new ViewEvent()
 		{
 			@Override
 			public boolean isDone( View view )
@@ -59,7 +59,7 @@ public abstract class View implements Comparable{
 			}
 
 			@Override
-			public void OnUpdate( int delta, View view )
+			public void onUpdate(int delta, View view)
 			{
 				if( Mouse.isLeftMouseClicked() )
 				{
@@ -228,7 +228,7 @@ public abstract class View implements Comparable{
 		return objects;
 	}
 
-	public ViewEventManager GetEventManager()
+	public ViewEventManager getEventManager()
 	{
 		return this.eventManager;
 	}
@@ -301,7 +301,7 @@ public abstract class View implements Comparable{
 			}
 
 			@Override
-			public void OnUpdate ( int delta, View view )
+			public void onUpdate(int delta, View view)
 			{
 				//Just in case
 				view.VIEW_COLOR = view.VIEW_COLOR.clone();

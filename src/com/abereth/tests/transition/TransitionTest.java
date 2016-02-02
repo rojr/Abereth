@@ -2,7 +2,6 @@ package com.abereth.tests.transition;
 
 import com.abereth.G;
 import com.abereth.draw.Color;
-import com.abereth.draw.TextureLoader;
 import com.abereth.draw.shapes.Square;
 import com.abereth.event.TimedEvent;
 import com.abereth.event.view.transitions.FadeTransition;
@@ -57,17 +56,17 @@ public class TransitionTest
 			Square square = new Square( 0, 0, G.WIDTH, G.HEIGHT );
 			square.setColor( Color.GREEN );
 			add( square );
-			GetEventManager().add( new TimedEvent<View>()
+			getEventManager().add( new TimedEvent<View>()
 			{
 				@Override
 				public void init( View view )
 				{
 					super.init( view );
-					SetInterval( 1000 );
+					setInterval(1000);
 				}
 
 				@Override
-				public void EachInterval( int delta, View view )
+				public void eachInterval(int delta, View view)
 				{
 					System.out.println( view.getGame().GetViews().size() );
 				}

@@ -25,7 +25,7 @@ public class EventTest extends View
 	public EventTest ( Game game )
 	{
 		super( game );
-		GetEventManager().add( new ViewEvent()
+		getEventManager().add( new ViewEvent()
 		{
 			@Override
 			public boolean isDone( View view )
@@ -34,7 +34,7 @@ public class EventTest extends View
 			}
 
 			@Override
-			public void OnUpdate( int delta, View view )
+			public void onUpdate(int delta, View view)
 			{
 				if( Math.random() >= 0.9 )
 				{
@@ -50,18 +50,18 @@ public class EventTest extends View
 		super.Initialize( );
 
 		getGame().GetEventManager().CreateNewLogger( "FPS: ", 1000 );
-		GetEventManager().add( new TimedEvent<View>( )
+		getEventManager().add( new TimedEvent<View>( )
 		{
 
 			@Override
 			public void init ( View view )
 			{
 				super.init( view );
-				SetInterval( 1000 );
+				setInterval(1000);
 			}
 
 			@Override
-			public void EachInterval ( int delta, View view )
+			public void eachInterval(int delta, View view)
 			{
 				view.setColor( Color.random() );
 			}
@@ -90,7 +90,7 @@ public class EventTest extends View
 		VIEW_Y_OFFSET -= Mouse.getDY();
 
 		if( Mouse.isRightMouseClicked( ) ){
-			GetEventManager().add( new ViewEvent( )
+			getEventManager().add( new ViewEvent( )
 			{
 				@Override
 				public boolean isDone ( View view )
@@ -99,7 +99,7 @@ public class EventTest extends View
 				}
 
 				@Override
-				public void OnUpdate ( int delta, View view )
+				public void onUpdate(int delta, View view)
 				{
 					if ( Math.random( ) >= 0.9 )
 					{

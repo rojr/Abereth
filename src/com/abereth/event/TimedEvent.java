@@ -10,7 +10,7 @@ public abstract class TimedEvent<ParentObject> extends Event<ParentObject>
 
 	/**
 	 * Timed event. Interval is default to 10, so basically almost every tick the interval is going to be updated.
-	 * Make sure you use SetInterval() in the init method, or somewhere else for that sakes if you want to control the speed
+	 * Make sure you use setInterval() in the init method, or somewhere else for that sakes if you want to control the speed
 	 * of execution
 	 */
 	public TimedEvent( )
@@ -24,22 +24,22 @@ public abstract class TimedEvent<ParentObject> extends Event<ParentObject>
 		return interval;
 	}
 
-	public void SetInterval( long interval )
+	public void setInterval(long interval)
 	{
 		this.interval = interval;
 	}
 
 	@Override
-	public void OnUpdate( int delta, ParentObject parentObject )
+	public void onUpdate(int delta, ParentObject parentObject)
 	{
 		long currentTime = System.currentTimeMillis();
 		if( currentTime - this.lastExecutionTime > this.interval )
 		{
 			this.lastExecutionTime = currentTime;
-			EachInterval( delta, parentObject );
+			eachInterval(delta, parentObject);
 		}
 	}
 
-	public abstract void EachInterval( int delta, ParentObject parentObject );
+	public abstract void eachInterval(int delta, ParentObject parentObject);
 
 }

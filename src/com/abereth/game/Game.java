@@ -318,7 +318,7 @@ public class Game implements Runnable
 			}
 
 			@Override
-			public void OnUpdate( int delta, Game game )
+			public void onUpdate(int delta, Game game)
 			{
 				for( int i = 0; i < viewsToInitialize.size(); i++ )
 				{

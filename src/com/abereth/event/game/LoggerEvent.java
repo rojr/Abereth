@@ -11,6 +11,6 @@ public abstract class LoggerEvent extends TimedEvent<Game>
 	public LoggerEvent ( )
 	{
 		super( );
-		SetInterval( 1000 );
+		setInterval(1000);
 	}
 }

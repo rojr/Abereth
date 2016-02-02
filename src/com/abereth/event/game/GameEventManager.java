@@ -22,11 +22,11 @@ public class GameEventManager extends EventManager<Event, Game>
 			public void init ( Game game )
 			{
 				super.init( game );
-				SetInterval( delay );
+				setInterval(delay);
 			}
 
 			@Override
-			public void EachInterval ( int delta, Game game )
+			public void eachInterval(int delta, Game game)
 			{
 				System.out.println( prefix + game.actualFps );
 			}

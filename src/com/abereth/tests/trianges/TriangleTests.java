@@ -6,7 +6,6 @@ import com.abereth.event.TimedEvent;
 import com.abereth.game.Game;
 import com.abereth.game.View;
 import com.abereth.helpers.Vector2d;
-import com.abereth.input.Mouse;
 
 /**
  * Created by sanic on 11/11/2014.
@@ -27,10 +26,10 @@ public class TriangleTests extends View {
 	{
 		super( game );
 		getGame().GetEventManager().CreateNewLogger( "FPS: ", 1000 );
-		GetEventManager().add( new TimedEvent<View>()
+		getEventManager().add( new TimedEvent<View>()
 		{
 			@Override
-			public void EachInterval( int delta, View view )
+			public void eachInterval(int delta, View view)
 			{
 				System.out.println( "Drawlist: " + getDrawList().size() );
 			}
@@ -39,7 +38,7 @@ public class TriangleTests extends View {
 			public void init( View view )
 			{
 				super.init( view );
-				SetInterval( 1000 );
+				setInterval(1000);
 			}
 
 			@Override

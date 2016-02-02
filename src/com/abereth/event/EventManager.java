@@ -71,7 +71,7 @@ public class EventManager<EventType extends Event, ParentObject>
 			}
 			else
 			{
-				current.OnUpdate( delta, this.object );
+				current.onUpdate(delta, this.object);
 			}
 		}
 
@@ -84,7 +84,7 @@ public class EventManager<EventType extends Event, ParentObject>
 				onUpdate( delta );
 				return;
 			}
-			event.OnUpdate( delta, this.object );
+			event.onUpdate(delta, this.object);
 		}
 	}
 

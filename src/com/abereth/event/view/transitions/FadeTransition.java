@@ -22,7 +22,7 @@ public class FadeTransition extends ViewTransition
 		super.init( from );
 
 		from.fadeOut( speed );
-		from.GetEventManager().add( new ViewEvent()
+		from.getEventManager().add( new ViewEvent()
 		{
 			private boolean ran = false;
 
@@ -33,7 +33,7 @@ public class FadeTransition extends ViewTransition
 			}
 
 			@Override
-			public void OnUpdate( int delta, View view )
+			public void onUpdate(int delta, View view)
 			{
 				ran = true;
 				view.getGame().detachView( view );
@@ -47,7 +47,7 @@ public class FadeTransition extends ViewTransition
 	}
 
 	@Override
-	public void OnUpdate( int delta, View view )
+	public void onUpdate(int delta, View view)
 	{}
 
 }
