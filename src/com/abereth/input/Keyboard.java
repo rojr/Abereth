@@ -7,9 +7,7 @@ import com.abereth.G;
  */
 public class Keyboard
 {
-	
-	private static 
-	
+
 	public static boolean isKeyPressed( Key key )
 	{
 		isKeyDown( key );
@@ -35,11 +33,6 @@ public class Keyboard
 		key.setIsPressed( false );
 		key.setIsReleasedAfterPressed( true );
 		return false;
-	}
-	
-	private static Key getMappedFromLwjgl( int key )
-	{
-		
 	}
 
 	public static String getPressedCharacter()
@@ -77,43 +70,6 @@ public class Keyboard
 			}
 		}
 		return "";
-	}
-
-	public static Key getPressedKey()
-	{
-		while ( org.lwjgl.input.Keyboard.next() )
-		{
-			if( org.lwjgl.input.Keyboard.getEventKeyState() )
-			{
-				if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.getEventKey() ) )
-				{
-					for ( int i = 0; i < G.characters.length; i++ )
-					{
-						if( org.lwjgl.input.Keyboard.getEventCharacter() == G.characters[ i ] )
-						{
-							System.out.println( org.lwjgl.input.Keyboard.getEventCharacter() );
-							return org.lwjgl.input.Keyboard.getEventCharacter();
-						}
-					}
-					if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.KEY_RETURN ) )
-					{
-						System.out.println( "enter" );
-						return "\n";
-					}
-					else if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.KEY_SPACE ) )
-					{
-						System.out.println( "space" );
-						return " ";
-					}
-					else if( org.lwjgl.input.Keyboard.isKeyDown( org.lwjgl.input.Keyboard.KEY_BACK ))
-					{
-						System.out.println( "backspace" );
-						return "bckspc";
-					}
-				}
-			}
-		}
-		return null;
 	}
 
 	public static enum Key
