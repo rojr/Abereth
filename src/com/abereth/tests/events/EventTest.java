@@ -45,9 +45,9 @@ public class EventTest extends View
 	}
 
 	@Override
-	public void Initialize ( )
+	public void initialize()
 	{
-		super.Initialize( );
+		super.initialize();
 
 		getGame().GetEventManager().CreateNewLogger( "FPS: ", 1000 );
 		getEventManager().add( new TimedEvent<View>( )

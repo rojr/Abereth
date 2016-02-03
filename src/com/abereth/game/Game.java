@@ -322,7 +322,7 @@ public class Game implements Runnable
 			{
 				for( int i = 0; i < viewsToInitialize.size(); i++ )
 				{
-					viewsToInitialize.get( i ).Initialize();
+					viewsToInitialize.get( i ).initialize();
 					viewsToInitialize.remove( i );
 				}
 			}

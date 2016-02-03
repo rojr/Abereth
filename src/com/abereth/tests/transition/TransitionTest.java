@@ -33,9 +33,9 @@ public class TransitionTest
 		}
 
 		@Override
-		public void Initialize()
+		public void initialize()
 		{
-			super.Initialize();
+			super.initialize();
 		}
 
 		@Override

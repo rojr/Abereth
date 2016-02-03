@@ -2,9 +2,7 @@ package com.abereth.tests.physics;
 
 import com.abereth.G;
 import com.abereth.draw.Color;
-import com.abereth.draw.TextureLoader;
 import com.abereth.draw.shapes.Square;
-import com.abereth.event.TimedEvent;
 import com.abereth.game.Game;
 import com.abereth.game.View;
 import com.abereth.input.Keyboard;
@@ -35,9 +33,9 @@ public class PhysicTest extends View
 	}
 
 	@Override
-	public void Initialize()
+	public void initialize()
 	{
-		super.Initialize();
+		super.initialize();
 
 	}
 

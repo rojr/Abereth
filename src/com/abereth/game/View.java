@@ -145,10 +145,10 @@ public abstract class View implements Comparable{
 	 * linked to the game yet, or the game hasn't yet started so we can't do anything until
 	 * the game is started.
 	 *
-	 * Initialize will only be executed upon game start, or
+	 * initialize will only be executed upon game start, or
 	 * the next available tick via an Event.
 	 */
-	public void Initialize()
+	public void initialize()
 	{}
 
 	/**
