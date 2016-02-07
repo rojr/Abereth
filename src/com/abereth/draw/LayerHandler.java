@@ -154,7 +154,7 @@ public class LayerHandler
 		{
 			for( Drawable drawable : d )
 			{
-				drawables.remove( d );
+				drawables.remove( drawable );
 			}
 		}
 
