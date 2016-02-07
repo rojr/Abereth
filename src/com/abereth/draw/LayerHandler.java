@@ -72,13 +72,29 @@ public class LayerHandler
 		{
 			try
 			{
-				layers.get( i ).render( view, delta );
+				Layer l = getMappedLayer( i );
+				if( l != null )
+				{
+					l.render( view, delta );
+				}
 			}
 			catch ( IndexOutOfBoundsException ex )
 			{
 				ex.printStackTrace();
 			}
 		}
+	}
+
+	private Layer getMappedLayer( int layerID )
+	{
+		for( Layer l : layers )
+		{
+			if( l.getLayer() == layerID )
+			{
+				return l;
+			}
+		}
+		return null;
 	}
 
 	/**
