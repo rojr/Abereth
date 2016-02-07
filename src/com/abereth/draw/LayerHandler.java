@@ -70,7 +70,14 @@ public class LayerHandler
 	{
 		for( int i : layerMappings )
 		{
-			layers.get( i ).render( view, delta );
+			try
+			{
+				layers.get( i ).render( view, delta );
+			}
+			catch ( IndexOutOfBoundsException ex )
+			{
+				ex.printStackTrace();
+			}
 		}
 	}
 
