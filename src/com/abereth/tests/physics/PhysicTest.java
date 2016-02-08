@@ -39,6 +39,12 @@ public class PhysicTest extends View
 
 	}
 
+	@Override
+	public void onKill() {
+		super.onKill();
+
+	}
+
 	public PhysicTest( Game game )
 	{
 		super( game );

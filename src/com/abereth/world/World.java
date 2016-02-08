@@ -10,9 +10,8 @@ import org.lwjgl.Sys;
 /**
  * Created by apex on 02/08/14.
  */
-public class World implements Runnable
+public class World extends org.dyn4j.dynamics.World implements Runnable
 {
-	private org.dyn4j.dynamics.World physicalWorld;
 
 	private long last;
 	private View view;
@@ -23,7 +22,6 @@ public class World implements Runnable
 	static int delta;
 	public World( )
 	{
-		this.physicalWorld = new org.dyn4j.dynamics.World( );
 	}
 
 	public void setView( View view )
@@ -38,26 +36,20 @@ public class World implements Runnable
 
 	public org.dyn4j.dynamics.World getPhysicalWorld()
 	{
-		return this.physicalWorld;
+		return this;
 	}
 
 	public World add( Physical physical )
 	{
 		this.view.add( physical );
-		this.physicalWorld.addBody( physical.getBody() );
+		this.addBody(physical.getBody());
 		return this;
 	}
 
 	public World remove( Physical physical )
 	{
 		this.view.remove( physical );
-		this.physicalWorld.removeBody( physical.getBody() );
-		return this;
-	}
-
-	public World setGravity( Vector2 gravity )
-	{
-		this.physicalWorld.setGravity( gravity );
+		this.removeBody(physical.getBody());
 		return this;
 	}
 
@@ -111,6 +103,7 @@ public class World implements Runnable
 			updateFPS();
 			double rest = (double) 1/(120 / ( delta == 0 ? 1 : delta ) );
 
+			System.out.println( "aaoo: " + delta);
 			double spent = ( double ) ( System.currentTimeMillis() - lastUpdated ) / 1000;
 			if( rest < spent )
 			{
@@ -121,7 +114,7 @@ public class World implements Runnable
 				this.last = time;
 				double elapsedTime = (diff / G.NANO_TO_BASE);
 
-				this.physicalWorld.update( elapsedTime / rest );
+				this.update( elapsedTime / rest );
 			}
 			else
 			{

@@ -22,9 +22,7 @@ public abstract class View implements Comparable{
 	private ArrayList<Gui> guiList;
 	private int layer;
 	private ViewEventManager eventManager;
-	private World world;
 	private LayerHandler drawList;
-	private Thread worldThread;
 
 	/*
 		View specific graphical option settings
@@ -183,10 +181,6 @@ public abstract class View implements Comparable{
 	{
 		System.out.println( "View Killed" );
 		getGame().detachView();
-		if( this.world != null )
-		{
-			this.worldThread.stop();
-		}
 	}
 
 	/**
@@ -316,21 +310,6 @@ public abstract class View implements Comparable{
 			}
 		}, true );
 		return this;
-	}
-
-	public void SetWorld( World world )
-	{
-		if( this.world != null )
-		{
-			this.world.stop();
-		}
-
-		this.world = world;
-
-		world.setView( this );
-
-		this.worldThread = new Thread( this.world );
-		this.worldThread.start();
 	}
 
 	public void render( int delta )
