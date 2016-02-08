@@ -5,7 +5,7 @@ import com.abereth.world.World;
 /**
  * Created by r on 08/02/2016.
  */
-public class WorldView extends View {
+public abstract class WorldView extends View {
 
     private Thread worldThread;
     private World world;
@@ -19,14 +19,12 @@ public class WorldView extends View {
         super.onKill();
         if( this.world != null )
         {
-            this.worldThread.stop();
+            this.world.stop();
         }
     }
 
     @Override
-    public void update(int delta) {
-
-    }
+    public abstract void update(int delta);
 
     public void setWorld( World world )
     {
@@ -41,6 +39,11 @@ public class WorldView extends View {
 
         this.worldThread = new Thread( this.world );
         this.worldThread.start();
+    }
+
+    public Thread getWorldThread()
+    {
+        return this.worldThread;
     }
 
 }
