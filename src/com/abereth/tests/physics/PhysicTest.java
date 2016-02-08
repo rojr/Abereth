@@ -5,6 +5,7 @@ import com.abereth.draw.Color;
 import com.abereth.draw.shapes.Square;
 import com.abereth.game.Game;
 import com.abereth.game.View;
+import com.abereth.game.WorldView;
 import com.abereth.input.Keyboard;
 import com.abereth.input.Mouse;
 import com.abereth.objects.living.Physical;
@@ -20,7 +21,7 @@ import java.util.function.Consumer;
 /**
  * Created by sanic on 12/12/2014.
  */
-public class PhysicTest extends View
+public class PhysicTest extends WorldView
 {
 	private World world;
 	private PhysicalBox box;
@@ -49,7 +50,7 @@ public class PhysicTest extends View
 	{
 		super( game );
 		this.world = new World();
-		this.SetWorld( world );
+		this.setWorld(world);
 		world.setGravity( new Vector2( 0, 16 ) );
 		this.box = new PhysicalBox( 60, 20, 50, 50 );
 		box.setColor( Color.BLUE );
