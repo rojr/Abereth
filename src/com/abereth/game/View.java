@@ -177,10 +177,11 @@ public abstract class View implements Comparable{
 	 * Kills the current View, deleting it from the game and detaching anything
 	 * necessary
 	 */
-	public void kill()
+	public final void kill()
 	{
 		System.out.println( "View Killed" );
 		getGame().detachView();
+		onKill();
 	}
 
 	/**

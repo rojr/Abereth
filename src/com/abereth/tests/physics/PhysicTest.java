@@ -43,7 +43,6 @@ public class PhysicTest extends WorldView
 	@Override
 	public void onKill() {
 		super.onKill();
-
 	}
 
 	public PhysicTest( Game game )

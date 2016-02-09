@@ -205,7 +205,7 @@ public class Game implements Runnable
 				{
 					if( v == viewList.get( i ) )
 					{
-						v.onKill();
+						v.kill();
 						viewList.remove( i );
 						break;
 					}

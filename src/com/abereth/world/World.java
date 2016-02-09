@@ -97,7 +97,7 @@ public class World extends org.dyn4j.dynamics.World implements Runnable
 	{
 		System.out.println( "Physics thread starting" );
 		long lastUpdated = System.currentTimeMillis();
-		while( alive )
+		while( this.alive )
 		{
 			delta = getDelta();
 			updateFPS();
