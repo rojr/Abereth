@@ -329,7 +329,12 @@ public class Game implements Runnable
 		},  true );
 		String userDir = System.getProperty( "user.dir" );
 		System.out.println( "Running from: " + userDir );
-		G.ARP = userDir.endsWith( "Abereth" ) ? userDir + "/res/" : userDir + "/Abereth/res/";
+
+		if( G.ARP.equals ( "" ) )
+		{
+			G.ARP = userDir.endsWith( "Abereth" ) ? userDir + "/res/" : userDir + "/Abereth/res/";
+		}
+
 		G.loadCharacters();
 		while( !Display.isCloseRequested( ) )
 		{
