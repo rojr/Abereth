@@ -1,5 +1,6 @@
 package com.abereth.draw;
 
+import com.abereth.G;
 import de.matthiasmann.twl.utils.PNGDecoder;
 import org.lwjgl.BufferUtils;
 
@@ -281,7 +282,7 @@ public class TextureLoader
 			}
 		}
 		//Because if the loop returned something, nothing under it would be run.
-		TextureInfo.add( new TexInfo(location, startX, startY, width, height ) );
+		TextureInfo.add( new TexInfo( G.ARP + location, startX, startY, width, height ) );
 		return TextureInfo.size() - 1;
 	}
 

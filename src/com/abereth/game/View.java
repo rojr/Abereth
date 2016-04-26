@@ -316,6 +316,5 @@ public abstract class View implements Comparable{
 	public void render( int delta )
 	{
 		eventManager.onUpdate( delta );
-		drawList.render( this, delta );
 	}
 }

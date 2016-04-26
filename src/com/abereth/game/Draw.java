@@ -158,7 +158,7 @@ public class Draw {
         glEnd();
     }
 
-	public void BindTexture( int id )
+	public void bindTexture(int id)
 	{
 		if( id == -1 )
 		{
@@ -167,7 +167,7 @@ public class Draw {
 
 		try
 		{
-			//TODO make this more dynamic so stuff gets saved in memory rahter than hanging about here
+			//TODO make this more dynamic so stuff gets saved in memory rather than hanging about here
 			this.t = textureLoader.getTexture( TextureLoader.TextureInfo.get( id ).getLocation() );
 		}
 		catch ( Exception ex )
@@ -198,11 +198,11 @@ public class Draw {
 
 		if( d.getTexture() != -1 )
 		{
-			BindTexture( d.getTexture() );
+			bindTexture ( d.getTexture () );
 		}
 		else
 		{
-			BindTexture( TextureLoader.createTexture( "Abereth/res/none.png" ) );
+			bindTexture ( TextureLoader.createTexture ( "none.png" ) );
 		}
 
 		glPushMatrix();

@@ -48,7 +48,7 @@ public class G
 		for ( int i = 0; i < characters.length; i++ )
 		{
 			int tmp = i >= 26 ? i % 26 : i;
-			letterTexID.add( TextureLoader.createTexture( ARP + "font/sprite1.png",
+			letterTexID.add( TextureLoader.createTexture( "font/sprite1.png",
 					tmp * 8, ( int ) ( 8 * Math.floor( i / 26 ) ), 8, 8 ) );
 		}
 	}

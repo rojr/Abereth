@@ -53,7 +53,7 @@ public class Text extends GuiContainer implements Parent, Child
 		lastY = getDrawY();
 		set( text );
 		this.forcedColor = false;
-		characterLimit = 20;
+		characterLimit = 0;
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class Text extends GuiContainer implements Parent, Child
 				}
 				for ( ; i < charArray.length; i++ )
 				{
-					if( charactersAdded >= this.characterLimit )
+					if( this.characterLimit != 0 && charactersAdded >= this.characterLimit )
 					{
 						return;
 					}
@@ -324,7 +324,7 @@ public class Text extends GuiContainer implements Parent, Child
 		@Override
 		public void draw( Draw d )
 		{
-			d.BindTexture( getTexture() );
+			d.bindTexture ( getTexture () );
 			d.setColor( getColor() );
 			TextureLoader.TexInfo info = TextureLoader.TextureInfo.get( getTexture() );
 			d.square( this.getDrawX(), this.getDrawY(), this.getDrawWidth(), this.getDrawHeight(), info.getXPercent(), info.getYPercent(), info.getWidthPercent(), info.getHeightPercent() );
