@@ -4,7 +4,6 @@ import com.abereth.G;
 import com.abereth.draw.Color;
 import com.abereth.draw.shapes.Square;
 import com.abereth.game.Game;
-import com.abereth.game.View;
 import com.abereth.game.WorldView;
 import com.abereth.input.Keyboard;
 import com.abereth.input.Mouse;
@@ -30,7 +29,7 @@ public class PhysicTest extends WorldView
 	{
 		Game g = new Game( );
 		g.addView( new PhysicTest( g ) );
-		g.Start();
+		g.start ();
 	}
 
 	@Override

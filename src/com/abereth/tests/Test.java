@@ -11,6 +11,6 @@ public class Test {
 		Game g = new Game();
 
 		g.addView(new TestView(g));
-		g.Start( );
+		g.start ();
 	}
 }

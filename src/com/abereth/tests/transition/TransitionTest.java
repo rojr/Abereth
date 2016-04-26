@@ -19,7 +19,7 @@ public class TransitionTest
 	{
 		Game g = new Game( );
 		g.addView( new ViewOne( g ) );
-		g.Start();
+		g.start ();
 	}
 
 	public static class ViewOne extends View

@@ -243,7 +243,7 @@ public class Game implements Runnable
 		transition.init( viewList.get( 0 ), view );
 	}
 
-	public Thread Start( )
+	public Thread start ()
 	{
 		Thread running = new Thread( this );
 		running.start();

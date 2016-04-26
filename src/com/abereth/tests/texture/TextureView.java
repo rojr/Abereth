@@ -6,8 +6,6 @@ import com.abereth.draw.shapes.Square;
 import com.abereth.game.Game;
 import com.abereth.game.View;
 
-import javax.swing.*;
-
 /**
  * Created by jeremiah on 22/11/2014.
  */
@@ -18,7 +16,7 @@ public class TextureView extends View
 	{
 		Game g = new Game( 1024, 512 );
 		g.addView( new TextureView( g ) );
-		g.Start();
+		g.start ();
 	}
 
 	private Square square;

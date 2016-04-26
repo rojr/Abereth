@@ -19,7 +19,7 @@ public class EventTest extends View
 	{
 		Game g = new Game( 1024, 512 );
 		g.addView( new EventTest( g ) );
-		g.Start( );
+		g.start ();
 	}
 
 	public EventTest ( Game game )
