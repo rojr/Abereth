@@ -1,6 +1,6 @@
 package com.abereth.event.view;
 
-import com.abereth.game.View;
+import com.abereth.view.View;
 import com.abereth.input.Keyboard;
 
 /**

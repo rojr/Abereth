@@ -7,6 +7,7 @@ import com.abereth.event.game.GameEvent;
 import com.abereth.event.game.GameEventManager;
 import com.abereth.event.view.transitions.ViewTransition;
 import com.abereth.input.Mouse;
+import com.abereth.view.View;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -41,7 +42,7 @@ public class Game implements Runnable
 	private Color clearColor;
 
 	private int refreshRate;
-	private ArrayList<View> viewList;
+	private ArrayList<View > viewList;
 
 	private GameEventManager eventManager;
 	private ArrayList<View> viewsToInitialize;

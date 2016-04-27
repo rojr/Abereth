@@ -5,7 +5,7 @@ import com.abereth.draw.Color;
 import com.abereth.event.TimedEvent;
 import com.abereth.event.view.ViewEvent;
 import com.abereth.game.Game;
-import com.abereth.game.View;
+import com.abereth.view.View;
 import com.abereth.input.Keyboard;
 import com.abereth.input.Mouse;
 import com.abereth.tests.trianges.Point;

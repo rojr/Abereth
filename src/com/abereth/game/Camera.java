@@ -2,6 +2,7 @@ package com.abereth.game;
 
 import com.abereth.draw.Drawable;
 import com.abereth.input.Mouse;
+import com.abereth.view.View;
 
 import static org.lwjgl.opengl.GL11.*;
 

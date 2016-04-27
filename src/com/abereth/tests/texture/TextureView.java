@@ -4,7 +4,7 @@ import com.abereth.G;
 import com.abereth.draw.TextureLoader;
 import com.abereth.draw.shapes.Square;
 import com.abereth.game.Game;
-import com.abereth.game.View;
+import com.abereth.view.View;
 
 /**
  * Created by jeremiah on 22/11/2014.

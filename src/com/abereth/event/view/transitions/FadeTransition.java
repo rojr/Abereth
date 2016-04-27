@@ -1,7 +1,7 @@
 package com.abereth.event.view.transitions;
 
 import com.abereth.event.view.ViewEvent;
-import com.abereth.game.View;
+import com.abereth.view.View;
 
 /**
  * Created by sanic on 18/11/2014.

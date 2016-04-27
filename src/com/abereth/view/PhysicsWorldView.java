@@ -1,5 +1,6 @@
-package com.abereth.game;
+package com.abereth.view;
 
+import com.abereth.game.Game;
 import com.abereth.world.PhysicsWorld;
 
 /**

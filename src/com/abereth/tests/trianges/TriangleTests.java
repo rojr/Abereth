@@ -4,7 +4,7 @@ import com.abereth.G;
 import com.abereth.draw.Color;
 import com.abereth.event.TimedEvent;
 import com.abereth.game.Game;
-import com.abereth.game.View;
+import com.abereth.view.View;
 import com.abereth.helpers.Vector2d;
 
 /**

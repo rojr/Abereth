@@ -2,7 +2,6 @@ package com.abereth.draw;
 
 import com.abereth.exception.RedundantDestination;
 import com.abereth.game.Camera;
-import com.abereth.game.View;
 import com.abereth.objects.living.Living;
 
 import java.util.ArrayList;
@@ -163,10 +162,6 @@ public class LayerHandler
 		{
 			for( Drawable d : drawables )
 			{
-				if(d instanceof Living && update)
-				{
-					( ( Living ) d ).onUpdate( delta );
-				}
 				camera.getView().getGame().getDraw().render( d, camera );
 			}
 		}

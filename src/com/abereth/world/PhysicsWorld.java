@@ -1,14 +1,11 @@
 package com.abereth.world;
 
 import com.abereth.G;
-import com.abereth.game.View;
+import com.abereth.view.View;
 import com.abereth.objects.living.Physical;
 import org.lwjgl.Sys;
 
-/**
- * Created by apex on 02/08/14.
- */
-public class PhysicsWorld extends org.dyn4j.dynamics.World implements Runnable
+public class PhysicsWorld extends World
 {
 
 	private long last;
@@ -18,8 +15,10 @@ public class PhysicsWorld extends org.dyn4j.dynamics.World implements Runnable
 	public int actualFps;
 	static long lastFrame = 0, lastFPS = 0;
 	static int delta;
+	private org.dyn4j.dynamics.World dyn4jWorld;
 	public PhysicsWorld ()
 	{
+		this.dyn4jWorld = new org.dyn4j.dynamics.World();
 	}
 
 	public void setView( View view )
@@ -34,20 +33,20 @@ public class PhysicsWorld extends org.dyn4j.dynamics.World implements Runnable
 
 	public org.dyn4j.dynamics.World getPhysicalWorld()
 	{
-		return this;
+		return dyn4jWorld;
 	}
 
 	public PhysicsWorld add( Physical physical )
 	{
 		this.view.add( physical );
-		this.addBody(physical.getBody());
+		getPhysicalWorld().addBody ( physical.getBody () );
 		return this;
 	}
 
 	public PhysicsWorld remove( Physical physical )
 	{
 		this.view.remove( physical );
-		this.removeBody(physical.getBody());
+		getPhysicalWorld().removeBody ( physical.getBody () );
 		return this;
 	}
 
@@ -111,7 +110,7 @@ public class PhysicsWorld extends org.dyn4j.dynamics.World implements Runnable
 				this.last = time;
 				double elapsedTime = (diff / G.NANO_TO_BASE);
 
-				this.update( elapsedTime / rest );
+				getPhysicalWorld().update ( elapsedTime / rest );
 			}
 			else
 			{

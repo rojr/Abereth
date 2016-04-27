@@ -1,4 +1,4 @@
-package com.abereth.game;
+package com.abereth.view;
 
 import com.abereth.G;
 import com.abereth.draw.Color;
@@ -6,6 +6,8 @@ import com.abereth.draw.Drawable;
 import com.abereth.draw.LayerHandler;
 import com.abereth.event.view.ViewEvent;
 import com.abereth.event.view.ViewEventManager;
+import com.abereth.game.Camera;
+import com.abereth.game.Game;
 import com.abereth.gui.Gui;
 import com.abereth.input.Mouse;
 
@@ -21,7 +23,7 @@ public abstract class View implements Comparable{
 	private boolean isPaused;
 	private int layer;
 	private ArrayList<Gui> guiList;
-	private ArrayList<Camera> cameraList;
+	private ArrayList<Camera > cameraList;
 	private ViewEventManager eventManager;
 	private LayerHandler drawList;
 

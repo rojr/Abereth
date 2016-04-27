@@ -1,19 +1,23 @@
 package com.abereth.world;
 
+import com.abereth.view.TiledWorldView;
 import com.abereth.world.tiles.Tile;
 
-public class TiledWorld
+public class TiledWorld extends World implements Runnable
 {
     private Tile[][] tileList;
     private int width, height;
+    private TiledWorldView view;
+    private WalkStyle walkStyle;
 
-    public TiledWorld ( int width, int height )
+    public TiledWorld ( TiledWorldView view, int width, int height )
     {
         super ();
 
         tileList = new Tile[ width ][ height ];
 
         this.buildWorld ();
+        this.walkStyle = WalkStyle.TILED;
     }
 
     public void buildWorld()
@@ -35,5 +39,22 @@ public class TiledWorld
     public int getHeight()
     {
         return height;
+    }
+
+    public WalkStyle getWalkStyle()
+    {
+        return this.walkStyle;
+    }
+
+    public TiledWorld setWalkStyle( WalkStyle style )
+    {
+        this.walkStyle = style;
+        return this;
+    }
+
+    private enum WalkStyle
+    {
+        SMOOTH,
+        TILED
     }
 }

@@ -6,7 +6,7 @@ import com.abereth.draw.shapes.Square;
 import com.abereth.event.TimedEvent;
 import com.abereth.event.view.transitions.FadeTransition;
 import com.abereth.game.Game;
-import com.abereth.game.View;
+import com.abereth.view.View;
 import com.abereth.input.Mouse;
 
 /**

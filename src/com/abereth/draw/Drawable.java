@@ -1,7 +1,7 @@
 package com.abereth.draw;
 
 import com.abereth.game.Draw;
-import com.abereth.game.View;
+import com.abereth.view.View;
 
 public abstract class Drawable
 {

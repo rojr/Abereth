@@ -4,7 +4,7 @@ import com.abereth.G;
 import com.abereth.draw.Color;
 import com.abereth.draw.shapes.Square;
 import com.abereth.game.Game;
-import com.abereth.game.PhysicsWorldView;
+import com.abereth.view.PhysicsWorldView;
 import com.abereth.input.Keyboard;
 import com.abereth.input.Mouse;
 import com.abereth.objects.living.Physical;
