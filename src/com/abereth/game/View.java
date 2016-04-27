@@ -1,5 +1,6 @@
 package com.abereth.game;
 
+import com.abereth.G;
 import com.abereth.draw.Color;
 import com.abereth.draw.Drawable;
 import com.abereth.draw.LayerHandler;
@@ -7,7 +8,6 @@ import com.abereth.event.view.ViewEvent;
 import com.abereth.event.view.ViewEventManager;
 import com.abereth.gui.Gui;
 import com.abereth.input.Mouse;
-import com.abereth.world.World;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,8 +19,9 @@ public abstract class View implements Comparable{
 
 	private Game game;
 	private boolean isPaused;
-	private ArrayList<Gui> guiList;
 	private int layer;
+	private ArrayList<Gui> guiList;
+	private ArrayList<Camera> cameraList;
 	private ViewEventManager eventManager;
 	private LayerHandler drawList;
 
@@ -42,13 +43,19 @@ public abstract class View implements Comparable{
 		this.game = game;
 		this.drawList = new LayerHandler();
 		this.guiList = new ArrayList<>(  );
+		this.cameraList = new ArrayList<>(  );
 		this.layer = 1;
 		this.eventManager = new ViewEventManager<>( this );
+		this.cameraList.add ( new Camera ( this, 0, 0, G.WIDTH, 200 ) );
+		Camera c = new Camera ( this, 200, 200, 200, 200 );
+		c.setScaleX ( 0.3f );
+		c.setScaleY ( 0.3f );
+		this.cameraList.add ( c );
 
 		//Click handler
 		//Specifically created to handle the clicked view when stuff is
 		//overlapping
-		getEventManager().add( new ViewEvent()
+		getEventManager ().add( new ViewEvent()
 		{
 			@Override
 			public boolean isDone( View view )
@@ -223,6 +230,12 @@ public abstract class View implements Comparable{
 		return objects;
 	}
 
+	public Camera add( Camera camera )
+	{
+		cameraList.add ( camera );
+		return camera;
+	}
+
 	public ViewEventManager getEventManager()
 	{
 		return this.eventManager;
@@ -251,6 +264,14 @@ public abstract class View implements Comparable{
 		}
 	}
 
+	public void remove( Camera... cameras )
+	{
+		for (Camera c : cameras )
+		{
+			cameraList.remove( c );
+		}
+	}
+
 	@Override
 	public int compareTo(Object o) {
 		return this.getLayer() - ( ( View ) o ).getLayer();
@@ -266,6 +287,45 @@ public abstract class View implements Comparable{
 	public View fadeIn( float speed )
 	{
 		return fade( speed, true );
+	}
+
+	public int getMouseX()
+	{
+		Camera c = this.getClickedCamera ();
+		if( c != null )
+		{
+			return this.getClickedCamera().getMouseX ();
+		}
+		return Mouse.getX ();
+	}
+
+	public int getMouseY()
+	{
+		Camera c = this.getClickedCamera ();
+		if( c != null )
+		{
+			return this.getClickedCamera().getMouseY ();
+		}
+		return Mouse.getY ();
+	}
+
+	/**
+	 * Returns the camera that is currently focused
+	 * @return Camera
+	 */
+	private Camera getClickedCamera()
+	{
+		for( Camera c : this.cameraList )
+		{
+			int mx = Mouse.getX ();
+			int my = Mouse.getY ();
+
+			if( mx >= c.getX() && mx < c.getX () + c.getWidth () && my >= c.getY () && my < c.getHeight () && c.isClickable() )
+			{
+				return c;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -316,5 +376,9 @@ public abstract class View implements Comparable{
 	public void render( int delta )
 	{
 		eventManager.onUpdate( delta );
+		for( Camera c : this.cameraList )
+		{
+			c.render ( ( c == this.cameraList.get ( 0 ) ) );
+		}
 	}
 }

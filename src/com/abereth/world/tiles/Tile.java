@@ -1,4 +1,4 @@
-package com.abereth.world;
+package com.abereth.world.tiles;
 
 import com.abereth.draw.Drawable;
 import com.abereth.game.Draw;
@@ -13,14 +13,19 @@ import com.abereth.game.Draw;
  */
 public class Tile extends Drawable {
 
-    public static final byte size = 8;
-    public Tile( short x, short y )
+    public Tile( int x, int y )
     {
-        super( x * size, y * size, size, size);
+        super( x, y , 16, 16);
+    }
+
+    public Tile( int x, int y, int width, int height )
+    {
+        super( x, y, width, height );
+        this.setUseTranslate ( true );
     }
 
     @Override
     public void draw( Draw d ) {
-        
+        d.square ( getDrawX (), getDrawY (), getDrawWidth (), getDrawHeight () );
     }
 }

@@ -17,7 +17,7 @@ public class Entity extends Living
 		this.gravity = 0f;
 	}
 
-	public float GetGravity()
+	public float getGravity()
 	{
 		return this.gravity;
 	}
@@ -25,6 +25,5 @@ public class Entity extends Living
 	@Override
 	public void draw( Draw d )
 	{
-
 	}
 }

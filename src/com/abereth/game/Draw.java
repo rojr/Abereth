@@ -16,6 +16,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class Draw {
 
 	private Color lastColor;
+	private int lastTexture;
 	private TextureLoader textureLoader;
 	private com.abereth.draw.Texture t = null;
 
@@ -162,7 +163,7 @@ public class Draw {
 	{
 		if( id == -1 )
 		{
-			id = TextureLoader.createTexture( "Abereth/res/none.png" );
+			id = TextureLoader.TEXTURE_EMPTY;
 		}
 
 		try
@@ -186,60 +187,80 @@ public class Draw {
      *
      * @param d
      */
-	public void render( Drawable d, View view )
+	public void render( Drawable d, Camera camera )
 	{
+		if ( !camera.isDrawableWithinBounds ( d ) )
+		{
+			return;
+		}
+
+
+		View view = camera.getView ();
 		//If last color was the same as current one then there is no
 		//need to re-bind it. Same will happen for textures.
-		if( lastColor != d.getColor() )
+		if ( lastColor != d.getColor () )
 		{
 			//setColor( d.getColor() );
-			lastColor = d.getColor();
+			lastColor = d.getColor ();
 		}
 
-		if( d.getTexture() != -1 )
+		if ( d.getTexture () != -1 )
 		{
 			bindTexture ( d.getTexture () );
-		}
-		else
+		} else
 		{
-			bindTexture ( TextureLoader.createTexture ( "none.png" ) );
+			bindTexture ( TextureLoader.TEXTURE_EMPTY );
 		}
 
-		glPushMatrix();
+		if( d.isUseTranslate() )
 		{
-			glPushMatrix( );
+			glPushMatrix();
+			glTranslatef(camera.getOffsetX (), camera.getOffsetY (), 0);
+		}
+		glPushMatrix ();
+		{
+			glPushMatrix ();
 			{
-				glPushMatrix( );
+				glPushMatrix ();
 				{
-					glTranslated( d.getDrawX( ) + d.getDrawWidth( ) / 2, d.getDrawY( ) + d.getDrawHeight( ) / 2, 0 );
-					glRotatef( ( float ) d.getRotation( ), 0f, 0f, 1f );
-					glTranslated( -d.getDrawX( ) - d.getDrawWidth( ) / 2, -d.getDrawY( ) - d.getDrawHeight( ) / 2, 0 );
-					glScalef( d.getScaleX( ), d.getScaleY( ), 0 );
-					glPushMatrix( );
+
+					glTranslated ( d.getDrawX () + d.getDrawWidth () / 2, d.getDrawY () + d.getDrawHeight () / 2, 0 );
+					glRotatef ( ( float ) d.getRotation (), 0f, 0f, 1f );
+					glTranslated ( -d.getDrawX () - d.getDrawWidth () / 2, -d.getDrawY () - d.getDrawHeight () / 2, 0 );
+					glScalef ( d.getScaleX (), d.getScaleY (), 1 );
+					glPushMatrix ();
 					{
-						if ( view.VIEW_COLOR.getR() != 2f && view.VIEW_COLOR.getG() != 2f && view.VIEW_COLOR.getB() != 2f )
+						if ( view.VIEW_COLOR.getR () != 2f && view.VIEW_COLOR.getG () != 2f && view.VIEW_COLOR.getB () != 2f )
 						{
-							setColor( view.VIEW_COLOR );
+							setColor ( view.VIEW_COLOR );
+						} else
+						{
+							setColor ( d.getColor ().getR (), d.getColor ().getG (), d.getColor ().getB (), view.VIEW_COLOR.getA () );
 						}
-						else
+						glPushMatrix ();
 						{
-							setColor( d.getColor().getR(), d.getColor().getG(), d.getColor().getB(), view.VIEW_COLOR.getA() );
-						}
-						glPushMatrix();
-						{
-							glTranslated( view.VIEW_ROTATION_ORIGIN_X + G.WIDTH / 2, view.VIEW_ROTATION_ORIGIN_Y + G.HEIGHT / 2, 0 );
-							glRotatef( view.VIEW_ROTATION_AMOUNT, 0f, 0f, 1f );
-							glTranslated( -view.VIEW_ROTATION_ORIGIN_X - G.WIDTH / 2, -view.VIEW_ROTATION_ORIGIN_Y - G.HEIGHT / 2, 0 );
-							glPushMatrix();
+							glTranslated ( view.VIEW_ROTATION_ORIGIN_X + G.WIDTH / 2, view.VIEW_ROTATION_ORIGIN_Y + G.HEIGHT / 2, 0 );
+							glRotatef ( view.VIEW_ROTATION_AMOUNT, 0f, 0f, 1f );
+							glTranslated ( -view.VIEW_ROTATION_ORIGIN_X - G.WIDTH / 2, -view.VIEW_ROTATION_ORIGIN_Y - G.HEIGHT / 2, 0 );
+							glPushMatrix ();
 							{
-								glTranslatef( view.VIEW_X_OFFSET, view.VIEW_Y_OFFSET, 0 );
-								d.render( this );
-							}glPopMatrix();
-						}glPopMatrix();
-					}glPopMatrix( );
-				}glPopMatrix( );
-			}glPopMatrix( );
-		}glPopMatrix();
+								glTranslatef ( view.VIEW_X_OFFSET, view.VIEW_Y_OFFSET, 0 );
+								d.render ( this );
+							}
+							glPopMatrix ();
+						}
+						glPopMatrix ();
+					}
+					glPopMatrix ();
+				}
+				glPopMatrix ();
+			}
+			glPopMatrix ();
+		}
+		glPopMatrix ();
+		if(d.isUseTranslate()){
+			glPopMatrix();
+		}
 	}
 
 }

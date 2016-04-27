@@ -296,12 +296,10 @@ public abstract class Drawable
 		//can be heavy
 		if( color != getColor() )
 		{
-			Color c = new Color( color.getR(), color.getG(), color.getB() );
-
 			//This creates a new color, instead of simply referencing Color.
 			//Allows for color manipulation effects to not be saved within the color
 			//as final objects can still be changed.
-			this.color = c;
+			this.color = new Color( color.getR(), color.getG(), color.getB() );
 		}
 	}
 

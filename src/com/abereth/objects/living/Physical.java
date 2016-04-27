@@ -2,7 +2,6 @@ package com.abereth.objects.living;
 
 import com.abereth.G;
 import com.abereth.draw.Drawable;
-import com.abereth.draw.TextureLoader;
 import com.abereth.game.Draw;
 import org.dyn4j.dynamics.Body;
 
@@ -30,7 +29,7 @@ public abstract class Physical extends Drawable
 		return this.body;
 	}
 
-	public abstract void DrawShape( Draw d );
+	public abstract void drawShape (Draw d);
 
 	@Override
 	public double getDrawX()
@@ -52,7 +51,7 @@ public abstract class Physical extends Drawable
 			glScaled( G.DYN4J_PIXELS_TO_METERS, -G.DYN4J_PIXELS_TO_METERS, G.DYN4J_PIXELS_TO_METERS );
 			glTranslated( getBody().getTransform().getTranslationX(), -getBody().getTransform().getTranslationY(), 0.0 );
 			glRotated( -Math.toDegrees( getBody().getTransform().getRotation() ), 0.0, 0.0, 1.0 );
-			this.DrawShape( d );
+			this.drawShape ( d );
 		}
 		glPopMatrix();
 	}

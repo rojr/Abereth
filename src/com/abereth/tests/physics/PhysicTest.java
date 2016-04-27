@@ -4,12 +4,12 @@ import com.abereth.G;
 import com.abereth.draw.Color;
 import com.abereth.draw.shapes.Square;
 import com.abereth.game.Game;
-import com.abereth.game.WorldView;
+import com.abereth.game.PhysicsWorldView;
 import com.abereth.input.Keyboard;
 import com.abereth.input.Mouse;
 import com.abereth.objects.living.Physical;
 import com.abereth.objects.living.PhysicalBox;
-import com.abereth.world.World;
+import com.abereth.world.PhysicsWorld;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.joint.MouseJoint;
 import org.dyn4j.geometry.Mass;
@@ -20,9 +20,9 @@ import java.util.function.Consumer;
 /**
  * Created by sanic on 12/12/2014.
  */
-public class PhysicTest extends WorldView
+public class PhysicTest extends PhysicsWorldView
 {
-	private World world;
+	private PhysicsWorld world;
 	private PhysicalBox box;
 	private MouseJoint mouse;
 	public static void main( String[] args )
@@ -47,8 +47,11 @@ public class PhysicTest extends WorldView
 	public PhysicTest( Game game )
 	{
 		super( game );
-		this.world = new World();
+		this.world = new PhysicsWorld ();
 		this.setWorld(world);
+		Square sqe = new Square ( 0, 0, G.WIDTH, G.HEIGHT );
+		sqe.setColor ( Color.BLACK );
+		add ( sqe );
 		world.setGravity( new Vector2( 0, 16 ) );
 		this.box = new PhysicalBox( 60, 20, 50, 50 );
 		box.setColor( Color.BLUE );

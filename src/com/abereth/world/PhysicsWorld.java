@@ -2,15 +2,13 @@ package com.abereth.world;
 
 import com.abereth.G;
 import com.abereth.game.View;
-import com.abereth.input.Keyboard;
 import com.abereth.objects.living.Physical;
-import org.dyn4j.geometry.Vector2;
 import org.lwjgl.Sys;
 
 /**
  * Created by apex on 02/08/14.
  */
-public class World extends org.dyn4j.dynamics.World implements Runnable
+public class PhysicsWorld extends org.dyn4j.dynamics.World implements Runnable
 {
 
 	private long last;
@@ -20,7 +18,7 @@ public class World extends org.dyn4j.dynamics.World implements Runnable
 	public int actualFps;
 	static long lastFrame = 0, lastFPS = 0;
 	static int delta;
-	public World( )
+	public PhysicsWorld ()
 	{
 	}
 
@@ -39,14 +37,14 @@ public class World extends org.dyn4j.dynamics.World implements Runnable
 		return this;
 	}
 
-	public World add( Physical physical )
+	public PhysicsWorld add( Physical physical )
 	{
 		this.view.add( physical );
 		this.addBody(physical.getBody());
 		return this;
 	}
 
-	public World remove( Physical physical )
+	public PhysicsWorld remove( Physical physical )
 	{
 		this.view.remove( physical );
 		this.removeBody(physical.getBody());
@@ -103,7 +101,6 @@ public class World extends org.dyn4j.dynamics.World implements Runnable
 			updateFPS();
 			double rest = (double) 1/(120 / ( delta == 0 ? 1 : delta ) );
 
-			System.out.println( "aaoo: " + delta);
 			double spent = ( double ) ( System.currentTimeMillis() - lastUpdated ) / 1000;
 			if( rest < spent )
 			{

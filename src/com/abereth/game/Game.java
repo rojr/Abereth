@@ -2,6 +2,7 @@ package com.abereth.game;
 
 import com.abereth.G;
 import com.abereth.draw.Color;
+import com.abereth.draw.TextureLoader;
 import com.abereth.event.game.GameEvent;
 import com.abereth.event.game.GameEventManager;
 import com.abereth.event.view.transitions.ViewTransition;
@@ -334,6 +335,8 @@ public class Game implements Runnable
 		{
 			G.ARP = userDir.endsWith( "Abereth" ) ? userDir + "/res/" : userDir + "/Abereth/res/";
 		}
+
+		TextureLoader.TEXTURE_EMPTY = TextureLoader.createTexture ( "none.png" );
 
 		G.loadCharacters();
 		while( !Display.isCloseRequested( ) )

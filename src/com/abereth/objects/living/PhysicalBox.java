@@ -27,7 +27,7 @@ public class PhysicalBox extends Physical
 	}
 
 	@Override
-	public void DrawShape( Draw d )
+	public void drawShape(Draw d)
 	{
 		Polygon p = ( Polygon ) getBody().getFixture( 0 ).getShape();
 		glBegin( GL_QUADS );

@@ -25,6 +25,7 @@ public class TextureLoader
 {
 
 	public static ArrayList<TexInfo> TextureInfo = new ArrayList<>();
+	public static int TEXTURE_EMPTY;
 
 	/**
 	 * The table of textures that have been loaded in this loader

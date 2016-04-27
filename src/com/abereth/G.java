@@ -31,7 +31,7 @@ public class G
 	 * Abereth resources path, this will link directly to Abereth/res folder no matter where
 	 * the engine is being run from
 	 */
-	public static String ARP;
+	public static String ARP = "";
 
 	public static final char characters[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 										'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',

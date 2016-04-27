@@ -1,16 +1,16 @@
 package com.abereth.game;
 
-import com.abereth.world.World;
+import com.abereth.world.PhysicsWorld;
 
 /**
  * Created by r on 08/02/2016.
  */
-public abstract class WorldView extends View {
+public abstract class PhysicsWorldView extends View {
 
     private Thread worldThread;
-    private World world;
+    private PhysicsWorld world;
 
-    public WorldView(Game game) {
+    public PhysicsWorldView (Game game) {
         super(game);
     }
 
@@ -26,7 +26,7 @@ public abstract class WorldView extends View {
     @Override
     public abstract void update(int delta);
 
-    public void setWorld( World world )
+    public void setWorld( PhysicsWorld world )
     {
         if( this.world != null )
         {

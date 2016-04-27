@@ -1,6 +1,7 @@
 package com.abereth.draw;
 
 import com.abereth.exception.RedundantDestination;
+import com.abereth.game.Camera;
 import com.abereth.game.View;
 import com.abereth.objects.living.Living;
 
@@ -66,7 +67,7 @@ public class LayerHandler
 		return this.size;
 	}
 
-	public void render( View view, int delta )
+	public void render( Camera camera, int delta, boolean update )
 	{
 		for( int i : layerMappings )
 		{
@@ -75,7 +76,7 @@ public class LayerHandler
 				Layer l = getMappedLayer( i );
 				if( l != null )
 				{
-					l.render( view, delta );
+					l.render( camera, delta, update );
 				}
 			}
 			catch ( IndexOutOfBoundsException ex )
@@ -158,15 +159,15 @@ public class LayerHandler
 			}
 		}
 
-		public void render( View view, int delta )
+		public void render( Camera camera, int delta, boolean update )
 		{
 			for( Drawable d : drawables )
 			{
-				if(d instanceof Living )
+				if(d instanceof Living && update)
 				{
 					( ( Living ) d ).onUpdate( delta );
 				}
-				view.getGame().getDraw().render( d, view );
+				camera.getView().getGame().getDraw().render( d, camera );
 			}
 		}
 
