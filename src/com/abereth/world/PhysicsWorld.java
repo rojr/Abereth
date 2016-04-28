@@ -89,38 +89,35 @@ public class PhysicsWorld extends World
 		return delta;
 	}
 
+	private long lastUpdated = System.currentTimeMillis();
+
 	@Override
-	public void run()
+	public void tick ()
 	{
-		System.out.println( "Physics thread starting" );
-		long lastUpdated = System.currentTimeMillis();
-		while( this.alive )
+		delta = getDelta();
+		updateFPS();
+		double rest = (double) 1 / ( 120 );
+
+		double spent = ( double ) ( System.currentTimeMillis() - lastUpdated ) / 1000;
+		if( rest < spent )
 		{
-			delta = getDelta();
-			updateFPS();
-			double rest = (double) 1/(120 / ( delta == 0 ? 1 : delta ) );
+			lastUpdated = System.currentTimeMillis();
 
-			double spent = ( double ) ( System.currentTimeMillis() - lastUpdated ) / 1000;
-			if( rest < spent )
+			long time = System.nanoTime();
+			long diff = time - this.last;
+			this.last = time;
+			double elapsedTime = (diff / G.NANO_TO_BASE);
+
+			getPhysicalWorld().update ( elapsedTime / rest );
+		}
+		else
+		{
+			try
 			{
-				lastUpdated = System.currentTimeMillis();
-
-				long time = System.nanoTime();
-				long diff = time - this.last;
-				this.last = time;
-				double elapsedTime = (diff / G.NANO_TO_BASE);
-
-				getPhysicalWorld().update ( elapsedTime / rest );
-			}
-			else
+				Thread.sleep ( 1 );
+			} catch ( Exception ex )
 			{
-				try
-				{
-					Thread.sleep( 1 );
-				}
-				catch ( Exception ex ){}
 			}
 		}
-		System.out.println( "Physics thread is dead :(" );
 	}
 }

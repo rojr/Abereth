@@ -6,15 +6,15 @@ import com.abereth.world.TiledWorld;
 /**
  * Created by r on 27/04/16.
  */
-public class TiledWorldView extends View
+public class TiledWorldView extends WorldView
 {
     private TiledWorld world;
 
-    public TiledWorldView ( Game game, TiledWorld world )
+    public TiledWorldView ( Game game )
     {
         super ( game );
 
-        this.world = world;
+        this.world = new TiledWorld ( this );
     }
 
     public TiledWorld getWorld()
@@ -25,6 +25,6 @@ public class TiledWorldView extends View
     @Override
     public void update (int delta)
     {
-
+        super.update ( delta );
     }
 }

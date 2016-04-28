@@ -33,7 +33,7 @@ public class Game implements Runnable
 	public int fps;
 	public int actualFps;
 	static long lastFrame, lastFPS;
-	static int delta;
+	public static int delta;
 
 	//Private
 	private Draw draw;
@@ -295,7 +295,7 @@ public class Game implements Runnable
 	}
 
 
-	public void Update ( ){
+	private void Update ( ){
 		delta = getDelta();
 		updateFPS();
 		glClearColor(clearColor.getR(), clearColor.getG(), clearColor.getB(), clearColor.getA());

@@ -3,6 +3,7 @@ package com.abereth.tests.physics;
 import com.abereth.G;
 import com.abereth.draw.Color;
 import com.abereth.draw.shapes.Square;
+import com.abereth.game.Camera;
 import com.abereth.game.Game;
 import com.abereth.view.PhysicsWorldView;
 import com.abereth.input.Keyboard;
@@ -27,7 +28,7 @@ public class PhysicTest extends PhysicsWorldView
 	private MouseJoint mouse;
 	public static void main( String[] args )
 	{
-		Game g = new Game( );
+		Game g = new Game( 1000, 1000 );
 		g.addView( new PhysicTest( g ) );
 		g.start ();
 	}
@@ -52,7 +53,7 @@ public class PhysicTest extends PhysicsWorldView
 		Square sqe = new Square ( 0, 0, G.WIDTH, G.HEIGHT );
 		sqe.setColor ( Color.BLACK );
 		add ( sqe );
-		world.setGravity( new Vector2( 0, 16 ) );
+		world.getPhysicalWorld ().setGravity ( new Vector2 ( 0, 16 ) );
 		this.box = new PhysicalBox( 60, 20, 50, 50 );
 		box.setColor( Color.BLUE );
 		world.add( box );
@@ -87,28 +88,35 @@ public class PhysicTest extends PhysicsWorldView
 			}
 		} );
 
-		world.setGravity( new Vector2( 0, 65 ) );
+		world.getPhysicalWorld ().setGravity ( new Vector2 ( 0, 65 ) );
+
+		Camera c = new Camera ( this, G.WIDTH - 200, G.HEIGHT - 200, 200, 200 );
+		this.add ( c );
 	}
 
 	@Override
 	public void update( int delta )
 	{
-		System.out.println( "Physics fps: " + this.world.getFPS() + "\nGame fps: " + getGame().getFPS() );
-		mouse.setTarget( new Vector2( Mouse.getX() / G.DYN4J_PIXELS_TO_METERS, Mouse.getY() / G.DYN4J_PIXELS_TO_METERS ) );
+		super.update ( delta );
+		mouse.setTarget( new Vector2( this.getMouseX () / G.DYN4J_PIXELS_TO_METERS, this.getMouseY () / G.DYN4J_PIXELS_TO_METERS ) );
 		if( Mouse.isLeftMouseDown() )
 		{
-			PhysicalBox box = new PhysicalBox( Mouse.getX(), Mouse.getY(), Math.random() * 15 + 20, Math.random() * 15 + 20 );
-			box.getBody().getFixtures().forEach( new Consumer<BodyFixture>()
+			for( int i = 0; i < 2; i++ )
 			{
-				@Override
-				public void accept( BodyFixture bodyFixture )
+
+				PhysicalBox box = new PhysicalBox ( this.getMouseX (), this.getMouseY (), Math.random () * 15 + 20, Math.random () * 15 + 20 );
+				box.getBody ().getFixtures ().forEach ( new Consumer< BodyFixture > ()
 				{
-					bodyFixture.setDensity( 1 );
-				}
-			} );
-			//box.setColor( Color.random() );
-			box.setColor( Color.random() );
-			world.add( box );
+					@Override
+					public void accept (BodyFixture bodyFixture)
+					{
+						bodyFixture.setDensity ( 512341 );
+					}
+				} );
+				//box.setColor( Color.random() );
+				box.setColor ( Color.random () );
+				world.add ( box );
+			}
 		}
 		if( Keyboard.isKeyDown( Keyboard.Key.Space ) )
 		{
@@ -117,15 +125,15 @@ public class PhysicTest extends PhysicsWorldView
 
 		if( Keyboard.isKeyDown( Keyboard.Key.D ) )
 		{
-			box.getBody().applyForce( new Vector2( 21, 0 ) );
+			box.getBody().applyForce( new Vector2( 21512331, 123414241 ) );
 		}
 		if( Keyboard.isKeyDown( Keyboard.Key.A ) )
 		{
 			box.getBody().applyForce( new Vector2( -21, 0 ) );
 		}
-		if( Mouse.isRightMouseDown() )
+		if( Mouse.isRightMouseDown () )
 		{
-			add( new Square( Mouse.getX(), Mouse.getY(), 50, 50 ) );
+			add( new Square( this.getMouseX (), this.getMouseY (), 50, 50 ) );
 		}
 	}
 }

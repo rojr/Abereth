@@ -17,7 +17,8 @@ import java.util.Collections;
 /**
  * Created by apex on 02/08/14.
  */
-public abstract class View implements Comparable{
+public abstract class View implements Comparable, Runnable
+{
 
 	private Game game;
 	private boolean isPaused;
@@ -28,11 +29,11 @@ public abstract class View implements Comparable{
 	private LayerHandler drawList;
 
 	/*
-		View specific graphical option settings
+            View specific graphical option settings
 
-		These will change every object that is currently being drawn within the view
-		This means we can add some fancy transitions, like make all objects go up, or rotate?
-	 */
+            These will change every object that is currently being drawn within the view
+            This means we can add some fancy transitions, like make all objects go up, or rotate?
+         */
 	public Color VIEW_COLOR = Color.NONE;
 	public float VIEW_ROTATION_AMOUNT = 0;
 	public int   VIEW_ROTATION_ORIGIN_X = 0;
@@ -48,11 +49,7 @@ public abstract class View implements Comparable{
 		this.cameraList = new ArrayList<>(  );
 		this.layer = 1;
 		this.eventManager = new ViewEventManager<>( this );
-		this.cameraList.add ( new Camera ( this, 0, 0, G.WIDTH, 200 ) );
-		Camera c = new Camera ( this, 200, 200, 200, 200 );
-		c.setScaleX ( 0.3f );
-		c.setScaleY ( 0.3f );
-		this.cameraList.add ( c );
+		this.cameraList.add ( new Camera ( this, 0, 0, G.WIDTH, G.HEIGHT ) );
 
 		//Click handler
 		//Specifically created to handle the clicked view when stuff is
@@ -317,17 +314,18 @@ public abstract class View implements Comparable{
 	 */
 	private Camera getClickedCamera()
 	{
+		Camera clicked = null;
 		for( Camera c : this.cameraList )
 		{
 			int mx = Mouse.getX ();
 			int my = Mouse.getY ();
 
-			if( mx >= c.getX() && mx < c.getX () + c.getWidth () && my >= c.getY () && my < c.getHeight () && c.isClickable() )
+			if( mx >= c.getX() && mx < c.getX () + c.getWidth () && my >= c.getY () && my < c.getY () + c.getHeight () && c.isClickable() )
 			{
-				return c;
+				clicked = c;
 			}
 		}
-		return null;
+		return clicked;
 	}
 
 	/**
@@ -381,6 +379,15 @@ public abstract class View implements Comparable{
 		for( Camera c : this.cameraList )
 		{
 			c.render ( ( c == this.cameraList.get ( 0 ) ) );
+		}
+	}
+
+	@Override
+	public void run ()
+	{
+		while( true )
+		{
+			this.update ( Game.delta );
 		}
 	}
 }

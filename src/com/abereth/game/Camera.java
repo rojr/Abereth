@@ -1,5 +1,6 @@
 package com.abereth.game;
 
+import com.abereth.G;
 import com.abereth.draw.Drawable;
 import com.abereth.input.Mouse;
 import com.abereth.view.View;
@@ -27,8 +28,8 @@ public class Camera
         this.offsetX = 0f;
         this.offsetY = 0f;
 
-        this.scaleX = 1f;
-        this.scaleY = 1f;
+        this.scaleX = width / ( float ) G.WIDTH ;
+        this.scaleY = height / (float ) G.HEIGHT;
 
         this.view = view;
     }
@@ -55,12 +56,12 @@ public class Camera
 
     public int getMouseX()
     {
-        return Mouse.getX () - x;
+        return ( int ) ( ( Mouse.getX () - x ) / scaleX ) ;
     }
 
     public int getMouseY()
     {
-        return Mouse.getY () - y;
+        return ( int ) ( ( Mouse.getY () - y ) / scaleY );
     }
 
     public float getScaleX()

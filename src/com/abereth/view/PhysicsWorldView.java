@@ -6,7 +6,7 @@ import com.abereth.world.PhysicsWorld;
 /**
  * Created by r on 08/02/2016.
  */
-public abstract class PhysicsWorldView extends View {
+public abstract class PhysicsWorldView extends WorldView {
 
     private Thread worldThread;
     private PhysicsWorld world;
@@ -18,14 +18,14 @@ public abstract class PhysicsWorldView extends View {
     @Override
     public void onKill() {
         super.onKill();
-        if( this.world != null )
-        {
-            this.world.stop();
-        }
     }
 
     @Override
-    public abstract void update(int delta);
+    public void update( int delta )
+    {
+        super.update ( delta );
+        world.tick();
+    }
 
     public void setWorld( PhysicsWorld world )
     {
@@ -37,14 +37,6 @@ public abstract class PhysicsWorldView extends View {
         this.world = world;
 
         world.setView( this );
-
-        this.worldThread = new Thread( this.world );
-        this.worldThread.start();
-    }
-
-    public Thread getWorldThread()
-    {
-        return this.worldThread;
     }
 
 }

@@ -10,7 +10,7 @@ import static org.lwjgl.opengl.GL11.*;
 /**
  * Created by sanic on 12/12/2014.
  */
-public abstract class Physical extends Drawable
+public abstract class Physical extends Living
 {
 	private Body body;
 

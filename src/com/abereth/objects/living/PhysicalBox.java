@@ -30,8 +30,6 @@ public class PhysicalBox extends Physical
 	public void drawShape(Draw d)
 	{
 		Polygon p = ( Polygon ) getBody().getFixture( 0 ).getShape();
-		glBegin( GL_QUADS );
-			d.square( p.getVertices() );
-		glEnd();
+		d.square( p.getVertices() );
 	}
 }

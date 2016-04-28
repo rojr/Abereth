@@ -3,12 +3,15 @@ package com.abereth.objects.living;
 import com.abereth.draw.Drawable;
 import org.lwjgl.util.vector.Vector2f;
 
-/**
- * Created by apex on 27/07/14.
- */
 public abstract class Living extends Drawable
 {
 	private Vector2f direction;
+
+	public Living()
+	{
+		this( 0, 0, 0, 0 );
+	}
+
 	public Living( double x, double y, double width, double height )
 	{
 		super(x,y,width,height);
@@ -52,9 +55,6 @@ public abstract class Living extends Drawable
 
 	public void onUpdate( int delta )
 	{
-		//Applies velocity
-		setDrawY( getDrawY() + ( getDirection().getY() * delta ) * 0.05 );
-		setDrawX( getDrawX() + ( getDirection().getX() * delta ) * 0.05 );
 	}
 
 }
