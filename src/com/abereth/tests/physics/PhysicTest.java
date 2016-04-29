@@ -28,7 +28,7 @@ public class PhysicTest extends PhysicsWorldView
 	private MouseJoint mouse;
 	public static void main( String[] args )
 	{
-		Game g = new Game( 1000, 1000 );
+		Game g = new Game( 500, 500 );
 		g.addView( new PhysicTest( g ) );
 		g.start ();
 	}
